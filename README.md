@@ -9,6 +9,8 @@ Currently, two official plugins are available:
 
 # Quickstart
 
+Go to /frontend, and run the following commands:
+
 ### npm install
 
 Installs the required dependencies
