@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div>
-        <CourseGraph></CourseGraph>
+        <CourseGraph/>
       </div>
     </>
   )
