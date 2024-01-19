@@ -4,7 +4,7 @@ WORKDIR /app/frontend
 
 COPY package* ./frontend
 
-RUN ls
+RUN ls frontend
 
 RUN npm ci --omit-dev --ignore-scripts
 
