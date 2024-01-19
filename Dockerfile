@@ -1,9 +1,13 @@
 FROM node:14-alpine3.16
 
-WORKDIR /frontend
+WORKDIR /opt/app-root/frontend
+
+COPY package* ./
+
+RUN npm ci --omit-dev --ignore-scripts
 
 COPY . .
 
-RUN npm install
+RUN npm run build
 
-RUN npx dev
+CMD ["npm", "run", "prod"]
