@@ -6,6 +6,8 @@ COPY . .
 
 RUN npm install
 
-RUN npm start
+RUN npm run build
+
+RUN npm run preview
 
 CMD ["npm", "start"]
