@@ -1,10 +1,8 @@
 FROM node:14-alpine3.16
 
-WORKDIR /app/frontend
-
 COPY package* ./frontend
 
-RUN ls frontend
+RUN ls
 
 RUN npm ci --omit-dev --ignore-scripts
 
