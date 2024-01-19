@@ -1,6 +1,6 @@
 FROM node:14-alpine3.16
 
-WORKDIR /frontend
+WORKDIR /app/frontend
 
 COPY package* ./frontend
 
