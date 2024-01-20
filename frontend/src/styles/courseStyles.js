@@ -13,6 +13,11 @@ export const completedCourse = {
     borderColor: 'orange',
 };
 
+export const alternativeCourse = {
+    backgroundColor: 'palegreen',
+    borderColor: 'white',
+};
+
 export const mandatoryEdge = {
     stroke: 'white'
 };
