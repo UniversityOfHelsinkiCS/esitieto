@@ -1,3 +1,6 @@
+
+
+
 export const mandatoryCourse = {
     backgroundColor: 'antiquewhite',
     borderColor: 'grey',
@@ -19,9 +22,13 @@ export const alternativeCourse = {
 };
 
 export const mandatoryEdge = {
-    stroke: 'white'
+    stroke: 'white',
+    strokeWidth: 3,
+    markerStart: 'url(#custom-arrow-mandatory)',
 };
 
 export const optionalEdge = {
-    stroke: 'lightsteelblue'
+    stroke: 'lightsteelblue',
+    strokeWidth: 2,
+    markerStart: 'url(#custom-arrow-optional)',
 };

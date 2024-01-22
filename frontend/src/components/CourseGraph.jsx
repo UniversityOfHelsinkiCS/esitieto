@@ -10,6 +10,7 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import Course from '../models/Course.js';
 import { getLayoutedElements } from '../utils/layout';
+import CustomEdge from '../styles/CustomEdge.jsx';
 
 // Temporary courses to form a sample graph
 const courses = [
@@ -31,7 +32,12 @@ const courses = [
 ];
 
 const initialNodes = courses.map(course => course.createNode({ x: 0, y: 0 }));
-const initialEdges = courses.flatMap(course => course.createEdges());
+const initialEdges = courses.flatMap(course => {
+    return course.createEdges().map(edge => ({
+        ...edge,
+        //animated: true // animations to to wrong direction currently, leaving this here for further considerations/uses
+    }));
+});
 
 
 const CourseGraph = () => {
@@ -56,6 +62,7 @@ const CourseGraph = () => {
     return (
         <div className='reactflow-wrapper'>
             <button onClick={onLayout}>Auto Layout</button>
+            <CustomEdge/>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
