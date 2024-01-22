@@ -7,17 +7,3 @@
     background-color: rgb(41, 41, 41);
     color:
 }
-
-@keyframes slide {
-    from {
-        stroke-dashoffset: 0;
-    }
-    to {
-        stroke-dashoffset: 20;
-    }
-}
-  
-.animated-edge {
-    stroke-dasharray: 5, 5;
-    animation: slide 2s linear infinite;
-}
