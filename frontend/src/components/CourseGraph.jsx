@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import ReactFlow, {
     Controls,
     useNodesState,
@@ -14,21 +14,21 @@ import CustomEdge from '../styles/CustomEdge.jsx';
 
 // Temporary courses to form a sample graph
 const courses = [
-    new Course('Tietorakenteet ja algoritmit II',                   'Tira2',    ['Tira1'], 'mandatory'),
-    new Course('Tietorakenteet ja algoritmit I',                    'Tira1',    ['Ohja','Jym'], 'mandatory'),
-    new Course('Introduction to AI',                                'IntroAI',  ['TodNak1', 'Tira2'], 'mandatory'),
-    new Course('Todennäköisyyslaskenta I',                          'TodNak1',  []),
-    new Course('Todennäköisyyslaskenta II',                         'TodNak2',  ['TodNak1']),
-    new Course('Ohjelmistotuotanto Projekti',                       'Ohtupro',  ['Ohtu','aine-ai','aine-tl','aine-ot'], 'mandatory'),
-    new Course('Ohjelmistotuotanto',                                'Ohtu',     ['TikaWeb'], 'mandatory'),
-    new Course('Tietokannat ja Web-ohjelmointi',                    'TikaWeb',  ['Ohja'], 'mandatory'),
-    new Course('Ohjelmoinnin peruskurssi',                          'Ohpe',     [], 'mandatory'),
-    new Course('Ohjelmoinnin jatkokurssi',                          'Ohja',     ['Ohpe'], 'mandatory'),
-    new Course('Johdatus Yliopistomatematiikkaan',                  'Jym',      [], 'mandatory'),
-    new Course('Aineopintojen harjoitustyö: Algoritmit ja tekoäly', 'aine-ai',  ['Tira2'], 'alternative'),
-    new Course('Aineopintojen harjoitustyö: Tietoliikenne',         'aine-tl',  ['Coin'], 'alternative'),
-    new Course('Aineopintojen harjoitustyö: Ohjelmistotekniikka',   'aine-ot',  ['Ohja','Tikape','TikaWeb'], 'alternative'),
-    new Course('Computer and Internet',                             'Coin',     [], 'mandatory'),
+    new Course('Tietorakenteet ja algoritmit II', 'Tira2', ['Tira1'], 'mandatory'),
+    new Course('Tietorakenteet ja algoritmit I', 'Tira1', ['Ohja', 'Jym'], 'mandatory'),
+    new Course('Introduction to AI', 'IntroAI', ['TodNak1', 'Tira2'], 'mandatory'),
+    new Course('Todennäköisyyslaskenta I', 'TodNak1', []),
+    new Course('Todennäköisyyslaskenta II', 'TodNak2', ['TodNak1']),
+    new Course('Ohjelmistotuotanto Projekti', 'Ohtupro', ['Ohtu', 'aine-ai', 'aine-tl', 'aine-ot'], 'mandatory'),
+    new Course('Ohjelmistotuotanto', 'Ohtu', ['TikaWeb'], 'mandatory'),
+    new Course('Tietokannat ja Web-ohjelmointi', 'TikaWeb', ['Ohja'], 'mandatory'),
+    new Course('Ohjelmoinnin peruskurssi', 'Ohpe', [], 'mandatory'),
+    new Course('Ohjelmoinnin jatkokurssi', 'Ohja', ['Ohpe'], 'mandatory'),
+    new Course('Johdatus Yliopistomatematiikkaan', 'Jym', [], 'mandatory'),
+    new Course('Aineopintojen harjoitustyö: Algoritmit ja tekoäly', 'aine-ai', ['Tira2'], 'alternative'),
+    new Course('Aineopintojen harjoitustyö: Tietoliikenne', 'aine-tl', ['Coin'], 'alternative'),
+    new Course('Aineopintojen harjoitustyö: Ohjelmistotekniikka', 'aine-ot', ['Ohja', 'Tikape', 'TikaWeb'], 'alternative'),
+    new Course('Computer and Internet', 'Coin', [], 'mandatory'),
 ];
 
 const initialNodes = courses.map(course => course.createNode({ x: 0, y: 0 }));
@@ -43,11 +43,15 @@ const initialEdges = courses.flatMap(course => {
 const CourseGraph = () => {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const closeSidebar = () => setIsSidebarOpen(false);
+    const [selectedCourseName, setSelectedCourseName] = useState('');
+
 
     useEffect(() => {
         getLayoutedElements(nodes, edges);
     }, []);
-    
+
     const onConnect = useCallback(
         (params) => setEdges((eds) => addEdge(params, eds)),
         [setEdges],
@@ -59,16 +63,31 @@ const CourseGraph = () => {
         setEdges([...layoutedEdges]);
     }, [nodes, edges, setNodes, setEdges]);
 
+    const onNodeClick = (event, node) => {
+        setSelectedCourseName(node.data.label); 
+        setIsSidebarOpen(true);
+    };
+
     return (
         <div className='reactflow-wrapper'>
+            {isSidebarOpen && (
+                <div className="sidebar">
+                    <button onClick={closeSidebar} className="close-button">X</button>
+                    <h3>{selectedCourseName}</h3> 
+                    <h4>Esitieto vaatimukset</h4>
+                </div>
+            )}
+
             <button onClick={onLayout}>Auto Layout</button>
-            <CustomEdge/>
+            <CustomEdge />
             <ReactFlow
+
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                onNodeClick={onNodeClick}
             >
                 <Controls />
                 <Background color="#555" gap={32} />
