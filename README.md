@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 # Quickstart
 
-Go to /frontend, and run the following commands:
+Run the following commands in both /frontend and /backend:
 
 ### npm install
 
