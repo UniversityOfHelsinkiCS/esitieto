@@ -10,6 +10,6 @@ test('createNode returns correct values', () => {
 
     expect(node.id).toBe('Tira2');
     expect(node.position).toEqual({ x: 0, y: 0 });
-    expect(node.data.label).toBe('Tietorakenteet ja algoritmit II');
+    expect(node.data.label).toBe('Tietorakenteet ja algoritmit II (Tira2))');
     expect(node.style).toBe(mandatoryCourse);
 })
