@@ -8,44 +8,41 @@ import ReactFlow, {
 } from 'reactflow';
 import '../styles/graph.css';
 import 'reactflow/dist/style.css';
-import Course from '../models/Course.js';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-
-// Temporary courses to form a sample graph
-const courses = [
-    new Course('Tietorakenteet ja algoritmit II', 'Tira2', ['Tira1'], 'mandatory'),
-    new Course('Tietorakenteet ja algoritmit I', 'Tira1', ['Ohja', 'Jym'], 'mandatory'),
-    new Course('Introduction to AI', 'IntroAI', ['TodNak1', 'Tira2'], 'mandatory'),
-    new Course('Todennäköisyyslaskenta I', 'TodNak1', []),
-    new Course('Todennäköisyyslaskenta II', 'TodNak2', ['TodNak1']),
-    new Course('Ohjelmistotuotanto Projekti', 'Ohtupro', ['Ohtu', 'aine-ai', 'aine-tl', 'aine-ot'], 'mandatory'),
-    new Course('Ohjelmistotuotanto', 'Ohtu', ['TikaWeb'], 'mandatory'),
-    new Course('Tietokannat ja Web-ohjelmointi', 'TikaWeb', ['Ohja'], 'mandatory'),
-    new Course('Ohjelmoinnin peruskurssi', 'Ohpe', [], 'mandatory'),
-    new Course('Ohjelmoinnin jatkokurssi', 'Ohja', ['Ohpe'], 'mandatory'),
-    new Course('Johdatus Yliopistomatematiikkaan', 'Jym', [], 'mandatory'),
-    new Course('Aineopintojen harjoitustyö: Algoritmit ja tekoäly', 'aine-ai', ['Tira2'], 'alternative'),
-    new Course('Aineopintojen harjoitustyö: Tietoliikenne', 'aine-tl', ['Coin'], 'alternative'),
-    new Course('Aineopintojen harjoitustyö: Ohjelmistotekniikka', 'aine-ot', ['Ohja', 'Tikape', 'TikaWeb'], 'alternative'),
-    new Course('Computer and Internet', 'Coin', [], 'mandatory'),
-];
-
-const initialNodes = courses.map(course => course.createNode({ x: 0, y: 0 }));
-const initialEdges = courses.flatMap(course => {
-    return course.createEdges().map(edge => ({
-        ...edge,
-        //animated: true // animations to to wrong direction currently, leaving this here for further considerations/uses
-    }));
-});
+import { addCourse, removeCourse } from './CourseFunctions';
 
 
-const CourseGraph = () => {
-    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const closeSidebar = () => setIsSidebarOpen(false);
     const [selectedCourseName, setSelectedCourseName] = useState('');
+
+    const onLayout = useCallback((newNodes, newEdges) => {
+        const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
+        setNodes([...layoutedNodes]);
+        setEdges([...layoutedEdges]);
+    }, [setNodes, setEdges]);
+
+    useEffect(() => {
+        if (courses.length > 0) {
+            const newNodes = courses.map(course => course.createNode({ x: 0, y: 0 }));
+            const newEdges = courses.flatMap(course => {
+                return course.createEdges().map(edge => ({
+                    ...edge,
+                    //animated: true If anybody needs this later, leaving it here
+                }));
+            });
+
+            setNodes(newNodes);
+            setEdges(newEdges);
+
+            onLayout(newNodes, newEdges);
+        }
+    }, [courses, onLayout]);
 
 
     useEffect(() => {
@@ -56,12 +53,6 @@ const CourseGraph = () => {
         (params) => setEdges((eds) => addEdge(params, eds)),
         [setEdges],
     );
-
-    const onLayout = useCallback(() => {
-        const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges);
-        setNodes([...layoutedNodes]);
-        setEdges([...layoutedEdges]);
-    }, [nodes, edges, setNodes, setEdges]);
 
     const onNodeClick = (event, node) => {
         setSelectedCourseName(node.data.label); 
@@ -78,7 +69,10 @@ const CourseGraph = () => {
                 </div>
             )}
 
-            <button onClick={onLayout}>Auto Layout</button>
+            <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
+            <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
+            <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
+
             <CustomEdge />
             <ReactFlow
 
