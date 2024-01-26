@@ -23,7 +23,7 @@ jobs:
           image: esitieto
           tags: staging ${{ github.sha }}
           containerfiles: |
-            ./frontend/Dockefile
+            ./frontend/Dockerfile
           build-args: |
             BASE_PATH=/frontend
             STAGING=true
