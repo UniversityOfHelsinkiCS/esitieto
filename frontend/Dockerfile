@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm ci
+RUN npm ci --omit-dev --ignore-scripts
 
 RUN npx vite build
 
