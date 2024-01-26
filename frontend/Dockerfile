@@ -1,10 +1,8 @@
-FROM node:latest
+FROM node:18
 
 WORKDIR /app
 
 COPY . .
-
-RUN chmod -R 777 *
 
 RUN npm install
 
