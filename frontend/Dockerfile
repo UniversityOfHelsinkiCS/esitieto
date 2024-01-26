@@ -1,4 +1,4 @@
-FROM node:latest
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal
 
 WORKDIR /app
 
@@ -6,9 +6,7 @@ COPY . .
 
 RUN chmod -R 777 *
 
-RUN cd frontend
-
-RUN npm install
+RUN npm ci
 
 RUN npx vite build
 
