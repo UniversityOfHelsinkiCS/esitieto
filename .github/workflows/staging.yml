@@ -24,6 +24,6 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         with:
           tags: kurssiesitieto:staging
-          registry: quay.io/kurssiesitieto_ohtu/kurssiesitieto
+          registry: quay.io/kurssiesitieto_ohtu/
           username: kurssiesitieto_ohtu+robotti
           password: ${{ secrets.QUAY_IO_TOKEN }}
