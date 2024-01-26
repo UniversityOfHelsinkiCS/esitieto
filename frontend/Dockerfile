@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm vite
+RUN npm run
 
 EXPOSE 3000
 
