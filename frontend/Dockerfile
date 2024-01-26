@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN chmod -R 777 *
-
 RUN npm ci
 
 RUN npx vite build
