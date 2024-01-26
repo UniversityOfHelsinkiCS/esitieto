@@ -6,6 +6,8 @@ COPY . .
 
 RUN chmod -R 777 *
 
+RUN cd frontend
+
 RUN npm install
 
 RUN npx vite build
