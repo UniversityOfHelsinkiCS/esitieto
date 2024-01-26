@@ -1,4 +1,4 @@
-FROM node:18
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal
 
 WORKDIR /app
 
