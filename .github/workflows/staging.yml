@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Image
-        run: docker build kurssiesitieto:staging
+        run: docker build -t kurssiesitieto:staging .
         working-directory: ./frontend
 
       - name: Push to quay.io
