@@ -4,9 +4,11 @@ WORKDIR /app
 
 COPY . .
 
+RUN chmod -R 777 *
+
 RUN npm install
 
-run npm run build
+RUN npm run build
 
 EXPOSE 3000
 
