@@ -8,7 +8,7 @@ RUN chmod -R 777 *
 
 RUN npm install
 
-RUN npm run build
+RUN npx vite build
 
 EXPOSE 3000
 
