@@ -2,18 +2,17 @@ FROM registry.access.redhat.com/ubi9/nodejs-18-minimal
 
 WORKDIR /app
 
-COPY . .
-
 COPY package*.json ./
 
 USER root
+
+COPY . .
 
 RUN chgrp root * && chmod 660 *
 
 USER 1001
 
 RUN npm ci --omit-dev --ignore-scripts
-
 
 RUN npx vite build
 
