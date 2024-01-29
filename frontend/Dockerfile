@@ -6,13 +6,13 @@ COPY package*.json ./
 
 USER root
 
-COPY . .
-
 RUN chgrp root * && chmod 660 *
 
 USER 1001
 
 RUN npm ci --omit-dev --ignore-scripts
+
+COPY . .
 
 RUN npx vite build
 
