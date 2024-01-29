@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN chgrp root /app && chmod 660 /app
+
 RUN npm ci --omit-dev --ignore-scripts
 
 RUN npx vite build
