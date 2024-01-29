@@ -10,7 +10,7 @@ RUN npm ci --omit-dev --ignore-scripts
 
 COPY . .
 
-RUN chmod -R 777 *
+RUN chgrp root tiedosto && chmod -R 777 *
 
 USER 1001
 
