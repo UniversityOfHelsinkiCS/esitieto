@@ -26,6 +26,6 @@ jobs:
           registry: quay.io/kurssiesitieto_ohtu
           image: kurssiesitieto
           tags: staging
-          extra-args: --privileged
+          extra-args: privileged
           username: kurssiesitieto_ohtu+robotti
           password: ${{ secrets.QUAY_IO_TOKEN }}
