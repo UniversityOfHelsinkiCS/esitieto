@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN chgrp root /frontend && chmod 660 /frontend
+RUN chgrp root * && chmod 660 *
 
 RUN npm ci --omit-dev --ignore-scripts
 
