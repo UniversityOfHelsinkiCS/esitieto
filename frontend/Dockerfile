@@ -4,7 +4,11 @@ WORKDIR /app
 
 COPY . .
 
+USER root
+
 RUN chgrp root * && chmod 660 *
+
+USER daemon
 
 RUN npm ci --omit-dev --ignore-scripts
 
