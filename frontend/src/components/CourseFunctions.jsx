@@ -12,7 +12,7 @@ export const addCourse = async (axios, onCoursesUpdated) => {
     if (!type) return;
 
     await axios.post('/api/courses/add', { name, identifier, dependencies, type });
-    onCoursesUpdated();
+    onCoursesUpdated("fetch");
 };
 
 export const removeCourse = async (axios, onCoursesUpdated) => {
@@ -20,5 +20,17 @@ export const removeCourse = async (axios, onCoursesUpdated) => {
     if (!identifier) return;
 
     await axios.delete('/api/courses/remove', { data: { identifier } });
-    onCoursesUpdated();
+    onCoursesUpdated("fetch");
+};
+
+export const handleSearch = async (axios, onCoursesUpdated) => {
+    const searchTerm = prompt("Enter search term:");
+    if (!searchTerm) return;
+
+    try {
+        const response = await axios.get(`/api/courses/search?term=${encodeURIComponent(searchTerm)}`);
+        onCoursesUpdated(response.data);
+    } catch (error) {
+        console.error("Error fetching searched courses: ", error);
+    }
 };

@@ -14,12 +14,27 @@ function App() {
   const fetchCourses = async () => {
     try {
       const response = await axiosInstance.get('/api/courses');
-      const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.dependencies, courseData.type, courseData.description));
-      console.log("Courses fetched:", convertedCourses);
-      setCourses(convertedCourses);
+
+      if(response == null) return;
+      setCoursesData(response.data);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
+  };
+
+  const setCoursesData = (data = null) => {
+    if (data==null) {
+      console.log("No data to set courses!");
+      return;
+    } else if (data=="fetch") {
+      fetchCourses();
+      return;
+    }
+
+    console.log("data",data);
+
+    const convertedCourses = data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.dependencies, courseData.type, courseData.description));
+    setCourses(convertedCourses);
   };
 
   useEffect(() => {
@@ -28,7 +43,7 @@ function App() {
 
   return (
     <div>
-      <CourseGraph axiosInstance={axiosInstance} courses={courses} onCoursesUpdated={fetchCourses}/>
+      <CourseGraph axiosInstance={axiosInstance} courses={courses} onCoursesUpdated={setCoursesData}/>
     </div>
   )
 }

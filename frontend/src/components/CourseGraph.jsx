@@ -10,7 +10,7 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import { addCourse, removeCourse } from './CourseFunctions';
+import { addCourse, removeCourse, handleSearch } from './CourseFunctions';
 
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
@@ -76,6 +76,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
             <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
             <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
             <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
+            <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
 
             <CustomEdge />
             <ReactFlow

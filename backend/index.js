@@ -11,7 +11,7 @@ app.get('/api/courses', (request, response) => {
 })
 
 app.post('/api/courses/add', (req, res) => {
-  console.log(req.body);
+  console.log("Adding course: ",req.body);
   const { name, identifier, dependencies, type } = req.body;
   courses.push({ name, identifier, dependencies, type });
 
@@ -19,6 +19,7 @@ app.post('/api/courses/add', (req, res) => {
 });
 
 app.delete('/api/courses/remove', (req, res) => {
+  console.log("Removing course: ",req.body);
   const { identifier } = req.body;
   const index = courses.findIndex(course => course.identifier === identifier);
   if (index > -1) {
@@ -27,6 +28,14 @@ app.delete('/api/courses/remove', (req, res) => {
   } else {
       res.status(404).send('Course not found');
   }
+});
+
+app.get('/api/courses/search', (req, res) => {
+  const searchTerm = req.query.term;
+  console.log("Searching course: ",searchTerm);
+
+  const filteredCourses = courses.filter(course => course.name.includes(searchTerm) || course.identifier.includes(searchTerm));
+  res.json(filteredCourses);
 });
 
 
