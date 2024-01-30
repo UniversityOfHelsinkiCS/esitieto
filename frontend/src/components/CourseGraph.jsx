@@ -20,6 +20,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const closeSidebar = () => setIsSidebarOpen(false);
     const [selectedCourseName, setSelectedCourseName] = useState('');
+    const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -55,7 +56,8 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
     );
 
     const onNodeClick = (event, node) => {
-        setSelectedCourseName(node.data.label); 
+        setSelectedCourseName(node.data.label);
+        setSelectedCourseDescription("Tämä on kurssin kuvaus.")//TODO: Metodikutsu haulle backendistä
         setIsSidebarOpen(true);
     };
 
@@ -65,7 +67,9 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
                 <div className="sidebar">
                     <button onClick={closeSidebar} className="close-button">X</button>
                     <h3>{selectedCourseName}</h3> 
-                    <h4>Esitieto vaatimukset</h4>
+                    <h4>Esitietovaatimukset</h4>
+                    <h4>Kurssikuvaus</h4>
+                    <p>{selectedCourseDescription}</p>
                 </div>
             )}
 
