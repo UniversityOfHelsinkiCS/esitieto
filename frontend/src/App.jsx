@@ -14,7 +14,7 @@ function App() {
   const fetchCourses = async () => {
     try {
       const response = await axiosInstance.get('/api/courses');
-      const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.dependencies, courseData.type));
+      const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.dependencies, courseData.type, courseData.description));
       console.log("Courses fetched:", convertedCourses);
       setCourses(convertedCourses);
     } catch (error) {

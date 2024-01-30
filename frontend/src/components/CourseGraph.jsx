@@ -57,7 +57,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
 
     const onNodeClick = (event, node) => {
         setSelectedCourseName(node.data.label);
-        setSelectedCourseDescription("Tämä on kurssin kuvaus.")//TODO: Metodikutsu haulle backendistä
+        setSelectedCourseDescription(node.data.description)
         setIsSidebarOpen(true);
     };
 
