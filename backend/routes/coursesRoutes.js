@@ -24,26 +24,14 @@ router.delete('/remove', (req, res) => {
       res.status(404).send('Course not found');
   }
 });
-  
-const findCourseWithDependencies = (identifier, allCourses) => {
-  const course = allCourses.find(course => course.identifier === identifier);
-  if (!course) return [];
-
-  let courses = [course];
-  course.dependencies.forEach(dep => {
-      courses = [...courses, ...findCourseWithDependencies(dep, allCourses)];
-  });
-
-  return courses;
-};
 
 router.get('/search', (req, res) => {
   const searchTerm = req.query.term.toLowerCase();
   console.log("Searching course: ", searchTerm);
 
   const matchedCourses = courses.filter(course => 
-      course.name.toLowerCase().includes(searchTerm) || 
-      course.identifier.toLowerCase().includes(searchTerm)
+      course.name.toLowerCase() === searchTerm || 
+      course.identifier.toLowerCase() === searchTerm
   );
 
   let result = [];
@@ -59,6 +47,18 @@ router.get('/search', (req, res) => {
 
   res.json(uniqueResult);
 });
+
+const findCourseWithDependencies = (identifier, allCourses) => {
+  const course = allCourses.find(course => course.identifier === identifier);
+  if (!course) return [];
+
+  let courses = [course];
+  course.dependencies.forEach(dep => {
+      courses = [...courses, ...findCourseWithDependencies(dep, allCourses)];
+  });
+
+  return courses;
+};
 
 // Sample course data, to be removed later once connection to database is done!
 const courses = [
@@ -80,3 +80,4 @@ const courses = [
 ];
   
   module.exports = router;
+  module.exports.findCourseWithDependencies = findCourseWithDependencies;
