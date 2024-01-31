@@ -14,7 +14,7 @@ RUN chgrp -R root * && chmod -R 777 *
 
 USER 1001
 
-RUN npx vite build
+RUN npm run build:server
 
 EXPOSE 3000
 
