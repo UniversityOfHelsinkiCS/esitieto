@@ -18,4 +18,4 @@ RUN npx vite build
 
 EXPOSE 3000
 
-CMD ["vite"]
+CMD ["npm", "run", "start"]
