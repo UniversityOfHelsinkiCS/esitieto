@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// Mahdollisesti jotain KORIjuttuja tänne
 
 router.get('/', (request, response) => {
     response.json(courses);
