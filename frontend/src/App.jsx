@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css'
 import CourseGraph from './components/CourseGraph';
 import Course from './models/Course'
+import DegreeSelectionMenu from './components/DegreeSelectionMenu';
 
 function App() {
   const [courses, setCourses] = useState([]);
@@ -41,11 +42,23 @@ function App() {
     fetchCourses();
   }, []);
 
-  return (
-    <div>
-      <CourseGraph axiosInstance={axiosInstance} courses={courses} onCoursesUpdated={setCoursesData}/>
+  const handleDegreeChange = (degree) => {
+    console.log("Selected Degree: ", degree); 
+    setDegree(degree);
+  };
+
+
+  const [degree, setDegree] = useState('TKT 23-26');
+  const [listOfDegrees, setDegreeToList] = useState(['TKT 23-26', 'TKT 20-23']);
+
+return (
+  <div>
+    <CourseGraph axiosInstance={axiosInstance} courses={courses} onCoursesUpdated={setCoursesData}/>
+    <div className="degree-menu-container">
+      <DegreeSelectionMenu onDegreeChange={handleDegreeChange} degree={degree} listOfDegrees={listOfDegrees} />
     </div>
-  )
+  </div>
+)
 }
 
 export default App
