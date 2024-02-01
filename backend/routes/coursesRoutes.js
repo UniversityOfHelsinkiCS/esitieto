@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+// Mahdollisesti jotain KORIjuttuja tänne
 
 router.get('/', (request, response) => {
     response.json(courses);
@@ -25,7 +26,14 @@ router.delete('/remove', (req, res) => {
   }
 });
 
+// KoriApiFetchFunktio()
+
 router.get('/search', (req, res) => {
+  // --- KORI API ---
+  // tiedot = KoriApiFetchFunktio()
+  // console.log("tiedot:",tiedot);
+  // --- KORI API ---
+
   const searchTerm = req.query.term.toLowerCase();
   console.log("Searching course: ", searchTerm);
 

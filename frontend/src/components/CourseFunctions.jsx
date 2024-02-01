@@ -34,3 +34,18 @@ export const handleSearch = async (axios, onCoursesUpdated) => {
         console.error("Error fetching searched courses: ", error);
     }
 };
+
+export const handleKORIAPITEST = async (axios) => {
+    const searchTerm = prompt("Enter search term:");
+    if (!searchTerm) return;
+
+    console.log("KORI search: ",searchTerm);
+
+    try {
+        const KORI_API_URL = 'https://sisu.helsinki.fi/kori/api/course-unit-search?fullTextQuery=tkt&limit=10&uiLang=fi&universityOrgId=hy-university-root-id';
+        const response = await axios.get(`${KORI_API_URL}?term=${encodeURIComponent(searchTerm)}`);
+        console.log(response);
+    } catch (error) {
+        console.error("Error fetching searched courses: ", error);
+    }
+};
