@@ -1,7 +1,7 @@
 # Setting up psql database
 
 1. Install PostgreSQL
-2. Initializing local database
+2. Initialize local database
 
 Open CMD or terminal (or whatever you use?) in projectroot/backend (the same directory where schema.sql is in)
 
