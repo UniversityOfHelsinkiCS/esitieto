@@ -8,11 +8,10 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "node dist/main/main.js",
+    "start": " NODE_ENV=production node dist/main/main.js",
     "test": "vitest",
-    "build:server": "vite build --ssr src/main.jsx --outDir dist/main",
-    "coverage": "vitest --coverage",
-    "prod": "NODE_ENV=production "
+    "prod": "NODE_ENV=production node src/main.jsx",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "axios": "^1.6.5",
