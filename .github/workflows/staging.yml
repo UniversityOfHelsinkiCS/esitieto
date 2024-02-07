@@ -11,14 +11,24 @@ jobs:
 
   build-and-push:
     runs-on: ubuntu-latest
-
   
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Build Image
-        run: docker build -t kurssiesitieto:staging .
-        working-directory: ./frontend
+      - name: Build image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: kurssiesitieto
+          tags: staging ${{ github.sha }}
+          containerfiles: |
+            ./frontend/Dockerfile
+          build-args: |
+            STAGING=true
+
+#      - name: Build Image
+#       run: docker build -t kurssiesitieto:staging .
+#       working-directory: ./frontend
 
       - name: Push to quay.io
         uses: redhat-actions/push-to-registry@v2
