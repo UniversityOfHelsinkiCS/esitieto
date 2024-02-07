@@ -72,6 +72,5 @@ class KoriInterface {
         }
     }
 }
-  
-export default KoriInterface;
-  
+
+module.exports = KoriInterface;
