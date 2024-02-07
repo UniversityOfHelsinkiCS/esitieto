@@ -21,9 +21,10 @@ class KoriInterface {
         };
     }
   
-    #isValidInput(input) {
+    isValidInput(input) {
         /*Accepts numbers letters and dashes*/
-        var pattern = /^[a-zA-Z0-9\-]+$/;
+        //var pattern = /^[a-zA-Z0-9\-]+$/;
+        var pattern = /^[a-zA-Z0-9\-]+( [a-zA-Z0-9\-]+)*$/;
   
         return pattern.test(input);
     }
@@ -34,7 +35,7 @@ class KoriInterface {
 
         Return the course info in JSON format.
         */
-        if (this.#isValidInput(id)) {
+        if (this.isValidInput(id)) {
             const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-units?groupId='.concat(encodeURIComponent(id));
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {
@@ -56,7 +57,7 @@ class KoriInterface {
 
         Returns list of courses in JSON format.
         */
-        if (this.#isValidInput(search)) {
+        if (this.isValidInput(search)) {
             const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-unit-search?fullTextQuery='.concat(encodeURIComponent(search)).concat('&limit=200&universityOrgId=hy-university-root-id');
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {

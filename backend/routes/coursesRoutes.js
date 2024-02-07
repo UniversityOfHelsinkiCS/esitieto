@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const KoriInterface = require('../interfaces/koriInterface');
+const kori = new KoriInterface();
 
 router.get('/', (request, response) => {
     response.json(courses);
@@ -46,6 +48,27 @@ router.get('/search', (req, res) => {
       });
 
   res.json(uniqueResult);
+});
+
+router.get('/searchname', async (req, res) => {
+  try {
+    const search = req.query.search;
+    const response = await kori.searchCourses(search);
+    console.log("Courses from Kori", response);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    const exactMatch = response.searchResults.find(course => course.name === search);
+    if (exactMatch) {
+        res.json([exactMatch]);
+    } else {
+        res.json(response.searchResults);
+    }
+
+    console.log("KORI Results from search term:",search)
+  } catch (err) {
+    console.error("Error accessing Kori API:", err);
+    res.status(500).send('Server error');
+  }
 });
 
 const findCourseWithDependencies = (identifier, allCourses) => {

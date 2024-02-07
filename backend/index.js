@@ -15,15 +15,15 @@ const degreesRoutes = require('./routes/degreesRoutes');
 // Temporary function for testing out that the KORI API, to be removed later!
 app.get('/api/getKori', async (req, res) => {
   try {
-    console.log("--------------------------------------------------------------")
-    //const search = req.query.search;
-    const search = "TKT10003"
+    const search = req.query.search;
     const courses = await kori.searchCourses(search);
     console.log("Courses from Kori", courses);
-    //res.json(courses);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.json(courses);
 
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(courses, null, 2));
+    //res.setHeader('Content-Type', 'application/json');
+    //res.send(JSON.stringify(courses, null, 2));
+    console.log("KORI Results from search term:",search)
   } catch (err) {
     console.error("Error accessing Kori API:", err);
     res.status(500).send('Server error');

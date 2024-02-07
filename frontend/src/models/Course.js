@@ -21,7 +21,12 @@ export default class Course {
         return {
             id: this.identifier,
             position: position,
-            data: { label: `${this.name} (${this.identifier})`, description:  `${this.description}` },
+            data: {
+                label: `${this.name} (${this.identifier})`,
+                description:  `${this.description}`,
+                name: `${this.name}`,
+                identifier: `${this.identifier}`,
+            },
             style: selectedNodeStyle
         };
     }

@@ -10,7 +10,7 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import { addCourse, removeCourse, handleSearch, handleKORIAPITEST } from './CourseFunctions';
+import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORI } from './CourseFunctions';
 
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
@@ -55,10 +55,20 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
         [setEdges],
     );
 
-    const onNodeClick = (event, node) => {
+    const onNodeClick = async (event, node) => {
         setSelectedCourseName(node.data.label);
-        setSelectedCourseDescription(node.data.description)
+        const response = await handleFetchKORI(axiosInstance, node.data.name);
+        const courseDetails = response[0]
+        // Contains course details from the response you get from KORI, e.g. courseDetails.code
+        // There is a message on frontend console that shows the details that KORI returns with these.
         setIsSidebarOpen(true);
+        if (response && response.length > 0) {
+            setSelectedCourseDescription(`${node.data.description}
+                My credits is worth: ${courseDetails.credits ? courseDetails.credits.max : "unable to fetch credits"} 
+                My code is: ${courseDetails.code ? courseDetails.code : "unable to fetch code"}`);
+        } else {
+            setSelectedCourseDescription(`${node.data.description} Failed to fetch from KORI`);
+        }
     };
 
     return (
