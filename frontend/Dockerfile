@@ -4,10 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN \
-  if [ -f package-lock.json ]; then npm ci; \
-  else npm install; \
-  fi
+RUN npm ci
 
 # Copy the dependencies into a Slim Node docker image
 FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
