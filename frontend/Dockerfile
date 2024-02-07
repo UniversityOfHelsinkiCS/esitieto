@@ -1,19 +1,24 @@
-FROM registry.access.redhat.com/ubi9/nodejs-18:latest
+# Install the app dependencies in a full Node docker image
+FROM registry.access.redhat.com/ubi8/nodejs-18:latest
 
-WORKDIR /app
+# Copy package.json, and optionally package-lock.json if it exists
+COPY package.json ./
 
-COPY package*.json ./
+# Install app dependencies
+RUN npm install
+# Copy the dependencies into a Slim Node docker image
+FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 
-USER root
+# Install app dependencies
+COPY --from=0 /opt/app-root/src/node_modules /opt/app-root/src/node_modules
+COPY . /opt/app-root/src
 
-RUN npm ci --omit-dev --ignore-scripts
+USER root 
 
-COPY . ./
+RUN chmod -R 777 .
 
-RUN chmod -R 777 *
+USER 1001
 
-RUN npm run build
+EXPOSE 5173
 
-EXPOSE 3000
-
-CMD ["npm", "run", "start:staging"]
+CMD ["npx", "vite"]

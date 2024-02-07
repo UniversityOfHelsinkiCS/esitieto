@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "start": " NODE_ENV=production node dist/main/main.js",
     "test": "vitest",
-    "start:stagign": "vite",
+    "staging": "vite",
     "prod": "NODE_ENV=production node src/main.jsx",
     "coverage": "vitest --coverage"
   },
