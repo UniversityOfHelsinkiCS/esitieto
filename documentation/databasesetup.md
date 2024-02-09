@@ -55,7 +55,7 @@ curl http://localhost:3001/api/getCourses
 output:
 [{"id":1,"course_code":"CS101","course_name":"Introduction to Computer Science","course_nick_name":"Intro CS","kori_name":"CS101_KORI"}]
 
-# (Optional) Testing database with REST Api
+## (Optional) Testing database with REST Api
 
 Note: You can only use these if your psql server is running!
 
