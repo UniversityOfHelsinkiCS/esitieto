@@ -62,4 +62,6 @@ Note: You can only use these if your psql server is running!
 - Install REST Client in vscode
 - Head over to the "rest" directory available in project root
 - Right above the first lines of code, there is a "send request" button
-- Click them as you will, the vscode will display the results. If you have setup the psql database + server properly, they should work!
+- Click them as you will, the vscode will display the results. If you have setup the psql database + server properly, they should work! See below for visualization
+
+![restusage](https://i.gyazo.com/edb6d25843d098f19da254aa152c05ed.gif)
