@@ -21,4 +21,4 @@ USER 1001
 
 EXPOSE 3000
 
-CMD ["npm", "run", "staging"]
+CMD ["npx", "vite", "--port", "3000"]
