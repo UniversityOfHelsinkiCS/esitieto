@@ -54,3 +54,12 @@ curl http://localhost:3001/api/getCourses
 
 output:
 [{"id":1,"course_code":"CS101","course_name":"Introduction to Computer Science","course_nick_name":"Intro CS","kori_name":"CS101_KORI"}]
+
+# (Optional) Testing database with REST Api
+
+Note: You can only use these if your psql server is running!
+
+- Install REST Client in vscode
+- Head over to the "rest" directory available in project root
+- Right above the first lines of code, there is a "send request" button
+- Click them as you will, the vscode will display the results. If you have setup the psql database + server properly, they should work!
