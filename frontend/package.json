@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "vitest",
-    "staging": "vite",
+    "staging": "vite --port 3000",
     "prod": "NODE_ENV=production node src/main.jsx",
     "coverage": "vitest --coverage"
   },
