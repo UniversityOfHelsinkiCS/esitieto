@@ -8,9 +8,9 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": " NODE_ENV=production node dist/main/main.js",
+    "start": "vite",
     "test": "vitest",
-    "staging": "vite",
+    "staging": "vite --port 3000",
     "prod": "NODE_ENV=production node src/main.jsx",
     "coverage": "vitest --coverage"
   },

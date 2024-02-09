@@ -19,6 +19,6 @@ RUN chmod -R 777 .
 
 USER 1001
 
-EXPOSE 5173
+EXPOSE 3000
 
-CMD ["npx", "vite"]
+CMD ["npx", "vite", "--port", "3000"]
