@@ -19,6 +19,26 @@ const pool = new Pool({
   port: process.env.DATABASE_PORT,
 });
 
+const addCourse = async (course_code, course_name, course_nick_name, kori_name) => {
+  const { rows } = await pool.query(
+    'INSERT INTO Courses (course_code, course_name, course_nick_name, kori_name) VALUES ($1, $2, $3, $4) RETURNING *',
+    [course_code, course_name, course_nick_name, kori_name]
+  );
+  return rows[0];
+};
+
+const updateCourse = async (id, course_code, course_name, course_nick_name, kori_name) => {
+  const { rows } = await pool.query(
+    'UPDATE Courses SET course_code = $2, course_name = $3, course_nick_name = $4, kori_name = $5 WHERE id = $1 RETURNING *',
+    [id, course_code, course_name, course_nick_name, kori_name]
+  );
+  return rows[0];
+};
+
+const deleteCourse = async (id) => {
+  await pool.query('DELETE FROM Courses WHERE id = $1', [id]);
+};
+
 module.exports = {
   query: (text, params, callback) => {
     return pool.query(text, params, callback);
@@ -27,6 +47,9 @@ module.exports = {
     const { rows } = await pool.query('SELECT * FROM Courses');
     return rows;
   },
+  addCourse,
+  updateCourse,
+  deleteCourse,
   endDatabase: async () => {
     await pool.end();
   },

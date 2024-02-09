@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { getCourses, addCourse, deleteCourse, updateCourse } = require('../db');
 const KoriInterface = require('../interfaces/koriInterface');
 const kori = new KoriInterface();
 
@@ -82,6 +83,55 @@ const findCourseWithDependencies = (identifier, allCourses) => {
 
   return courses;
 };
+
+// Database routes for getting courses, not to be integrated with the system until database is set
+
+router.get('/databaseGetCourses', async (req, res) => {
+  try {
+    const courses = await getCourses();
+    console.log("Courses from database",courses)
+    res.json(courses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+router.post('/databaseCreateCourse', async (req, res) => {
+  console.log("Received request body:", req.body);
+  const { course_code, course_name, course_nick_name, kori_name } = req.body;
+  try {
+    const newCourse = await addCourse(course_code, course_name, course_nick_name, kori_name);
+    console.log("Adding course",newCourse);
+    res.json(newCourse);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+router.delete('/databaseDeleteCourse/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await deleteCourse(id);
+    res.send({ message: 'Course deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+router.put('/databaseUpdateCourse/:id', async (req, res) => {
+  const { id } = req.params;
+  const { course_code, course_name, course_nick_name, kori_name } = req.body;
+  try {
+    const updatedCourse = await updateCourse(id, course_code, course_name, course_nick_name, kori_name);
+    res.json(updatedCourse);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
 
 // Sample course data, to be removed later once connection to database is done!
 const courses = [

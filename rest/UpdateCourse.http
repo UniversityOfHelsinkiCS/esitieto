@@ -1,0 +1,9 @@
+PUT http://localhost:3001/api/courses/databaseUpdateCourse/1
+Content-Type: application/json
+
+{
+    "course_code": "CS102",
+    "course_name": "Updated from REST Computer Science",
+    "course_nick_name": "Updated Topics CS",
+    "kori_name": "CS102_KORI"
+}
