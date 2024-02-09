@@ -45,7 +45,7 @@ output:
 - POSTGRES_USER=postgres (this is the default username postgres has, but if you have different one change it)
 - POSTGRES_PASSWORD=yourpassword
 - DATABASE_HOST=localhost
-- DATABASE_PORT=port
+- DATABASE_PORT=port (default is 5432)
 - DATABASE_NAME=local_database (this is what I use, if you name your database differently change it accordingly)
 
 ## Check that the backend can reach the database
