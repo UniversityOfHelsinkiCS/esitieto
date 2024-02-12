@@ -12,6 +12,8 @@ const kori = new KoriInterface();
 const coursesRoutes = require('./routes/coursesRoutes');
 const degreesRoutes = require('./routes/degreesRoutes');
 
+app.use(express.static('./dist'));
+
 // Temporary function for testing out that the KORI API, to be removed later!
 app.get('/api/getKori', async (req, res) => {
   try {
