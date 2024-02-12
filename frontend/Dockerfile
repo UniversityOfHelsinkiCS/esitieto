@@ -2,7 +2,7 @@
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest
 
 # Copy package.json, and optionally package-lock.json if it exists
-COPY package.json ./
+COPY frontend/package.json ./
 
 # Install app dependencies
 RUN npm install
@@ -11,7 +11,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 
 # Install app dependencies
 COPY --from=0 /opt/app-root/src/node_modules /opt/app-root/src/node_modules
-COPY . /opt/app-root/src
+COPY ./frontend /opt/app-root/src
 
 USER root 
 
