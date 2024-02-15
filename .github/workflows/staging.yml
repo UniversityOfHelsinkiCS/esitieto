@@ -22,7 +22,7 @@ jobs:
           image: kurssiesitieto
           tags: staging ${{ github.sha }}
           containerfiles: |
-            ./frontend/Dockerfile
+            ./Dockerfile
           build-args: |
             STAGING=true
 
