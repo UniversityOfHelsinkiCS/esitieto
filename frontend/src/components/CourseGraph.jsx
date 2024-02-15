@@ -21,6 +21,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
     const closeSidebar = () => setIsSidebarOpen(false);
     const [selectedCourseName, setSelectedCourseName] = useState('');
     const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
+    const [selectedCoursePeriod, setselectedCoursePeriod] = useState('')
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -70,6 +71,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
         setIsSidebarOpen(true);
         if (responseByInfo && responseByInfo.length > 0) {
             const info = courseDetails.outcomes.fi ? JSON.stringify(courseDetails.outcomes.fi, null, 2) : "unable to load metadata";
+            setselectedCoursePeriod("joku periodi")
             setSelectedCourseDescription(`${node.data.description}
                 My metadata: ${info} 
                 My credits is worth: ${courseDetails.credits ? courseDetails.credits.max : "unable to fetch credits"} 
@@ -88,6 +90,8 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
                     <h4>Esitietovaatimukset</h4>
                     <h4>Kurssikuvaus</h4>
                     <p>{selectedCourseDescription}</p>
+                    <h4>Suoritusaika</h4>
+                    <p>{selectedCoursePeriod}</p>
                 </div>
             )}
 
