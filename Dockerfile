@@ -1,5 +1,12 @@
 #Install and build the frontend
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest as frontend-builder
+
+USER root 
+
+RUN chmod -R 777 .
+
+USER 1001
+
 WORKDIR /app/frontend
 COPY ./frontend/package.json ./
 RUN npm install
