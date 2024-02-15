@@ -10,7 +10,7 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORI } from './CourseFunctions';
+import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './CourseFunctions';
 
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
@@ -57,15 +57,23 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
 
     const onNodeClick = async (event, node) => {
         setSelectedCourseName(node.data.label);
-        const response = await handleFetchKORI(axiosInstance, node.data.name);
-        const courseDetails = response[0]
+
+        // Fetching the groupId from KORI, so we can use that to fetch info later. Not the most optimal solution!
+        const responseByName = await handleFetchKORIByName(axiosInstance, node.data.name);
+        const groupId = responseByName[0].groupId
+
+        const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
+        const courseDetails = responseByInfo[0]
+
         // Contains course details from the response you get from KORI, e.g. courseDetails.code
         // There is a message on frontend console that shows the details that KORI returns with these.
         setIsSidebarOpen(true);
-        if (response && response.length > 0) {
+        if (responseByInfo && responseByInfo.length > 0) {
+            const info = courseDetails.outcomes.fi ? JSON.stringify(courseDetails.outcomes.fi, null, 2) : "unable to load metadata";
             setSelectedCourseDescription(`${node.data.description}
+                My metadata: ${info} 
                 My credits is worth: ${courseDetails.credits ? courseDetails.credits.max : "unable to fetch credits"} 
-                My code is: ${courseDetails.code ? courseDetails.code : "unable to fetch code"}`);
+                My code is: ${courseDetails.groupId ? courseDetails.groupId : "unable to fetch code"}`);
         } else {
             setSelectedCourseDescription(`${node.data.description} Failed to fetch from KORI`);
         }

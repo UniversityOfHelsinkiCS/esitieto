@@ -2,8 +2,8 @@ POST http://localhost:3001/api/courses/databaseCreateCourse
 Content-Type: application/json
 
 {
-    "course_code": "CS102",
-    "course_name": "Advanced Computer Science",
-    "course_nick_name": "Adv CS",
+    "course_code": "CS103",
+    "course_name": "Advanced Computer Science Toinen kurssi",
+    "course_nick_name": "Adv CS 2",
     "kori_name": "CS102_KORI"
 }

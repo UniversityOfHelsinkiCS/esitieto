@@ -1,9 +1,10 @@
 import { mandatoryCourse, optionalCourse, alternativeCourse, completedCourse, mandatoryEdge, optionalEdge } from '../styles/courseStyles';
 
 export default class Course {
-    constructor(name, identifier, dependencies = [], courseType = 'optional', description = '') {
+    constructor(name, identifier, groupID, dependencies = [], courseType = 'optional', description = '') {
         this.name = name;
         this.identifier = identifier;
+        this.groupId = groupID;
         this.dependencies = dependencies;
         this.courseType = courseType;
         this.description = description;
@@ -26,6 +27,7 @@ export default class Course {
                 description:  `${this.description}`,
                 name: `${this.name}`,
                 identifier: `${this.identifier}`,
+                groupID: `${this.groupId} (${this.identifier})`,
             },
             style: selectedNodeStyle
         };
