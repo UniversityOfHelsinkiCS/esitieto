@@ -5,20 +5,20 @@ import { Button, Menu, MenuItem } from '@mui/material';
 
 function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
 
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setOpen(!open);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(!open);
   };
 
   const handleSelect = (degree) => {
-    // setDegree(degree);
-    onDegreeChange(degree); // Pass the selected degree back to the parent component
+    onDegreeChange(degree);
     handleClose();
   };
 
@@ -31,12 +31,12 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
         onClick={handleClick}
         variant="contained"
         sx={{
-            color: 'black', 
-            backgroundColor: 'white', // Custom background color
-            '&:hover': {
-              backgroundColor: 'gray', // Darker on hover
-            },
-          }}
+          color: 'black',
+          backgroundColor: 'white', // Custom background color
+          '&:hover': {
+            backgroundColor: 'gray', // Darker on hover
+          },
+        }}
       >
         {degree}
       </Button>
