@@ -30,7 +30,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 # Install app dependencies
 COPY --from=backend-builder /app/backend/node_modules /opt/app-root/src/node_modules
 COPY ./backend /opt/app-root/src
-COPY --from=frontend-builder /app/frontend/dist /opt/app-root/src/public
+COPY --from=frontend-builder /app/frontend/dist /opt/app-root/src/dist
 
 USER root 
 
