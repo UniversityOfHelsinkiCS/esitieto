@@ -2,8 +2,11 @@ import { useState, useEffect  } from 'react'
 import axios from 'axios';
 import './App.css'
 import CourseGraph from './components/CourseGraph';
+import Sidebar from './components/sidebar';
 import Course from './models/Course'
 import DegreeSelectionMenu from './components/DegreeSelectionMenu';
+import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './components/CourseFunctions';
+
 
 function App() {
   const [courses, setCourses] = useState([]);
@@ -79,17 +82,37 @@ function App() {
   // What is the default degree? This needs to be solved later
   const [degree, setDegree] = useState('TKT 23-26');
   const [listOfDegrees, setDegreeToList] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedCourseName, setSelectedCourseName] = useState('');
+  const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
 
 
 
 return (
   <div>
-    <CourseGraph axiosInstance={axiosInstance} courses={courses} onCoursesUpdated={setCoursesData}/>
-    <div className="degree-menu-container">
-      <DegreeSelectionMenu onDegreeChange={handleDegreeChange} degree={degree} listOfDegrees={listOfDegrees} />
-    </div>
+  <CourseGraph
+    axiosInstance={axiosInstance}
+    courses={courses}
+    onCoursesUpdated={setCoursesData}
+    setSelectedCourseName={setSelectedCourseName}
+    setIsSidebarOpen={setIsSidebarOpen}
+    isSidebarOpen={isSidebarOpen}
+  />
+  <div className="degree-menu-container">
+    <DegreeSelectionMenu
+      onDegreeChange={setDegree} // Assuming you have a handler function for this
+      degree={degree}
+      listOfDegrees={listOfDegrees}
+    />
   </div>
-)
-}
+  <Sidebar
+    isOpen={isSidebarOpen}
+    closeSidebar={() => setIsSidebarOpen(false)}
+    selectedCourseName={selectedCourseName}
+    axiosInstance={axiosInstance}
+  />
+</div>
+);
+};
 
-export default App
+export default App;

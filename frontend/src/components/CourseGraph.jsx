@@ -12,16 +12,9 @@ import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
 import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './CourseFunctions';
 
-
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
+const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, isSidebarOpen }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const closeSidebar = () => setIsSidebarOpen(false);
-    const [selectedCourseName, setSelectedCourseName] = useState('');
-    const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
-    const [selectedCoursePeriod, setselectedCoursePeriod] = useState('')
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -57,44 +50,13 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
     );
 
     const onNodeClick = async (event, node) => {
-        setSelectedCourseName(node.data.label);
-
-        // Fetching the groupId from KORI, so we can use that to fetch info later. Not the most optimal solution!
-        const responseByName = await handleFetchKORIByName(axiosInstance, node.data.name);
-        const groupId = responseByName[0].groupId
-
-        const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
-        const courseDetails = responseByInfo[0]
-
-        // Contains course details from the response you get from KORI, e.g. courseDetails.code
-        // There is a message on frontend console that shows the details that KORI returns with these.
+        setSelectedCourseName(node.data.name);
         setIsSidebarOpen(true);
-        if (responseByInfo && responseByInfo.length > 0) {
-            const info = courseDetails.outcomes.fi ? JSON.stringify(courseDetails.outcomes.fi, null, 2) : "unable to load metadata";
-            setselectedCoursePeriod("joku periodi")
-            setSelectedCourseDescription(`${node.data.description}
-                My metadata: ${info} 
-                My credits is worth: ${courseDetails.credits ? courseDetails.credits.max : "unable to fetch credits"} 
-                My code is: ${courseDetails.groupId ? courseDetails.groupId : "unable to fetch code"}`);
-        } else {
-            setSelectedCourseDescription(`${node.data.description} Failed to fetch from KORI`);
-        }
+        console.log("Selected course: ", node.data.label);
     };
 
     return (
         <div className='reactflow-wrapper'>
-            {isSidebarOpen && (
-                <div className="sidebar">
-                    <button onClick={closeSidebar} className="close-button">X</button>
-                    <h3>{selectedCourseName}</h3> 
-                    <h4>Esitietovaatimukset</h4>
-                    <h4>Kurssikuvaus</h4>
-                    <p>{selectedCourseDescription}</p>
-                    <h4>Suoritusaika</h4>
-                    <p>{selectedCoursePeriod}</p>
-                </div>
-            )}
-
             <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
             <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
             <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
@@ -113,7 +75,9 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated }) => {
             >
                 <Controls />
                 <Background color="#555" gap={32} />
+
             </ReactFlow>
+
         </div>
     );
 };
