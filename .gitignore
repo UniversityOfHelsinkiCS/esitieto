@@ -24,6 +24,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+compose.yml
 
 # Environment
 .env
