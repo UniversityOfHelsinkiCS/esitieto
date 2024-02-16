@@ -35,7 +35,7 @@ function App() {
     console.log("data",data);
   
     // The description will be fetched from kori API when the sidebar is opened due to retrieving the most up-to-date scheduling, so this implementation will probably change.
-    const convertedCourses = data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.dependencies, courseData.type, courseData.description));
+    const convertedCourses = data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
     setCourses(convertedCourses);
   };
 

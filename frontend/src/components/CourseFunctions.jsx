@@ -42,19 +42,31 @@ export const handleKORIAPITEST = async (axios) => {
     console.log("KORI search: ", searchTerm);
 
     try {
-        const response = await axios.get(`/api/getKori?search=${encodeURIComponent(searchTerm)}`);
+        const response = await axios.get(`/api/kori/getKori?search=${encodeURIComponent(searchTerm)}`);
         console.log(JSON.stringify(response.data, null, 2));
     } catch (error) {
         console.error("Error fetching searched courses: ", error);
     }
 };
 
-export const handleFetchKORI = async (axios, searchTerm) => {
-    console.log("KORI search: ", searchTerm);
+export const handleFetchKORIByName = async (axios, searchTerm) => {
+    console.log("KORI search by name using name: ", searchTerm);
 
     try {
-        const response = await axios.get(`/api/courses/searchname?search=${encodeURIComponent(searchTerm)}`);
-        console.log(JSON.stringify(response.data, null, 2));
+        const response = await axios.get(`/api/kori/search_by_name?search=${encodeURIComponent(searchTerm)}`);
+        //console.log(JSON.stringify(response.data, null, 2)); // Uncomment if you need to see the data
+        return response.data
+    } catch (error) {
+        console.error("Error fetching searched courses: ", error);
+    }
+};
+
+export const handleFetchKORICourseInfo = async (axios, searchTerm) => {
+    console.log("KORI get course info using groupId: ", searchTerm);
+
+    try {
+        const response = await axios.get(`/api/kori/get_info_by_name?search=${encodeURIComponent(searchTerm)}`);
+        console.log(JSON.stringify(response.data, null, 2)); // Uncomment if you need to see the data
         return response.data
     } catch (error) {
         console.error("Error fetching searched courses: ", error);

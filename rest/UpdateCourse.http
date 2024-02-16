@@ -1,4 +1,4 @@
-PUT http://localhost:3001/api/courses/databaseUpdateCourse/1
+PUT http://localhost:3001/api/courses/databaseUpdateCourse/4
 Content-Type: application/json
 
 {

@@ -1,0 +1,1 @@
+GET http://localhost:3001/api/degrees/search_by_degree_name?search=KH50_005

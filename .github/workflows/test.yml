@@ -27,7 +27,7 @@ jobs:
       working-directory: ./frontend
 
     - name: Run Tests
-      run: npx vitest --coverage.enabled true
+      run: npx jest --coverage
       working-directory: ./frontend
 
                 

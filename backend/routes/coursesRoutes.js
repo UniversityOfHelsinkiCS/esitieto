@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { getCourses, addCourse, deleteCourse, updateCourse } = require('../db');
-const KoriInterface = require('../interfaces/koriInterface');
-const kori = new KoriInterface();
 
 router.get('/', (request, response) => {
     response.json(courses);
@@ -51,27 +49,6 @@ router.get('/search', (req, res) => {
   res.json(uniqueResult);
 });
 
-router.get('/searchname', async (req, res) => {
-  try {
-    const search = req.query.search;
-    const response = await kori.searchCourses(search);
-    console.log("Courses from Kori", response);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    const exactMatch = response.searchResults.find(course => course.name === search);
-    if (exactMatch) {
-        res.json([exactMatch]);
-    } else {
-        res.json(response.searchResults);
-    }
-
-    console.log("KORI Results from search term:",search)
-  } catch (err) {
-    console.error("Error accessing Kori API:", err);
-    res.status(500).send('Server error');
-  }
-});
-
 const findCourseWithDependencies = (identifier, allCourses) => {
   const course = allCourses.find(course => course.identifier === identifier);
   if (!course) return [];
@@ -86,52 +63,43 @@ const findCourseWithDependencies = (identifier, allCourses) => {
 
 // Database routes for getting courses, not to be integrated with the system until database is set
 
-router.get('/databaseGetCourses', async (req, res) => {
-  try {
-    const courses = await getCourses();
-    console.log("Courses from database",courses)
-    res.json(courses);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+function asyncHandler(fn) {
+  return async function(req, res, next) {
+    try {
+      await fn(req, res, next);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  };
+}
 
-router.post('/databaseCreateCourse', async (req, res) => {
+router.get('/databaseGetCourses', asyncHandler(async (req, res) => {
+  const courses = await getCourses();
+  console.log("Courses from database", courses);
+  res.json(courses);
+}));
+
+router.post('/databaseCreateCourse', asyncHandler(async (req, res) => {
   console.log("Received request body:", req.body);
   const { course_code, course_name, course_nick_name, kori_name } = req.body;
-  try {
-    const newCourse = await addCourse(course_code, course_name, course_nick_name, kori_name);
-    console.log("Adding course",newCourse);
-    res.json(newCourse);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+  const newCourse = await addCourse(course_code, course_name, course_nick_name, kori_name);
+  console.log("Adding course", newCourse);
+  res.json(newCourse);
+}));
 
-router.delete('/databaseDeleteCourse/:id', async (req, res) => {
+router.delete('/databaseDeleteCourse/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
-  try {
-    await deleteCourse(id);
-    res.send({ message: 'Course deleted successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+  await deleteCourse(id);
+  res.send({ message: 'Course deleted successfully' });
+}));
 
-router.put('/databaseUpdateCourse/:id', async (req, res) => {
+router.put('/databaseUpdateCourse/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { course_code, course_name, course_nick_name, kori_name } = req.body;
-  try {
-    const updatedCourse = await updateCourse(id, course_code, course_name, course_nick_name, kori_name);
-    res.json(updatedCourse);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+  const updatedCourse = await updateCourse(id, course_code, course_name, course_nick_name, kori_name);
+  res.json(updatedCourse);
+}));
 
 // Sample course data, to be removed later once connection to database is done!
 const courses = [
