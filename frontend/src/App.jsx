@@ -5,6 +5,7 @@ import CourseGraph from './components/CourseGraph';
 import Sidebar from './components/sidebar';
 import Course from './models/Course'
 import DegreeSelectionMenu from './components/DegreeSelectionMenu';
+import { extractCoursesFromModules } from './utils/CourseExtractor'
 import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './components/CourseFunctions';
 
 
@@ -15,12 +16,32 @@ function App() {
     baseURL: 'http://localhost:3001'
   });
 
-  const fetchCourses = async () => {
+  const fetchCourses = async (degree = null) => {
     try {
-      const response = await axiosInstance.get('/api/courses');
+      console.log("Fetching courses using degree",degree)
+      let response;
+      if(degree==null) {
+        response = await axiosInstance.get('/api/courses');
+        if(response == null) return;
+        setCoursesData(response.data);
+        return;
+      } 
+      
+      console.log("fetching courses from degree",degree);
+      response = await axiosInstance.get(`/api/degrees/search_by_degree_name/?search=${encodeURIComponent("KH50_005")}`); // replace with degree later
 
-      if(response == null) return;
-      setCoursesData(response.data);
+      // Debug console command for listing modules and courses
+
+      //temp.data.forEach((module, index) => {
+      //  console.log(`Module ${index}:`, module);
+      //});
+
+      const extractedCourses = extractCoursesFromModules(response.data);
+      console.log("Extracted Courses:", extractedCourses);
+
+      if(extractedCourses == null) return;
+      setCoursesData(extractedCourses);
+      
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -31,11 +52,12 @@ function App() {
       console.log("No data to set courses!");
       return;
     } else if (data=="fetch") {
+      console.log("fetching");
       fetchCourses();
       return;
     }
 
-    console.log("data",data);
+    console.log("set course data",data);
   
     // The description will be fetched from kori API when the sidebar is opened due to retrieving the most up-to-date scheduling, so this implementation will probably change.
     const convertedCourses = data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
@@ -76,6 +98,7 @@ function App() {
   const handleDegreeChange = (degree) => {
     console.log("Selected Degree: ", degree); 
     setDegree(degree);
+    fetchCourses(degree)
   };
 
 
@@ -100,7 +123,7 @@ return (
   />
   <div className="degree-menu-container">
     <DegreeSelectionMenu
-      onDegreeChange={setDegree} // Assuming you have a handler function for this
+      onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
       degree={degree}
       listOfDegrees={listOfDegrees}
     />
