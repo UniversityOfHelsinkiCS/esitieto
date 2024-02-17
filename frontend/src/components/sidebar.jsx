@@ -12,8 +12,21 @@ const Sidebar = ({
   axiosInstance,
 }) => {
   const [courseDetails, setCourseDetails] = useState(null);
-  const [selectedCoursePeriod, setSelectedCoursePeriod] = useState('joku periodi');
+  const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
+
+  const sortCourseActivityPeriod = (periods) => {
+    let sortedPeriods = []
+    let id = 1
+    const wantedDate = "2024"
+    periods.map(period => {
+      if (period.startDate.substring(0,4) === "2024") {
+        period.id = id
+        sortedPeriods = sortedPeriods.concat(period)
+        id +=1
+      }})
+    return (sortedPeriods)
+  }
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -26,7 +39,9 @@ const Sidebar = ({
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
             setCourseDetails(courseInfo);
-
+            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods)
+            setSelectedCoursePeriods(periodList)
+            
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
             const code = courseInfo.groupId ? courseInfo.groupId : "unable to fetch code";
@@ -54,7 +69,13 @@ const Sidebar = ({
       <button onClick={closeSidebar} className="close-button">X</button>
       <h3>{selectedCourseName}</h3>
       <h4>Suoritusaika</h4>
-      <p>{selectedCoursePeriod}</p>
+      <ul>
+        {selectedCoursePeriods.map(period => 
+          <li key={period.id}>
+            {period.startDate}
+          </li>
+        )}
+      </ul>
       <p>{selectedCourseDescription}</p>
       <Button
         variant="contained"
