@@ -10,7 +10,7 @@
     "start": "vite",
     "test": "vitest",
     "coverage": "vitest --coverage",
-    "setup-and-run": "rm -r backend/dist && cd frontend && npm run build && mv dist ../backend && cd ../backend && npx nodemon index.js",
+    "setup-and-run": "rm -r backend/dist || true && cd frontend && npm run build && mv dist ../backend && cd ../backend && npx nodemon index.js",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
     "install:both": "npm run install:frontend && npm run install:backend"
