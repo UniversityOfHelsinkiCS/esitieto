@@ -12,7 +12,7 @@
 }
 
 .infoscreen-content {
-  background: white;
+  background-color: #cfcfcf;
   padding: 20px;
   border-radius: 5px;
   z-index: 1051; 

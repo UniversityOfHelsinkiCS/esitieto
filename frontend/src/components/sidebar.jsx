@@ -5,6 +5,8 @@ import {
   handleFetchKORICourseInfo,
 } from './CourseFunctions';
 import CourseDescription from './CourseDescription';
+import '../styles/sidebar.css';
+
 
 function preprocessContent(htmlContent) {
   let formattedContent = htmlContent.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?p>/gi, '\n');
