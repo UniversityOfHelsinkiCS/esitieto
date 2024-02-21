@@ -13,8 +13,9 @@
     "setup-and-run": "rm -r backend/dist || true && cd frontend && npm run build && mv dist ../backend && cd ../backend && npx nodemon index.js",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
-    "install:both": "npm run install:frontend && npm run install:backend"
-    },
+    "install:both": "npm run install:frontend && npm run install:backend",
+    "setup-and-run-windows": "if exist backend\\dist rmdir /s /q backend\\dist && cd frontend && npm run build && move dist ..\\backend && cd ..\\backend && npx nodemon index.js"
+  },
   "dependencies": {
     "axios": "^1.6.5",
     "dagre-reactjs": "^1.0.0",
