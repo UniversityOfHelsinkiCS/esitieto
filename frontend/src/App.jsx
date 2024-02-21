@@ -6,7 +6,6 @@ import Sidebar from './components/sidebar';
 import Course from './models/Course'
 import DegreeSelectionMenu from './components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from './utils/CourseExtractor'
-import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './components/CourseFunctions';
 
 
 function App() {
@@ -106,8 +105,6 @@ function App() {
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
-  const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
-
 
 
 return (
