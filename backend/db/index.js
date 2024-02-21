@@ -7,6 +7,7 @@ console.log('DATABASE_HOST:', process.env.DATABASE_HOST);
 console.log('DATABASE_PORT:', process.env.DATABASE_PORT);
 console.log('DATABASE_NAME:', process.env.DATABASE_NAME);
 
+
 const { Pool } = require('pg')
 
 //const pool = new Pool()
@@ -22,7 +23,7 @@ const pool = new Pool({
 const testDatabaseConnection = async () => {
   try {
     const response = await pool.query('SELECT NOW()');
-    console.log('Successful database connection. Current time from DB:', response.rows[0].now);
+    console.log('Successful database connection primary. Current time from DB:', response.rows[0].now);
   } catch (error) {
     console.error('Failed to connect to the database:', error);
   }
@@ -30,6 +31,22 @@ const testDatabaseConnection = async () => {
 
 testDatabaseConnection();
 
+// TESTING ONLY
+
+const pool2 = new Pool({
+  connectionString: process.env.DATABASE_DIRECT
+});
+
+const testDatabaseConnection2 = async () => {
+  try {
+    const response = await pool2.query('SELECT NOW()');
+    console.log('Successful second database connection secondary. Current time from DB:', response.rows[0].now);
+  } catch (error) {
+    console.error('Failed to connect to the second database:', error);
+  }
+};
+
+testDatabaseConnection2();
 
 
 const addCourse = async (course_code, course_name, course_nick_name, kori_name) => {
