@@ -1,10 +1,10 @@
 # Prerequisite course visualization tool
 
-This project is a web application designed to help students plan their studies by showcasing hierarchical relations between different courses. The app is built with React and Vite with the aim of creating intuitive and and interactive way to visualize the relations between different courses. The project fetches course data from Sisu and will later take advantage of University of Helsnki login to fetch students personal data to help students further plan their studies. 
+This project is a web application designed to help students plan their studies by showcasing hierarchical relations between different courses. The app is built with React and Vite with the aim of creating intuitive and interactive way to visualize the relations between different courses. The project fetches course data from Sisu and will later take advantage of University of Helsnki login to fetch students personal data to help students further plan their studies. 
 
 This project is part of Software engineering course in University of Helsinki (Ohjelmistoprojekti TKT20007)
 
-[Link to the visualization tool](https://kurssiesitieto-staging-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/)
+[Link to the visualization tool](https://kurssiesitieto-staging-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/) (You must be connected to the university network to visit the link.)
 
 # Table of Contents
 - [Prerequisite course visualization tool](#prerequisite-course-visualization-tool)
