@@ -17,13 +17,13 @@ This project is part of Software engineering course in University of Helsinki (O
   - [Running the program locally](#running-the-program-locally)
 
 # Documentation
-- [Definition of done]() (missing)
-- [Roles for the meetings]() (missing)
+- [Definition of done](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/definition-of-done.md)
+- [Roles for the meetings](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/roles-for-the-meetings.md)
 
 # Project links
 - [Backlog](https://github.com/orgs/Kurssiesitieto/projects/2)
 - [Timesheet](https://docs.google.com/spreadsheets/d/1vvUljnH17TXNOLkz6lFW4YPMWOk6QO8IYzd4c9X_hcw/edit?pli=1#gid=743230294)
-- [Minutes of meetings](https://docs.google.com/document/d/1A4zktb7WFrGRmWjNVpEVrwNugz81jrLSElKPRzv5qXw/edit)
+- [Minutes of meetings](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/meetings.md)
 
 ## Quickstart
 
