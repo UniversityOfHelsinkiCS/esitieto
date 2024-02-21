@@ -47,4 +47,11 @@ Temporary solution for running the program locally:
 ```bash
 npm run setup-and-run
 ```
+
+Windows version
+
+```bash
+npm run setup-and-run-windows
+```
+
 Runs the app on http://localhost:3001/
