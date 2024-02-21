@@ -1,5 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const devPort = process.env.VITE_DEV_PORT ? parseInt(process.env.VITE_DEV_PORT, 10) : 3001;
+console.log('VITE_DEV_PORT:', devPort);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +23,7 @@ export default defineConfig({
     },
     host: true,
     strictPort: true,
-    port: 3001,
+    port: devPort || 3001,
   },
   test: {
     coverage: {
