@@ -19,6 +19,19 @@ const pool = new Pool({
   port: process.env.DATABASE_PORT,
 });
 
+const testDatabaseConnection = async () => {
+  try {
+    const response = await pool.query('SELECT NOW()');
+    console.log('Successful database connection. Current time from DB:', response.rows[0].now);
+  } catch (error) {
+    console.error('Failed to connect to the database:', error);
+  }
+};
+
+testDatabaseConnection();
+
+
+
 const addCourse = async (course_code, course_name, course_nick_name, kori_name) => {
   const { rows } = await pool.query(
     'INSERT INTO Courses (course_code, course_name, course_nick_name, kori_name) VALUES ($1, $2, $3, $4) RETURNING *',
