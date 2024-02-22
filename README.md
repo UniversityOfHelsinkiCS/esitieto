@@ -36,7 +36,7 @@ git clone git@github.com:Kurssiesitieto/kurssiesitieto-ohtuprojekti.git
 Run the following command in root directory:
 
 ```bash
-npm install:both
+npm run install:both
 ```
 Installs the required dependencies on both frontend and backend
 
