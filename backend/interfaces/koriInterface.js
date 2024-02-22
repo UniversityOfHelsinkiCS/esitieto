@@ -24,7 +24,7 @@ class KoriInterface {
     isValidInput(input) {
         /*Accepts numbers letters and dashes*/
         //var pattern = /^[a-zA-Z0-9\-]+$/;
-        var pattern = /^[a-zA-Z0-9\-]+( [a-zA-Z0-9\-]+)*$/;
+        var pattern = /^[\p{L}0-9-]+( [\p{L}0-9-]+)*$/u;
   
         return pattern.test(input);
     }
