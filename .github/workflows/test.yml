@@ -28,6 +28,7 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
+        working-directory: ./frontend
     
   
   backend:
