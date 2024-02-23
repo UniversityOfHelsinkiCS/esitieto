@@ -17,7 +17,7 @@ jobs:
 
       - name: Build image
         id: build-image
-        uses: redhat-actions/buildah-build@v2
+        uses: redhat-actions/buildah-build@v4
         with:
           image: kurssiesitieto
           tags: staging ${{ github.sha }}
@@ -26,12 +26,8 @@ jobs:
           build-args: |
             STAGING=true
 
-#      - name: Build Image
-#       run: docker build -t kurssiesitieto:staging .
-#       working-directory: ./frontend
-
       - name: Push to quay.io
-        uses: redhat-actions/push-to-registry@v2
+        uses: redhat-actions/push-to-registry@v3
         with:
           registry: quay.io/kurssiesitieto_ohtu
           image: kurssiesitieto
