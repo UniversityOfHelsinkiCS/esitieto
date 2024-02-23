@@ -24,12 +24,11 @@ jobs:
       working-directory: ./frontend
 
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4.0.1
+      uses: codecov/codecov-action@v4
       with:
         directory: ./frontend/coverage
-        slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti    
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   backend:
     runs-on: ubuntu-latest
