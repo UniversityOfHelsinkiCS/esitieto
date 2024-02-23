@@ -6,16 +6,14 @@ name: test
 on: [workflow_call, push]
 
 jobs:
-  build:
-
+  frontend:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+
 
     - name: Install Frontend Dependencies
       run: npm install
@@ -25,6 +23,15 @@ jobs:
       run: npx jest --coverage
       working-directory: ./frontend
     
+  
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Node
+      uses: actions/setup-node@v3
+    
     - name: Install Backend Dependencies
       run: npm install
       working-directory: ./backend
@@ -32,4 +39,3 @@ jobs:
     - name: Run Backend Tests
       run: npm test
       working-directory: ./backend
-                
