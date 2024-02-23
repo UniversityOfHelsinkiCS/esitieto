@@ -27,7 +27,7 @@ jobs:
       uses: codecov/codecov-action@v4
       with:
         directory: ./frontend/coverage
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ secrets.TESTTOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   backend:
