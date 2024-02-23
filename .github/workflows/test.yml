@@ -3,7 +3,7 @@
 
 name: test
 
-on: [workflow_call]
+on: [workflow_call, push]
 
 jobs:
   build:
@@ -22,12 +22,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install Dependencies
+    - name: Install Frontend Dependencies
       run: npm install
       working-directory: ./frontend
 
-    - name: Run Tests
+    - name: Run Frontend Tests
       run: npx jest --coverage
       working-directory: ./frontend
-
+    
+    - name: Install Backend Dependencies
+      run: npm install
+      working-directory: ./backend
+    
+    - name: Run Backend Tests
+      run: npm test
+      working-directory: ./backend
                 
