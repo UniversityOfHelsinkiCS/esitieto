@@ -49,12 +49,5 @@
       "@babel/preset-env",
       "@babel/preset-react"
     ]
-  },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.css$": "identity-obj-proxy"
-    }
   }
 }
