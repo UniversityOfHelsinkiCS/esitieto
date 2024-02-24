@@ -56,7 +56,8 @@ const Sidebar = ({
     if (end == -1) {
       return ('')
     }
-    return (text.substring(start, end))
+    const fixedText = preprocessContent(text.substring(start, end))
+    return (fixedText)
   }
 
 
