@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/courses/addPrerequisiteCourse
+Content-Type: application/json
+
+{
+    "course_kori_name": "koripallo3",
+    "prerequisite_course_kori_name": "koripallo2"
+}
