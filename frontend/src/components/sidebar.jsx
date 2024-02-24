@@ -28,6 +28,7 @@ const Sidebar = ({
 }) => {
   const [courseDetails, setCourseDetails] = useState(null);
   const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
+  const [courseActivityDesc, setCourseActivityDesc] = useState('')
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
@@ -46,6 +47,18 @@ const Sidebar = ({
     return (sortedPeriods)
   }
 
+  const findActivityPeriodDesc = (text) => {
+    const start = text.indexOf("Järjestämisajankohta")
+    if (start == -1) {
+      return ('')
+    }
+    const end = text.indexOf("Opintokokonaisuus")
+    if (end == -1) {
+      return ('')
+    }
+    return (text.substring(start, end))
+  }
+
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -58,8 +71,10 @@ const Sidebar = ({
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
             setCourseDetails(courseInfo);
-            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods)
-            setSelectedCoursePeriods(periodList)
+            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
+            const desc = findActivityPeriodDesc(courseInfo.additional.fi);
+            setCourseActivityDesc(desc);
+            setSelectedCoursePeriods(periodList);
 
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
@@ -96,6 +111,7 @@ const Sidebar = ({
           </li>
         )}
       </ul>
+      <p>{courseActivityDesc}</p>
       <p>{selectedCourseDescription}</p>
       <Button
         variant="contained"
