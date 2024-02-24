@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/courses/databaseCreateCourse
+Content-Type: application/json
+
+{
+    "official_course_id": "Asdidasdidas",
+    "course_name": "Asdidas",
+    "kori_name": "Asd"
+}
