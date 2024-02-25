@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import {
   handleFetchKORIByName,
   handleFetchKORICourseInfo,
 } from './CourseFunctions';
 import CourseDescription from './CourseDescription';
 import '../styles/sidebar.css';
+import { Button, IconButton } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function preprocessContent(htmlContent) {
@@ -29,6 +30,7 @@ const Sidebar = ({
   const [courseDetails, setCourseDetails] = useState(null);
   const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [courseActivityDesc, setCourseActivityDesc] = useState('')
+  const [showActivityInfo, setShowActivityInfo] = useState(false)
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
@@ -60,6 +62,14 @@ const Sidebar = ({
     return (fixedText)
   }
 
+  const handleInfoClick = () => {
+    if (showActivityInfo) {
+      setShowActivityInfo(false)
+    }
+    else {
+      setShowActivityInfo(true)
+    }
+  }
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -105,6 +115,9 @@ const Sidebar = ({
       <button onClick={closeSidebar} className="close-button">X</button>
       <h3>{selectedCourseName}</h3>
       <h4>Suoritusaika</h4>
+      <IconButton aria-label="info">
+        <InfoIcon onClick={() => handleInfoClick()}/>
+      </IconButton>
       <ul>
         {selectedCoursePeriods.map(period =>
           <li key={period.id}>
@@ -112,7 +125,7 @@ const Sidebar = ({
           </li>
         )}
       </ul>
-      <p>{courseActivityDesc}</p>
+      {showActivityInfo && (<p>{courseActivityDesc}</p>)}
       <p>{selectedCourseDescription}</p>
       <Button
         variant="contained"
