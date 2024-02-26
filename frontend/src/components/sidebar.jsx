@@ -114,10 +114,12 @@ const Sidebar = ({
     <div className="sidebar">
       <button onClick={closeSidebar} className="close-button">X</button>
       <h3>{selectedCourseName}</h3>
-      <h4>Suoritusaika</h4>
-      <IconButton aria-label="info">
-        <InfoIcon onClick={() => handleInfoClick()}/>
-      </IconButton>
+      <div className="suoritusaika">
+        <h4>Suoritusaika</h4>
+        <IconButton aria-label="info">
+          <InfoIcon onClick={() => handleInfoClick()}/>
+        </IconButton>
+      </div>
       <ul>
         {selectedCoursePeriods.map(period =>
           <li key={period.id}>
