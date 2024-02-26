@@ -131,7 +131,6 @@ const Sidebar = ({
         variant="contained"
         color="primary"
         onClick={() => {
-          console.log("Kurssin kuvaus painettu");
           setIsCourseDescriptionOpen(true)
         }}
       >
