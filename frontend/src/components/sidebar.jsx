@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import {
   handleFetchKORIByName,
   handleFetchKORICourseInfo,
 } from './CourseFunctions';
 import CourseDescription from './CourseDescription';
 import '../styles/sidebar.css';
+import { Button, IconButton } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function preprocessContent(htmlContent) {
@@ -28,6 +29,8 @@ const Sidebar = ({
 }) => {
   const [courseDetails, setCourseDetails] = useState(null);
   const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
+  const [courseActivityDesc, setCourseActivityDesc] = useState('')
+  const [showActivityInfo, setShowActivityInfo] = useState(false)
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
@@ -46,6 +49,27 @@ const Sidebar = ({
     return (sortedPeriods)
   }
 
+  const findActivityPeriodDesc = (text) => {
+    const start = text.indexOf("Järjestämisajankohta")
+    if (start == -1) {
+      return ('')
+    }
+    const end = text.indexOf("Opintokokonaisuus")
+    if (end == -1) {
+      return ('')
+    }
+    const fixedText = preprocessContent(text.substring(start, end))
+    return (fixedText)
+  }
+
+  const handleInfoClick = () => {
+    if (showActivityInfo) {
+      setShowActivityInfo(false)
+    }
+    else {
+      setShowActivityInfo(true)
+    }
+  }
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -58,8 +82,10 @@ const Sidebar = ({
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
             setCourseDetails(courseInfo);
-            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods)
-            setSelectedCoursePeriods(periodList)
+            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
+            const desc = findActivityPeriodDesc(courseInfo.additional.fi);
+            setCourseActivityDesc(desc);
+            setSelectedCoursePeriods(periodList);
 
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
@@ -89,6 +115,9 @@ const Sidebar = ({
       <button onClick={closeSidebar} className="close-button">X</button>
       <h3>{selectedCourseName}</h3>
       <h4>Suoritusaika</h4>
+      <IconButton aria-label="info">
+        <InfoIcon onClick={() => handleInfoClick()}/>
+      </IconButton>
       <ul>
         {selectedCoursePeriods.map(period =>
           <li key={period.id}>
@@ -96,6 +125,7 @@ const Sidebar = ({
           </li>
         )}
       </ul>
+      {showActivityInfo && (<p>{courseActivityDesc}</p>)}
       <p>{selectedCourseDescription}</p>
       <Button
         variant="contained"
