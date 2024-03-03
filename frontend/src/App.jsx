@@ -134,7 +134,6 @@ return (
     onCoursesUpdated={setCoursesData}
     setSelectedCourseName={setSelectedCourseName}
     setIsSidebarOpen={setIsSidebarOpen}
-    isSidebarOpen={isSidebarOpen}
   />
   <div className="degree-menu-container">
     <DegreeSelectionMenu

@@ -16,7 +16,7 @@ import {
     handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo // Kori
 } from './CourseFunctions';
 
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, isSidebarOpen }) => {
+const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 

@@ -1,4 +1,4 @@
-# Prerequisite course visualization tool
+# Course Prerequisite visualization tool
 ![example workflow](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/actions/workflows/staging.yml/badge.svg)
 [![codecov](https://codecov.io/gh/Kurssiesitieto/kurssiesitieto-ohtuprojekti/graph/badge.svg?token=DPW7GY90EK)](https://codecov.io/gh/Kurssiesitieto/kurssiesitieto-ohtuprojekti)
 
