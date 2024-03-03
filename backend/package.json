@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
