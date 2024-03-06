@@ -5,11 +5,13 @@ const app = express()
 const PORT = 3001; //process.env.PORT || 3001; adjust port later from .env, probably using dotenv
 //const { getCourses } = require('./database.js');
 const { getCourses } = require('./db');
+const { executeSchemaFile } = require('./dbStartup');
 const coursesRoutes = require('./routes/coursesRoutes');
 const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
 
 app.use(express.static('./dist'));
+executeSchemaFile();
 
 // Temporary function for testing out that the database should work, to be removed later!
 app.get('/api/getCourses', async (req, res) => {

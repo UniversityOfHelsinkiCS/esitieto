@@ -16,3 +16,9 @@
 - **Puheenjohtaja:** Jani
 - **Demoaja:** Jani
 - **Kirjuri:** Andrei
+
+## Sprint 3 Tapaaminen
+
+- **Puheenjohtaja:** Alisa
+- **Demoaja:** Alisa
+- **Kirjuri:** Lassi

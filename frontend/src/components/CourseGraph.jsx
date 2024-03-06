@@ -10,9 +10,13 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import { addCourse, removeCourse, handleSearch, handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo } from './CourseFunctions';
+import {
+    addCourse, removeCourse, handleSearch, // Courses from database
+    handleAddDependency, handleRemoveDependency, // Dependencies from database
+    handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo // Kori
+} from './CourseFunctions';
 
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, isSidebarOpen }) => {
+const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -60,6 +64,8 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
             <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
             <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
+            <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
+            <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
             <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
             <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
 

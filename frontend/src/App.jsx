@@ -45,7 +45,7 @@ function App() {
     }
   };
 
-  const setCoursesData = (data = null) => {
+  const setCoursesData = (data = null, fromDatabase = null) => {
     if (data==null) {
       console.log("No data to set courses!");
       return;
@@ -56,7 +56,26 @@ function App() {
     }
 
     console.log("set course data",data);
-  
+
+    if(fromDatabase) {
+      const convertedCourses = data.map(courseData => {
+        // Assuming dependencies are official_course_ids of prerequisite courses
+        // groupId and type might need to be fetched or set differently as per your new data structure
+        // Assuming description will be set or fetched later as mentioned
+        return new Course(
+          courseData.name,
+          courseData.official_course_id, // Assuming this is the unique identifier now
+          courseData.kori_name, // Assuming kori_name could be used as groupId if relevant
+          courseData.dependencies, // This should be an array of official_course_ids
+          "", // Type might need to be determined or fetched as per your application logic
+          "" // Description to be fetched/set later as mentioned
+        );
+      });
+      setCourses(convertedCourses);
+      return;
+    }
+
+    // This is to be removed later. Probably.
     // The description will be fetched from kori API when the sidebar is opened due to retrieving the most up-to-date scheduling, so this implementation will probably change.
     const convertedCourses = data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
     setCourses(convertedCourses);
@@ -115,7 +134,6 @@ return (
     onCoursesUpdated={setCoursesData}
     setSelectedCourseName={setSelectedCourseName}
     setIsSidebarOpen={setIsSidebarOpen}
-    isSidebarOpen={isSidebarOpen}
   />
   <div className="degree-menu-container">
     <DegreeSelectionMenu
