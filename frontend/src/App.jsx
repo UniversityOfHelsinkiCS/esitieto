@@ -11,8 +11,9 @@ import { extractCoursesFromModules } from './utils/CourseExtractor'
 function App() {
   const [courses, setCourses] = useState([]);
 
+  const basePath = process.env.BASE_PATH ? process.env.BASE_PATH: ''
+
   const axiosInstance = axios.create({
-    baseURL: process.env.BASE_PATH
   });
 
   const fetchCourses = async (degree = null) => {
@@ -20,14 +21,14 @@ function App() {
       console.log("Fetching courses using degree",degree)
       let response;
       if(degree==null) {
-        response = await axiosInstance.get('/api/courses');
+        response = await axiosInstance.get(`${basePath}/api/courses`);
         if(response == null) return;
         setCoursesData(response.data);
         return;
       } 
       
       console.log("fetching courses from degree",degree);
-      response = await axiosInstance.get(`/api/degrees/search_by_degree_name/?search=${encodeURIComponent("KH50_005")}`); // replace with degree later
+      response = await axiosInstance.get(`${basePath}/api/degrees/search_by_degree_name/?search=${encodeURIComponent("KH50_005")}`); // replace with degree later
 
       // Debug console command for listing modules and courses
 
@@ -84,7 +85,7 @@ function App() {
 
   const fetchDegrees = async () => {
     try {
-      const response = await axiosInstance.get('/api/degrees');
+      const response = await axiosInstance.get(`${basePath}/api/degrees`);
       if(response == null) return;
       setDegreeData(response.data);
     } catch (error) {
