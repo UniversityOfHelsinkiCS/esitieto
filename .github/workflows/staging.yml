@@ -25,6 +25,7 @@ jobs:
             ./Dockerfile
           build-args: |
             STAGING=true
+            BASE_PATH=/esitieto
 
       - name: Push to quay.io
         uses: redhat-actions/push-to-registry@v2
