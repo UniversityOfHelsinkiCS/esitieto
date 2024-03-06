@@ -7,9 +7,12 @@ dotenv.config();
 const devPort = process.env.VITE_DEV_PORT ? parseInt(process.env.VITE_DEV_PORT, 10) : 3001;
 console.log('VITE_DEV_PORT:', devPort);
 
+const inStaging = process.env.STAGING === 'true'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: inStaging ? '/esitieto' : '/',
   server: {
     proxy: {
       '/api/': {
