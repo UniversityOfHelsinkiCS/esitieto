@@ -1,0 +1,10 @@
+.info-window {
+    position: fixed;
+    text-align:center;
+    justify-content: center;
+    left: 800px;
+    top: 40px;
+    z-index: 1000; /* High z-index to ensure it's on top */
+    width: 10%;
+    background-color: bisque;
+  }

@@ -13,12 +13,23 @@ import CustomEdge from '../styles/CustomEdge.jsx';
 import {
     addCourse, removeCourse, handleSearch, // Courses from database
     handleAddDependency, handleRemoveDependency, // Dependencies from database
-    handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo // Kori
+    handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from './CourseFunctions';
+import {InfoBox} from './InfoBox.jsx'
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+    const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
+
+    const openInfoBox = () => {
+        setIsInfoBoxOpen(true);
+      };
+    
+    const closeInfoBox = () => {
+        setIsInfoBoxOpen(false);
+      };
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -68,6 +79,8 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
             <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
             <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
+            <button onClick={openInfoBox}>Info</button>
+            <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
 
             <CustomEdge />
             <ReactFlow
