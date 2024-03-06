@@ -12,6 +12,7 @@ function App() {
   const [courses, setCourses] = useState([]);
 
   const axiosInstance = axios.create({
+    baseURL: process.env.BASE_PATH
   });
 
   const fetchCourses = async (degree = null) => {
