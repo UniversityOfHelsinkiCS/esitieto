@@ -1,12 +1,12 @@
+ARG BASE_PATH
+ARG STAGING
+
 #Install and build the frontend
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest as frontend-builder
 
 USER root 
 
-ARG BASE_PATH
 ENV BASE_PATH=$BASE_PATH
-
-ARG STAGING
 ENV STAGING=$STAGING
 
 WORKDIR /app/frontend
@@ -17,6 +17,9 @@ RUN npm run build
 
 #Install and build the backend
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest as backend-builder
+
+ENV BASE_PATH=$BASE_PATH
+ENV STAGING=$STAGING
 
 USER root
 
@@ -32,6 +35,9 @@ COPY ./backend .
 
 # Copy the dependencies into a Slim Node docker image
 FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
+
+ENV BASE_PATH=$BASE_PATH
+ENV STAGING=$STAGING
 
 # Install app dependencies
 COPY --from=backend-builder /app/backend/node_modules /opt/app-root/src/node_modules
