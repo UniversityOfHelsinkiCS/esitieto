@@ -27,6 +27,9 @@ COPY ./backend .
 # Copy the dependencies into a Slim Node docker image
 FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 
+ARG STAGING
+ENV STAGING=$STAGING
+
 # Install app dependencies
 COPY --from=backend-builder /app/backend/node_modules /opt/app-root/src/node_modules
 COPY ./backend /opt/app-root/src
