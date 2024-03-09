@@ -27,7 +27,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         directory: ./frontend/coverage
-        token: ${{ secrets.TESTTOKEN }}
+        token: ${{ secrets.COVERAGE_TOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   backend:
@@ -50,7 +50,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         directory: ./backend/coverage
-        token: ${{ secrets.TESTTOKEN }}
+        token: ${{ secrets.COVERAGE_TOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
     
