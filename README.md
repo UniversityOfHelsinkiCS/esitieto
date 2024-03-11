@@ -6,7 +6,7 @@ This project is a web application designed to help students plan their studies b
 
 This project is part of Software engineering course in University of Helsinki (Ohjelmistoprojekti TKT20007)
 
-[Link to the visualization tool](https://kurssiesitieto-staging-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/) (You must be connected to the university network to visit the link.)
+[Link to the visualization tool](https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi/esitieto) (You must be connected to the university network to visit the link.)
 
 # Table of Contents
 - [Prerequisite course visualization tool](#prerequisite-course-visualization-tool)
