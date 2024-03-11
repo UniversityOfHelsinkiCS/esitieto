@@ -40,4 +40,4 @@ const userMiddleware = async (req, _res, next) => {
     return next()
 }
 
-export default userMiddleware
+module.exports = userMiddleware;
