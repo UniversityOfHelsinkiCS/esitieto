@@ -14,7 +14,7 @@ function App() {
   const basePath = process.env.BASE_PATH ? process.env.BASE_PATH: ''
 
   const axiosInstance = axios.create({
-    baseURL:'/esitieto'
+    baseURL: process.env.BASE_PATH
   });
 
   const fetchCourses = async (degree = null) => {
