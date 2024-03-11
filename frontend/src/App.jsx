@@ -11,12 +11,8 @@ import { extractCoursesFromModules } from './utils/CourseExtractor'
 function App() {
   const [courses, setCourses] = useState([]);
 
-  const basePath = process.env.BASE_PATH ? process.env.BASE_PATH: ''
-
-  console.log("basepath:", basePath);
-
   const axiosInstance = axios.create({
-    baseURL: "/esitieto"
+    baseURL: import.meta.env.BASE_URL
   });
 
   const fetchCourses = async (degree = null) => {
