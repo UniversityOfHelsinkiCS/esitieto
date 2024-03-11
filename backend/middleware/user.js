@@ -1,4 +1,3 @@
-import { inDevelopment, inE2EMode } from '../../config'
 
 
 const mockHeaders = {
@@ -15,7 +14,7 @@ const userMiddleware = async (req, _res, next) => {
         return next()
     }
 
-    const headers = inDevelopment || inE2EMode ? mockHeaders : req.headers
+    const headers = req.headers
 
     const {
         uid: username,
