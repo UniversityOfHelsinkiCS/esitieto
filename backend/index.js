@@ -9,6 +9,7 @@ const { executeSchemaFile } = require('./dbStartup');
 const coursesRoutes = require('./routes/coursesRoutes');
 const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
+const userMiddleware = require('./middleware/user')
 
 app.use(express.static('./dist'));
 executeSchemaFile();
@@ -27,9 +28,11 @@ app.get('/api/getCourses', async (req, res) => {
 
 app.use(cors());
 app.use(express.json());
+app.use(userMiddleware)
 app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
+app.use('/kirjauduttu', loginRoutes);
 
 app.use((req, res) => {
   console.log("Attempted access an undefined route: ", req.originalUrl);
