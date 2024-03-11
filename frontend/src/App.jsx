@@ -12,7 +12,7 @@ function App() {
   const [courses, setCourses] = useState([]);
 
   const axiosInstance = axios.create({
-    baseURL: import.meta.env.BASE_URL
+    baseURL: import.meta.env.BASE_URL //import.meta.env.BASE_URL is from vite.config.js. It refers to the base variable it the defineConfig
   });
 
   const fetchCourses = async (degree = null) => {
