@@ -9,7 +9,7 @@ const { executeSchemaFile } = require('./dbStartup');
 const coursesRoutes = require('./routes/coursesRoutes');
 const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
-const koriRoutes = require('./routes/loginRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
 
 app.use(express.static('./dist'));
