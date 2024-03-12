@@ -112,6 +112,7 @@ async function fetchCourseWithPrerequisites(courseKoriName) {
 
   function buildCourseGraph(koriName, coursesMap, visited = new Set()) {
     if (visited.has(koriName)) {
+      // TODO: add dependency for already drawn course
       return null; // Prevent infinite recursion
     }
     visited.add(koriName);
