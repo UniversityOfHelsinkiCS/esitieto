@@ -153,37 +153,44 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
 
+  const CourseGraphPage = () => {
+    <div>
+      <CourseGraph
+        axiosInstance={axiosInstance}
+        courses={courses}
+        onCoursesUpdated={setCoursesData}
+        setSelectedCourseName={setSelectedCourseName}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      <div className="degree-menu-container">
+        <DegreeSelectionMenu
+          onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
+          degree={degree}
+          listOfDegrees={listOfDegrees}
+        />
+      </div>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        closeSidebar={() => setIsSidebarOpen(false)}
+        selectedCourseName={selectedCourseName}
+        axiosInstance={axiosInstance}
+      />
+    </div>
+  }
+
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path='/' element={
-            <div>
-            <CourseGraph
-              axiosInstance={axiosInstance}
-              courses={courses}
-              onCoursesUpdated={setCoursesData}
-              setSelectedCourseName={setSelectedCourseName}
-              setIsSidebarOpen={setIsSidebarOpen}
-            />
-            <div className="degree-menu-container">
-              <DegreeSelectionMenu
-                onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
-                degree={degree}
-                listOfDegrees={listOfDegrees}
-              />
-            </div>
-            <Sidebar
-              isOpen={isSidebarOpen}
-              closeSidebar={() => setIsSidebarOpen(false)}
-              selectedCourseName={selectedCourseName}
-              axiosInstance={axiosInstance}
-            />
-          </div>
-          }/>
-          <Route path='/kirjauduttu' element={<LoginPage />}/>
-        </Routes>
-      </Router>
+      <div>
+        <Link style={padding} to="/kirjauduttu">testi linkki</Link>
+        <Link style={padding} to="/">testi graph</Link>
+      </div>
+      <Routes>
+        <Route path='/' element={<CourseGraphPage />}/>
+        <Route path='/kirjauduttu' element={<LoginPage />}/>
+      </Routes>
+      <div>
+        testi tekstiä
+      </div>
     </div>
   );
 };
