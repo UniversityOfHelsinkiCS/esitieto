@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "NODE_ENV=development concurrently \"nodemon backend/index.js\" \"vite ./frontend\"",
-    "build": "vite build ./frontend --outDir ../backend/dist",
-    "prod": "NODE_ENV=production node backend/index.js",
+    "dev": "concurrently \"nodemon backend/index.js\" \"vite ./frontend\"",
+    "build": "vite build ./frontend --outDir ../dist",
+    "prod": "node backend/index.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "coverage": "jest --coverage"
   },
