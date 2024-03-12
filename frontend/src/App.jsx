@@ -157,7 +157,30 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path='/' element={<CourseGraphPage />}/>
+          <Route path='/' element={
+            <div>
+            <CourseGraph
+              axiosInstance={axiosInstance}
+              courses={courses}
+              onCoursesUpdated={setCoursesData}
+              setSelectedCourseName={setSelectedCourseName}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+            <div className="degree-menu-container">
+              <DegreeSelectionMenu
+                onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
+                degree={degree}
+                listOfDegrees={listOfDegrees}
+              />
+            </div>
+            <Sidebar
+              isOpen={isSidebarOpen}
+              closeSidebar={() => setIsSidebarOpen(false)}
+              selectedCourseName={selectedCourseName}
+              axiosInstance={axiosInstance}
+            />
+          </div>
+          }/>
           <Route path='/kirjauduttu' element={<LoginPage />}/>
         </Routes>
       </Router>
