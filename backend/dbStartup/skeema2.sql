@@ -28,6 +28,7 @@ CREATE TABLE course_degree_relation (
     id SERIAL PRIMARY KEY,
     degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
     course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    relation_type VARCHAR(50) DEFAULT 'compulsory',  --"compulsory", "alternative" or "optional"
     CONSTRAINT no_duplicate_course_degree_relation UNIQUE (degree_id, course_id)
 );
 
