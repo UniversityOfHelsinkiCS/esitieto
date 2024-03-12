@@ -1,22 +1,11 @@
 import { useState, useEffect  } from 'react'
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import CourseGraph from './components/CourseGraph';
 import Sidebar from './components/sidebar';
 import Course from './models/Course'
 import DegreeSelectionMenu from './components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from './utils/CourseExtractor'
-import { loginPage } from './components/loginPage';
-
-
-const Home = () => (
-  <div>
-    <h2>TKTL notes app</h2>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  </div>
-)
-
 
 
 function App() {
@@ -137,7 +126,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
 
-  const CourseGraphPage = () => {
+  return (
     <div>
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -160,27 +149,7 @@ function App() {
         axiosInstance={axiosInstance}
       />
     </div>
-  }
-
-  return (
-    <div>
-      <div>
-        <Link style={padding} to="/kirjauduttu">testi linkki</Link>
-        <Link style={padding} to="/testpath">testi graph</Link>
-      </div>
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/esitieto' element={<Home />}/>
-        <Route path='/testpath' element={<CourseGraphPage />}/>
-        <Route path='/kirjauduttu' element={<LoginPage />}/>
-      </Routes>
-      <div>
-        testi tekstiä
-      </div>
-    </div>
   );
 };
-
-
 
 export default App;
