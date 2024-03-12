@@ -1,7 +1,7 @@
 
 
 //
-export const removeCourse = async (axios) => {
+export const loginFunction = async (axios) => {
 
     await axios.get(`/kirjauduttu`);
 
