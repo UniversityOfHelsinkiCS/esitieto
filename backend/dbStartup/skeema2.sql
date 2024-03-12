@@ -36,6 +36,9 @@ CREATE TABLE prerequisite_courses (
     id SERIAL PRIMARY KEY,
     course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     prerequisite_course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    relation_type VARCHAR(50), 
+    /* "compulsory", "alternative" or "optional. 
+    If left null, it will be based on the type of course degree relation" */
     CONSTRAINT unique_course_prerequisite UNIQUE (course_id, prerequisite_course_id),
     CONSTRAINT no_self_prerequisite CHECK (course_id != prerequisite_course_id)
 );
