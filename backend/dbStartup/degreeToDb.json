@@ -1,0 +1,181 @@
+{
+    "mode": "new",
+    "degreeName": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+    "degreeCode": "kh50_05",
+    "degreeYear": "2023",
+    "courses": [
+        {
+            "courseCode": "TKT10002",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT10003",
+            "prerequisiteCourses": [
+                "TKT10002"
+            ]
+        },
+        {
+            "courseCode": "TKT10004",
+            "prerequisiteCourses": [
+                "TKT10002"
+            ]
+        },
+        {
+            "courseCode": "TKT10006",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT200011",
+            "prerequisiteCourses": [
+                "TKT10003",
+                "MAT11001"
+            ]
+        },
+        {
+            "courseCode": "MAT11001",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT20005",
+            "prerequisiteCourses": [
+                "TKT200011",
+                "TKT200012",
+                "MAT11001"
+            ]
+        },
+        {
+            "courseCode": "TKT20006",
+            "prerequisiteCourses": [
+                "TKT20019"
+            ]
+        },
+        {
+            "courseCode": "TKT20007",
+            "prerequisiteCourses": [
+                "TKT20006",
+                "TKT20010",
+                "TKT20012",
+                "TKT20018"
+            ]
+        },
+        {
+            "courseCode": "TKT20013",
+            "prerequisiteCourses": [
+                "TKT200011",
+                "TKT200012"
+            ]
+        },
+        {
+            "courseCode": "TKT200012",
+            "prerequisiteCourses": [
+                "TKT200011"
+            ]
+        },
+        {
+            "courseCode": "DATA15001",
+            "prerequisiteCourses": [
+                "TKT200011",
+                "MAT12003"
+            ]
+        },
+        {
+            "courseCode": "TKT20016",
+            "prerequisiteCourses": [
+                "TKT10006",
+                "TKT10003",
+                "TKT200011"
+            ]
+        },
+        {
+            "courseCode": "TKT20019",
+            "prerequisiteCourses": [
+                "TKT10003",
+                "TKT10004"
+            ]
+        },
+        {
+            "courseCode": "TKT20009",
+            "prerequisiteCourses": [
+                "TKT10003"
+            ]
+        },
+        {
+            "courseCode": "TKT20015",
+            "prerequisiteCourses": [
+                "TKT10003"
+            ]
+        },
+        {
+            "courseCode": "TKT200151",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT200152",
+            "prerequisiteCourses": [
+                "TKT200151"
+            ]
+        },
+        {
+            "courseCode": "TKT20010",
+            "prerequisiteCourses": [
+                "TKT200011",
+                "TKT200012"
+            ],
+            "courseType": "optional"
+        },
+        {
+            "courseCode": "TKT20012",
+            "prerequisiteCourses": [
+                "TKT10006"
+            ],
+            "courseType": "optional"
+        },
+        {
+            "courseCode": "TKT20018",
+            "prerequisiteCourses": [
+                "TKT10003",
+                "TKT10004",
+                "TKT20019",
+                "TKT500031"
+            ],
+            "courseType": "optional"
+        },
+        {
+            "courseCode": "MAT12001",
+            "prerequisiteCourses": [],
+            "courseType": "optional"
+        },
+        {
+            "courseCode": "MAT12002",
+            "prerequisiteCourses": [],
+            "courseType": "optional"
+        },
+        {
+            "courseCode": "TKT500031",
+            "prerequisiteCourses": []
+        }        
+    ],
+    "modules": [
+        {
+            "moduleName": "Aineopintojen harjoitustyöt",
+            "description": "Valitse 1 kurssi näistä",
+            "courses": [
+                "TKT20010",
+                "TKT20012",
+                "TKT20018"
+            ]
+        },
+        {
+            "moduleName": "Matematiikan tai menetelmätieteiden sivuaineopinnot",
+            "description": "",
+            "courses": [
+                "MAT12001",
+                "MAT12002",
+                "MAT11002",
+                "MAT11009",
+                "MAT12003",
+                "MAT11015"
+            ]
+        }
+    ]
+}
