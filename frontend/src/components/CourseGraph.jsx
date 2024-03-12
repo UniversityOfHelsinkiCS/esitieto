@@ -20,7 +20,7 @@ import {InfoBox} from './InfoBox.jsx'
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
+    const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
     const openInfoBox = () => {
@@ -74,15 +74,35 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
         console.log("Selected course: ", node.data.label);
     };
 
+    const toggleEdit = async () => {
+        if (!editBarState) {
+            setEditBarState(true)
+        }
+        else {
+            setEditBarState(false)
+        }
+    }
+
+    const EditBar = () => {
+        if (editBarState===true) {
+            return (
+                <div className='editbar-container'>
+                <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
+                <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
+                <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
+                <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
+                <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
+                <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
+                <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className='reactflow-wrapper'>
-            <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
-            <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
-            <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
-            <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
-            <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
-            <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
-            <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
+            <button onClick={() => toggleEdit()}>Edit</button>
+            <EditBar state = {editBarState} />
             <button onClick={openInfoBox}>Info</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
 
