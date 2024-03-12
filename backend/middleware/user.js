@@ -10,11 +10,11 @@ const mockHeaders = {
 
 const userMiddleware = async (req, _res, next) => {
 
+    const headers = req.headers
+
     if (headers.uid == null) {
         return next()
     }
-
-    const headers = req.headers
 
     const {
         uid: username,
