@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   handleFetchKORIByName,
   handleFetchKORICourseInfo,
-} from './CourseFunctions';
+} from '../functions/CourseFunctions';
 import CourseDescription from './CourseDescription';
 import '../styles/sidebar.css';
 import { Button, IconButton } from '@mui/material';
