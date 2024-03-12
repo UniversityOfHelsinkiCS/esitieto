@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {loginFunction} from './loginFunction';
+import {loginFunction} from './loginFunctions';
 
 
 const LoginPage = () => {
