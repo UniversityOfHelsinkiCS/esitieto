@@ -76,17 +76,17 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
 
     const toggleEdit = async () => {
         if (!editBarState) {
-            setEditBarState(true)
+            setEditBarState(true);
         }
         else {
-            setEditBarState(false)
+            setEditBarState(false);
         }
     }
 
     const EditBar = () => {
         if (editBarState===true) {
             return (
-                <div className='editbar-container'>
+                <div>
                 <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
                 <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
                 <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
@@ -101,9 +101,9 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
 
     return (
         <div className='reactflow-wrapper'>
-            <button onClick={() => toggleEdit()}>Edit</button>
             <EditBar state = {editBarState} />
             <button onClick={openInfoBox}>Info</button>
+            <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
 
             <CustomEdge />
