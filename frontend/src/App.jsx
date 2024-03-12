@@ -1,12 +1,39 @@
 import { useState, useEffect  } from 'react'
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import CourseGraph from './components/CourseGraph';
 import Sidebar from './components/sidebar';
 import Course from './models/Course'
 import DegreeSelectionMenu from './components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from './utils/CourseExtractor'
+import { loginPage } from './components/loginPage';
 
+
+const CourseGraphPage = () => {
+  <div>
+    <CourseGraph
+      axiosInstance={axiosInstance}
+      courses={courses}
+      onCoursesUpdated={setCoursesData}
+      setSelectedCourseName={setSelectedCourseName}
+      setIsSidebarOpen={setIsSidebarOpen}
+    />
+    <div className="degree-menu-container">
+      <DegreeSelectionMenu
+        onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
+        degree={degree}
+        listOfDegrees={listOfDegrees}
+      />
+    </div>
+    <Sidebar
+      isOpen={isSidebarOpen}
+      closeSidebar={() => setIsSidebarOpen(false)}
+      selectedCourseName={selectedCourseName}
+      axiosInstance={axiosInstance}
+    />
+  </div>
+}
 
 function App() {
   const [courses, setCourses] = useState([]);
@@ -126,31 +153,18 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
 
-
-return (
-  <div>
-  <CourseGraph
-    axiosInstance={axiosInstance}
-    courses={courses}
-    onCoursesUpdated={setCoursesData}
-    setSelectedCourseName={setSelectedCourseName}
-    setIsSidebarOpen={setIsSidebarOpen}
-  />
-  <div className="degree-menu-container">
-    <DegreeSelectionMenu
-      onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
-      degree={degree}
-      listOfDegrees={listOfDegrees}
-    />
-  </div>
-  <Sidebar
-    isOpen={isSidebarOpen}
-    closeSidebar={() => setIsSidebarOpen(false)}
-    selectedCourseName={selectedCourseName}
-    axiosInstance={axiosInstance}
-  />
-</div>
-);
+  return (
+    <div>
+      <Router>
+        <Routes>
+          <Route path='/' element={<CourseGraphPage />}/>
+          <Route path='/kirjauduttu' element={<LoginPage />}/>
+        </Routes>
+      </Router>
+    </div>
+  );
 };
+
+
 
 export default App;

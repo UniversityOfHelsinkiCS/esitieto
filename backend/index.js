@@ -33,7 +33,6 @@ app.use(userMiddleware)
 app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
-app.use('/kirjauduttu', loginRoutes);
 
 app.use((req, res) => {
   console.log("Attempted access an undefined route: ", req.originalUrl);

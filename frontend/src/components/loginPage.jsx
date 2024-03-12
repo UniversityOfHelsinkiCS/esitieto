@@ -3,7 +3,7 @@ import React from 'react';
 import {loginFunction} from './loginFunction';
 
 
-const CenteredTextPage = () => {
+const LoginPage = () => {
   return (
     <div>
       <button onClick={() =>
@@ -13,4 +13,4 @@ const CenteredTextPage = () => {
   );
 };
 
-export default CenteredTextPage;
+export default LoginPage;
