@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express')
 const cors = require('cors');
+const morgan = require('morgan');
+
 const app = express()
 const PORT = 3001; //process.env.PORT || 3001; adjust port later from .env, probably using dotenv
 //const { getCourses } = require('./database.js');
@@ -15,7 +17,11 @@ const userMiddleware = require('./middleware/user');
 app.use(express.static('./dist'));
 executeSchemaFile();
 
-// Temporary function for testing out that the database should work, to be removed later!
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(userMiddleware)
+
 app.get('/api/getCourses', async (req, res) => {
   try {
     const courses = await getCourses();
@@ -27,9 +33,6 @@ app.get('/api/getCourses', async (req, res) => {
   }
 });
 
-app.use(cors());
-app.use(express.json());
-app.use(userMiddleware)
 app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
