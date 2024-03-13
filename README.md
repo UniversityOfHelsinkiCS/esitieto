@@ -38,22 +38,22 @@ git clone git@github.com:Kurssiesitieto/kurssiesitieto-ohtuprojekti.git
 Run the following command in root directory:
 
 ```bash
-npm run install:both
+npm install
 ```
 Installs the required dependencies on both frontend and backend
 
 ### Running the program locally
 
-Temporary solution for running the program locally:
+Running the program in development mode:
 
 ```bash
-npm run setup-and-run
+npm run dev 
 ```
-
-Windows version
+To run the program in production mode, you need to execute the following two commands:
 
 ```bash
-npm run setup-and-run-windows
+npm run build 
+npm run prod
 ```
 
 Runs the app on http://localhost:3001/
