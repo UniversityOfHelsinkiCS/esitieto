@@ -14,7 +14,7 @@ import {
     addCourse, removeCourse, handleSearch, // Courses from database
     handleAddDependency, handleRemoveDependency, // Dependencies from database
     handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
-} from './CourseFunctions';
+} from '../functions/CourseFunctions.jsx';
 import {InfoBox} from './InfoBox.jsx'
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
