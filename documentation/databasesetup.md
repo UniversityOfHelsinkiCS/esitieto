@@ -40,13 +40,9 @@ output:
 
 # Setting up the backend for the database
 
-## Create an .env file into the backend, it should contain the following:
+## Create an .env file into the project root:
 
-- POSTGRES_USER=postgres (this is the default username postgres has, but if you have different one change it)
-- POSTGRES_PASSWORD=yourpassword
-- DATABASE_HOST=localhost
-- DATABASE_PORT=port (default is 5432)
-- DATABASE_NAME=local_database (this is what I use, if you name your database differently change it accordingly)
+Guide for setting up .env file can be found [here](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md)
 
 ## Check that the backend can reach the database
 
