@@ -16,5 +16,5 @@
 
 ## Optional development related .env variables:
 
-- LOGGING_LEVEL = error/warn/info/verbose/debug
+- LOGGING_LEVEL = error/warn/info/verbose/debug # The default value is 'debug'
   - Purpose: This affects what information is logged on the backend console. The option you choose will be displayed and all those on the left side of it (e.g. if set to 'verbose', then debug messages are not displayed.)
