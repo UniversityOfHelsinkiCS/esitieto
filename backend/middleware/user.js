@@ -9,12 +9,19 @@ const mockHeaders = {
 }
 
 const userMiddleware = async (req, _res, next) => {
-
+    console.log("userMiddleware");
+    console.log("req.kirjauduttu: ", req.kirjauduttu);
     const headers = req.headers
 
     if (headers.uid == null) {
+        headers.kirjauduttu = false;
+        headers.kirjauduttu = false;
+
         return next()
     }
+    headers.kirjauduttu = true;
+    headers.kirjauduttu = true;
+
 
     const {
         uid: username,
