@@ -1,15 +1,21 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom';
 
-import {loginFunction} from '../functions/loginFunctions';
 
 
-const LoginPage = () => {
+const LoginPage = async ({axiosInstance}) => {
+
   return (
-    <div>
-      <button onClick={() =>
-        loginFunction()
-    }>redirect</button>
-    </div>
+    <Router>
+      <div>
+        Checking login status
+        {await axiosInstance.get("/api/kirjauduttu") ? <Redirect to="/" /> : <LoginPage />}
+      </div>
+
+    </Router>
   );
 };
 
