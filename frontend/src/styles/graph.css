@@ -6,3 +6,16 @@
     bottom: 0;
     background-color: rgb(41, 41, 41);
 }
+
+.info {
+  position: absolute;
+  top: 0;
+  left: 120px;
+  z-index: 99;  
+}
+.edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
