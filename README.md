@@ -9,13 +9,14 @@ This project is part of Software engineering course in University of Helsinki (O
 [Link to the visualization tool](https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi/esitieto) (You must be connected to the university network to visit the link.)
 
 # Table of Contents
-- [Prerequisite course visualization tool](#prerequisite-course-visualization-tool)
+- [Prerequisite course visualization tool](#course-prerequisite-visualization-tool)
 - [Table of Contents](#table-of-contents)
 - [Documentation](#documentation)
 - [Project links](#project-links)
 - [Quickstart](#quickstart)
   - [Downloading](#downloading)
   - [Installation](#installation)
+  - [Setting up env](#setting-up-env)
   - [Running the program locally](#running-the-program-locally)
 
 # Documentation
@@ -41,6 +42,10 @@ Run the following command in root directory:
 npm install
 ```
 Installs the required dependencies on both frontend and backend
+
+### Setting up .env
+
+Set up .env file in project root. Follow [this](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md) guide for the required variables.
 
 ### Running the program locally
 
