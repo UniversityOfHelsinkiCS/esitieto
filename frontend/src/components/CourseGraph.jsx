@@ -102,7 +102,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     return (
         <div className='reactflow-wrapper'>
             <EditBar state = {editBarState} />
-            <button onClick={openInfoBox}>Info</button>
+            <button onClick={openInfoBox} className='info'>Info</button>
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
 

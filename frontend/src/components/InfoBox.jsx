@@ -1,4 +1,4 @@
-import './InfoBox.css'
+import '../styles/InfoBox.css'
 export function InfoBox({ isOpen, onClose }) {
     if (!isOpen) {
         return null;

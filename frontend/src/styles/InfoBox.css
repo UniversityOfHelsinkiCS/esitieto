@@ -1,0 +1,28 @@
+.info-window {
+  position: fixed; /* Position the window relative to the viewport */
+  text-align: center; /* Center the text horizontally */
+  justify-content: center; /* Center the content horizontally within its container */
+  left: 50%; /* Position the left edge at 50% of the viewport width */
+  top: 50%; /* Position the top edge at 50% of the viewport height */
+  transform: translate(-50%, -50%); /* Move the box back by half of its own width and height */
+  z-index: 1000; /* High z-index to ensure it's on top of other elements */
+  width: 25%; /* Adjust the width to fit the content */
+  background-color: var(--bg-color, white); /* Default background color with fallback to white */
+  color: var(--text-color, black); /* Default text color with fallback to black */
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  .info-window {
+    --bg-color: black; /* Dark background color */
+    --text-color: white; /* Light text color */
+  }
+}
+
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  .info-window {
+    --bg-color: white; /* Light background color */
+    --text-color: black; /* Dark text color */
+  }
+}

@@ -10,7 +10,7 @@
 .info {
   position: absolute;
   top: 0;
-  left: 120px;
+  right: 70px;
   z-index: 99;  
 }
 .edit {
