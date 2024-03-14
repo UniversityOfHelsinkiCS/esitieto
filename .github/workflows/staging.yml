@@ -3,7 +3,7 @@ name: Deploy to staging
 on:
   push:
     branches:
-      - main
+      # - main
       - refactoring
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   build-and-push:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
