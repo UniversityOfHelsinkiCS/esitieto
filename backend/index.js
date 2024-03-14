@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express')
 const cors = require('cors');
 const morgan = require('morgan');
+const logger = require('./middleware/logger');
+
 
 const app = express()
 const PORT = 3001; //process.env.PORT || 3001; adjust port later from .env, probably using dotenv
@@ -38,12 +40,12 @@ app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
 
 app.use((req, res) => {
-  console.log("Attempted access an undefined route: ", req.originalUrl);
+  logger.warn(`Attempted access an undefined route: ${req.originalUrl}`);
   res.status(404).send('Route does not exist.');
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.verbose(`Server running on port ${PORT}`);
 });
 
 

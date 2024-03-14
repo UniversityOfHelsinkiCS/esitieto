@@ -4,6 +4,7 @@ const { getCourses, addCourse, deleteCourse, updateCourse,
   addPrerequisiteCourse, removePrerequisiteCourse,
   fetchCourseWithPrerequisites,
   getAllCoursesWithPrerequisites } = require('../db');
+const logger = require('../middleware/logger');
 
 
 // TO BE DEPRECATED
@@ -38,15 +39,15 @@ function asyncHandler(fn) {
 
 router.get('/databaseGetCourses', asyncHandler(async (req, res) => {
   const courses = await getCourses();
-  console.log("Courses from database", courses);
+  logger.debug("Courses from database", courses);
   res.json(courses);
 }));
 
 router.post('/databaseCreateCourse', asyncHandler(async (req, res) => {
-  console.log("Received request body:", req.body);
+  logger.debug("Received request body:", req.body);
   const { official_course_id, course_name, kori_name } = req.body;
   const newCourse = await addCourse(official_course_id, course_name, kori_name);
-  console.log("Adding course", newCourse);
+  logger.debug("Adding course", newCourse);
   res.json(newCourse);
 }));
 
@@ -73,7 +74,7 @@ router.put('/databaseUpdateCourse/:id', asyncHandler(async (req, res) => {
 router.post('/addPrerequisiteCourse', asyncHandler(async (req, res) => {
   const { course_kori_name, prerequisite_course_kori_name } = req.body;
   const newPrerequisite = await addPrerequisiteCourse(course_kori_name, prerequisite_course_kori_name);
-  console.log("Added new prerequisite course relation", newPrerequisite);
+  logger.debug("Added new prerequisite course relation", newPrerequisite);
   res.json(newPrerequisite);
 }));
 
@@ -88,10 +89,9 @@ router.delete('/removePrerequisiteCourse', asyncHandler(async (req, res) => {
 router.get('/getCourseWithPrerequisites/:course_kori_name', asyncHandler(async (req, res) => {
   const { course_kori_name } = req.params;
   const courseGraph = await fetchCourseWithPrerequisites(course_kori_name);
-  console.log("------------------------------");
 
   if (courseGraph) {
-    console.log("Course and its prerequisites:", courseGraph);
+    logger.debug("Course and its prerequisites:", courseGraph);
     res.json(courseGraph);
   } else {
     res.status(404).send({ message: 'Course not found or it has no prerequisites.' });

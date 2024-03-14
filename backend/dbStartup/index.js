@@ -1,23 +1,20 @@
 require('dotenv').config();
+const logger = require('../middleware/logger');
 
-// Leaving here if some of you need to debug something
-//console.log('POSTGRES_USER:', process.env.POSTGRES_USER);
-//console.log('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD);
-console.log('DATABASE_HOST:', process.env.DATABASE_HOST);
-console.log('DATABASE_PORT:', process.env.DATABASE_PORT);
-console.log('DATABASE_NAME:', process.env.DATABASE_NAME);
-
+logger.info(`DATABASE_HOST: ${process.env.DATABASE_HOST}`);
+logger.info(`DATABASE_PORT: ${process.env.DATABASE_PORT}`);
+logger.info(`DATABASE_NAME: ${process.env.DATABASE_NAME}`);
 
 const { Pool } = require('pg')
 
 const selectPool = () => {
   if (process.env.DATABASE_POOLMODE === "direct") {
-    console.log("Using direct DATABASE_POOLMODE")
+    logger.info("Using direct DATABASE_POOLMODE")
     return new Pool({
       connectionString: process.env.DATABASE_DIRECT
     });
   } else {
-    console.log("Using default DATABASE_POOLMODE")
+    logger.info("Using default DATABASE_POOLMODE")
     return new Pool({
       user: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
@@ -36,7 +33,7 @@ const executeSchemaFile = async () => {
   const schemaPath = path.join(__dirname, 'schema.sql');
   const schema = fs.readFileSync(schemaPath, 'utf8');
   await pool.query(schema);
-  console.log('Schema file executed');
+  logger.info('Schema file executed');
 };
 
 module.exports = {
