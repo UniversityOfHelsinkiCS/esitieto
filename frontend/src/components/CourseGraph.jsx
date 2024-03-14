@@ -16,6 +16,7 @@ import {
     handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from '../functions/CourseFunctions.jsx';
 import {InfoBox} from './InfoBox.jsx'
+import {SearchBar} from './SearchBar.jsx';
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -105,6 +106,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <button onClick={openInfoBox} className='info'>Info</button>
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
+            <SearchBar/>
 
             <CustomEdge />
             <ReactFlow

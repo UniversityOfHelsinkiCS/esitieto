@@ -1,7 +1,3 @@
-:root {
-    color-scheme: light dark;
-  }
-
 @media screen and (prefers-color-scheme:dark) {
     .sidebar {
     --text_color: #d3d3d3;
