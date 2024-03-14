@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes, Route, Link
@@ -6,16 +6,30 @@ import {
 
 
 
-const LoginPage = async ({axiosInstance}) => {
+const LoginPage = ({ axiosInstance }) => {
+  const [loginStatus, setLoginStatus] = useState(false);
 
+  useEffect(() => {
+    const fetchLoginStatus = async () => {
+      try {
+        const loginStatusRequest = await axiosInstance.get("/api/kirjauduttu");
+        setLoginStatus(loginStatusRequest.data);
+      } catch (error) {
+        // Handle error
+        console.error("Error fetching login status:", error);
+      }
+    }
+
+    fetchLoginStatus();
+}, [axiosInstance]);
+  
+  console.log(loginStatus);
   return (
-    <Router>
-      <div>
-        Checking login status
-        {await axiosInstance.get("/api/kirjauduttu") ? <Redirect to="/" /> : <LoginPage />}
-      </div>
-
-    </Router>
+      <Link to="/">
+        <button type="button">
+          Redirect
+        </button>
+      </Link>
   );
 };
 
