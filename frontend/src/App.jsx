@@ -21,8 +21,8 @@ function App() {
   return (
     <Router forceRefresh={true}>
       <Routes>
-        <Route path="/kirjautuminen" element={<LoginPage axiosInstance={axiosInstance}/>} />
-        <Route path="/" element={<MainPage axiosInstance={axiosInstance} />} />
+        <Route path="/esitieto/kirjautuminen" element={<LoginPage axiosInstance={axiosInstance}/>} />
+        <Route path="/esitieto" element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
 
