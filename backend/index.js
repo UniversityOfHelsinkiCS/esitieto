@@ -13,7 +13,6 @@ const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
-const startUpMiddleware = require('./middleware/startUp');
 
 app.use(express.static('./dist'));
 executeSchemaFile();
@@ -21,7 +20,6 @@ executeSchemaFile();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(startUpMiddleware(true));
 app.use(userMiddleware)
 
 app.get('/api/getCourses', async (req, res) => {

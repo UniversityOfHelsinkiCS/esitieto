@@ -1,4 +1,7 @@
+const parseIamGroups = (iamGroups) =>
+  iamGroups?.split(';').filter(Boolean) ?? []
 
+const checkAdmin = (iamGroups) => iamGroups.includes('grp-toska')
 
 const mockHeaders = {
     uid: 'testUser',
@@ -9,18 +12,14 @@ const mockHeaders = {
 }
 
 const userMiddleware = async (req, _res, next) => {
-    console.log("userMiddleware");
-    console.log("req.kirjauduttu: ", req.kirjauduttu);
-    const headers = req.headers
+    const headers = process.env.NODE_ENV === 'production' ? req.headers : mockHeaders
 
     if (headers.uid == null) {
-        headers.kirjauduttu = false;
-        headers.kirjauduttu = false;
+        req.kirjauduttu = false;
 
         return next()
     }
-    headers.kirjauduttu = true;
-    headers.kirjauduttu = true;
+    req.kirjauduttu = true;
 
 
     const {
