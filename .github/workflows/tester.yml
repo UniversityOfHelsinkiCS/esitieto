@@ -15,11 +15,10 @@ jobs:
       uses: actions/setup-node@v4
 
 
-    - name: Install Frontend Dependencies
+    - name: Install Dependencies
       run: npm install
-      working-directory: ./frontend
 
-    - name: Run Frontend Tests
+    - name: Run Tests
       run: npx jest --coverage
 
     - name: Upload frontend coverage reports to Codecov
