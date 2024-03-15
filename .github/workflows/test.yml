@@ -49,5 +49,22 @@ jobs:
         token: ${{ secrets.COVERAGE_TOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with: 
+          Eslint: true
+      
+
     
 

@@ -7,7 +7,7 @@
     "dev": "concurrently \"nodemon backend/index.js\" \"vite ./frontend\"",
     "build": "vite build ./frontend --outDir ../dist",
     "prod": "node backend/index.js",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js",
     "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js"
     
