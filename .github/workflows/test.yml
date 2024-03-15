@@ -19,7 +19,7 @@ jobs:
       run: npm install
 
     - name: Run Frontend Tests
-      run: npx jest --coverage:frontend
+      run: npm run coverage:frontend
 
     - name: Upload frontend coverage reports to Codecov
       uses: codecov/codecov-action@v3
@@ -40,7 +40,7 @@ jobs:
       run: npm install
     
     - name: Run Backend Tests
-      run: npx jest --coverage:backend
+      run: npm run coverage:backend
 
     - name: Upload backend coverage reports to Codecov
       uses: codecov/codecov-action@v3
