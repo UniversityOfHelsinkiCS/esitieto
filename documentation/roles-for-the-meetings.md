@@ -22,3 +22,9 @@
 - **Puheenjohtaja:** Alisa
 - **Demoaja:** Alisa
 - **Kirjuri:** Lassi
+
+## Sprint 4 Tapaaminen
+
+- **Puheenjohtaja:** Pooki
+- **Demoaja:** Pooki
+- **Kirjuri:** Alisa
