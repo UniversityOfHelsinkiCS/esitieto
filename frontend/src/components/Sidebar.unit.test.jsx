@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Sidebar from './sidebar'; 
-import * as CourseFunctions from './CourseFunctions';
+import * as CourseFunctions from '../functions/CourseFunctions';
 
 jest.mock('./CourseFunctions', () => ({
   handleFetchKORIByName: jest.fn(),
