@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes, Route, Link
-} from 'react-router-dom';
-
-
+import { Link } from 'react-router-dom';
 
 const LoginPage = ({ axiosInstance }) => {
   const [loginStatus, setLoginStatus] = useState(false);
@@ -25,7 +20,7 @@ const LoginPage = ({ axiosInstance }) => {
   
   console.log(loginStatus);
   return (
-      <Link to="/esitieto">
+      <Link to={import.meta.env.BASE_URL}>
         <button type="button">
           Redirect
         </button>

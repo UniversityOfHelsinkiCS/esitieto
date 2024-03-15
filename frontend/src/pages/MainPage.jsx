@@ -1,9 +1,8 @@
 import { useState, useEffect  } from 'react'
-import axios from 'axios';
-import CourseGraph from './CourseGraph';
-import Sidebar from './sidebar';
+import CourseGraph from '../components/CourseGraph';
+import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
-import DegreeSelectionMenu from './DegreeSelectionMenu';
+import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from '../utils/CourseExtractor'
 
 

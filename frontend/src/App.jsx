@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
+
 import './App.css'
-import LoginPage from './components/loginPage';
+
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+
 import {
   BrowserRouter as Router,
-  Routes, Route, Link
+  Routes, Route
 } from 'react-router-dom';
-import MainPage from './components/MainPage';
 
 
 function App() {
@@ -21,8 +24,8 @@ function App() {
   return (
     <Router forceRefresh={true}>
       <Routes>
-        <Route path="/esitieto/kirjautuminen" element={<LoginPage axiosInstance={axiosInstance}/>} />
-        <Route path="/esitieto" element={<MainPage axiosInstance={axiosInstance} />} />
+        <Route path={import.meta.env.BASE_URL + "/kirjautuminen"} element={<LoginPage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL} element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
 
