@@ -25,7 +25,7 @@ const LoginPage = ({ axiosInstance }) => {
   
   console.log(loginStatus);
   return (
-      <Link to="/">
+      <Link to="/esitieto">
         <button type="button">
           Redirect
         </button>
