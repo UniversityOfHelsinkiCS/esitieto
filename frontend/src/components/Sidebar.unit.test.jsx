@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import Sidebar from './sidebar'; 
 import * as CourseFunctions from '../functions/CourseFunctions';
 
-jest.mock('./CourseFunctions', () => ({
+jest.mock('../functions/CourseFunctions', () => ({
   handleFetchKORIByName: jest.fn(),
   handleFetchKORICourseInfo: jest.fn(),
 }));
