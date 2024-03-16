@@ -11,7 +11,7 @@ import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
 import {
-    addCourse, removeCourse, handleSearch, // Courses from database
+    addCourse, removeCourse, // Courses from database
     handleAddDependency, handleRemoveDependency, // Dependencies from database
     handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from '../functions/CourseFunctions.jsx';
@@ -87,13 +87,12 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     const EditBar = () => {
         if (editBarState===true) {
             return (
-                <div>
+                <div className='edit-buttons'>
                 <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
                 <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
                 <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
                 <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
                 <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
-                <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
                 <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
                 </div>
             )

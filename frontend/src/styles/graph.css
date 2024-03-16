@@ -11,5 +11,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: ;
+    z-index: 100;
+}
+
+.edit-buttons {
+    position: absolute;
+    margin-left: 30%;
 }

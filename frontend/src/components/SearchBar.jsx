@@ -29,7 +29,8 @@ export const SearchBar = (props) => {
         <form onSubmit={handleSubmit}>
         <TextField
             id="input-with-icon-textfield"
-            style={{background: "rgb(105,105,105)"}} variant='standard'
+            style={{background: "rgb(105,105,105)"}} 
+            variant='standard'
             placeholder="   Search course..."
             onKeyDown={handleKeyDown}
             onChange={handleChange}
