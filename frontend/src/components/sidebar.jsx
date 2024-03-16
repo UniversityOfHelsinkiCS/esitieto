@@ -116,8 +116,8 @@ const Sidebar = ({
       <h3>{selectedCourseName}</h3>
       <div className="suoritusaika">
         <h4>Suoritusaika</h4>
-        <IconButton aria-label="info">
-          <InfoIcon onClick={() => handleInfoClick()}/>
+        <IconButton aria-label="info" onClick={() => handleInfoClick()}>
+          <InfoIcon/>
         </IconButton>
       </div>
       <ul>

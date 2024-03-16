@@ -23,8 +23,9 @@ export const removeCourse = async (axios, onCoursesUpdated) => {
 };
 
 // Fetch a course and it's dependencies from database
-export const handleSearch = async (axios, onCoursesUpdated) => {
-    const kori_name = prompt("Enter Kori name to search for its prerequisites:");
+// Changed kori_name to come from searchbar search
+export const handleSearch = async (axios, onCoursesUpdated, kori_name) => {
+    //const kori_name = prompt("Enter Kori name to search for its prerequisites:");
     if (!kori_name) return;
 
     try {
