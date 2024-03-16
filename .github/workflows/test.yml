@@ -60,10 +60,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with: 
-          Eslint: true
+      - name: Run eslint
+        run: npm run lint
       
 
     
