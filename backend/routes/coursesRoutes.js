@@ -79,8 +79,8 @@ router.post('/addPrerequisiteCourse', asyncHandler(async (req, res) => {
 }));
 
 router.delete('/removePrerequisiteCourse', asyncHandler(async (req, res) => {
-  const { course_kori_name, prerequisite_course_kori_name } = req.body;
-  await removePrerequisiteCourse(course_kori_name, prerequisite_course_kori_name);
+  const { course_hy_id, prerequisite_course_hy_id } = req.body;
+  await removePrerequisiteCourse(course_hy_id, prerequisite_course_hy_id);
   res.send({ message: 'Prerequisite course relation removed successfully' });
 }));
 

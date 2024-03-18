@@ -1,23 +1,26 @@
 require('dotenv').config();
-
+const logger = require('../middleware/logger');
 // Leaving here if some of you need to debug something
-//console.log('POSTGRES_USER:', process.env.POSTGRES_USER);
-//console.log('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD);
-console.log('DATABASE_HOST:', process.env.DATABASE_HOST);
-console.log('DATABASE_PORT:', process.env.DATABASE_PORT);
-console.log('DATABASE_NAME:', process.env.DATABASE_NAME);
+//logger.info('POSTGRES_USER:', process.env.POSTGRES_USER);
+//logger.info('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD);
+logger.info(`DATABASE_HOST: ${process.env.DATABASE_HOST}`);
+logger.info(`DATABASE_PORT: ${process.env.DATABASE_PORT}`);
+logger.info(`DATABASE_NAME: ${process.env.DATABASE_NAME}`);
+const KoriInterface = require('../interfaces/koriInterface');
 
 
-const { Pool } = require('pg')
+const { Pool } = require('pg');
+const { add } = require('winston');
+const kori = new KoriInterface();
 
 const selectPool = () => {
   if (process.env.DATABASE_POOLMODE === "direct") {
-    console.log("Using direct DATABASE_POOLMODE")
+    logger.info("Using direct DATABASE_POOLMODE")
     return new Pool({
       connectionString: process.env.DATABASE_DIRECT
     });
   } else {
-    console.log("Using default DATABASE_POOLMODE")
+    logger.info("Using default DATABASE_POOLMODE")
     return new Pool({
       user: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
@@ -33,7 +36,7 @@ const pool = selectPool();
 const testDatabaseConnection = async () => {
   try {
     const response = await pool.query('SELECT NOW()');
-    console.log('Successful database connection primary. Current time from DB:', response.rows[0].now);
+    logger.info('Successful database connection primary. Current time from DB:', response.rows[0].now);
   } catch (error) {
     console.error('Failed to connect to the database:', error);
   }
@@ -43,13 +46,81 @@ testDatabaseConnection();
 
 // Course CRUD
 
-const addCourse = async (official_course_id, course_name, kori_name) => {
-  const { rows } = await pool.query(
-    'INSERT INTO course_info (official_course_id, course_name, kori_name) VALUES ($1, $2, $3) RETURNING *',
-    [official_course_id, course_name, kori_name]
-  );
-  return rows[0];
+const addCourse = async (addedCourse) => {
+  const response = await kori.searchCourses(addedCourse);
+  const exactMatch = response.searchResults.find(course => course.name === addedCourse || course.code === addedCourse);
+  if (!exactMatch) {
+    console.error(`No exact match found for course ${addedCourse}`);
+    return;
+  }
+  const { name, groupId, code } = exactMatch; 
+  const detailString = `('${groupId}', '${name}', '${code}')`;
+
+  try {
+    const { rows } = await pool.query(
+      `INSERT INTO courses (kori_id, course_name, hy_course_id)
+      SELECT $1, $2, $3
+      ON CONFLICT (kori_id) DO NOTHING
+      RETURNING *`,
+      [groupId, name, code]
+    );
+    if (rows.length === 0) {
+      logger.debug(`Course ${addedCourse} already exists in the database.`);
+      return;
+    }
+    return rows[0];
+  } catch (err) {
+    console.error(`Error adding course ${addedCourse} to the database: \n`);
+  }
 };
+
+const addManyCourses = async (listOfCourses) => {
+  /*
+  Accepts a list of courses objects and adds them to the database.
+
+  Works with exact matches of HY course id and course name. 
+  
+  Note: Course names might not be unique, but the course ids are.
+  */
+  await Promise.all(listOfCourses.map(async course => {
+    await addCourse(course);
+  }))};
+
+
+const addManyPrequisiteCourses = async (listOfPrerequisites) => {
+  /* Accepts list of objects that represents a course and its prerequisites.
+
+  The expected format for the prerequisite object is for example:
+  [
+    {
+      course: 'TKT20018',
+      prerequisiteCourse: 'TKT10003',
+      relationType: 'optional'
+    },
+    {
+      course: 'TKT20018',
+      prerequisiteCourse: 'TKT10004',
+      relationType: 'optional'
+    },
+  ]
+  */
+
+  for (const prerequisite of listOfPrerequisites) {
+    const { course, prerequisiteCourse, relationType } = prerequisite;
+    try {
+      const result = await addPrerequisiteCourse(course, prerequisiteCourse, relationType);
+      if (result) {
+        logger.info(`Prerequisite for course ${course} with prerequisite ${prerequisiteCourse} of type '${relationType}' successfully added to the database.`);
+      } else {
+        logger.debug(`No new prerequisite relation added for course ${course} with prerequisite ${prerequisiteCourse}. It might already exist.`);
+      }
+    } catch (err) {
+      logger.error(`Error adding prerequisite for course ${course} with prerequisite ${prerequisiteCourse} to the database:`, err);
+    }
+  }
+};
+
+
 
 const updateCourse = async (id, official_course_id, course_name, kori_name) => {
   const { rows } = await pool.query(
@@ -72,32 +143,39 @@ const getCourses = async () => {
 
 // Dependency
 
-const addPrerequisiteCourse = async (course_kori_name, prerequisite_course_kori_name) => {
+const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id, relation_type) => {
+  const query = `
+  INSERT INTO prerequisite_courses (course_id, prerequisite_course_id, relation_type)
+  SELECT c1.id, c2.id, $3
+  FROM (SELECT id FROM courses WHERE hy_course_id = $1) AS c1, 
+       (SELECT id FROM courses WHERE hy_course_id = $2) AS c2
+  ON CONFLICT ON CONSTRAINT unique_course_prerequisite DO NOTHING
+  RETURNING *`;
   const { rows } = await pool.query(
-    `INSERT INTO prerequisite_course_relation (course_kori_name, prerequisite_course_kori_name)
-     VALUES ($1, $2) RETURNING *`,
-    [course_kori_name, prerequisite_course_kori_name]
+    query,
+    [course_hy_id, prerequisite_course_hy_id, relation_type]
   );
   return rows[0];
 };
 
-const removePrerequisiteCourse = async (course_kori_name, prerequisite_course_kori_name) => {
-  // Additional logic to prevent deletion if course_kori_name equals prerequisite_course_kori_name
-  if (course_kori_name === prerequisite_course_kori_name) {
-    console.error("Cannot remove a course as its own prerequisite.");
-    return; // Exit the function or handle the error appropriately
-  }
 
+// Frontend is not fixed for this yet
+const removePrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) => {
+  /* 
+  Receives args course_id and prerequisite_course_id and removes the relation from the database. 
+  The id's are like TKT10001, TKT10002 etc.
+  */
   const { rowCount } = await pool.query(
-    `DELETE FROM prerequisite_course_relation
-     WHERE course_kori_name = $1 AND prerequisite_course_kori_name = $2`,
-    [course_kori_name, prerequisite_course_kori_name]
+    `DELETE FROM prerequisite_courses
+    WHERE course_id = (SELECT id FROM courses WHERE courses.hy_course_id = $1) AND 
+          prerequisite_course_id = (SELECT id FROM courses WHERE courses.hy_course_id = $2)`,
+    [course_hy_id, prerequisite_course_hy_id]
   );
 
   if (rowCount === 0) {
-    console.error("No prerequisite was removed. Check if the specified relation exists.");
+    logger.error("No prerequisite was removed. Check if the specified relation exists.");
   } else {
-    console.log("Prerequisite removed successfully.");
+    logger.info("Prerequisite removed successfully.");
   }
 };
 
@@ -160,9 +238,6 @@ async function fetchCourseWithPrerequisites(courseKoriName) {
   return transformGraphToArray(courseGraph);
 }
 
-
-
-
 async function fetchAllCoursesWithDirectPrerequisites() {
   const { rows } = await pool.query(`
     SELECT
@@ -209,6 +284,8 @@ module.exports = {
   removePrerequisiteCourse,
   getCourses,
   addCourse,
+  addManyCourses,
+  addManyPrequisiteCourses,
   updateCourse,
   deleteCourse,
   endDatabase: async () => {

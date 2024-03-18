@@ -2,6 +2,6 @@ DELETE http://localhost:3001/api/courses/removePrerequisiteCourse
 Content-Type: application/json
 
 {
-    "course_kori_name": "koripallo3",
-    "prerequisite_course_kori_name": "koripallo2"
+    "course_hy_id": "TKT20018",
+    "prerequisite_course_hy_id": "TKT500031"
 }

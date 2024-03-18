@@ -1,42 +1,54 @@
-CREATE TABLE IF NOT EXISTS course_info (
+CREATE TABLE IF NOT EXISTS courses (
     id SERIAL PRIMARY KEY,
-    kori_name VARCHAR(50) NOT NULL,
+    kori_id VARCHAR(50) NOT NULL,
     course_name VARCHAR(255) NOT NULL,
-    official_course_id VARCHAR(50) NOT NULL,
-    CONSTRAINT course_kori_name_unique UNIQUE (kori_name)
+    hy_course_id VARCHAR(50) NOT NULL,
+    CONSTRAINT course_kori_name_unique UNIQUE (kori_id),
+    CONSTRAINT hy_course_id_unique UNIQUE (hy_course_id)
 );
 
-CREATE TABLE IF NOT EXISTS degree_info (
+CREATE TABLE IF NOT EXISTS degrees (
     id SERIAL PRIMARY KEY,
-    kori_name VARCHAR(50) NOT NULL,
     degree_name VARCHAR(255) NOT NULL,
-    official_degree_id VARCHAR(50) NOT NULL,
-    CONSTRAINT degree_kori_name_unique UNIQUE (kori_name)
+    hy_degree_id VARCHAR(50) NOT NULL,
+    degree_kori_id VARCHAR(50) NOT NULL,
+    CONSTRAINT hy_degree_id_unique UNIQUE (hy_degree_id),
+    CONSTRAINT degree_name_unique UNIQUE (degree_name)
+);
+
+CREATE TABLE IF NOT EXISTS modules (
+    id SERIAL PRIMARY KEY,
+    module_name VARCHAR(255) NOT NULL,
+    module_description VARCHAR(255) NOT NULL,
+    degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
+    CONSTRAINT module_name_and_degree_unique UNIQUE (module_name, degree_id)
 );
 
 CREATE TABLE IF NOT EXISTS course_degree_relation (
     id SERIAL PRIMARY KEY,
-    degree_kori_name VARCHAR(50) NOT NULL,
-    course_kori_name VARCHAR(50) NOT NULL,
-    CONSTRAINT no_duplicate_course_degree_relation UNIQUE (degree_kori_name, course_kori_name)
+    degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
+    course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    relation_type VARCHAR(50) DEFAULT 'compulsory',  --"compulsory", "alternative" or "optional"
+    CONSTRAINT no_duplicate_course_degree_relation UNIQUE (degree_id, course_id)
 );
 
-CREATE TABLE IF NOT EXISTS prerequisite_course_relation (
+CREATE TABLE IF NOT EXISTS prerequisite_courses (
     id SERIAL PRIMARY KEY,
-    course_kori_name VARCHAR(50) NOT NULL,
-    prerequisite_course_kori_name VARCHAR(50) NOT NULL,
-    CONSTRAINT unique_course_prerequisite UNIQUE (course_kori_name, prerequisite_course_kori_name),
-    CONSTRAINT no_self_prerequisite CHECK (course_kori_name != prerequisite_course_kori_name)
+    course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    prerequisite_course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    relation_type VARCHAR(50), 
+    /* "compulsory", "alternative" or "optional. 
+    If left null, it will be based on the type of course degree relation" */
+    CONSTRAINT unique_course_prerequisite UNIQUE (course_id, prerequisite_course_id),
+    CONSTRAINT no_self_prerequisite CHECK (course_id != prerequisite_course_id)
 );
 
-CREATE TABLE IF NOT EXISTS course_prerequisite_comments (
+CREATE TABLE IF NOT EXISTS prerequisite_course_comments (
     id SERIAL PRIMARY KEY,
-    prerequisite_course_relation_id INT NOT NULL,
-    comment VARCHAR(1000) NOT NULL,
-    FOREIGN KEY (prerequisite_course_relation_id) REFERENCES prerequisite_course_relation(id)
+    relation_id INT NOT NULL REFERENCES prerequisite_courses(id) ON DELETE CASCADE,
+    comment VARCHAR(1000) NOT NULL
 );
 
 
-CREATE INDEX IF NOT EXISTS idx_prerequisite_course_course_kori_name ON prerequisite_course_relation(course_kori_name);
-CREATE INDEX IF NOT EXISTS idx_prerequisite_course_prerequisite_course_kori_name ON prerequisite_course_relation(prerequisite_course_kori_name);
-CREATE INDEX IF NOT EXISTS idx_course_degree_relation_id ON course_degree_relation(degree_kori_name);
+CREATE INDEX IF NOT EXISTS idx_prerequisite_course_id ON prerequisite_courses(course_id);
+CREATE INDEX IF NOT EXISTS idx_course_degree_relation_id ON course_degree_relation(degree_id);
