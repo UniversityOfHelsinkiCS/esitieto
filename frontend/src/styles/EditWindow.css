@@ -1,4 +1,23 @@
 .edit-window {
-    background-color: aquamarine;
-    color: black;
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 35%;
+    height: 300px;
+    width: 500px;
+    background-color: rgb(55, 62, 92);
+    color: rgb(177, 177, 177);
+    z-index: 99999;
+}
+
+.textfield1 {
+    position: absolute;
+    top: 50px;
+    bottom: 30px;
+    background: rgb(105,105,105);
+}
+
+.submit-button {
+    position: absolute;
+    top: 70%;
+    left: 40%;
 }

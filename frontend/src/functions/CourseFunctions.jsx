@@ -14,8 +14,8 @@ export const addCourse = async (axios, onCoursesUpdated) => {
 };
 
 // Remove a course from the database
-export const removeCourse = async (axios, onCoursesUpdated) => {
-    const kori_name = prompt("Enter Kori name of the course to remove:");
+export const removeCourse = async (axios, onCoursesUpdated, kori_name) => {
+    //const kori_name = prompt("Enter Kori name of the course to remove:");
     if (!kori_name) return;
 
     await axios.delete(`/api/courses/databaseDeleteCourse/${encodeURIComponent(kori_name)}`);
