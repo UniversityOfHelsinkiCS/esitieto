@@ -43,7 +43,7 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
       <Menu
         id="degree-menu"
         anchorEl={anchorEl}
-        keepMounted
+        //keepMounted
         open={open}
         onClose={handleClose}
       >
