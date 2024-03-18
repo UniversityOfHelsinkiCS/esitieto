@@ -3,12 +3,12 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
-    "extends": "plugin:react/recommended",
+    "extends": "react-app",
     "ignorePatterns": ["coverage", "dist", "node_modules"],
     "overrides": [
         {
             "env": {
-                "node": true
+                "node": true,
             },
             "files": [
                 ".eslintrc.{js,cjs}"
@@ -24,7 +24,4 @@ module.exports = {
     },
     "plugins": [
         "react"
-    ],
-    "rules": {
-    }
-}
+    ]};

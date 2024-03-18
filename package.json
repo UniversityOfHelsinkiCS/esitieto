@@ -10,7 +10,6 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js",
     "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js"
-    
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -43,6 +42,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.2.1",
     "eslint": "^8.55.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
