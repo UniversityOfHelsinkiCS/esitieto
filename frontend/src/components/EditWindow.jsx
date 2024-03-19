@@ -16,17 +16,37 @@ export const EditWindowTemplate = (props) => {
     const cfunc = props.cfunc
     const axios = props.axios
     const courses = props.courses
-    const [searchText, SetSearchText] = useState('');
+    const [searchText, SetSearchText] = useState('')
+    const [texts, SetTexts] = useState(Array.from({length: labels.length}, () => ''))
 
-    const handleChange = (event) => {
+    let windowClass;
+    if (labels.length===1) {
+        windowClass = 'edit-window1'
+    }
+    if (labels.length===2) {
+        windowClass = 'edit-window2'
+    }
+    if (labels.length===3) {
+        windowClass = 'edit-window3'
+    }
+
+    const handleChange = (event, textfield) => {
         event.preventDefault();
         SetSearchText(event.target.value);
+        texts[textfield] = event.target.value;
       }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (cfunc==='remove') {
-            removeCourse(axios,courses,event.target.value)
+            console.log('use remove course function',texts[0])
+            removeCourse(axios,courses,texts[0])
+            setState(false)
+        }
+
+        if (cfunc==='add course') {
+            console.log('use add course function with info:', texts[0], texts[1], texts[2])
+            addCourse(axios, courses, texts[0], texts[1], texts[2])
             setState(false)
         }
         
@@ -34,17 +54,18 @@ export const EditWindowTemplate = (props) => {
 
     if (state) {
     return (
-        <div className="edit-window">
+        <div className={windowClass}>
             <div className='desc1'>
                 <p>{desc[0]}</p>
             </div>
             <form onSubmit={handleSubmit}>
+            <div>
             <TextField
             className='textfield1'
             variant='standard'
             label = {labels[0]}
-            onChange={handleChange}
-            value={searchText}
+            onChange={(event) =>handleChange(event,0)}
+            value={texts[0]}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" onClick={handleSubmit}>
@@ -52,8 +73,51 @@ export const EditWindowTemplate = (props) => {
                   </InputAdornment>
                 )}}
             />
-            <button className='submit-button' onClick={handleSubmit}>SUBMIT</button>
-            </form>
+            </div>
+
+            {labels.length >= 2 &&
+            <div className='desc2'>
+            <p>{desc[1]}</p>
+            </div>}
+            {labels.length >= 2 &&
+            <div>
+            <TextField
+            className='textfield2'
+            variant='standard'
+            label = {labels[1]}
+            onChange={(event) =>handleChange(event,1)}
+            value={texts[1]}
+            InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" onClick={handleSubmit}>
+                    <SearchIcon/>
+                  </InputAdornment>
+                )}}
+            />
+            </div>}
+
+            {labels.length >= 3 &&
+            <div className='desc3'>
+            <p>{desc[2]}</p>
+            </div>}
+            {labels.length >= 3 &&
+            <div>
+            <TextField
+            className='textfield3'
+            variant='standard'
+            label = {labels[2]}
+            onChange={(event) =>handleChange(event,2)}
+            value={texts[2]}
+            InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" onClick={handleSubmit}>
+                    <SearchIcon/>
+                  </InputAdornment>
+                )}}
+            />
+            </div>}
+        <button onClick={handleSubmit} style={{ marginTop:'10%' }}>SUBMIT</button>
+        </form>
         </div>
     )}
 }

@@ -107,10 +107,14 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             return (
                 <div className='edit-buttons'>
                 <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
-                <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
                 <button onClick={() => handleEditWindow(
-                    ['Course name',''],
-                    ['Enter Kori name of the course to remove:',''],
+                    ['Course name', 'Official ID', 'Kori name'],
+                    ['Enter course name:', 'Enter official course ID:', 'Enter Kori name:'],
+                    'add course'
+                    )}>Add Course</button>
+                <button onClick={() => handleEditWindow(
+                    ['Course name'],
+                    ['Enter Kori name of the course to remove:'],
                     'remove'
                     )}>Remove Course</button>
                 <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
