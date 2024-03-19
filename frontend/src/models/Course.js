@@ -8,11 +8,13 @@ export default class Course {
         this.dependencies = dependencies;
         this.courseType = courseType;
         this.description = description;
+
+        console.log("sup",courseType);
     }
 
     createNode(position) {
         const nodeStyles = {
-            mandatory: mandatoryCourse,
+            compulsory: mandatoryCourse,
             optional: optionalCourse,
             completed: completedCourse,
             alternative: alternativeCourse
@@ -28,6 +30,7 @@ export default class Course {
                 name: `${this.name}`,
                 identifier: `${this.identifier}`,
                 groupID: `${this.groupId} (${this.identifier})`,
+
             },
             style: selectedNodeStyle
         };
@@ -35,7 +38,7 @@ export default class Course {
 
     createEdges() {
         const edgeStyles = {
-            mandatory: mandatoryEdge,
+            compulsory: mandatoryEdge,
             optional: optionalEdge,
         };
         const selectedEdgeStyle = edgeStyles[this.courseType] || optionalEdge;

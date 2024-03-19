@@ -75,6 +75,7 @@ const MainPage = ({ axiosInstance }) => {
           courseData.official_course_id, // Assuming this is the unique identifier now
           courseData.kori_name, // Assuming kori_name could be used as groupId if relevant
           courseData.dependencies, // This should be an array of official_course_ids
+          courseData.type,
           "", // Type might need to be determined or fetched as per your application logic
           "" // Description to be fetched/set later as mentioned
         );
