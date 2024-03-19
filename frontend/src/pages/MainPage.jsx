@@ -17,7 +17,6 @@ const MainPage = ({ axiosInstance }) => {
       if (degree == null) {
         response = await axiosInstance.get(`/api/courses`);
         if (response == null) return;
-        console.log("moi", response.data)
         setCoursesData(response.data);
         return;
       }
@@ -31,7 +30,6 @@ const MainPage = ({ axiosInstance }) => {
         }
       });
 
-      console.log("paska")
       console.log("Response", response);
 
       setCoursesData(response.data);
