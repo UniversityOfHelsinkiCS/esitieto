@@ -1,12 +1,12 @@
 // Add a course to the database
-export const addCourse = async (axios, onCoursesUpdated) => {
-    const course_name = prompt("Enter course name:");
+export const addCourse = async (axios, onCoursesUpdated, course_name, official_course_id, kori_name) => {
+    //const course_name = prompt("Enter course name:");
     if (!course_name) return;
 
-    const official_course_id = prompt("Enter official course ID:");
+    //const official_course_id = prompt("Enter official course ID:");
     if (!official_course_id) return;
 
-    const kori_name = prompt("Enter Kori name:");
+    //const kori_name = prompt("Enter Kori name:");
     if (!kori_name) return;
 
     await axios.post('/api/courses/databaseCreateCourse', { official_course_id, course_name, kori_name });
