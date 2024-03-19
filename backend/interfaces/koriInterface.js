@@ -1,3 +1,4 @@
+const logger = require('../middleware/logger');
 
 class KoriInterface {
     /*
@@ -29,19 +30,20 @@ class KoriInterface {
         return pattern.test(input);
     }
   
-    async courseInfo(id) {
+    async courseInfo(id, hyYearCode='hy-lv-74') {
         /*
         Get the course info using <id> which should be the course groupId.
 
         Return the course info in JSON format.
         */
         if (this.isValidInput(id)) {
-            const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-units?groupId='.concat(encodeURIComponent(id));
+            const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-units?groupId='.concat(encodeURIComponent(id)).concat('&curriculumPeriodId='+hyYearCode);
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {
-            return response.json();
+                return response.json();
             }).then(data => {
-            return data
+                logger.debug(apiUrl,data)
+                return data
             
             }).catch(error => {
             console.error('Fetch error:', error.message);
@@ -51,22 +53,23 @@ class KoriInterface {
         }
     }
 
-    async searchCourses(search) {
+    async searchCourses(search, hyYearCode='hy-lv-74') {
         /*
         List max 200 courses that contain the <search> string.
 
         Returns list of courses in JSON format.
         */
         if (this.isValidInput(search)) {
-            const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-unit-search?fullTextQuery='.concat(encodeURIComponent(search)).concat('&limit=200&universityOrgId=hy-university-root-id');
+            const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-unit-search?fullTextQuery='.concat(encodeURIComponent(search)).concat('&limit=200&universityOrgId=hy-university-root-id').concat('&curriculumPeriodId='+hyYearCode);
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {
-            return response.json();
+                return response.json();
             }).then(data => {
-            return data
+                logger.debug(apiUrl,data)
+                return data
             
             }).catch(error => {
-            console.error('Fetch error:', error.message);
+                console.error('Fetch error:', error.message);
             });
         } else {
             return "Virheellinen syöte"
