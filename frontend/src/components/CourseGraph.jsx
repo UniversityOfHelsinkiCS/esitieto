@@ -17,7 +17,8 @@ import {
 } from '../functions/CourseFunctions.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
-import { EditWindowTemplate } from './EditWindow.jsx' 
+import { EditWindowTemplate } from './EditWindow.jsx'
+import InfoButton from './InfoButton';
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -129,7 +130,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <EditBar state={editBarState} />
             {editWindowState? <EditWindowTemplate state={editWindowState} labels={labels} 
             desc={desc} cfunc={Cfunction} axios={axiosInstance} courses={onCoursesUpdated}/> : <></>}
-            <button onClick={openInfoBox} className='info'>Info</button>
+            <InfoButton onClick={openInfoBox} />
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
             <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated}/>
