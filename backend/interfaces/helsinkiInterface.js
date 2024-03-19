@@ -21,7 +21,7 @@ class HelsinkiInterface {
   
     isValidInput(input) {
         /*Accepts numbers letters underscores and dashes*/
-        var pattern = /^[\p{L}0-9_\-]+( [\p{L}0-9_\-]+)*$/u;
+        var pattern = /^[\p{L}0-9_-]+( [\p{L}0-9_-]+)*$/u;
   
         return pattern.test(input);
     }
