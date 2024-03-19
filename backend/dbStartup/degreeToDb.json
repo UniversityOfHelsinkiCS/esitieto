@@ -130,8 +130,6 @@
         {
             "courseCode": "TKT20018",
             "prerequisiteCourses": [
-                "TKT10003",
-                "TKT10004",
                 "TKT20019",
                 "TKT500031"
             ],
