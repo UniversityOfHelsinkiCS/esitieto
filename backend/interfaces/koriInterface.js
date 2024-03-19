@@ -32,7 +32,7 @@ class KoriInterface {
   
     async courseInfo(id, hyYearCode='hy-lv-74') {
         /*
-        Get the course info using <id> which should be the course groupId.
+        Get the course info using <id> which should be the course groupId. Gives the <hyYearCode> implementation of the course.
 
         Return the course info in JSON format.
         */
@@ -55,7 +55,7 @@ class KoriInterface {
 
     async searchCourses(search, hyYearCode='hy-lv-74') {
         /*
-        List max 200 courses that contain the <search> string.
+        Lists max 200 courses that contain the <search> string. Gives the <hyYearCode> implementation of the courses.
 
         Returns list of courses in JSON format.
         */
