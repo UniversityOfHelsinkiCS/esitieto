@@ -38,4 +38,5 @@ const executeSchemaFile = async () => {
 
 module.exports = {
   executeSchemaFile,
+  pool
 };
