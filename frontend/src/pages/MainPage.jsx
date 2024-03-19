@@ -1,4 +1,4 @@
-import { useState, useEffect  } from 'react'
+import { useState, useEffect } from 'react'
 import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
@@ -6,53 +6,64 @@ import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from '../utils/CourseExtractor'
 
 
-const MainPage = ({axiosInstance}) => {
+const MainPage = ({ axiosInstance }) => {
   const [courses, setCourses] = useState([]);
 
   const fetchCourses = async (degree = null) => {
     try {
-      console.log("Fetching courses using degree",degree)
+      console.log("Fetching courses using degree", degree)
       let response;
-      if(degree==null) {
+      if (degree == null) {
         response = await axiosInstance.get(`/api/courses`);
-        if(response == null) return;
+        if (response == null) return;
+        console.log("moi", response.data)
         setCoursesData(response.data);
         return;
-      } 
-      
-      console.log("fetching courses from degree",degree);
-      response = await axiosInstance.get(`/api/degrees/search_by_degree_name/?search=${encodeURIComponent("KH50_005")}`); // replace with degree later
+      }
 
+      console.log("fetching courses from degree", degree);
+
+      response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
+        headers: {
+          'degree-name': "kh50_005", //degree-name,
+          'degree-years': '2023-2026', //degree-year
+        }
+      });
+
+      console.log("Response", response.data);
+
+      if (response == null) return;
+      // setCoursesData(response.data, true);
       // Debug console command for listing modules and courses
 
       //temp.data.forEach((module, index) => {
       //  console.log(`Module ${index}:`, module);
       //});
 
-      const extractedCourses = extractCoursesFromModules(response.data);
-      console.log("Extracted Courses:", extractedCourses);
+      // const extractedCourses = extractCoursesFromModules(response.data);
+      // console.log("Extracted Courses:", extractedCourses);
 
-      if(extractedCourses == null) return;
-      setCoursesData(extractedCourses);
-      
+      // if (extractedCourses == null) return;
+      // setCoursesData(extractedCourses);
+
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   };
 
   const setCoursesData = (data = null, fromDatabase = null) => {
-    if (data==null) {
+    if (data == null) {
       console.log("No data to set courses!");
       return;
-    } else if (data=="fetch") {
+    } else if (data == "fetch") {
       console.log("fetching");
       fetchCourses();
       return;
     }
 
-    console.log("set course data",data);
+    console.log("set course data", data);
 
-    if(fromDatabase) {
+    if (fromDatabase) {
       const convertedCourses = data.map(courseData => {
         // Assuming dependencies are official_course_ids of prerequisite courses
         // groupId and type might need to be fetched or set differently as per your new data structure
@@ -79,7 +90,7 @@ const MainPage = ({axiosInstance}) => {
   const fetchDegrees = async () => {
     try {
       const response = await axiosInstance.get(`/api/degrees`);
-      if(response == null) return;
+      if (response == null) return;
       setDegreeData(response.data);
     } catch (error) {
       console.error("Error fetching degree data: ", error);
@@ -87,14 +98,14 @@ const MainPage = ({axiosInstance}) => {
   };
 
   const setDegreeData = (data = null) => {
-    if (data==null) {
+    if (data == null) {
       console.log("No data to set degrees!");
       return;
-    } else if (data=="fetch") {
+    } else if (data == "fetch") {
       fetchDegrees();
       return;
     }
-  
+
     const convertedDegrees = data.map(degreeData => degreeData.degree_name);
     setDegreeToList(convertedDegrees);
   };
@@ -108,7 +119,7 @@ const MainPage = ({axiosInstance}) => {
   }, []);
 
   const handleDegreeChange = (degree) => {
-    console.log("Selected Degree: ", degree); 
+    console.log("Selected Degree: ", degree);
     setDegree(degree);
     fetchCourses(degree)
   };

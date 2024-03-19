@@ -38,7 +38,7 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
           },
         }}
       >
-        {degree}
+        {'Tutkinto'}
       </Button>
       <Menu
         id="degree-menu"

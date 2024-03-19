@@ -1,20 +1,20 @@
-    CREATE TABLE IF NOT EXISTS courses (
-        id SERIAL PRIMARY KEY,
-        kori_id VARCHAR(50) NOT NULL,
-        course_name VARCHAR(255) NOT NULL,
-        hy_course_id VARCHAR(50) NOT NULL,
-        CONSTRAINT course_kori_name_unique UNIQUE (kori_id),
-        CONSTRAINT hy_course_id_unique UNIQUE (hy_course_id)
-    );
+CREATE TABLE IF NOT EXISTS courses (
+    id SERIAL PRIMARY KEY,
+    kori_id VARCHAR(50) NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    hy_course_id VARCHAR(50) NOT NULL,
+    CONSTRAINT course_kori_name_unique UNIQUE (kori_id),
+    CONSTRAINT hy_course_id_unique UNIQUE (hy_course_id)
+);
 
-    CREATE TABLE IF NOT EXISTS degrees (
-        id SERIAL PRIMARY KEY,
-        degree_name VARCHAR(255) NOT NULL,
-        hy_degree_id VARCHAR(50) NOT NULL,
-        degree_years VARCHAR(25) NOT NULL,
-        CONSTRAINT unique_year_for_hy_course_id UNIQUE (hy_degree_id, degree_years),
-        CONSTRAINT degree_name_unique UNIQUE (degree_name)
-    );
+CREATE TABLE IF NOT EXISTS degrees (
+    id SERIAL PRIMARY KEY,
+    degree_name VARCHAR(255) NOT NULL,
+    hy_degree_id VARCHAR(50) NOT NULL,
+    degree_years VARCHAR(25) NOT NULL,
+    CONSTRAINT unique_year_for_hy_course_id UNIQUE (hy_degree_id, degree_years),
+    CONSTRAINT degree_name_unique UNIQUE (degree_name)
+);
 
 CREATE TABLE IF NOT EXISTS modules (
     id SERIAL PRIMARY KEY,
