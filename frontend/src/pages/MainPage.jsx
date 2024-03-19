@@ -10,6 +10,7 @@ const MainPage = ({ axiosInstance }) => {
   const [courses, setCourses] = useState([]);
 
   const fetchCourses = async (degree = null) => {
+    
     try {
       console.log("Fetching courses using degree", degree)
       let response;
@@ -30,7 +31,10 @@ const MainPage = ({ axiosInstance }) => {
         }
       });
 
-      console.log("Response", response.data);
+      console.log("paska")
+      console.log("Response", response);
+
+      setCoursesData(response.data);
 
       if (response == null) return;
       // setCoursesData(response.data, true);

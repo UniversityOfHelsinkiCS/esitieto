@@ -55,6 +55,7 @@ router.get('/search_by_degree', async (req, res) => {
       query2, [degreeId]
     );
 
+    console.log(courses);
     res.json(courses);
 
   } catch (error) {
