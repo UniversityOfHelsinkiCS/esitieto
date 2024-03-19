@@ -11,17 +11,23 @@ import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
 import {
-    addCourse, removeCourse, handleSearch, // Courses from database
+    addCourse, removeCourse, // Courses from database
     handleAddDependency, handleRemoveDependency, // Dependencies from database
     handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from '../functions/CourseFunctions.jsx';
-import {InfoBox} from './InfoBox.jsx'
+import { InfoBox } from './InfoBox.jsx'
+import { SearchBar } from './SearchBar.jsx';
+import { EditWindowTemplate } from './EditWindow.jsx' 
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
+    const [editWindowState, setEditWindowState] = useState(false);
+    const [labels, setLabels] = useState(['',''])
+    const [desc, setDesc] = useState(['',''])
+    const [Cfunction, setCfunction] = useState('')
 
     const openInfoBox = () => {
         if(isInfoBoxOpen) {
@@ -81,18 +87,33 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
         else {
             setEditBarState(false);
         }
+    };
+
+    const handleEditWindow = async (newLabel, newDesc, newFunction) => {
+        if (!editWindowState) {
+            setEditWindowState(true);
+            setLabels(newLabel)
+            setDesc(newDesc)
+            setCfunction(newFunction)
+        }
+        else {
+            setEditWindowState(false)
+        }
     }
 
     const EditBar = () => {
         if (editBarState===true) {
             return (
-                <div>
+                <div className='edit-buttons'>
                 <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
                 <button onClick={() => addCourse(axiosInstance, onCoursesUpdated)}>Add Course</button>
-                <button onClick={() => removeCourse(axiosInstance, onCoursesUpdated)}>Remove Course</button>
+                <button onClick={() => handleEditWindow(
+                    ['Course name',''],
+                    ['Enter Kori name of the course to remove:',''],
+                    'remove'
+                    )}>Remove Course</button>
                 <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
                 <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
-                <button onClick={() => handleSearch(axiosInstance, onCoursesUpdated)}>Search Course</button>
                 <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
                 </div>
             )
@@ -101,10 +122,13 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
 
     return (
         <div className='reactflow-wrapper'>
-            <EditBar state = {editBarState} />
+            <EditBar state={editBarState} />
+            {editWindowState? <EditWindowTemplate state={editWindowState} labels={labels} 
+            desc={desc} cfunc={Cfunction} axios={axiosInstance} courses={onCoursesUpdated}/> : <></>}
             <button onClick={openInfoBox} className='info'>Info</button>
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
+            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated}/>
 
             <CustomEdge />
             <ReactFlow

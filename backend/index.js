@@ -40,6 +40,7 @@ app.get('/api/getCourses', async (req, res) => {
 app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
+app.use('/api/kirjauduttu', loginRoutes);
 
 app.use((req, res) => {
   logger.warn(`Attempted access an undefined route: ${req.originalUrl}`);

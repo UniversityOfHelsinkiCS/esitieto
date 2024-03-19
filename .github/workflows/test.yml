@@ -3,7 +3,7 @@
 
 name: test
 
-on: [workflow_call]
+on: [push, workflow_call]
 
 jobs:
   frontend:
@@ -17,11 +17,9 @@ jobs:
 
     - name: Install Frontend Dependencies
       run: npm install
-      working-directory: ./frontend
 
     - name: Run Frontend Tests
-      run: npx jest --coverage
-      working-directory: ./frontend
+      run: npm run coverage:frontend
 
     - name: Upload frontend coverage reports to Codecov
       uses: codecov/codecov-action@v3
@@ -40,11 +38,9 @@ jobs:
     
     - name: Install Backend Dependencies
       run: npm install
-      working-directory: ./backend
     
     - name: Run Backend Tests
-      run: npx jest --coverage
-      working-directory: ./backend
+      run: npm run coverage:backend
 
     - name: Upload backend coverage reports to Codecov
       uses: codecov/codecov-action@v3
@@ -52,6 +48,21 @@ jobs:
         directory: ./backend/coverage
         token: ${{ secrets.COVERAGE_TOKEN }}
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
+
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run eslint
+        run: npm run lint
+      
 
     
 
