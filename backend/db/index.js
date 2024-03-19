@@ -38,7 +38,7 @@ const testDatabaseConnection = async () => {
     const response = await pool.query('SELECT NOW()');
     logger.info('Successful database connection primary. Current time from DB:', response.rows[0].now);
   } catch (error) {
-    console.error('Failed to connect to the database:', error);
+    logger.error('Failed to connect to the database:', error);
   }
 };
 
@@ -50,11 +50,10 @@ const addCourse = async (addedCourse) => {
   const response = await kori.searchCourses(addedCourse);
   const exactMatch = response.searchResults.find(course => course.name === addedCourse || course.code === addedCourse);
   if (!exactMatch) {
-    console.error(`No exact match found for course ${addedCourse}`);
+    logger.error(`No exact match found for course ${addedCourse}`);
     return;
   }
-  const { name, groupId, code } = exactMatch; 
-  const detailString = `('${groupId}', '${name}', '${code}')`;
+  const { name, groupId, code } = exactMatch;
 
   try {
     const { rows } = await pool.query(
@@ -65,7 +64,7 @@ const addCourse = async (addedCourse) => {
       [groupId, name, code]
     );
     if (rows.length === 0) {
-      logger.debug(`Course ${addedCourse} already exists in the database.`);
+      logger.verbose(`Course ${addedCourse} already exists in the database.`);
       return;
     }
     return rows[0];
@@ -84,7 +83,8 @@ const addManyCourses = async (listOfCourses) => {
   */
   await Promise.all(listOfCourses.map(async course => {
     await addCourse(course);
-  }))};
+  }))
+};
 
 
 const addManyPrequisiteCourses = async (listOfPrerequisites) => {
@@ -106,21 +106,19 @@ const addManyPrequisiteCourses = async (listOfPrerequisites) => {
   */
 
   for (const prerequisite of listOfPrerequisites) {
-    const { course, prerequisiteCourse, relationType } = prerequisite;
+    const { course, prerequisiteCourse } = prerequisite;
     try {
-      const result = await addPrerequisiteCourse(course, prerequisiteCourse, relationType);
+      const result = await addPrerequisiteCourse(course, prerequisiteCourse);
       if (result) {
-        logger.info(`Prerequisite for course ${course} with prerequisite ${prerequisiteCourse} of type '${relationType}' successfully added to the database.`);
+        logger.info(`Prerequisite for course ${course} with prerequisite ${prerequisiteCourse} of type successfully added to the database.`);
       } else {
-        logger.debug(`No new prerequisite relation added for course ${course} with prerequisite ${prerequisiteCourse}. It might already exist.`);
+        logger.verbose(`No new prerequisite relation added for course ${course} with prerequisite ${prerequisiteCourse}. It might already exist.`);
       }
     } catch (err) {
       logger.error(`Error adding prerequisite for course ${course} with prerequisite ${prerequisiteCourse} to the database:`, err);
     }
   }
 };
-
-
 
 const updateCourse = async (id, official_course_id, course_name, kori_name) => {
   const { rows } = await pool.query(
@@ -143,17 +141,17 @@ const getCourses = async () => {
 
 // Dependency
 
-const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id, relation_type) => {
+const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) => {
   const query = `
-  INSERT INTO prerequisite_courses (course_id, prerequisite_course_id, relation_type)
-  SELECT c1.id, c2.id, $3
+  INSERT INTO prerequisite_courses (course_id, prerequisite_course_id)
+  SELECT c1.id, c2.id
   FROM (SELECT id FROM courses WHERE hy_course_id = $1) AS c1, 
        (SELECT id FROM courses WHERE hy_course_id = $2) AS c2
   ON CONFLICT ON CONSTRAINT unique_course_prerequisite DO NOTHING
   RETURNING *`;
   const { rows } = await pool.query(
     query,
-    [course_hy_id, prerequisite_course_hy_id, relation_type]
+    [course_hy_id, prerequisite_course_hy_id]
   );
   return rows[0];
 };
@@ -254,6 +252,89 @@ async function fetchAllCoursesWithDirectPrerequisites() {
   return rows;
 }
 
+const addCourseToDegree = async (hyDegreeId, degreeYears, hyCourseId, relationType = 'compulsory') => {
+  try {
+    const { rows } = await pool.query(
+      `INSERT INTO course_degree_relation (degree_id, course_id, relation_type)
+      VALUES (
+        (SELECT id FROM degrees WHERE hy_degree_id = $1 AND degree_years = $2),
+        (SELECT id FROM courses WHERE hy_course_id = $4),
+        $3
+      )
+      ON CONFLICT ON CONSTRAINT no_duplicate_course_degree_relation DO NOTHING
+      RETURNING *;`,
+      [hyDegreeId, degreeYears, relationType, hyCourseId]
+    );
+
+    if (rows.length === 0) {
+      logger.verbose(`Course ${hyCourseId} already exists in the degree ${hyDegreeId}.`);
+      return;
+    }
+    return rows[0];
+  } catch (error) {
+    logger.verbose('Error inserting data into course_degree_relation table:', error);
+  }
+}
+
+const addDdegree = async (degreeCode, degreeName, degreeYears) => {
+
+  // Workaround for now. 'ON CONSTRAINT' works with one constraint only without some tomfoolery.
+  const degreeNameIsNotUnique = async (degreeName) => {
+    const { rows } = await pool.query(
+      `SELECT EXISTS (
+          SELECT 1
+          FROM degrees
+          WHERE degree_name = $1
+      ) AS degreeExists`,
+      [degreeName]
+    );
+    const { degreeExists } = rows[0];
+    return degreeExists;
+  };
+
+  const nameInUse = await degreeNameIsNotUnique(degreeName)
+  if (nameInUse) {
+    logger.verbose(`Degree ${degreeName} already exists in the database.`);
+    return;
+  }
+
+  const { rows } = await pool.query(
+    `INSERT INTO degrees (degree_name, hy_degree_id, degree_years)
+    SELECT $1, $2, $3
+    ON CONFLICT ON CONSTRAINT unique_year_for_hy_course_id DO NOTHING
+    RETURNING *`,
+    [degreeName, degreeCode, degreeYears]
+  );
+  if (rows.length === 0) {
+    logger.verbose(`Degree '${degreeName}' already exists in the database.`);
+    return;
+  }
+  return;
+};
+
+const addDegreeData = async (degreeInfo, courseMappings) => {
+  /*
+  Adds json data to database. 
+
+  degreeInfo format: 
+  {
+    degreeName: 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026',
+    degreeCode: 'kh50_05',
+    degreeYears: '2023-2026'
+  }
+
+  courseCodes format:
+  ['TKT10001', 'TKT10002', 'TKT10003']
+  */
+
+  const { degreeName, degreeYears, degreeCode } = degreeInfo;
+  await addDdegree(degreeCode, degreeName, degreeYears);
+  await Promise.all(courseMappings.map(async course => {
+    await addCourseToDegree(degreeCode, degreeYears, course.course, course.courseType || 'compulsory');
+    }))
+};
+
+
 
 // ------------ TESTING ONLY ----------------
 
@@ -286,6 +367,7 @@ module.exports = {
   addCourse,
   addManyCourses,
   addManyPrequisiteCourses,
+  addDegreeData,
   updateCourse,
   deleteCourse,
   endDatabase: async () => {

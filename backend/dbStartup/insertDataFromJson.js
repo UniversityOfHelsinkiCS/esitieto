@@ -3,7 +3,7 @@ const path = require('path');
 const { Pool } = require('pg');
 require('dotenv').config();
 const logger = require('../middleware/logger');
-const { addManyCourses, addManyPrequisiteCourses } = require('../db');
+const { addManyCourses, addManyPrequisiteCourses, addDegreeData } = require('../db');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -17,7 +17,7 @@ function mapPrerequisistes(jsonData) {
           courseMappings.push({
               course: course.courseCode,
               prerequisiteCourse: prerequisiteCourse, 
-              relationType: course.courseType || 'compulsory' // Include relation type if available, otherwise 'compulsory'
+              courseType: course.courseType || 'compulsory' // Include relation type if available, otherwise 'compulsory'
           });
       });
   });
@@ -33,9 +33,15 @@ const insertDataFromJson = async () => {
     const jsonData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     const courseCodes = jsonData.courses.map(course => (course.courseCode));
     const courseMappings = mapPrerequisistes(jsonData);
+    const degreeInfo = {
+      degreeName: jsonData.degreeName,
+      degreeYears: jsonData.degreeYears,
+      degreeCode: jsonData.degreeCode, 
+    };
 
     await addManyCourses(courseCodes); 
     await addManyPrequisiteCourses(courseMappings);
+    await addDegreeData(degreeInfo, courseMappings);
 
   } catch (err) {
     console.error('Error inserting data:', err);
