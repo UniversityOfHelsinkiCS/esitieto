@@ -120,8 +120,16 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
                     ['Enter Kori name of the course to remove:'],
                     'remove'
                     )}>Remove Course</button>
-                <button onClick={() => handleAddDependency(axiosInstance)}>Add Dependency</button>
-                <button onClick={() => handleRemoveDependency(axiosInstance)}>Remove Dependency</button>
+                <button onClick={() => handleEditWindow(
+                    ['Course name','Prerequisite course name'],
+                    ['Enter the Kori name of the course:','Enter the Kori name of the prerequisite course:'],
+                    'add dependency'
+                    )}>Add Dependency</button>
+                <button onClick={() => handleEditWindow(
+                    ['Course name','Prerequisite course name'],
+                    ['Enter the Kori name of the course:','Enter the Kori name of the prerequisite course:'],
+                    'remove dependency'
+                    )}>Remove Dependency</button>
                 <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
                 </div>
             )

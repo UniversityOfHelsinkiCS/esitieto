@@ -37,11 +37,11 @@ export const handleSearch = async (axios, onCoursesUpdated, kori_name) => {
 };
 
 // Add a dependency to the database between two courses
-export const handleAddDependency = async (axios) => {
-    const course_kori_name = prompt("Enter the Kori name of the course:");
+export const handleAddDependency = async (axios, course_kori_name, prerequisite_course_kori_name) => {
+    //const course_kori_name = prompt("Enter the Kori name of the course:");
     if (!course_kori_name) return;
 
-    const prerequisite_course_kori_name = prompt("Enter the Kori name of the prerequisite course:");
+    //const prerequisite_course_kori_name = prompt("Enter the Kori name of the prerequisite course:");
     if (!prerequisite_course_kori_name) return;
 
     try {

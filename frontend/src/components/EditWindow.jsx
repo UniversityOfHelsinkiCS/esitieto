@@ -49,7 +49,18 @@ export const EditWindowTemplate = (props) => {
             addCourse(axios, courses, texts[0], texts[1], texts[2])
             setState(false)
         }
+
+        if (cfunc==='add dependency') {
+            console.log('use add dependency function with info:', texts[0], texts[1])
+            handleAddDependency(axios, texts[0], texts[1])
+            setState(false)
+        }
         
+        if (cfunc==='remove dependency') {
+            console.log('use remove dependency function with info:', texts[0], texts[1])
+            handleRemoveDependency(axios, texts[0], texts[1])
+            setState(false)
+        }
     }
 
     if (state) {
