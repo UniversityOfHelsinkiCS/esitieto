@@ -4,7 +4,7 @@ export const getLayoutedElements = (nodes, edges, direction = 'TB') => {
     const g = new dagre.graphlib.Graph();
     g.setGraph({
         rankdir: direction,
-        ranksep: 100,   // Increase the distance between layers
+        ranksep: 200,   // Increase the distance between layers
         nodesep: 50     // Increase the distance between nodes within the same layer
       });
     g.setDefaultEdgeLabel(() => ({}));

@@ -30,9 +30,6 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     const [desc, setDesc] = useState(['',''])
     const [Cfunction, setCfunction] = useState('')
 
-    console.log("WOO");
-    console.log(courses);
-
     const openInfoBox = () => {
         if(isInfoBoxOpen) {
             setIsInfoBoxOpen(false);
