@@ -24,6 +24,19 @@ function mapPrerequisistes(jsonData) {
   return courseMappings;
 }
 
+function mapCoursesForDegree(jsonData) {
+  let courseMappings = [];
+
+  jsonData.courses.forEach(course => {
+    courseMappings.push({
+      course: course.courseCode, 
+      courseType: course.courseType || 'compulsory' // Include relation type if available, otherwise 'compulsory'
+    });
+  });
+  return courseMappings;
+}
+
+
 const insertDataFromJson = async () => {
   /*
   Loads data from degreeToDb.json and inserts it into the database.
@@ -38,10 +51,10 @@ const insertDataFromJson = async () => {
       degreeYears: jsonData.degreeYears,
       degreeCode: jsonData.degreeCode, 
     };
-
+    const courseDegreeMappings = mapCoursesForDegree(jsonData);
     await addManyCourses(courseCodes); 
     await addManyPrequisiteCourses(courseMappings);
-    await addDegreeData(degreeInfo, courseMappings);
+    await addDegreeData(degreeInfo, courseDegreeMappings);
 
   } catch (err) {
     console.error('Error inserting data:', err);
