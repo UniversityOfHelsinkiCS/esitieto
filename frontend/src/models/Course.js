@@ -8,8 +8,6 @@ export default class Course {
         this.dependencies = dependencies;
         this.courseType = courseType;
         this.description = description;
-
-        console.log("sup",courseType);
     }
 
     createNode(position) {
