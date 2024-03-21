@@ -1,7 +1,6 @@
 import {
     addCourse, removeCourse, // Courses from database
     handleAddDependency, handleRemoveDependency, // Dependencies from database
-    handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from '../functions/CourseFunctions.jsx';
 import { useState } from 'react';
 import { TextField } from '@mui/material';
