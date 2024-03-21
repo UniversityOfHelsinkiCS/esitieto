@@ -4,7 +4,8 @@ module.exports = {
         "es2021": true
     },
     "extends": ["react-app",
-        "plugin:cypress/recommended"
+                "plugin:cypress/recommended",
+                "eslint:recommended"
         ],
     "ignorePatterns": ["coverage", "dist", "node_modules"],
     "overrides": [
