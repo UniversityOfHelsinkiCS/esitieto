@@ -35,7 +35,10 @@ const MainPage = ({ axiosInstance }) => {
 
       setCoursesData(response.data);
 
-      if (response == null) return;
+      if (response == null) {
+        error("Failed not fetch the degree!");
+        return;
+      } 
       info("Fetched degree successfully");
       // setCoursesData(response.data, true);
       // Debug console command for listing modules and courses
@@ -52,6 +55,7 @@ const MainPage = ({ axiosInstance }) => {
 
     } catch (error) {
       console.error("Error fetching data: ", error);
+      error("Failed to fetch the data!");
     }
   };
 
