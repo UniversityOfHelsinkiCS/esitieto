@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-//const { findAndFilterMandatoryModuleRules, findModulesWithCourses } = require('../utils/helsinkiFilters');
-//const HelsinkiInterface = require('../interfaces/helsinkiInterface');
-//const helsinkiInterface = new HelsinkiInterface();
 const { pool } = require('../dbStartup');
 const logger = require('../middleware/logger');
 
@@ -37,7 +34,7 @@ router.get('/search_by_degree', async (req, res) => {
       query, [degreeName, degreeYears]
     );
 
-    degreeId = rows[0].id;
+    let degreeId = rows[0].id;
     const query2 = `
       SELECT c.course_name AS name, c.kori_id, c.hy_course_id AS identifier, cdr.relation_type AS type,
         COALESCE(
@@ -54,19 +51,6 @@ router.get('/search_by_degree', async (req, res) => {
       WHERE cdr.degree_id = $1
     `;
 
-    /*
-      SELECT c.course_name AS name, c.kori_id, c.hy_course_id AS identifier, cdr.relation_type AS type,
-      (
-        SELECT array_agg(pc.hy_course_id)
-        FROM prerequisite_courses pr
-        JOIN courses pc ON pr.prerequisite_course_id = pc.id
-        WHERE pr.course_id = c.id
-      ) AS dependencies
-      FROM course_degree_relation cdr
-      JOIN courses c ON cdr.course_id = c.id
-      WHERE cdr.degree_id = $1
-    */
-
     const { rows: courses } = await pool.query(
       query2, [degreeId]
     );
@@ -80,20 +64,4 @@ router.get('/search_by_degree', async (req, res) => {
   }
 });
 
-/*
-router.get('/search_by_degree_name_old', async (req, res) => {
-  const id = req.query.search; // example KH50_005
-  console.log("Fetching degree with id:", id)
-  try {
-    const degreeStructure = await helsinkiInterface.degreeStructure(id);
-    let moduleUnits = findAndFilterMandatoryModuleRules(degreeStructure)
-    moduleUnits = findModulesWithCourses(moduleUnits)
-
-    res.json(moduleUnits);
-  } catch (error) {
-    console.error('Error fetching degree structure:', error.message);
-    res.status(500).send('Server error');
-  }
-});
-*/
 module.exports = router;

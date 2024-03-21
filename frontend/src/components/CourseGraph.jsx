@@ -11,9 +11,9 @@ import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
 import {
-    addCourse, removeCourse, // Courses from database
-    handleAddDependency, handleRemoveDependency, // Dependencies from database
-    handleKORIAPITEST, handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
+    //addCourse, removeCourse, // Courses from database
+    //handleAddDependency, handleRemoveDependency, // Dependencies from database
+    handleKORIAPITEST, //handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
 } from '../functions/CourseFunctions.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';

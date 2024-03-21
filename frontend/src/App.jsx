@@ -17,9 +17,9 @@ function App() {
     baseURL: import.meta.env.BASE_URL //import.meta.env.BASE_URL is from vite.config.js. It refers to the base variable it the defineConfig
   });
 
-  const padding = {
-    padding: 5
-  }
+  //const padding = { Commented out for lint, but if someone intended to use this for something leaving here. Otherwise nuke away.
+  //  padding: 5
+  //}
 
   return (
     <Router forceRefresh={true}>

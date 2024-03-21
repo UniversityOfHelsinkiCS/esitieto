@@ -1,5 +1,3 @@
-const { Pool } = jest.requireActual('pg');
-
 jest.mock('pg', () => {
   const mockQuery = jest.fn().mockResolvedValue({ rows: [], rowCount: 0 });
   return { Pool: jest.fn(() => ({ query: mockQuery })) };

@@ -3,7 +3,6 @@ import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
-import { extractCoursesFromModules } from '../utils/CourseExtractor'
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error } from '../components/messager/messager';
 
@@ -40,18 +39,6 @@ const MainPage = ({ axiosInstance }) => {
         return;
       } 
       info("Fetched degree successfully");
-      // setCoursesData(response.data, true);
-      // Debug console command for listing modules and courses
-
-      //temp.data.forEach((module, index) => {
-      //  console.log(`Module ${index}:`, module);
-      //});
-
-      // const extractedCourses = extractCoursesFromModules(response.data);
-      // console.log("Extracted Courses:", extractedCourses);
-
-      // if (extractedCourses == null) return;
-      // setCoursesData(extractedCourses);
 
     } catch (error) {
       console.error("Error fetching data: ", error);
@@ -63,7 +50,7 @@ const MainPage = ({ axiosInstance }) => {
     if (data == null) {
       console.log("No data to set courses!");
       return;
-    } else if (data == "fetch") {
+    } else if (data === "fetch") {
       console.log("fetching");
       fetchCourses();
       return;
@@ -110,7 +97,7 @@ const MainPage = ({ axiosInstance }) => {
     if (data == null) {
       console.log("No data to set degrees!");
       return;
-    } else if (data == "fetch") {
+    } else if (data === "fetch") {
       fetchDegrees();
       return;
     }

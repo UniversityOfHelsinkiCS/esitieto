@@ -1,8 +1,5 @@
 require('dotenv').config();
 const logger = require('../middleware/logger');
-// Leaving here if some of you need to debug something
-//logger.info('POSTGRES_USER:', process.env.POSTGRES_USER);
-//logger.info('POSTGRES_PASSWORD:', process.env.POSTGRES_PASSWORD);
 logger.info(`DATABASE_HOST: ${process.env.DATABASE_HOST}`);
 logger.info(`DATABASE_PORT: ${process.env.DATABASE_PORT}`);
 logger.info(`DATABASE_NAME: ${process.env.DATABASE_NAME}`);
@@ -10,7 +7,6 @@ const KoriInterface = require('../interfaces/koriInterface');
 
 
 const { Pool } = require('pg');
-const { add } = require('winston');
 const kori = new KoriInterface();
 
 const selectPool = () => {

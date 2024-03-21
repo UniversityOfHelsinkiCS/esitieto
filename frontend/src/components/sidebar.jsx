@@ -27,7 +27,7 @@ const Sidebar = ({
   selectedCourseName,
   axiosInstance,
 }) => {
-  const [courseDetails, setCourseDetails] = useState(null);
+  //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
   const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [courseActivityDesc, setCourseActivityDesc] = useState('')
   const [showActivityInfo, setShowActivityInfo] = useState(false)
@@ -38,9 +38,9 @@ const Sidebar = ({
   const sortCourseActivityPeriod = (periods) => {
     let sortedPeriods = []
     let id = 1
-    const wantedDate = "2024"
+    const wantedDate = "2024" // Might want to fetch automatically instead of hardcoded
     periods.map(period => {
-      if (period.startDate.substring(0, 4) === "2024") {
+      if (period.startDate.substring(0, 4) === wantedDate) {
         period.id = id
         sortedPeriods = sortedPeriods.concat(period)
         id += 1
@@ -51,11 +51,11 @@ const Sidebar = ({
 
   const findActivityPeriodDesc = (text) => {
     const start = text.indexOf("Järjestämisajankohta")
-    if (start == -1) {
+    if (start === -1) {
       return ('')
     }
     const end = text.indexOf("Opintokokonaisuus")
-    if (end == -1) {
+    if (end === -1) {
       return ('')
     }
     const fixedText = preprocessContent(text.substring(start, end))
@@ -81,7 +81,7 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
-            setCourseDetails(courseInfo);
+            //setCourseDetails(courseInfo);
             const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);

@@ -1,13 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const { Pool } = require('pg');
+//const { Pool } = require('pg');
 require('dotenv').config();
-const logger = require('../middleware/logger');
 const { addManyCourses, addManyPrequisiteCourses, addDegreeData } = require('../db');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+//const pool = new Pool({
+//  connectionString: process.env.DATABASE_URL,
+//});
 
 function mapPrerequisistes(jsonData) {
   let courseMappings = [];

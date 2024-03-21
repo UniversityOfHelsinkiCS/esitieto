@@ -1,3 +1,5 @@
+import { error as displayError } from '../components/messager/messager';
+
 // Add a course to the database
 export const addCourse = async (axios, onCoursesUpdated, course_name, official_course_id, kori_name) => {
     //const course_name = prompt("Enter course name:");
@@ -95,6 +97,7 @@ export const handleFetchKORIByName = async (axios, searchTerm) => {
         return response.data
     } catch (error) {
         console.error("Error fetching searched courses: ", error);
+        displayError("Ei pystynyt muodostamaan yhteyttä SISUun");
     }
 };
 
