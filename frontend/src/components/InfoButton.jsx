@@ -5,7 +5,7 @@ function InfoButton({ onClick }) {
     <button onClick={onClick} className='info-button'>
       i
     </button>
-  );
+  )
 }
 
 export default InfoButton;

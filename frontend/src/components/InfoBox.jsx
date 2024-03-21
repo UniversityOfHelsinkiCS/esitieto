@@ -14,4 +14,4 @@ export function InfoBox({ isOpen, onClose }) {
             <button onClick={onClose}>Close</button>
         </div>
     )
-};
+}
