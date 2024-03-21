@@ -5,7 +5,7 @@ module.exports = {
     },
     "extends": ["react-app",
                 "plugin:cypress/recommended",
-                "eslint:recommended"
+                "eslint:recommended",
         ],
     "ignorePatterns": ["coverage", "dist", "node_modules"],
     "overrides": [
@@ -20,7 +20,9 @@ module.exports = {
                 "sourceType": "script"
             }
         }
-    ],
+    ], "rules": {
+        "no-unused-vars": "warn",
+    },
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
