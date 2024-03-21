@@ -39,10 +39,10 @@ const Sidebar = ({
     let sortedPeriods = []
     let id = 1
     const wantedDate = "2024" // Might want to fetch automatically instead of hardcoded
-    periods.map(period => {
+    periods.forEach(period => {
       if (period.startDate.substring(0, 4) === wantedDate) {
         period.id = id
-        sortedPeriods = sortedPeriods.concat(period)
+        sortedPeriods.push(period)
         id += 1
       }
     })
