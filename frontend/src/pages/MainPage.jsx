@@ -108,11 +108,11 @@ const MainPage = ({ axiosInstance }) => {
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  });
 
   useEffect(() => {
     fetchDegrees();
-  }, []);
+  });
 
   const handleDegreeChange = (degree) => {
     console.log("Selected Degree: ", degree);
