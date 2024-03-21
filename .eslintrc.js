@@ -3,7 +3,9 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
-    "extends": "react-app",
+    "extends": ["react-app",
+        "plugin:cypress/recommended"
+        ],
     "ignorePatterns": ["coverage", "dist", "node_modules"],
     "overrides": [
         {
