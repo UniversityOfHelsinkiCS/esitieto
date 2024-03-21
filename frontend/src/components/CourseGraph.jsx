@@ -35,7 +35,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             setIsInfoBoxOpen(false);
         } else {
             setIsInfoBoxOpen(true);
-        }     
+        }
     };
     
     const closeInfoBox = () => {

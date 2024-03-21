@@ -4,7 +4,8 @@ import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import { extractCoursesFromModules } from '../utils/CourseExtractor'
-
+import Messenger from '../components/messager/MessagerComponent';
+import { info, error } from '../components/messager/messager';
 
 const MainPage = ({ axiosInstance }) => {
   const [courses, setCourses] = useState([]);
@@ -35,6 +36,7 @@ const MainPage = ({ axiosInstance }) => {
       setCoursesData(response.data);
 
       if (response == null) return;
+      info("Fetched degree successfully");
       // setCoursesData(response.data, true);
       // Debug console command for listing modules and courses
 
@@ -136,6 +138,7 @@ const MainPage = ({ axiosInstance }) => {
 
   return (
     <div>
+      <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
         courses={courses}
