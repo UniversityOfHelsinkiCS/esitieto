@@ -25,6 +25,7 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
   return (
     <div>
       <Button
+        id="degreeSelectionButton"
         aria-controls="degree-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -48,7 +49,11 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
         onClose={handleClose}
       >
         {listOfDegrees.map((degreeOption) => (
-          <MenuItem key={degreeOption} onClick={() => handleSelect(degreeOption)}>
+          <MenuItem
+            key={degreeOption}
+            onClick={() => handleSelect(degreeOption)}
+            id={`degree-option-${degreeOption.replace(/\s+/g, '-').toLowerCase()}`}
+          >
             {degreeOption}
           </MenuItem>
         ))}
