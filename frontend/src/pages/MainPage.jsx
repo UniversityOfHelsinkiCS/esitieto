@@ -10,7 +10,6 @@ const MainPage = ({ axiosInstance }) => {
   const [courses, setCourses] = useState([]);
 
   const fetchCourses = async (degree = null) => {
-    
     try {
       console.log("Fetching courses using degree", degree)
       let response;
@@ -108,11 +107,11 @@ const MainPage = ({ axiosInstance }) => {
 
   useEffect(() => {
     fetchCourses();
-  });
+  }, []);
 
   useEffect(() => {
     fetchDegrees();
-  });
+  }, []);
 
   const handleDegreeChange = (degree) => {
     console.log("Selected Degree: ", degree);
