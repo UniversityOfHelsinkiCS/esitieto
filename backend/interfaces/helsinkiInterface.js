@@ -24,7 +24,7 @@ class HelsinkiInterface {
         //var pattern = /^[\p{L}0-9_-]+( [\p{L}0-9_-]+)*$/u;
 
         // This regex now also accepts colons, in addition to numbers, letters (including Unicode letters like ä, ö, å), dashes, and spaces between words.
-        var pattern = /^[\p{L}0-9-:]+( [\p{L}0-9-:]+)*$/u;
+        var pattern = /^[\p{L}0-9-:_]+( [\p{L}0-9-:_]+)*$/u;
   
         return pattern.test(input);
     }
