@@ -48,5 +48,6 @@ export function info(message) {
  * @param {string} message - The message to be displayed as an error.
  */
 export function error(message) {
-    displayMessage(message, 'error');
+    const errorMessage = `Virhe: ${message}`;
+    displayMessage(errorMessage, 'error');
 }
