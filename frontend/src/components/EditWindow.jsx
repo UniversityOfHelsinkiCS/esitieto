@@ -15,7 +15,6 @@ export const EditWindowTemplate = (props) => {
     const cfunc = props.cfunc
     const axios = props.axios
     const courses = props.courses
-    const [searchText, SetSearchText] = useState('')
     const [texts, SetTexts] = useState(Array.from({length: labels.length}, () => ''))
 
     let windowClass;
@@ -31,7 +30,6 @@ export const EditWindowTemplate = (props) => {
 
     const handleChange = (event, textfield) => {
         event.preventDefault();
-        SetSearchText(event.target.value);
         texts[textfield] = event.target.value;
       }
 
