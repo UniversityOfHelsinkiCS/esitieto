@@ -21,7 +21,10 @@ class HelsinkiInterface {
   
     isValidInput(input) {
         /*Accepts numbers letters underscores and dashes*/
-        var pattern = /^[\p{L}0-9_-]+( [\p{L}0-9_-]+)*$/u;
+        //var pattern = /^[\p{L}0-9_-]+( [\p{L}0-9_-]+)*$/u;
+
+        // This regex now also accepts colons, in addition to numbers, letters (including Unicode letters like ä, ö, å), dashes, and spaces between words.
+        var pattern = /^[\p{L}0-9-:]+( [\p{L}0-9-:]+)*$/u;
   
         return pattern.test(input);
     }

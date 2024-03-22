@@ -23,9 +23,8 @@ class KoriInterface {
     }
   
     isValidInput(input) {
-        /*Accepts numbers letters and dashes*/
-        //var pattern = /^[a-zA-Z0-9\-]+$/;
-        var pattern = /^[\p{L}0-9-]+( [\p{L}0-9-]+)*$/u;
+        // This regex now also accepts colons, in addition to numbers, letters (including Unicode letters like ä, ö, å), dashes, and spaces between words.
+        var pattern = /^[\p{L}0-9-:]+( [\p{L}0-9-:]+)*$/u;
   
         return pattern.test(input);
     }

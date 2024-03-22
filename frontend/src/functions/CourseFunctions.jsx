@@ -96,8 +96,8 @@ export const handleFetchKORIByName = async (axios, searchTerm) => {
         //console.log(JSON.stringify(response.data, null, 2)); // Uncomment if you need to see the data
         return response.data
     } catch (error) {
-        console.error("Error fetching searched courses: ", error);
-        displayError("Ei pystynyt muodostamaan yhteyttä SISUun");
+        console.error("Error fetching searched courses from KORI:", error);
+        displayError("Kurssitietoja ei saatu haettua");
     }
 };
 

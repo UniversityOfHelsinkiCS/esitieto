@@ -8,10 +8,10 @@ router.get('/search_by_name', async (req, res) => {
     try {
       const search = req.query.search;
       const response = await kori.searchCourses(search);
-      logger.debug(`Courses from Kori ${response}`);
       res.setHeader('Access-Control-Allow-Origin', '*');
   
       const exactMatch = response.searchResults.find(course => course.name === search);
+      
       if (exactMatch) {
           res.json([exactMatch]);
       } else {

@@ -7,6 +7,7 @@ import CourseDescription from './CourseDescription';
 import '../styles/sidebar.css';
 import { Button, IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
+import { error as displayError } from '../components/messager/messager'
 
 
 function preprocessContent(htmlContent) {
@@ -100,6 +101,7 @@ const Sidebar = ({
       } catch (error) {
         console.error("Failed to fetch course info:", error);
         setSelectedCourseDescription("Failed to fetch from KORI");
+        displayError(`Kurssitietoja ei saatu haettua kurssista ${selectedCourseName}`)
       }
     };
 
