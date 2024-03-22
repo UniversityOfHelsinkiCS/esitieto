@@ -7,11 +7,6 @@ const { getCourses, addCourse, deleteCourse, updateCourse,
 const logger = require('../middleware/logger');
 
 
-// TO BE DEPRECATED
-router.get('/', (request, response) => {
-    response.json(courses);
-})
-
 const findCourseWithDependencies = (identifier, allCourses) => {
   const course = allCourses.find(course => course.identifier === identifier);
   if (!course) return [];
@@ -107,25 +102,6 @@ router.get('/getAllCoursesWithPrerequisites', asyncHandler(async (req, res) => {
   res.json(allCoursesWithPrerequisites);
 }));
 
-
-// Sample course data, to be removed later once connection to database is done!
-const courses = [
-  { name: 'Tietorakenteet ja algoritmit II', identifier: 'Tira2', dependencies: ['Tira1'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Tietorakenteet ja algoritmit I', identifier: 'Tira1', dependencies: ['Ohja', 'Jym'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Introduction to AI', identifier: 'IntroAI', dependencies: ['TodNak1', 'Tira2'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Todennäköisyyslaskenta I', identifier: 'TodNak1', dependencies: [], type: 'optional', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Todennäköisyyslaskenta II', identifier: 'TodNak2', dependencies: ['TodNak1'], type: 'optional', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Ohjelmistotuotanto Projekti', identifier: 'Ohtupro', dependencies: ['Ohtu', 'aine-ai', 'aine-tl', 'aine-ot'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Ohjelmistotuotanto', identifier: 'Ohtu', dependencies: ['TikaWeb'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Tietokannat ja Web-ohjelmointi', identifier: 'TikaWeb', dependencies: ['Ohja'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Ohjelmoinnin peruskurssi', identifier: 'Ohpe', dependencies: [], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Ohjelmoinnin jatkokurssi', identifier: 'Ohja', dependencies: ['Ohpe'], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Johdatus Yliopistomatematiikkaan', identifier: 'Jym', dependencies: [], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Aineopintojen harjoitustyö: Algoritmit ja tekoäly', identifier: 'aine-ai', dependencies: ['Tira2'], type: 'alternative', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Aineopintojen harjoitustyö: Tietoliikenne', identifier: 'aine-tl', dependencies: ['Coin'], type: 'alternative', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Aineopintojen harjoitustyö: Ohjelmistotekniikka', identifier: 'aine-ot', dependencies: ['Ohja', 'Tikape', 'TikaWeb'], type: 'alternative', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-  { name: 'Computer and Internet', identifier: 'Coin', dependencies: [], type: 'mandatory', description: 'Tämä on backendistä haettu kurssin kuvaus' },
-];
   
   module.exports = router;
   module.exports.findCourseWithDependencies = findCourseWithDependencies;
