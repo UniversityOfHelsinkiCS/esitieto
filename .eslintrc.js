@@ -22,6 +22,7 @@ module.exports = {
         }
     ], "rules": {
         "no-unused-vars": "warn",
+        "react-hooks/exhaustive-deps": 0,
     },
     "parserOptions": {
         "ecmaVersion": "latest",
