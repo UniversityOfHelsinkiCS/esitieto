@@ -34,13 +34,20 @@ describe('KoriInterface', () => {
             expect(kori.isValidInput('Ohjelmoinnin  jatkokurssi')).toBe(false);
         });
 
-        test('should not allow special characters other than dashes', () => {
+        test('should allow these special characters', () => {
+            expect(kori.isValidInput('OhjelmoinninJatko-kurssi')).toBe(true);
+            expect(kori.isValidInput('Ohjelmoinnin,Jatkokurssi')).toBe(true);
+            expect(kori.isValidInput('Ohjelmo:inninJatkokurssi')).toBe(true);
+            expect(kori.isValidInput('Ohj_elmoinninJatkokurssi')).toBe(true);
+        });
+
+        test('should not allow these special characters', () => {
             expect(kori.isValidInput('OhjelmoinninJatko\\kurssi')).toBe(false);
             expect(kori.isValidInput('Ohjelmoinnin/Jatkokurssi')).toBe(false);
             expect(kori.isValidInput('Ohjelmo$inninJatkokurssi')).toBe(false);
             expect(kori.isValidInput('Ohj*elmoinninJatkokurssi')).toBe(false);
             expect(kori.isValidInput('OhjelmoinninJatkok?urssi')).toBe(false);
-            expect(kori.isValidInput('Ohjelmoinnin_Jatkokurssi')).toBe(false);
+            expect(kori.isValidInput('Ohjelmoinnin{Jatkokurssi')).toBe(false);
         });
     });
 });
