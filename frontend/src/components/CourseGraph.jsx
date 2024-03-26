@@ -68,7 +68,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
 
     useEffect(() => {
         getLayoutedElements(nodes, edges);
-    }, [nodes, edges]);
+    }, []);
 
     const onConnect = useCallback(
         (params) => setEdges((eds) => addEdge(params, eds)),

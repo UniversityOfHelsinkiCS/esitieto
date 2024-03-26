@@ -34,6 +34,13 @@ describe('HelsinkiInterface', () => {
             expect(helInterface.isValidInput('Ohjelmoinnin  jatkokurssi')).toBe(false);
         });
 
+        test('should allow these special characters', () => {
+            expect(helInterface.isValidInput('OhjelmoinninJatko-kurssi')).toBe(true);
+            expect(helInterface.isValidInput('Ohjelmoinnin,Jatkokurssi')).toBe(true);
+            expect(helInterface.isValidInput('Ohjelmo:inninJatkokurssi')).toBe(true);
+            expect(helInterface.isValidInput('Ohj_elmoinninJatkokurssi')).toBe(true);
+        });
+
         test('should not allow special characters other than dashes', () => {
             expect(helInterface.isValidInput('OhjelmoinninJatko\\kurssi')).toBe(false);
             expect(helInterface.isValidInput('Ohjelmoinnin/Jatkokurssi')).toBe(false);
