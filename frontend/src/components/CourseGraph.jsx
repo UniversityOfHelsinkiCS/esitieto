@@ -31,11 +31,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     const [Cfunction, setCfunction] = useState('')
 
     const openInfoBox = () => {
-        if(isInfoBoxOpen) {
-            setIsInfoBoxOpen(false);
-        } else {
-            setIsInfoBoxOpen(true);
-        }
+        setIsInfoBoxOpen(!isInfoBoxOpen);
     };
     
     const closeInfoBox = () => {
@@ -82,12 +78,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     };
 
     const toggleEdit = async () => {
-        if (!editBarState) {
-            setEditBarState(true);
-        }
-        else {
-            setEditBarState(false);
-        }
+        setEditBarState(!editBarState);
     };
 
     const handleEditWindow = async (newLabel, newDesc, newFunction) => {
