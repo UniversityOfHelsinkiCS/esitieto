@@ -8,7 +8,6 @@ import { info, error as displayError } from '../components/messager/messager';
 //import { list } from 'postcss'; Unused by eslint, unsure if someone using but nuke otherwise.
 
 const MainPage = ({ axiosInstance }) => {
-  const [degree, setDegree] = useState('TKT 23-26');
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
@@ -21,14 +20,11 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Degree is null!")
         return;
       }
-
       let response;
-      console.log("Fetching courses from degree", degree);
-
       response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
-        headers: { // HARDCODED INFO, NEEDS FIXING LATER.
-          'degree-name': "kh50_005", //degree-name,
-          'degree-years': '2023-2026', //degree-year
+        headers: {
+          'degree-id': degree.hy_degree_id,
+          'degree-years': degree.degree_years, 
         }
       });
 
@@ -40,7 +36,11 @@ const MainPage = ({ axiosInstance }) => {
 
       const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
       setCourses(convertedCourses);
-      info("Fetched degree successfully");
+      if (convertedCourses.length === 0 || convertedCourses == null) {
+        displayError("Kurssitietoja ei löytynyt!");
+        return;
+      }
+      info("Fetched degree: " + degree.degree_name);
 
     } catch (error) {
       console.error("Error fetching data: ", error);
@@ -95,8 +95,7 @@ const MainPage = ({ axiosInstance }) => {
         displayError("Palvelimelle ei saatu yhteyttä")
         return;
       }
-      const convertedDegrees = response.data.map(degreeData => degreeData.degree_name);
-      setDegreeToList(convertedDegrees);
+      setDegreeToList(response.data);
     } catch (error) {
       console.error("Error when fetching degree data: ", error);
       displayError("Jokin meni pieleen. Yritä uudestaan myöhemmin.")
@@ -114,8 +113,6 @@ const MainPage = ({ axiosInstance }) => {
   }, [listOfDegrees]);
 
   const handleDegreeChange = (degree) => {
-    console.log("Selected Degree: ", degree);
-    setDegree(degree);
     fetchCourses(degree)
   };
 
@@ -131,8 +128,7 @@ const MainPage = ({ axiosInstance }) => {
       />
       <div className="degree-menu-container">
         <DegreeSelectionMenu
-          onDegreeChange={handleDegreeChange} // Assuming you have a handler function for this
-          degree={degree}
+          onDegreeChange={handleDegreeChange}
           listOfDegrees={listOfDegrees}
         />
       </div>

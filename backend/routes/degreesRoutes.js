@@ -10,7 +10,11 @@ router.get('/', async (req, res) => {
   */
   try {
     const result = await pool.query('SELECT * FROM degrees');
-    const degrees = result.rows.map(degree => ({ degree_name: degree.degree_name }));
+    const degrees = result.rows.map(degree => ({ 
+      degree_name: degree.degree_name, 
+      degree_years: degree.degree_years,
+      hy_degree_id: degree.hy_degree_id
+    }));
     logger.verbose("Degrees fetched:", degrees);
     res.json(degrees);
   } catch (error) {
@@ -21,10 +25,10 @@ router.get('/', async (req, res) => {
 
 router.get('/search_by_degree', async (req, res) => {
   /*
-  Fetches the degree structure from the database using the degree name and year.
+  Fetches the degree structure from the database using the degree HY degree code and year.
   */
 
-  const degreeName = req.headers['degree-name'].toLowerCase();
+  const degreeName = req.headers['degree-id'].toLowerCase();
   const degreeYears = req.headers['degree-years'];
   logger.info(`Fetching degree with name: ${degreeName} and year: ${degreeYears}`);
 
@@ -55,7 +59,7 @@ router.get('/search_by_degree', async (req, res) => {
       query2, [degreeId]
     );
 
-    console.log(courses);
+    logger.verbose(courses);
     res.json(courses);
 
   } catch (error) {

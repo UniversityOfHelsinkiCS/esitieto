@@ -3,10 +3,9 @@ import { Button, Menu, MenuItem } from '@mui/material';
 
 
 
-function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
+function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -21,7 +20,7 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
     onDegreeChange(degree);
     handleClose();
   };
-
+  
   return (
     <div>
       <Button
@@ -33,9 +32,9 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
         variant="contained"
         sx={{
           color: 'black',
-          backgroundColor: 'white', // Custom background color
+          backgroundColor: 'white', 
           '&:hover': {
-            backgroundColor: 'gray', // Darker on hover
+            backgroundColor: 'gray',
           },
         }}
       >
@@ -44,17 +43,16 @@ function DegreeSelectionMenu({ onDegreeChange, degree, listOfDegrees }) {
       <Menu
         id="degree-menu"
         anchorEl={anchorEl}
-        //keepMounted
         open={open}
         onClose={handleClose}
       >
         {listOfDegrees.map((degreeOption) => (
           <MenuItem
-            key={degreeOption}
+            key={degreeOption.degree_name}
             onClick={() => handleSelect(degreeOption)}
-            id={`degree-option-${degreeOption.replace(/\s+/g, '-').toLowerCase()}`}
+            id={`degree-option-${degreeOption.degree_name.replace(/\s+/g, '-').toLowerCase()}`}
           >
-            {degreeOption}
+            {degreeOption.degree_name}
           </MenuItem>
         ))}
       </Menu>
