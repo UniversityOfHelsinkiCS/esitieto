@@ -10,28 +10,23 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import {
-    //addCourse, removeCourse, // Courses from database
-    //handleAddDependency, handleRemoveDependency, // Dependencies from database
-    handleKORIAPITEST, //handleFetchKORIByName, handleFetchKORICourseInfo, // Kori
-} from '../functions/CourseFunctions.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
-import { EditWindowTemplate } from './EditWindow.jsx'
 import InfoButton from './InfoButton';
+import { EditBar } from './EditBar.jsx';
 
 const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
-    const [editWindowState, setEditWindowState] = useState(false);
-    const [labels, setLabels] = useState(['',''])
-    const [desc, setDesc] = useState(['',''])
-    const [Cfunction, setCfunction] = useState('')
 
     const openInfoBox = () => {
-        setIsInfoBoxOpen(!isInfoBoxOpen);
+        if(isInfoBoxOpen) {
+            setIsInfoBoxOpen(false);
+        } else {
+            setIsInfoBoxOpen(true);
+        }
     };
     
     const closeInfoBox = () => {
@@ -78,57 +73,17 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     };
 
     const toggleEdit = async () => {
-        setEditBarState(!editBarState);
-    };
-
-    const handleEditWindow = async (newLabel, newDesc, newFunction) => {
-        if (!editWindowState) {
-            setEditWindowState(true);
-            setLabels(newLabel)
-            setDesc(newDesc)
-            setCfunction(newFunction)
+        if (!editBarState) {
+            setEditBarState(true);
         }
         else {
-            setEditWindowState(false)
+            setEditBarState(false);
         }
-    }
-
-    const EditBar = () => {
-        if (editBarState===true) {
-            return (
-                <div className='edit-buttons'>
-                <button onClick={() => onLayout(nodes, edges)}>Auto Layout</button>
-                <button onClick={() => handleEditWindow(
-                    ['Course name', 'Official ID', 'Kori name'],
-                    ['Enter course name:', 'Enter official course ID:', 'Enter Kori name:'],
-                    'add course'
-                    )}>Add Course</button>
-                <button onClick={() => handleEditWindow(
-                    ['Course name'],
-                    ['Enter Kori name of the course to remove:'],
-                    'remove'
-                    )}>Remove Course</button>
-                <button onClick={() => handleEditWindow(
-                    ['Course name','Prerequisite course name'],
-                    ['Enter the Kori name of the course:','Enter the Kori name of the prerequisite course:'],
-                    'add dependency'
-                    )}>Add Dependency</button>
-                <button onClick={() => handleEditWindow(
-                    ['Course name','Prerequisite course name'],
-                    ['Enter the Kori name of the course:','Enter the Kori name of the prerequisite course:'],
-                    'remove dependency'
-                    )}>Remove Dependency</button>
-                <button onClick={() => handleKORIAPITEST(axiosInstance)}>KORIAPI TEST</button>
-                </div>
-            )
-        }
-    }
+    };
 
     return (
         <div className='reactflow-wrapper'>
-            <EditBar state={editBarState} />
-            {editWindowState? <EditWindowTemplate state={editWindowState} labels={labels} 
-            desc={desc} cfunc={Cfunction} axios={axiosInstance} courses={onCoursesUpdated}/> : <></>}
+            <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/>
             <InfoButton onClick={openInfoBox} />
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
