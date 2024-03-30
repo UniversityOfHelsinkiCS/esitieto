@@ -131,7 +131,7 @@ const deleteCourse = async (kori_name) => {
 
 
 const getCourses = async () => {
-  const { rows } = await pool.query('SELECT * FROM course_info');
+  const { rows } = await pool.query('SELECT * FROM courses');
   return rows;
 };
 
