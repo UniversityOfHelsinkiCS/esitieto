@@ -9,7 +9,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 
 export const SearchBar = (props) => {
-  const [searchText, SetSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [dbCourses, setDbCourses] = useState([]);
   const axios = props.axiosInstance;
   const courses = props.onCoursesUpdated
@@ -40,21 +40,26 @@ export const SearchBar = (props) => {
   }
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submits this:",searchText);
     handleSearch(axios, courses, searchText);
   }
   
-  const handleChange = (event) => {
-    event.preventDefault()
-    SetSearchText(event.target.value)
-  }
+  const handleChange = (event, newValue) => {
+    setSearchText(newValue);
+    console.log(searchText);
+  };
 
   return ( 
     <div className='searchbar'>   
+    <form onSubmit={handleSubmit}>
     <Autocomplete
       className='autocomplete'
       disablePortal
       id="combo-box-demo"
       options={dbCourses}
+      inputValue={searchText}
+      onInputChange={handleChange}
       getOptionLabel={(option) => option.course_name}
       renderOption={(props, option) => (
           <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
@@ -62,8 +67,12 @@ export const SearchBar = (props) => {
           </Box>
         )}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Search courses" variant="standard" />}
+      renderInput={(params) => <TextField {...params} 
+      label="Search courses"
+      variant="standard"
+      />}
     />
+    </form>
     </div>
   )
     
