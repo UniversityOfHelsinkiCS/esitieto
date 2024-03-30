@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { handleSearch } from '../functions/CourseFunctions';
+import "../styles/searchbar.css"
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
-import "../styles/searchbar.css"
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-
 
 export const SearchBar = (props) => {
   const [searchText, setSearchText] = useState('');
