@@ -3,7 +3,8 @@ const router = express.Router();
 const { getCourses, addCourse, deleteCourse, updateCourse,
   addPrerequisiteCourse, removePrerequisiteCourse,
   fetchCourseWithPrerequisites,
-  getAllCoursesWithPrerequisites } = require('../db');
+  getAllCoursesWithPrerequisites,
+  getCourseWithReqursivePrerequisites } = require('../db');
 const logger = require('../middleware/logger');
 
 
@@ -36,6 +37,14 @@ router.get('/databaseGetCourses', asyncHandler(async (req, res) => {
   const courses = await getCourses();
   logger.debug("Courses from database", courses);
   res.json(courses);
+}));
+
+router.get('/databaseGetCourseWithRequirements/:course_id', asyncHandler(async (req, res) => {
+  const { course_id } = req.params;
+  console.log("Course id", course_id)
+  const courseRequirements = await getCourseWithReqursivePrerequisites(course_id);
+  logger.debug("Course requirements", courseRequirements);
+  res.json(courseRequirements);
 }));
 
 router.post('/databaseCreateCourse', asyncHandler(async (req, res) => {

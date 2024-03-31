@@ -135,6 +135,47 @@ const getCourses = async () => {
   return rows;
 };
 
+const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
+  const query = `
+  WITH RECURSIVE PrerequisitePath AS (
+    SELECT
+        c.id,
+        c.kori_id,
+        c.course_name, 
+        c.hy_course_id,
+        pc.prerequisite_course_id AS prerequisite_id
+    FROM
+        courses c
+    LEFT JOIN
+        prerequisite_courses pc ON c.id = pc.course_id
+    WHERE
+        c.hy_course_id = $1
+    UNION 
+    SELECT
+        c.id,
+        c.kori_id,
+        c.course_name, 
+        c.hy_course_id,
+        pc.prerequisite_course_id
+    FROM
+        courses c
+    LEFT JOIN
+        prerequisite_courses pc ON c.id = pc.course_id
+    JOIN
+        PrerequisitePath pp ON pp.prerequisite_id = c.id
+  )
+  SELECT DISTINCT
+      p.id, 
+      p.kori_id, 
+      p.course_name, 
+      p.hy_course_id
+  FROM
+      PrerequisitePath p;
+  `;
+  const { rows } = await pool.query(query, [course_hy_id]);
+  return rows;
+};
+
 // Dependency
 
 const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) => {
@@ -360,6 +401,7 @@ module.exports = {
   addPrerequisiteCourse,
   removePrerequisiteCourse,
   getCourses,
+  getCourseWithReqursivePrerequisites,
   addCourse,
   addManyCourses,
   addManyPrequisiteCourses,
