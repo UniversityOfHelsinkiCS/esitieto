@@ -28,8 +28,6 @@ export const SearchBar = (props) => {
     fetchDatabaseCourses(axios)
   }, [])
 
-  console.log(dbCourses)
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSearch(axios, courses, searchText);
