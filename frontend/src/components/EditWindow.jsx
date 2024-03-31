@@ -7,6 +7,8 @@ import { TextField } from '@mui/material';
 import "../styles/EditWindow.css"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export const EditWindowTemplate = (props) => {
     const [state, setState] = useState(props.state)
@@ -67,6 +69,9 @@ export const EditWindowTemplate = (props) => {
     if (state) {
     return (
         <div className={windowClass}>
+            <IconButton onClick={()=>setState(false)} style={{marginLeft:'90%'}}>
+            <ClearIcon/>
+            </IconButton>
             <div className='desc1'>
                 <p>{desc[0]}</p>
             </div>

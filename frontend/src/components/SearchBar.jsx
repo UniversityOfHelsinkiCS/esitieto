@@ -49,8 +49,9 @@ export const SearchBar = (props) => {
   }
 
   return ( 
-    <div>   
+    <div className='searchbar'>   
     <Autocomplete
+      className='autocomplete'
       disablePortal
       id="combo-box-demo"
       options={dbCourses}
@@ -61,7 +62,7 @@ export const SearchBar = (props) => {
           </Box>
         )}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Search courses" />}
+      renderInput={(params) => <TextField {...params} label="Search courses" variant="standard" />}
     />
     </div>
   )
