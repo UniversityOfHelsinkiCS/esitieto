@@ -87,7 +87,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <InfoButton onClick={openInfoBox} />
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-            <SearchBar axiosInstance={axiosInstance}/>
+            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated}/>
 
             <CustomEdge />
             <ReactFlow

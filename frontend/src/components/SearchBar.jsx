@@ -24,6 +24,15 @@ export const SearchBar = (props) => {
     }
   }
 
+  const findCourse = async (code) => {
+    try {
+      const response = await axios.get('/api/courses/databaseGetCourseWithRequirements/'+(code))
+      return(response.data)
+    } catch (error) {
+      console.log("Error getting course ", code, error)
+    }
+  }
+
   useEffect(() => {
     fetchDatabaseCourses(axios)
   }, [])
@@ -38,8 +47,10 @@ export const SearchBar = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submits this:",searchText);
-    handleSearch(axios, courses, searchText);
+    const code = searchText.slice(0,8)
+    console.log(searchText)
+    console.log("submits this:", code);
+    findCourse(code);
   }
   
   const handleChange = (event, newValue) => {
@@ -57,7 +68,7 @@ export const SearchBar = (props) => {
       options={dbCourses}
       inputValue={searchText}
       onInputChange={handleChange}
-      getOptionLabel={(option) => option.course_name}
+      getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
           <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
                 {option.course_name} ({option.hy_course_id})
