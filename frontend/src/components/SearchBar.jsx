@@ -37,8 +37,6 @@ export const SearchBar = (props) => {
     fetchDatabaseCourses(axios)
   }, [])
 
-  console.log(dbCourses)
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSearch(axios, courses, searchText);
@@ -64,11 +62,11 @@ export const SearchBar = (props) => {
     <Autocomplete
       className='autocomplete'
       disablePortal
-      id="combo-box-demo"
+      id="searchBar"
       options={dbCourses}
       inputValue={searchText}
       onInputChange={handleChange}
-      getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
+      getOptionLabel={(option) => option.course_name + " (" + option.hy_course_id + ")"}
       renderOption={(props, option) => (
           <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
                 {option.course_name} ({option.hy_course_id})
