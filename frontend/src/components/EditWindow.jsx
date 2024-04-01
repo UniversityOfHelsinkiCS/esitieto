@@ -75,19 +75,16 @@ export const EditWindowTemplate = (props) => {
         }
     }
 
+    const handleChange = (event) => {
+        event.preventDefault();
+        const newText = event.target.value;
+        const newTexts = [...texts];
+        newTexts[index] = newText
+        setTexts(newTexts);
+    }
+
     const AutocompleteSearch = (props) => {
         const index = props.index
-
-        // const handleChange = (event) => {
-        //     console.log(texts, index, event.target.value)
-        //     event.preventDefault();
-        //     const newText = event.target.value;
-        //     const newTexts = [...texts];
-        //     newTexts[index] = newText
-        //     console.log(newTexts)
-        //     setTexts(newTexts);
-        //     console.log(index, texts)
-        //   }
 
         return(
         <div>
@@ -97,7 +94,7 @@ export const EditWindowTemplate = (props) => {
         disablePortal
         options={dbCourses}
         inputValue={texts[index]}
-        // onInputChange={handleChange}
+        onInputChange={handleChange}
         getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
         renderOption={(props, option) => (
         <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
@@ -114,32 +111,17 @@ export const EditWindowTemplate = (props) => {
         )
     }
 
-    if (state) {
-    return (
-        <div className={windowClass}>
-            <IconButton onClick={()=>setState(false)} style={{marginLeft:'90%'}}>
-            <ClearIcon/>
-            </IconButton>
-            <form onSubmit={handleSubmit}>
-                <AutocompleteSearch index={0}/>
+    const TextfieldSearch = (props) => {
+        const index = props.index
 
-                {labels.length >= 2 &&
-                <AutocompleteSearch index={1}/>}
-
-                {labels.length >= 3 &&
-                <AutocompleteSearch index={2}/>}
-
-            <button onClick={handleSubmit} style={{ marginTop:'10%' }}>SUBMIT</button>
-            </form>
-        </div>
-    )}
-    /*<div>
+        return (
+            <div>
+            <p>{desc[index]}</p>
             <TextField
-            className='textfield1'
             variant='standard'
-            label = {labels[0]}
-            onChange={(event) =>handleChange(event,0)}
-            value={texts[0]}
+            label = {labels[index]}
+            onChange={(event) =>handleChange(event,index)}
+            value={texts[index]}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" onClick={handleSubmit}>
@@ -148,49 +130,28 @@ export const EditWindowTemplate = (props) => {
                 )}}
             />
             </div>
+        )
+    }
 
-            {labels.length >= 2 &&
-            <div className='desc2'>
-            <p>{desc[1]}</p>
-            </div>}
-            {labels.length >= 2 &&
-            <div>
-            <TextField
-            className='textfield2'
-            variant='standard'
-            label = {labels[1]}
-            onChange={(event) =>handleChange(event,1)}
-            value={texts[1]}
-            InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" onClick={handleSubmit}>
-                    <SearchIcon/>
-                  </InputAdornment>
-                )}}
-            />
-            </div>}
+    if (state) {
+    return (
+        <div className={windowClass}>
+            <IconButton onClick={()=>setState(false)} style={{marginLeft:'90%'}}>
+            <ClearIcon/>
+            </IconButton>
+            <form onSubmit={handleSubmit}>
+                <TextfieldSearch index={0}/>
 
-            {labels.length >= 3 &&
-            <div className='desc3'>
-            <p>{desc[2]}</p>
-            </div>}
-            {labels.length >= 3 &&
-            <div>
-            <TextField
-            className='textfield3'
-            variant='standard'
-            label = {labels[2]}
-            onChange={(event) =>handleChange(event,2)}
-            value={texts[2]}
-            InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" onClick={handleSubmit}>
-                    <SearchIcon/>
-                  </InputAdornment>
-                )}}
-            />
-            </div>}
-        */
+                {labels.length >= 2 &&
+                <TextfieldSearch index={1}/>}
+
+                {labels.length >= 3 &&
+                <TextfieldSearch index={2}/>}
+
+            <button onClick={handleSubmit} style={{ marginTop:'10%' }}>SUBMIT</button>
+            </form>
+        </div>
+    )}
 }
 
 export default EditWindowTemplate
