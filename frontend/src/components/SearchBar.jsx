@@ -38,7 +38,7 @@ export const SearchBar = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const code = searchText.slice(0,8)
+    const code = searchText.split(" ")[0]
 
     props.handleSearch(code)
   }
