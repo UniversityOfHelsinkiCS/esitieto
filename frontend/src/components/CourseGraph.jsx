@@ -13,12 +13,12 @@ import CustomEdge from '../styles/CustomEdge.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
 import InfoButton from './InfoButton';
- import { EditBar } from './EditBar.jsx';
+// import { EditBar } from './EditBar.jsx';
 
 const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-     const [editBarState, setEditBarState] = useState(false);
+    // const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
     const openInfoBox = () => {
@@ -71,20 +71,20 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
         setIsSidebarOpen(true);
     };
 
-     const toggleEdit = async () => {
-         if (!editBarState) {
-             setEditBarState(true);
-         }
-         else {
-             setEditBarState(false);
-         }
-     };
+    // const toggleEdit = async () => {
+    //     if (!editBarState) {
+    //         setEditBarState(true);
+    //     }
+    //     else {
+    //         setEditBarState(false);
+    //     }
+    // };
 
     return (
         <div className='reactflow-wrapper'>
-            { <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> }
+            {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
             <InfoButton onClick={openInfoBox} />
-            { <button onClick={() => toggleEdit()} className='edit'>Edit</button> }
+            {/* <button onClick={() => toggleEdit()} className='edit'>Edit</button> */}
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
             <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
 
@@ -106,6 +106,9 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
         </div>
     );
 };
+
+
+
 
 
 export default CourseGraph;
