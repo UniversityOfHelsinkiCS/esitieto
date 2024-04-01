@@ -4,6 +4,9 @@ import "../styles/searchbar.css"
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+
 
 export const SearchBar = (props) => {
   const [searchText, setSearchText] = useState('');
@@ -50,21 +53,29 @@ export const SearchBar = (props) => {
     <form onSubmit={handleSubmit}>
     <Autocomplete
       className='autocomplete'
-      disablePortal
       id="searchBar"
       options={dbCourses}
       inputValue={searchText}
       onInputChange={handleChange}
+      onChange={(event, selectedBox) => {
+        console.log(event)
+        if (event.type === 'click' ) {
+          console.log("Ive Been selected!!!!")  
+          console.log(selectedBox)
+          console.log(selectedBox.hy_course_id)
+          handleChange(event, selectedBox.hy_course_id + " (" + selectedBox.course_name + ")")
+          handleSubmit(); // Call handleSubmit when an option is selected
+      }}}
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
           <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
-                {option.course_name} ({option.hy_course_id})
+                {option.hy_course_id} ({option.course_name})
           </Box>
         )}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} 
-      label="Search courses"
-      variant="standard"
+        label="Search courses:"
+        variant="standard"
       />}
     />
     </form>
