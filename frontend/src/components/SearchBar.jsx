@@ -11,12 +11,11 @@ export const SearchBar = (props) => {
   const axios = props.axiosInstance;
   const courses = props.onCoursesUpdated
 
-  const fetchDatabaseCourses = async (axios) => {
+  const fetchDatabaseSearchSuggestions = async (axios) => {
     console.log("Fetching all courses from db")
 
     try {
         const response = await axios.get('/api/courses/databaseGetCourses')
-        console.log("fetchdtabaseCourses:", response.data)
         setDbCourses(response.data)
         return response.data
     } catch (error) {
@@ -24,17 +23,8 @@ export const SearchBar = (props) => {
     }
   }
 
-  const findCourse = async (code) => {
-    try {
-      const response = await axios.get('/api/courses/databaseGetCourseWithRequirements/'+(code))
-      return(response.data)
-    } catch (error) {
-      console.log("Error getting course ", code, error)
-    }
-  }
-
   useEffect(() => {
-    fetchDatabaseCourses(axios)
+    fetchDatabaseSearchSuggestions(axios)
   }, [])
 
   const handleKeyDown = (event) => {
@@ -46,9 +36,8 @@ export const SearchBar = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const code = searchText.slice(0,8)
-    console.log(searchText)
-    console.log("submits this:", code);
-    findCourse(code);
+
+    props.handleSearch(code)
   }
   
   const handleChange = (event, newValue) => {
@@ -66,7 +55,7 @@ export const SearchBar = (props) => {
       options={dbCourses}
       inputValue={searchText}
       onInputChange={handleChange}
-      getOptionLabel={(option) => option.course_name + " (" + option.hy_course_id + ")"}
+      getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
           <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
                 {option.course_name} ({option.hy_course_id})

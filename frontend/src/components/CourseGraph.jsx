@@ -15,7 +15,7 @@ import { SearchBar } from './SearchBar.jsx';
 import InfoButton from './InfoButton';
 import { EditBar } from './EditBar.jsx';
 
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName }) => {
+const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const [editBarState, setEditBarState] = useState(false);
@@ -87,7 +87,7 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
             <InfoButton onClick={openInfoBox} />
             <button onClick={() => toggleEdit()} className='edit'>Edit</button>
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated}/>
+            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated} handleSearch={handleSearch}/>
 
             <CustomEdge />
             <ReactFlow

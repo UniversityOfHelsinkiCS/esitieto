@@ -143,7 +143,16 @@ const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
         c.kori_id,
         c.course_name, 
         c.hy_course_id,
-        pc.prerequisite_course_id AS prerequisite_id
+        pc.prerequisite_course_id AS prerequisite_id,
+        COALESCE(
+          (
+            SELECT array_agg(pc.hy_course_id)
+            FROM prerequisite_courses pr
+            JOIN courses pc ON pr.prerequisite_course_id = pc.id
+            WHERE pr.course_id = c.id
+          ),
+          '{}'::text[]
+        ) AS dependencies
     FROM
         courses c
     LEFT JOIN
@@ -156,7 +165,16 @@ const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
         c.kori_id,
         c.course_name, 
         c.hy_course_id,
-        pc.prerequisite_course_id
+        pc.prerequisite_course_id,
+        COALESCE(
+          (
+            SELECT array_agg(pc.hy_course_id)
+            FROM prerequisite_courses pr
+            JOIN courses pc ON pr.prerequisite_course_id = pc.id
+            WHERE pr.course_id = c.id
+          ),
+          '{}'::text[]
+        ) AS dependencies
     FROM
         courses c
     LEFT JOIN
@@ -168,7 +186,8 @@ const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
       p.id, 
       p.kori_id, 
       p.course_name, 
-      p.hy_course_id
+      p.hy_course_id AS identifier,
+      p.dependencies
   FROM
       PrerequisitePath p;
   `;

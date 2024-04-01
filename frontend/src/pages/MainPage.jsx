@@ -13,7 +13,7 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [courses, setCourses] = useState([]);
 
-  const fetchCourses = async (degree) => {
+  const fetchDegreeCourses = async (degree) => {
     try {
       if(degree == null) {
         displayError("Jokin meni pieleen tutkintotietoja haettaessa!")
@@ -33,7 +33,7 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Response is null!")
         return;
       } 
-
+      console.log("Response data: ", response.data);
       const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
       setCourses(convertedCourses);
       if (convertedCourses.length === 0 || convertedCourses == null) {
@@ -48,6 +48,22 @@ const MainPage = ({ axiosInstance }) => {
     }
   };
 
+  const handleSearch = async (courseId) => {
+    let response;
+    console.log(courseId)
+    response = await axiosInstance.get('/api/courses/databaseGetCourseWithRequirements/'+courseId)
+    console.log(response.data)
+    
+
+    if (response == null) {
+      displayError("Kurssitietoja ei löytynyt!")
+      return;
+    }
+    const convertedCourses = response.data.map(courseData => new Course(courseData.course_name, courseData.identifier, courseData.groupId, courseData.dependencies));
+    setCourses(convertedCourses);
+
+  }
+
   const setCoursesData = (data = null, fromDatabase = null) => { // Likely to be nuked soon! But leaving here just in case.
     return;
     /*
@@ -56,7 +72,7 @@ const MainPage = ({ axiosInstance }) => {
       return;
     } else if (data === "fetch") {
       console.log("fetching");
-      fetchCourses();
+      fetchDegreeCourses();
       return;
     }
 
@@ -108,12 +124,12 @@ const MainPage = ({ axiosInstance }) => {
   
   useEffect(() => {
     if (listOfDegrees == null || listOfDegrees.length === 0) return
-    fetchCourses(listOfDegrees[0]);
+    fetchDegreeCourses(listOfDegrees[0]);
     
   }, [listOfDegrees]);
 
   const handleDegreeChange = (degree) => {
-    fetchCourses(degree)
+    fetchDegreeCourses(degree)
   };
 
   return (
@@ -125,6 +141,7 @@ const MainPage = ({ axiosInstance }) => {
         onCoursesUpdated={setCoursesData}
         setSelectedCourseName={setSelectedCourseName}
         setIsSidebarOpen={setIsSidebarOpen}
+        handleSearch={handleSearch}
       />
       <div className="degree-menu-container">
         <DegreeSelectionMenu
