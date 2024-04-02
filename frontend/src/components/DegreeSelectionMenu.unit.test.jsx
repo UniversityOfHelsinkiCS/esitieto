@@ -5,15 +5,26 @@ import DegreeSelectionMenu from './DegreeSelectionMenu';
 
 describe('DegreeSelectionMenu', () => {
   const mockOnDegreeChange = jest.fn();
-  const listOfDegrees = ['TKT 23-26', 'TKT 20-23', 'TKT 17-20'];
-  const degree = listOfDegrees[0];
+  const listOfDegrees = [
+    {
+      degree_name:'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026',
+      degree_years:'2023-2026',
+      hy_degree_id:'kh50_005'
+    },
+    {
+      degree_name:'Matematiikan kandidaattitutkinto 2020-2023',
+      degree_years:'2020-2023',
+      hy_degree_id:'kh50_005'
+    }
+  ];
+  const degree = 'Tutkinto';
 
 
   beforeEach(() => {
     render(<DegreeSelectionMenu onDegreeChange={mockOnDegreeChange} degree={degree} listOfDegrees={listOfDegrees} />);
   });
 
-  it('renders button with initial degree', () => {
+  it('renders with text Tutkinto', () => {
     expect(screen.getByRole('button', { name: degree })).toBeInTheDocument();
   });
 
@@ -24,15 +35,15 @@ describe('DegreeSelectionMenu', () => {
 
   it('opens menu and displays all degree options', () => {
     fireEvent.click(screen.getByRole('button', { name: degree }));
-    expect(screen.getByText(listOfDegrees[1])).toBeInTheDocument();
-    expect(screen.getByText(listOfDegrees[2])).toBeInTheDocument();
+    expect(screen.getByText(listOfDegrees[0].degree_name)).toBeInTheDocument();
+    expect(screen.getByText(listOfDegrees[1].degree_name)).toBeInTheDocument();
   });
 
   it('calls onDegreeChange with selected degree and closes menu', () => {
     const button = screen.getByRole('button', { name: degree });
     fireEvent.click(button);
     expect(button).toHaveAttribute('aria-expanded', 'true');
-    fireEvent.click(screen.getByText(listOfDegrees[1]));
+    fireEvent.click(screen.getByText(listOfDegrees[1].degree_name));
     expect(mockOnDegreeChange).toHaveBeenCalledWith(listOfDegrees[1]);
     expect(button).not.toHaveAttribute('aria-expanded', 'true');
   });
