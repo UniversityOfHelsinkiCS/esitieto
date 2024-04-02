@@ -49,19 +49,19 @@ const MainPage = ({ axiosInstance }) => {
   };
 
   const handleSearch = async (courseId) => {
+    if (courseId == "") {
+      return;
+    }
     let response;
-    console.log(courseId)
     response = await axiosInstance.get('/api/courses/databaseGetCourseWithRequirements/'+courseId)
-    console.log(response.data)
-    
+    console.log('Search result for ' + courseId + ': ', response.data);    
 
-    if (response == null) {
+    if (response == null || response.status == 404) {
       displayError("Kurssitietoja ei löytynyt!")
       return;
     }
-    const convertedCourses = response.data.map(courseData => new Course(courseData.course_name, courseData.identifier, courseData.groupId, courseData.dependencies));
+    const convertedCourses = response.data.map(courseData => new Course(courseData.course_name, courseData.identifier, courseData.groupId, courseData.dependencies, 'mandatory'));
     setCourses(convertedCourses);
-
   }
 
   const setCoursesData = (data = null, fromDatabase = null) => { // Likely to be nuked soon! But leaving here just in case.

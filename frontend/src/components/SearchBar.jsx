@@ -4,15 +4,12 @@ import "../styles/searchbar.css"
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
 
 
 export const SearchBar = (props) => {
   const [searchText, setSearchText] = useState('');
   const [dbCourses, setDbCourses] = useState([]);
   const axios = props.axiosInstance;
-  const courses = props.onCoursesUpdated
 
   const fetchDatabaseSearchSuggestions = async (axios) => {
     console.log("Fetching all courses from db")
@@ -30,23 +27,25 @@ export const SearchBar = (props) => {
     fetchDatabaseSearchSuggestions(axios)
   }, [])
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSearch(axios, courses, searchText);
-    }
-  }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, searchQuery) => {
     event.preventDefault();
-    const code = searchText.split(" ")[0]
-
+    const code = searchQuery || (searchText ? searchText.split(" ")[0] : '');
     props.handleSearch(code)
   }
   
   const handleChange = (event, newValue) => {
     setSearchText(newValue);
-    console.log(searchText);
   };
+
+  const handleSelect = (event, newValue) => {
+    if (newValue === null) {
+      return;
+    }
+    if (event.type === 'click' ) {
+      setSearchText(newValue.hy_course_id + " (" + newValue.course_name +")");
+      handleSubmit(event, newValue.hy_course_id)  
+    }
+  }
 
   return ( 
     <div className='searchbar'>   
@@ -57,18 +56,11 @@ export const SearchBar = (props) => {
       options={dbCourses}
       inputValue={searchText}
       onInputChange={handleChange}
-      onChange={(event, selectedBox) => {
-        console.log(event)
-        if (event.type === 'click' ) {
-          console.log("Ive Been selected!!!!")  
-          console.log(selectedBox)
-          console.log(selectedBox.hy_course_id)
-          handleChange(event, selectedBox.hy_course_id + " (" + selectedBox.course_name + ")")
-          handleSubmit(); // Call handleSubmit when an option is selected
-      }}}
+      onChange={handleSelect}
+
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
-          <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>
+          <Box component="li" sx={{ p: 2 }} {...props}>
                 {option.hy_course_id} ({option.course_name})
           </Box>
         )}
