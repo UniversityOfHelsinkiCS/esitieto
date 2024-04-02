@@ -29,9 +29,11 @@ const Sidebar = ({
   axiosInstance,
 }) => {
   //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
-  const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
-  const [courseActivityDesc, setCourseActivityDesc] = useState('')
-  const [showActivityInfo, setShowActivityInfo] = useState(false)
+  //const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
+  const [activityDesc, setActivityDesc] = useState(false);
+  const [recommendationDesc, setRecommendationDesc] = useState(false);
+  const [courseActivityDesc, setCourseActivityDesc] = useState('');
+  const [showActivityInfo, setShowActivityInfo] = useState(false);
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
@@ -52,33 +54,47 @@ const Sidebar = ({
   }
 
   const findActivityPeriodDesc = (text) => {
-    let start = text.indexOf("Järjestämisajankohta")
-    const startActivity = text.indexOf("</h5>", start) + 5
+    console.log(text)
+    let title1 = -1
+    if (text.indexOf("Järjestämisajankohta") !== -1) {
+      title1 = "Järjestämisajankohta"
+    }
+    if (text.indexOf("Ajoitus") !== -1) {
+      title1 = "Ajoitus"
+    }
+    const startActivity = text.indexOf("</h5>", title1) + 5
     const endActivity = text.indexOf("<h5>", startActivity)
     const textActivity = text.slice(startActivity, endActivity)
+    let fixedActivityText = preprocessContent(textActivity)
 
-    start = text.indexOf("Suositeltava suoritusajankohta")
-    const startRecommendation = text.indexOf("</h5>", start) + 5
+    if (title1 === -1) {
+      fixedActivityText = ''
+    }
+
+    let title2 = text.indexOf("Suositeltava suoritusajankohta")
+    const startRecommendation = text.indexOf("</h5>", title2) + 5
     const endRecommendation = text.indexOf("<h5>", startRecommendation)
     const textRecommendation = text.slice(startRecommendation, endRecommendation)
+    let fixedRecommendation = preprocessContent(textRecommendation)
 
-    // console.log(startActivity,endActivity)
-    // console.log(startRecommendation,endRecommendation)
-    // console.log(textActivity, textRecommendation)
+    console.log(title1, title2)
 
-    const fixedActivityText = preprocessContent(textActivity)
-    const fixedRecommendation = preprocessContent(textRecommendation)
+    if (title2 === -1) {
+      fixedRecommendation = ''
+    }
+
     return ([fixedActivityText, fixedRecommendation])
   }
 
   const handleInfoClick = () => {
-    if (showActivityInfo) {
-      setShowActivityInfo(false)
+    if (activityDesc) {
+      setActivityDesc(false);
     }
     else {
-      setShowActivityInfo(true)
+      setActivityDesc(true);
     }
   }
+  
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -127,7 +143,7 @@ const Sidebar = ({
   return (
     <div className="sidebar">
       <button onClick={closeSidebar} className="close-button">X</button>
-      <h3>{selectedCourseName}</h3>
+      <h2>{selectedCourseName}</h2>
       <div className="suoritusaika">
         {/* <h4>Suoritusaika</h4>
         <IconButton aria-label="info" onClick={() => handleInfoClick()}>
@@ -141,16 +157,23 @@ const Sidebar = ({
           </li>
         )}
       </ul> */}
+
       {courseActivityDesc[0] &&
         <div>
-          <h4>Järjestämisajankohta</h4>
-          <p>{courseActivityDesc[0]}</p>
+          <div className='timing'>
+          <h3>Suoritusaika</h3>
+          <IconButton aria-label="info" onClick={() => handleInfoClick()}>
+            <InfoIcon />
+          </IconButton>
+          </div>
+          {activityDesc && 
+          <div>
+            <p>{courseActivityDesc[0]}</p>
+            <p><b>Suositeltava suoritusajankohta:</b>
+            {courseActivityDesc[1]}</p>
+          </div>}
         </div>}
-      {courseActivityDesc[1] &&
-        <div>
-          <h4>Suositeltava suoritusajankohta</h4>
-          <p>{courseActivityDesc[1]}</p>
-        </div>}
+
       <p>{selectedCourseDescription}<br />
         {selectedCourseCredits}</p>
       <Button
