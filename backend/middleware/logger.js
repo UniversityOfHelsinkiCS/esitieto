@@ -51,21 +51,4 @@ const logger = winston.createLogger({
 });
 
 
-// Leaving temporarily here if someone wants to adjust the formats, otherwise nuke if you like
-/*
-logger.verbose('Verboosijäbä');
-logger.error('Erroria');
-logger.warn('Warnia');
-logger.info('Infoa');
-logger.debug('Debugia');
-logger.debug('Debugging an object with multiple properties', {
-  propertyOne: 'Value one',
-  propertyTwo: 'Value two',
-  nestedObject: {
-    nestedPropertyOne: 'Nested value one',
-    nestedPropertyTwo: 'Nested value two',
-  },
-});
-*/
-
 module.exports = logger;
