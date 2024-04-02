@@ -1,4 +1,6 @@
+import React from 'react';
 import '../styles/InfoBox.css'
+
 export function InfoBox({ isOpen, onClose }) {
     if (!isOpen) {
         return null;
