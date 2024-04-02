@@ -60,7 +60,7 @@ const MainPage = ({ axiosInstance }) => {
       displayError("Kurssitietoja ei löytynyt!")
       return;
     }
-    const convertedCourses = response.data.map(courseData => new Course(courseData.course_name, courseData.identifier, courseData.groupId, courseData.dependencies, 'mandatory'));
+    const convertedCourses = response.data.map(courseData => new Course(courseData.course_name, courseData.identifier, courseData.groupId, courseData.dependencies, 'compulsory'));
     setCourses(convertedCourses);
   }
 
