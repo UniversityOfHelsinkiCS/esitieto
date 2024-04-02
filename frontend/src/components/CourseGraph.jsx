@@ -13,12 +13,12 @@ import CustomEdge from '../styles/CustomEdge.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
 import InfoButton from './InfoButton';
-import { EditBar } from './EditBar.jsx';
+// import { EditBar } from './EditBar.jsx';
 
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
+const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const [editBarState, setEditBarState] = useState(false);
+    // const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
     const openInfoBox = () => {
@@ -69,25 +69,24 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     const onNodeClick = async (event, node) => {
         setSelectedCourseName(node.data.name);
         setIsSidebarOpen(true);
-        console.log("Selected course: ", node.data.label);
     };
 
-    const toggleEdit = async () => {
-        if (!editBarState) {
-            setEditBarState(true);
-        }
-        else {
-            setEditBarState(false);
-        }
-    };
+    // const toggleEdit = async () => {
+    //     if (!editBarState) {
+    //         setEditBarState(true);
+    //     }
+    //     else {
+    //         setEditBarState(false);
+    //     }
+    // };
 
     return (
         <div className='reactflow-wrapper'>
-            <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/>
+            {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
             <InfoButton onClick={openInfoBox} />
-            <button onClick={() => toggleEdit()} className='edit'>Edit</button>
+            {/* <button onClick={() => toggleEdit()} className='edit'>Edit</button> */}
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated} handleSearch={handleSearch}/>
+            <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
 
             <CustomEdge />
             <ReactFlow

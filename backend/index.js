@@ -29,10 +29,10 @@ app.use(userMiddleware)
 app.get('/api/getCourses', async (req, res) => {
   try {
     const courses = await getCourses();
-    console.log("Courses from database",courses)
+    logger.verbose("Courses from database",courses)
     res.json(courses);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     res.status(500).send('Server error');
   }
 });

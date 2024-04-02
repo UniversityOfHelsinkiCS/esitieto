@@ -12,8 +12,6 @@ export const SearchBar = (props) => {
   const axios = props.axiosInstance;
 
   const fetchDatabaseSearchSuggestions = async (axios) => {
-    console.log("Fetching all courses from db")
-
     try {
         const response = await axios.get('/api/courses/databaseGetCourses')
         setDbCourses(response.data)
