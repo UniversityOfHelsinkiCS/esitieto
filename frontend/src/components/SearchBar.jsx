@@ -60,7 +60,7 @@ export const SearchBar = (props) => {
 
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
-          <Box component="li" sx={{ p: 2 }} {...props}>
+          <Box component="li" sx={{ p: 2 }} {...props} className="searchResult">
                 {option.hy_course_id} ({option.course_name})
           </Box>
         )}
