@@ -24,8 +24,6 @@ export const EditWindowTemplate = (props) => {
     const [searchText, SetSearchText] = useState('')
 
     const fetchDatabaseSearchSuggestions = async (axios) => {
-        console.log("Fetching all courses from db")
-    
         try {
             const response = await axios.get('/api/courses/databaseGetCourses')
             setDbCourses(response.data)
@@ -80,16 +78,16 @@ export const EditWindowTemplate = (props) => {
     const AutocompleteSearch = (props) => {
         const index = props.index
 
-        const handleChange = (event) => {
-            console.log(texts, index, event.target.value)
-            event.preventDefault();
-            const newText = event.target.value;
-            const newTexts = [...texts];
-            newTexts[index] = newText
-            console.log(newTexts)
-            setTexts(newTexts);
-            console.log(index, texts)
-          }
+        // const handleChange = (event) => {
+        //     console.log(texts, index, event.target.value)
+        //     event.preventDefault();
+        //     const newText = event.target.value;
+        //     const newTexts = [...texts];
+        //     newTexts[index] = newText
+        //     console.log(newTexts)
+        //     setTexts(newTexts);
+        //     console.log(index, texts)
+        //   }
 
         return(
         <div>
@@ -99,7 +97,7 @@ export const EditWindowTemplate = (props) => {
         disablePortal
         options={dbCourses}
         inputValue={texts[index]}
-        onInputChange={handleChange}
+        // onInputChange={handleChange}
         getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
         renderOption={(props, option) => (
         <Box component="li" sx={{ p: 2, border: '1px dashed grey' }} {...props}>

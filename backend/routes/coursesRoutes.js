@@ -41,7 +41,6 @@ router.get('/databaseGetCourses', asyncHandler(async (req, res) => {
 
 router.get('/databaseGetCourseWithRequirements/:course_id', asyncHandler(async (req, res) => {
   const { course_id } = req.params;
-  console.log("Course id", course_id)
   const courseRequirements = await getCourseWithReqursivePrerequisites(course_id);
   logger.debug("Course requirements", courseRequirements);
   res.json(courseRequirements);
