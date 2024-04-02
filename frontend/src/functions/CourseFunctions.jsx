@@ -106,7 +106,7 @@ export const handleFetchKORICourseInfo = async (axios, searchTerm) => {
 
     try {
         const response = await axios.get(`/api/kori/get_info_by_name?search=${encodeURIComponent(searchTerm)}`);
-        console.log(JSON.stringify(response.data, null, 2)); // Uncomment if you need to see the data
+        // console.log(JSON.stringify(response.data, null, 2)); // Uncomment if you need to see the data
         return response.data
     } catch (error) {
         console.error("Error fetching searched courses: ", error);
