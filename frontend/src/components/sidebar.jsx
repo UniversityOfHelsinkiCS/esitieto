@@ -16,7 +16,7 @@ function preprocessContent(htmlContent) {
   formattedContent = formattedContent.replace(/\n\s*\n\s*\n+/g, '\n\n');
 
   if (formattedContent.startsWith('"') && formattedContent.endsWith('"')) {
-      formattedContent = formattedContent.substring(1, formattedContent.length - 1);
+    formattedContent = formattedContent.substring(1, formattedContent.length - 1);
   }
   return formattedContent;
 }
@@ -29,10 +29,11 @@ const Sidebar = ({
   axiosInstance,
 }) => {
   //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
-  const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
+  // const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [courseActivityDesc, setCourseActivityDesc] = useState('')
   const [showActivityInfo, setShowActivityInfo] = useState(false)
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
+  const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
 
@@ -74,6 +75,7 @@ const Sidebar = ({
 
   useEffect(() => {
     const getCourseInfo = async () => {
+
       if (!selectedCourseName) return;
       try {
         const responseByName = await handleFetchKORIByName(axiosInstance, selectedCourseName);
@@ -86,17 +88,15 @@ const Sidebar = ({
             const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
-            setSelectedCoursePeriods(periodList);
+            // setSelectedCoursePeriods(periodList);
 
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
-            const code = courseInfo.groupId ? courseInfo.groupId : "unable to fetch code";
+            const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
+            console.log("courseInfo", courseInfo.code)
             setCourseInfo(preprocessContent(`${info}`));
-            setSelectedCourseDescription(
-              `My credits is worth: ${credits}
-              My code is: ${code}`
-            );
-          }
+            setSelectedCourseCredits(`Opintopisteet: ${credits}`);
+            setSelectedCourseDescription(`Kurssikoodi: ${code}`)};
         }
       } catch (error) {
         console.error("Failed to fetch course info:", error);
@@ -119,18 +119,19 @@ const Sidebar = ({
       <div className="suoritusaika">
         <h4>Suoritusaika</h4>
         <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-          <InfoIcon/>
+          <InfoIcon />
         </IconButton>
       </div>
-      <ul>
+      {/* <ul>
         {selectedCoursePeriods.map(period =>
           <li key={period.id}>
             {period.startDate}
           </li>
         )}
-      </ul>
+      </ul> */}
       {showActivityInfo && (<p>{courseActivityDesc}</p>)}
-      <p>{selectedCourseDescription}</p>
+      <p>{selectedCourseDescription}<br/>
+      {selectedCourseCredits}</p>
       <Button
         variant="contained"
         color="primary"
