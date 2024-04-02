@@ -72,9 +72,24 @@ describe('Can search courses', () => {
     });
   });
   
-  describe('Specific course search verification', () => {
+  describe('Specific course search verification using course name', () => {
     it('Searches "Ohjelmoinnin perusteet" and verifies the exact course and code appear', () => {
       const searchText = 'Ohjelmoinnin perusteet';
+      const expectedCourseName = 'ohjelmoinnin perusteet';
+      const expectedCourseCode = 'TKT10002';
+  
+      cy.get('input#searchBar').type(searchText);
+      cy.get('.searchResult').first().invoke('text').then((text) => {
+        const resultText = text.toLowerCase();
+        expect(resultText).to.include(expectedCourseName);
+        expect(resultText).to.include(expectedCourseCode.toLowerCase());
+      });
+    });
+  });
+
+  describe('Specific course search using course code', () => {
+    it('Searches "TKT10002" and verifies the exact course and code appear', () => {
+      const searchText = 'TKT10002';
       const expectedCourseName = 'ohjelmoinnin perusteet';
       const expectedCourseCode = 'TKT10002';
   
