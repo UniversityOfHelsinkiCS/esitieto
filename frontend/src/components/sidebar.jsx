@@ -51,16 +51,23 @@ const Sidebar = ({
   }
 
   const findActivityPeriodDesc = (text) => {
-    const start = text.indexOf("Järjestämisajankohta")
-    if (start === -1) {
-      return ('')
-    }
-    const end = text.indexOf("Opintokokonaisuus")
-    if (end === -1) {
-      return ('')
-    }
-    const fixedText = preprocessContent(text.substring(start, end))
-    return (fixedText)
+    let start = text.indexOf("Järjestämisajankohta")    
+    const startActivity = text.indexOf("</h5>", start)+5
+    const endActivity = text.indexOf("<h5>", startActivity)
+    const textActivity = text.slice(startActivity, endActivity)
+
+    start = text.indexOf("Suositeltava suoritusajankohta")
+    const startRecommendation = text.indexOf("</h5>", start)+5
+    const endRecommendation = text.indexOf("<h5>", startRecommendation)
+    const textRecommendation = text.slice(startRecommendation, endRecommendation)
+
+    console.log(startActivity,endActivity)
+    console.log(startRecommendation,endRecommendation)
+    console.log(textActivity, textRecommendation)
+
+    const fixedActivityText = preprocessContent(textActivity)
+    const fixedRecommendation = preprocessContent(textRecommendation)
+    return ([fixedActivityText,fixedRecommendation])
   }
 
   const handleInfoClick = () => {
@@ -87,6 +94,8 @@ const Sidebar = ({
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
             setSelectedCoursePeriods(periodList);
+            console.log(courseActivityDesc)
+            console.log(courseActivityDesc[0].length)
 
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
@@ -118,9 +127,6 @@ const Sidebar = ({
       <h3>{selectedCourseName}</h3>
       <div className="suoritusaika">
         <h4>Suoritusaika</h4>
-        <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-          <InfoIcon/>
-        </IconButton>
       </div>
       <ul>
         {selectedCoursePeriods.map(period =>
@@ -129,7 +135,16 @@ const Sidebar = ({
           </li>
         )}
       </ul>
-      {showActivityInfo && (<p>{courseActivityDesc}</p>)}
+      {courseActivityDesc[0] && courseActivityDesc[0].length !== 0 &&
+      <div>
+        <h4>Järjestämisajankohta</h4>
+        <p>{courseActivityDesc[0]}</p>
+      </div>}
+      {courseActivityDesc[1] && courseActivityDesc[1].length !== 0 &&
+      <div>
+      <h4>Suositeltava suoritusajankohta</h4>
+      <p>{courseActivityDesc[1]}</p>
+      </div>}
       <p>{selectedCourseDescription}</p>
       <Button
         variant="contained"
