@@ -7,7 +7,7 @@ module.exports = {
                 "plugin:cypress/recommended",
                 "eslint:recommended",
         ],
-    "ignorePatterns": ["coverage", "dist", "node_modules"],
+    "ignorePatterns": ["coverage", "dist", "node_modules", "cypress"],
     "overrides": [
         {
             "env": {
