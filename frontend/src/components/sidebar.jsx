@@ -6,8 +6,8 @@ import {
 import CourseDescription from './CourseDescription';
 import '../styles/sidebar.css';
 import { Button, IconButton } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
 import { error as displayError } from '../components/messager/messager'
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function preprocessContent(htmlContent) {
@@ -29,7 +29,7 @@ const Sidebar = ({
   axiosInstance,
 }) => {
   //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
-  // const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
+  const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [courseActivityDesc, setCourseActivityDesc] = useState('')
   const [showActivityInfo, setShowActivityInfo] = useState(false)
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
@@ -52,23 +52,23 @@ const Sidebar = ({
   }
 
   const findActivityPeriodDesc = (text) => {
-    let start = text.indexOf("Järjestämisajankohta")    
-    const startActivity = text.indexOf("</h5>", start)+5
+    let start = text.indexOf("Järjestämisajankohta")
+    const startActivity = text.indexOf("</h5>", start) + 5
     const endActivity = text.indexOf("<h5>", startActivity)
     const textActivity = text.slice(startActivity, endActivity)
 
     start = text.indexOf("Suositeltava suoritusajankohta")
-    const startRecommendation = text.indexOf("</h5>", start)+5
+    const startRecommendation = text.indexOf("</h5>", start) + 5
     const endRecommendation = text.indexOf("<h5>", startRecommendation)
     const textRecommendation = text.slice(startRecommendation, endRecommendation)
 
-    console.log(startActivity,endActivity)
-    console.log(startRecommendation,endRecommendation)
-    console.log(textActivity, textRecommendation)
+    // console.log(startActivity,endActivity)
+    // console.log(startRecommendation,endRecommendation)
+    // console.log(textActivity, textRecommendation)
 
     const fixedActivityText = preprocessContent(textActivity)
     const fixedRecommendation = preprocessContent(textRecommendation)
-    return ([fixedActivityText,fixedRecommendation])
+    return ([fixedActivityText, fixedRecommendation])
   }
 
   const handleInfoClick = () => {
@@ -95,9 +95,9 @@ const Sidebar = ({
             const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
-            setSelectedCoursePeriods(periodList);
-            console.log(courseActivityDesc)
-            console.log(courseActivityDesc[0].length)
+            // setSelectedCoursePeriods(periodList);
+            // console.log(courseActivityDesc)
+            // console.log(courseActivityDesc[0].length)
             // setSelectedCoursePeriods(periodList);
 
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
@@ -105,7 +105,8 @@ const Sidebar = ({
             const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
             setCourseInfo(preprocessContent(`${info}`));
             setSelectedCourseCredits(`Opintopisteet: ${credits}`);
-            setSelectedCourseDescription(`Kurssikoodi: ${code}`)};
+            setSelectedCourseDescription(`Kurssikoodi: ${code}`)
+          };
         }
       } catch (error) {
         console.error("Failed to fetch course info:", error);
@@ -126,10 +127,10 @@ const Sidebar = ({
       <button onClick={closeSidebar} className="close-button">X</button>
       <h3>{selectedCourseName}</h3>
       <div className="suoritusaika">
-        <h4>Suoritusaika</h4>
+        {/* <h4>Suoritusaika</h4>
         <IconButton aria-label="info" onClick={() => handleInfoClick()}>
           <InfoIcon />
-        </IconButton>
+        </IconButton> */}
       </div>
       {/* <ul>
         {selectedCoursePeriods.map(period =>
@@ -139,17 +140,17 @@ const Sidebar = ({
         )}
       </ul> */}
       {courseActivityDesc[0] &&
-      <div>
-        <h4>Järjestämisajankohta</h4>
-        <p>{courseActivityDesc[0]}</p>
-      </div>}
+        <div>
+          <h4>Järjestämisajankohta</h4>
+          <p>{courseActivityDesc[0]}</p>
+        </div>}
       {courseActivityDesc[1] &&
-      <div>
-      <h4>Suositeltava suoritusajankohta</h4>
-      <p>{courseActivityDesc[1]}</p>
-      </div>}
-      <p>{selectedCourseDescription}<br/>
-      {selectedCourseCredits}</p>
+        <div>
+          <h4>Suositeltava suoritusajankohta</h4>
+          <p>{courseActivityDesc[1]}</p>
+        </div>}
+      <p>{selectedCourseDescription}<br />
+        {selectedCourseCredits}</p>
       <Button
         variant="contained"
         color="primary"
