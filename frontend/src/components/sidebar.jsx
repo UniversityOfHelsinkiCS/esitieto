@@ -103,7 +103,6 @@ const Sidebar = ({
             const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
             const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
-            console.log("courseInfo", courseInfo.code)
             setCourseInfo(preprocessContent(`${info}`));
             setSelectedCourseCredits(`Opintopisteet: ${credits}`);
             setSelectedCourseDescription(`Kurssikoodi: ${code}`)};
