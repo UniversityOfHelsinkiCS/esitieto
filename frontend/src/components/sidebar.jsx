@@ -139,7 +139,16 @@ const Sidebar = ({
           </li>
         )}
       </ul> */}
-      {showActivityInfo && (<p>{courseActivityDesc}</p>)}
+      {courseActivityDesc[0] &&
+      <div>
+        <h4>Järjestämisajankohta</h4>
+        <p>{courseActivityDesc[0]}</p>
+      </div>}
+      {courseActivityDesc[1] &&
+      <div>
+      <h4>Suositeltava suoritusajankohta</h4>
+      <p>{courseActivityDesc[1]}</p>
+      </div>}
       <p>{selectedCourseDescription}<br/>
       {selectedCourseCredits}</p>
       <Button
