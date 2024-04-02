@@ -31,15 +31,13 @@ const Sidebar = ({
   //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
   //const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [activityDesc, setActivityDesc] = useState(false);
-  const [recommendationDesc, setRecommendationDesc] = useState(false);
   const [courseActivityDesc, setCourseActivityDesc] = useState('');
-  const [showActivityInfo, setShowActivityInfo] = useState(false);
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
 
-  const sortCourseActivityPeriod = (periods) => {
+  /*const sortCourseActivityPeriod = (periods) => {
     let sortedPeriods = []
     let id = 1
     const wantedDate = "2024" // Might want to fetch automatically instead of hardcoded
@@ -51,7 +49,7 @@ const Sidebar = ({
       }
     })
     return (sortedPeriods)
-  }
+  }*/
 
   const findActivityPeriodDesc = (text) => {
     console.log(text)
@@ -108,7 +106,7 @@ const Sidebar = ({
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
             //setCourseDetails(courseInfo);
-            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
+            // const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
             // setSelectedCoursePeriods(periodList);
