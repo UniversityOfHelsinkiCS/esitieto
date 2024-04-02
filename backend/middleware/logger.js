@@ -7,8 +7,8 @@ const customLevels = {
     error: 0,
     warn: 1,
     info: 2,
-    verbose: 3, // I only use this for "success" messages, because issues with padLevels.
-    debug: 4,
+    debug: 3,
+    verbose: 4,
   },
   colors: {
     error: 'red',
