@@ -34,3 +34,9 @@
 - **Puheenjohtaja:** Lassi
 - **Demoaja:** Lassi
 - **Kirjuri:** Pooki
+
+## Sprint 6 Tapaaminen
+
+- **Puheenjohtaja:** Andrei
+- **Demoaja:** Andrei
+- **Kirjuri:** Timo
