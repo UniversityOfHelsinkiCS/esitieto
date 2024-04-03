@@ -102,7 +102,7 @@ const Sidebar = ({
 
             const info = (
               courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
-              (courseInfo.content ?? courseInfo.outcomes).fi, null, 2) : "unable to load metadata";
+                (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
             const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
             setCourseInfo(preprocessContent(`${info}`));
