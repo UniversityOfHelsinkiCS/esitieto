@@ -28,3 +28,9 @@
 - **Puheenjohtaja:** Pooki
 - **Demoaja:** Pooki
 - **Kirjuri:** Alisa
+
+## Sprint 5 Tapaaminen
+
+- **Puheenjohtaja:** Lassi
+- **Demoaja:** Lassi
+- **Kirjuri:** Pooki
