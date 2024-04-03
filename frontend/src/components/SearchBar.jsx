@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { handleSearch } from '../functions/CourseFunctions';
 import "../styles/searchbar.css"
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -71,29 +70,6 @@ export const SearchBar = (props) => {
     </form>
     </div>
   )
-    
 }
-
-/* return (
-  <div className='searchbar'>
-  <form onSubmit={handleSubmit}>
-  <TextField
-      id="input-with-icon-textfield"
-      style={{background: "rgb(105,105,105)"}} 
-      variant='standard'
-      placeholder="   Search course..."
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      value={searchText}
-      InputProps={{
-          endAdornment: (
-            <InputAdornment position="end" onClick={handleSubmit}>
-              <SearchIcon/>
-            </InputAdornment>
-          )}}
-    />
-  </form>
-  </div>
-) */
 
 export default SearchBar

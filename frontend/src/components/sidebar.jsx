@@ -106,7 +106,7 @@ const Sidebar = ({
             setCourseInfo(preprocessContent(`${info}`));
             setSelectedCourseCredits(`Opintopisteet: ${credits}`);
             setSelectedCourseDescription(`Kurssikoodi: ${code}`)
-          };
+          }
         }
       } catch (error) {
         console.error("Failed to fetch course info:", error);

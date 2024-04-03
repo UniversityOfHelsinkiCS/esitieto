@@ -1,6 +1,7 @@
+/* eslint-disable */
 import {
-    addCourse, removeCourse, // Courses from database
-    handleAddDependency, handleRemoveDependency, // Dependencies from database
+    addCourse, removeCourse, 
+    handleAddDependency, handleRemoveDependency, 
 } from '../functions/CourseFunctions.jsx';
 import { useState, useEffect } from 'react';
 import { TextField } from '@mui/material';

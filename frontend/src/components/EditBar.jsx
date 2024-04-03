@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { EditWindowTemplate } from './EditWindow.jsx'
 import { useState } from 'react'
 

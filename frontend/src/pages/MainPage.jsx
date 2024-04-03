@@ -5,7 +5,7 @@ import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
-//import { list } from 'postcss'; Unused by eslint, unsure if someone using but nuke otherwise.
+
 
 const MainPage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
@@ -48,12 +48,12 @@ const MainPage = ({ axiosInstance }) => {
   };
 
   const handleSearch = async (courseId) => {
-    if (courseId == "") {
+    if (courseId === "") {
       return;
     }
     let response;
     response = await axiosInstance.get('/api/courses/databaseGetCourseWithRequirements/'+courseId)
-    if (response == null || response.status == 404) {
+    if (response == null || response.status === 404) {
       displayError("Kurssitietoja ei löytynyt!")
       return;
     }
