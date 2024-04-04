@@ -21,15 +21,12 @@ function preprocessContent(htmlContent) {
   return formattedContent;
 }
 
-
 const Sidebar = ({
   isOpen,
   closeSidebar,
   selectedCourseName,
   axiosInstance,
 }) => {
-  //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
-  //const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
   const [activityDesc, setActivityDesc] = useState(false);
   const [courseActivityDesc, setCourseActivityDesc] = useState('');
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
@@ -37,22 +34,8 @@ const Sidebar = ({
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
 
-  /*const sortCourseActivityPeriod = (periods) => {
-    let sortedPeriods = []
-    let id = 1
-    const wantedDate = "2024" // Might want to fetch automatically instead of hardcoded
-    periods.forEach(period => {
-      if (period.startDate.substring(0, 4) === wantedDate) {
-        period.id = id
-        sortedPeriods.push(period)
-        id += 1
-      }
-    })
-    return (sortedPeriods)
-  }*/
 
   const findActivityPeriodDesc = (text) => {
-    console.log(text)
     let title1 = -1
     if (text.indexOf("Järjestämisajankohta") !== -1) {
       title1 = "Järjestämisajankohta"
@@ -75,8 +58,6 @@ const Sidebar = ({
     const textRecommendation = text.slice(startRecommendation, endRecommendation)
     let fixedRecommendation = preprocessContent(textRecommendation)
 
-    console.log(title1, title2)
-
     if (title2 === -1) {
       fixedRecommendation = ''
     }
@@ -92,11 +73,10 @@ const Sidebar = ({
       setActivityDesc(true);
     }
   }
-  
+
 
   useEffect(() => {
     const getCourseInfo = async () => {
-
       if (!selectedCourseName) return;
       try {
         const responseByName = await handleFetchKORIByName(axiosInstance, selectedCourseName);
@@ -105,15 +85,8 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
-            //setCourseDetails(courseInfo);
-            // const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
-            // setSelectedCoursePeriods(periodList);
-            // console.log(courseActivityDesc)
-            // console.log(courseActivityDesc[0].length)
-            // setSelectedCoursePeriods(periodList);
-
             const info = (
               courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
                 (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
@@ -142,34 +115,20 @@ const Sidebar = ({
     <div className="sidebar">
       <button onClick={closeSidebar} className="close-button">X</button>
       <h2>{selectedCourseName}</h2>
-      <div className="suoritusaika">
-        {/* <h4>Suoritusaika</h4>
-        <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-          <InfoIcon />
-        </IconButton> */}
-      </div>
-      {/* <ul>
-        {selectedCoursePeriods.map(period =>
-          <li key={period.id}>
-            {period.startDate}
-          </li>
-        )}
-      </ul> */}
-
       {courseActivityDesc[0] &&
         <div>
           <div className='timing'>
-          <h3>Suoritusaika</h3>
-          <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-            <InfoIcon />
-          </IconButton>
+            <h3>Suoritusaika</h3>
+            <IconButton aria-label="info" onClick={() => handleInfoClick()}>
+              <InfoIcon />
+            </IconButton>
           </div>
-          {activityDesc && 
-          <div>
-            <p>{courseActivityDesc[0]}</p>
-            <p><b>Suositeltava suoritusajankohta:</b>
-            {courseActivityDesc[1]}</p>
-          </div>}
+          {activityDesc &&
+            <div>
+              <p>{courseActivityDesc[0]}</p>
+              <p><b>Suositeltava suoritusajankohta:</b>
+                {courseActivityDesc[1]}</p>
+            </div>}
         </div>}
 
       <p>{selectedCourseDescription}<br />
