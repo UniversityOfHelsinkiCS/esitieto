@@ -51,4 +51,4 @@ app.listen(PORT, () => {
   logger.verbose(`Server running on port ${PORT}`);
 });
 
-
+module.exports = app;
