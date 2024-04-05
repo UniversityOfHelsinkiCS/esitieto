@@ -3,15 +3,30 @@ const request = require('supertest');
 
 const app = require('./index'); 
 
-
-
 describe('Test Routes', () => {
   test('Kori Info Responds with course description', async () => {
     const response = await request(app).get('/api/kori/get_info_by_name/').query({search : "TKT10003"});
-    expect(response.text).toBe("{\"id\":\"otm-eb0cf926-57aa-4c8e-9ddc-8b6611930674\",\"code\":\"TKT10003\",\"name\":\"Ohjelmoinnin jatkokurssi\",\"groupId\":\"hy-CU-118023947\",\"curriculumPeriodIds\":[\"hy-lv-74\"]}");
+    const courses = JSON.parse(response.text)
+    expect(courses.id).toBe("otm-eb0cf926-57aa-4c8e-9ddc-8b6611930674");
+    expect(courses.code).toBe("TKT10003");
+    expect(courses.name).toBe("Ohjelmoinnin jatkokurssi");
+    expect(courses.groupId).toBe("hy-CU-118023947");
+    expect(JSON.stringify(courses.curriculumPeriodIds)).toBe("[\"hy-lv-74\"]");
   });
   test('Kori search Responds with courses', async () => {
     const response = await request(app).get('/api/kori/getKori/').query({search : "TKT10003"});
-    expect(response.text).toBe("\"{\\n  \\\"searchResults\\\": [\\n    {\\n      \\\"id\\\": \\\"otm-eb0cf926-57aa-4c8e-9ddc-8b6611930674\\\",\\n      \\\"code\\\": \\\"TKT10003\\\",\\n      \\\"name\\\": \\\"Ohjelmoinnin jatkokurssi\\\",\\n      \\\"groupId\\\": \\\"hy-CU-118023947\\\",\\n      \\\"curriculumPeriodIds\\\": [\\n        \\\"hy-lv-74\\\"\\n      ]\\n    },\\n    {\\n      \\\"id\\\": \\\"otm-6dd390bf-1710-436e-bebb-a6f4e5032b9e\\\",\\n      \\\"code\\\": \\\"TKT100031\\\",\\n      \\\"name\\\": \\\"Ohjelmoinnin jatkokurssi, lisäosa (Python)\\\",\\n      \\\"groupId\\\": \\\"hy-CU-137766069\\\",\\n      \\\"curriculumPeriodIds\\\": [\\n        \\\"hy-lv-74\\\",\\n        \\\"hy-lv-75\\\",\\n        \\\"hy-lv-76\\\"\\n      ]\\n    }\\n  ]\\n}\"");
+    const courses = JSON.parse(response.text).searchResults
+    expect(Object.keys(courses).length).toBe(2)
+    expect(courses[0].id).toBe("otm-eb0cf926-57aa-4c8e-9ddc-8b6611930674");
+    expect(courses[0].code).toBe("TKT10003");
+    expect(courses[0].name).toBe("Ohjelmoinnin jatkokurssi");
+    expect(courses[0].groupId).toBe("hy-CU-118023947");
+    expect(JSON.stringify(courses[0].curriculumPeriodIds)).toBe("[\"hy-lv-74\"]");
+
+    expect(courses[1].id).toBe("otm-6dd390bf-1710-436e-bebb-a6f4e5032b9e");
+    expect(courses[1].code).toBe("TKT100031");
+    expect(courses[1].name).toBe("Ohjelmoinnin jatkokurssi, lisäosa (Python)");
+    expect(courses[1].groupId).toBe("hy-CU-137766069");
+    expect(JSON.stringify(courses[1].curriculumPeriodIds)).toBe("[\"hy-lv-74\",\"hy-lv-75\",\"hy-lv-76\"]");
   });
 });
