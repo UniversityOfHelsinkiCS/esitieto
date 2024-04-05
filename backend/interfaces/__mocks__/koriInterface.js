@@ -1,5 +1,3 @@
-const { json } = require("body-parser");
-
 class KoriInterface {
     /*
     MOCK Interface to communicate with KORI API.
