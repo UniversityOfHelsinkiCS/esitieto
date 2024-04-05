@@ -125,7 +125,7 @@ class KoriInterface {
                     results.push(course);
                 }
             });
-            const resultsJSON = JSON.stringify({"searchResults": results}, null, 2)
+            const resultsJSON = {"searchResults": results}
             return resultsJSON
         } else {
             return "Virheellinen syöte"
