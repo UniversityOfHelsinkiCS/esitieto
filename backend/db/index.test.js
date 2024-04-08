@@ -76,7 +76,7 @@ describe('Database operations', () => {
       const mockRelation = { course_kori_name: 'AdvCS102', prerequisite_course_kori_name: 'IntroCS101' };
       require('pg').Pool().query.mockResolvedValueOnce({ rows: [mockRelation], rowCount: 1 });
   
-      const result = await db.addPrerequisiteCourse(mockRelation.course_kori_name, mockRelation.prerequisite_course_kori_name);
+      await db.addPrerequisiteCourse(mockRelation.course_kori_name, mockRelation.prerequisite_course_kori_name);
       
       // Normalize the SQL query for comparison
       const expectedSql = normalizeSql(`
