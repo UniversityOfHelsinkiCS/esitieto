@@ -1,3 +1,7 @@
+
+
+// NOT IN USE // IGNORED IN JEST CONFIG //
+
 /* eslint-disable */
 import {
     addCourse, removeCourse, 

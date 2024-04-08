@@ -1,3 +1,7 @@
+
+
+// IGNORED IN JEST CONFIG //
+
 const CustomEdge = () => (
     <svg style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0 }}>
         <defs>

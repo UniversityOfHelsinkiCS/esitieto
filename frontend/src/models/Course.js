@@ -1,3 +1,6 @@
+
+// IGNORED IN JEST CONFIG //
+
 import { mandatoryCourse, optionalCourse, alternativeCourse, completedCourse, mandatoryEdge, optionalEdge } from '../styles/courseStyles';
 
 export default class Course {
