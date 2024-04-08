@@ -25,7 +25,7 @@ router.get('/search_by_name', async (req, res) => {
     }
 });
 
-router.get('/get_info_by_name', async (req, res) => {
+router.get('/get_info_by_id', async (req, res) => {
     try {
         const search = req.query.search;
         const response = await kori.courseInfo(search);

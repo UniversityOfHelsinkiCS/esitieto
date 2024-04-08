@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/kori/get_info_by_name?search=hy-CU-110051797
+GET http://localhost:3001/api/kori/get_info_by_id?search=hy-CU-110051797

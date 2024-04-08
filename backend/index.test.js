@@ -5,7 +5,7 @@ const app = require('./index');
 
 describe('Test Routes', () => {
   test('Kori Info Responds with course description', async () => {
-    const response = await request(app).get('/api/kori/get_info_by_name/').query({search : "TKT10003"});
+    const response = await request(app).get('/api/kori/get_info_by_id/').query({search : "TKT10003"});
     const courses = JSON.parse(response.text)
     expect(courses.id).toBe("otm-eb0cf926-57aa-4c8e-9ddc-8b6611930674");
     expect(courses.code).toBe("TKT10003");
