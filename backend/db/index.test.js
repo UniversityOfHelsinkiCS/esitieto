@@ -9,7 +9,9 @@ jest.mock('pg', () => {
 
 jest.mock('../interfaces/koriInterface', () => {
   return jest.fn().mockImplementation(() => ({
-    searchCourses: jest.fn()
+    searchCourses: jest.fn().mockResolvedValue({
+      searchResults: [{ name: 'Intro to CS', groupId: 'CS101', code: 'IntroCS101' }]
+    })
   }));
 });
 
@@ -32,25 +34,26 @@ describe('Database operations', () => {
   describe('addCourse', () => {
     it('should insert a course into the database and return the inserted course', async () => {
       const mockCourse = {
-        official_course_id: 'CS101', 
-        course_name: 'Intro to CS', 
-        kori_name: 'IntroCS101'
+        id: 1,
+        kori_id: 'CS101',
+        course_name: 'Intro to CS',
+        hy_course_id: 'IntroCS101'
       };
-      
+  
       require('pg').Pool().query.mockResolvedValueOnce({ rows: [mockCourse], rowCount: 1 });
-
+  
       const addedCourseCode = 'Intro to CS';
       const result = await db.addCourse(addedCourseCode);
-
+  
       expect(result).toEqual(mockCourse);
-      expect(require('pg').Pool().query).toHaveBeenCalledWith(
-        `INSERT INTO courses (kori_id, course_name, hy_course_id) SELECT $1, $2, $3 ON CONFLICT (kori_id) DO NOTHING RETURNING *`,
-        [mockCourse.official_course_id, mockCourse.course_name, mockCourse.kori_name]
-      );
+      expect(normalizeSql(require('pg').Pool().query.mock.calls[0][0])).toEqual(normalizeSql(
+        `INSERT INTO courses (kori_id, course_name, hy_course_id) SELECT $1, $2, $3 ON CONFLICT (kori_id) DO NOTHING RETURNING *`
+      ));
+      expect(require('pg').Pool().query.mock.calls[0][1]).toEqual([mockCourse.kori_id, mockCourse.course_name, mockCourse.hy_course_id]);
     });
   });
   
-
+  
   describe('getCourses', () => {
     it('should retrieve all courses from the database', async () => {
       const mockCourses = [
