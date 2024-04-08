@@ -119,7 +119,7 @@ class KoriInterface {
         if (this.isValidInput(search)) {
             const results = [];
             this.courses.searchResults.forEach(course => {
-                if (course.name.includes(search) || course.code.includes(search)) {
+                if ((course.name.includes(search) || course.code.includes(search)) && course.curriculumPeriodIds.includes(hyYearCode)) {
                     results.push(course);
                 }
             });
