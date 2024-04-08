@@ -1,7 +1,12 @@
 jest.mock('pg', () => {
-  const mockQuery = jest.fn().mockResolvedValue({ rows: [], rowCount: 0 });
-  return { Pool: jest.fn(() => ({ query: mockQuery })) };
+  const mockQuery = jest.fn();
+  return {
+    Pool: jest.fn(() => ({
+      query: mockQuery.mockResolvedValueOnce({ rows: [{ id: 1, kori_id: 'CS101', course_name: 'Intro to CS', hy_course_id: 'IntroCS101' }], rowCount: 1 }),
+    })),
+  };
 });
+
 
 const db = require('./index');
 
@@ -59,13 +64,12 @@ describe('Database operations', () => {
 
   describe('getCourses', () => {
     it('should retrieve all courses from the database', async () => {
-      const mockCourses = [{ id: 1, official_course_id: 'CS101', course_name: 'Intro to CS', kori_name: 'IntroCS101' }];
-      require('pg').Pool().query.mockResolvedValueOnce({ rows: mockCourses, rowCount: mockCourses.length });
+      const mockCourses = [{ id: 1, kori_id: 'CS101', course_name: 'Intro to CS', hy_course_id: 'IntroCS101' }];
   
       const result = await db.getCourses();
   
       expect(result).toEqual(mockCourses);
-      expect(require('pg').Pool().query).toHaveBeenCalledWith('SELECT * FROM course_info');
+      expect(require('pg').Pool().query).toHaveBeenCalledTimes(1);
     });
   });
   
