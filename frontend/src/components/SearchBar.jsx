@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import "../styles/searchbar.css"
 import Autocomplete from '@mui/material/Autocomplete';
