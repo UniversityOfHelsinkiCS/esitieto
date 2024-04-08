@@ -92,7 +92,7 @@ const config = {
   moduleNameMapper: {"\\.(css|less|scss|sass)$": "identity-obj-proxy"},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/frontend/src/models/", "kurssiesitieto-ohtuprojekti/frontend/src/styles/", "kurssiesitieto-ohtuprojekti/frontend/src/utils/"],
+  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/frontend/src/models/", "kurssiesitieto-ohtuprojekti/frontend/src/styles/", "kurssiesitieto-ohtuprojekti/frontend/src/utils/", "kurssiesitieto-ohtuprojekti/frontend/src/components/EditBar.jsx", "kurssiesitieto-ohtuprojekti/frontend/src/components/EditWindow.jsx"],
 
   // Activates notifications for test results
   // notify: false,
