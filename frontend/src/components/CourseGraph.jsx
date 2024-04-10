@@ -80,6 +80,8 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     //     }
     // };
 
+    const disabled = true;
+
     return (
         <div className='reactflow-wrapper'>
             {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
@@ -97,6 +99,14 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
+                
+                edgesUpdatable={!disabled}
+                edgesFocusable={!disabled}
+                nodesDraggable={!disabled}
+                nodesConnectable={!disabled}
+                nodesFocusable={!disabled}
+                draggable={!disabled}
+                elementsSelectable={!disabled}
             >
                 <Controls />
                 <Background color="#555" gap={32} />
@@ -106,9 +116,5 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
         </div>
     );
 };
-
-
-
-
 
 export default CourseGraph;
