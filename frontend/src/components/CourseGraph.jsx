@@ -92,7 +92,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
 
             <CustomEdge />
             <ReactFlow
-
+                minZoom={0.01}
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
