@@ -36,14 +36,14 @@ const Sidebar = ({
 
 
   const findActivityPeriodDesc = (text) => {
-    let title1 = -1
+    let title1 = -1;
     if (text.indexOf("Järjestämisajankohta") !== -1) {
-      title1 = "Järjestämisajankohta"
+      title1 = text.indexOf("Järjestämisajankohta");
     }
     if (text.indexOf("Ajoitus") !== -1) {
-      title1 = "Ajoitus"
+      title1 = text.indexOf("Ajoitus");
     }
-    const startActivity = text.indexOf("</h5>", title1) + 5
+    const startActivity = text.indexOf("</h5>",title1) + 5
     const endActivity = text.indexOf("<h5>", startActivity)
     const textActivity = text.slice(startActivity, endActivity)
     let fixedActivityText = preprocessContent(textActivity)
@@ -61,6 +61,9 @@ const Sidebar = ({
     if (title2 === -1) {
       fixedRecommendation = ''
     }
+    console.log(startActivity)
+    console.log(title1, "title1")
+    console.log(title2, "title2")
 
     return ([fixedActivityText, fixedRecommendation])
   }
@@ -85,6 +88,7 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
+            console.log(courseInfo.additional.fi)
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
             const info = (
