@@ -1,8 +1,11 @@
+import axiosMock from 'axios'; // Mock axios for API calls
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SearchBar from './SearchBar';
+import { act } from 'react-dom/test-utils';
 
+jest.mock('axios');
 
 describe("SearchBar unit testing", () => {
   const mockCourses = [
@@ -18,22 +21,27 @@ describe("SearchBar unit testing", () => {
     "course_name": "Lineaarialgebra ja matriisilaskenta I",
     "hy_course_id": "MAT11002"
   }];
-  const mockFetchDatabaseSearchSuggestions = jest.fn().mockResolvedValue(mockCourses)
-  const mockHandleSearch = jest.fn()
-  const mockHandleChange = jest.fn()
 
+  //const mockFetchDatabaseSearchSuggestions = jest.fn().mockResolvedValue(mockCourses)
+  const mockHandleSearch = jest.fn();
+  const mockHandleChange = jest.fn();
+
+  beforeEach(() => {
+      axiosMock.get.mockResolvedValueOnce({data: mockCourses});
+  });
 
     test("New text in textfield calls the onChange function", async () => {
+      act(() => {
         const {getByLabelText} = render(
         <SearchBar 
-        axiosInstance={{}} 
-        handleSearch={mockHandleSearch} 
-        fetchDatabaseSearchSuggestions={mockFetchDatabaseSearchSuggestions}
-        handleChange={mockHandleChange}/>);
+        axiosInstance={axiosMock} 
+        handleSearch={mockHandleSearch}
+        handleChange={mockHandleChange}/>
+        );
 
-        const textfield = getByLabelText("Search courses")
+        const textfield = getByLabelText("Search courses");
         fireEvent.change(textfield, {target:{value:'test text'}});
         expect(mockHandleChange).toHaveBeenCalledWith('test text');
-    })
-
-})
+    });
+  });
+});
