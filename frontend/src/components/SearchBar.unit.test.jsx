@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import {render, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SearchBar from './SearchBar';
@@ -34,8 +33,7 @@ describe("SearchBar unit testing", () => {
 
         const textfield = getByLabelText("Search courses")
         fireEvent.change(textfield, {target:{value:'test text'}});
-        expect(mockHandleChange).toHaveBeenCalledWith('test text'); // eslint-disable-line
-                                                                                      //<------------- Remove this comment after fixing the error with this line. handleChange is not defined.
+        expect(mockHandleChange).toHaveBeenCalledWith('test text');
     })
 
 })
