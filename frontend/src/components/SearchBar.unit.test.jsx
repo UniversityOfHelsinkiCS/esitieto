@@ -35,7 +35,8 @@ describe("SearchBar unit testing", () => {
 
         const textfield = getByLabelText("Search courses")
         fireEvent.change(textfield, {target:{value:'test text'}});
-        expect(handleChange).toHaveBeenCalledWith('test text'); // eslint-disable-line <------------- Remove this comment after fixing the error with this line. handleChange is not defined.
+        expect(handleChange).toHaveBeenCalledWith('test text'); // eslint-disable-line
+                                                                                      //<------------- Remove this comment after fixing the error with this line. handleChange is not defined.
     })
 
 })
