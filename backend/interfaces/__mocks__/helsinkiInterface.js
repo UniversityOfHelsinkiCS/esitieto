@@ -353,7 +353,7 @@ class HelsinkiInterface {
         Returns the selected periods degree stucture in JSON format.
         */
         if (this.isValidInput(id) && this.isValidInput(lvName)) {
-            if ((id == "KH50_005") &&(lvName == "hy-lv-74")) {
+            if ((id.toUpperCase() === "KH50_005") &&(lvName.toLowerCase() === "hy-lv-74")) {
                 return this.degree
             }
             return ""
