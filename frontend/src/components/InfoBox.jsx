@@ -7,13 +7,14 @@ export function InfoBox({ isOpen, onClose }) {
     }    
     return (
         <div className="info-window">
-            <h2>Course prerequisite visualization tool</h2>
-            <p>This application shows the necessary course prerequsities for certain degree programs in the University of Helsinki.</p>
-            <p>Currently available is a sample version of the Computer Science bachelor's degree program.</p>
+            <h2>Kurssin esitietojen visualisointityökalu</h2>
+            <p>Käyttäjäopas löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/user-guide.md">täältä</a></p>
+            <p>Tämä sovellus näyttää tarvittavat kurssiesitiedot tietyille tutkinto-ohjelmille Helsingin yliopistossa.</p>
+            <p>Tällä hetkellä saatavilla on esimerkkiversio tietojenkäsittelytieteen kandidaattiohjelmasta.</p>
             <p> </p>
-            <p>This application is being created as a project for the course Ohjelmistotuotanto for the University of Helsinki</p>
-            <p>Source code can be found <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">here</a> </p>
-            <button onClick={onClose}>Close</button>
+            <p>Tämä sovellus on luotu Ohjelmistotuotanto-kurssin projektitöönä Helsingin yliopistolle.</p>
+            <p>Lähdekoodi löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">täältä</a></p>
+            <button onClick={onClose}>Sulje</button>
         </div>
     )
 }
