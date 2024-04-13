@@ -34,7 +34,7 @@ Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten.
 3. Siirry projektissa backend/dbStartup/added-degrees hakemistoon
 4. Kopioi base-for-managing-degrees.json tiedosto (https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json), ja nimeä se tutkintokoodin mukaisesti (esim. TKT20-23, formaatissa tutkinnon lyhenne, sekä tämän vuodet).
 5. Avaa tiedosto
-6. Käytä tiedoston pohjaa mallina, johonka voit lisätä haluamasi tiedot
-7. Lisää tiedosto omaan projektiisi
+6. Käytä tiedoston pohjaa mallina, johonka voit muokata haluamasi tiedot
+7. Pushaa tiedosto projektiisi
 8. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
 
