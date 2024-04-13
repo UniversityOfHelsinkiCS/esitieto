@@ -1,22 +1,29 @@
 # Käyttäjäopas
 
+Pikavalikko:
+
+- [Tutkinnon valitseminen](#tutkinnon-valitseminen)
+- [Kurssin etsiminen ja tämän esitietojen visualisointi](#kurssin-etsiminen-ja-tämän-esitietojen-visualisointi)
+- [Kurssin kuvauksen lukeminen](#kurssin-kuvauksen-lukeminen)
+- [Oman tutkinnon lisääminen](#oman-tutkinnon-lisääminen)
+
 ## Tutkinnon valitseminen
 
 Paina ylävasemmalta "Tutkinto" ja valitse alasvetovalikosta haluamasi tutkintosi.
 
-TODO:Gif
+![Kurssihaku](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/tutkinto-valinta.gif)
 
 ## Kurssin etsiminen ja tämän esitietojen visualisointi
 
 Tutkintoon sisältyvät kurssit voidaan etsiä hakupalkin avulla. Kurssin voi hakea syöttämällä kenttään joko sen nimi tai koodi, jolloin sen voi valita. Kurssin esitiedot ilmenevät näytölle valinnan jälkeen.
 
-TODO:Gif
+![Kurssihaku](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/kurssihaku.gif)
 
 ## Kurssin kuvauksen lukeminen
 
 Kurssilaatikoita voidaan klikata, jolloin sivupaneeli aukeaa. Sivupaneelista voidaan tämän jälkeen painaa "Kurssin kuvaus" nappia, jolloin näytölle ilmenee kurssin kuvaus. Näkymästä voi poistua klikkaamalla jonnekkin muualle.
 
-TODO:Gif
+![Kurssihaku](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/kurssikuvaus.gif)
 
 ## Oman tutkinnon lisääminen
 
