@@ -1,5 +1,12 @@
 # Käyttäjäopas
 
+Pikavalikko:
+
+- [Tutkinnon valitseminen](#tutkinnon-valitseminen)
+- [Kurssin etsiminen ja tämän esitietojen visualisointi](#kurssin-etsiminen-ja-tämän-esitietojen-visualisointi)
+- [Kurssin kuvauksen lukeminen](#kurssin-kuvauksen-lukeminen)
+- [Oman tutkinnon lisääminen](#oman-tutkinnon-lisääminen)
+
 ## Tutkinnon valitseminen
 
 Paina ylävasemmalta "Tutkinto" ja valitse alasvetovalikosta haluamasi tutkintosi.
