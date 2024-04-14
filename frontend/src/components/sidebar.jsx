@@ -61,9 +61,6 @@ const Sidebar = ({
     if (title2 === -1) {
       fixedRecommendation = ''
     }
-    console.log(startActivity)
-    console.log(title1, "title1")
-    console.log(title2, "title2")
 
     return ([fixedActivityText, fixedRecommendation])
   }
@@ -88,7 +85,6 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
-            console.log(courseInfo.additional.fi)
             const desc = findActivityPeriodDesc(courseInfo.additional.fi);
             setCourseActivityDesc(desc);
             const info = (
