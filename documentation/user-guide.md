@@ -33,10 +33,11 @@ Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten.
 
 1. Luo uusi branchi [linkistä](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/branches)
 ![Branchinluonti](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/branchinluonti.gif)
-2. Luo uusi tutkinto ja kopioi tiedostoon [linkin](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json) sisältö
+2. Mene hakemistoon /kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/
+3. Luo uusi tutkinto ja kopioi tiedostoon [linkin](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json) sisältö
 ![Tutkinnonluonti](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/tutkinnonluonti.gif)
-3. Muokkaa tutkintoa sisällön avulla
-4. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
+4. Muokkaa tutkintoa sisällön avulla
+5. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
 ![Pullrequest](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/pullrequest.gif)
 
 ### Vaihtoehto 2: Oman tietokoneen kautta
