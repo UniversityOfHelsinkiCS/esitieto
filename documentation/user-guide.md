@@ -29,6 +29,18 @@ Kurssilaatikoita voidaan klikata, jolloin sivupaneeli aukeaa. Sivupaneelista voi
 
 Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten.
 
+### Vaihtoehto 1: Githubin webbisivun kautta
+
+1. Luo uusi branchi [linkistä](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/branches)
+GIF
+2. Luo uusi tutkinto ja kopioi tiedostoon [linkin](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json) sisältö
+GIF
+3. Muokkaa tutkintoa sisällön avulla
+4. Luo pull requesti
+GIF
+
+### Vaihtoehto 2: Oman tietokoneen kautta
+
 1. Forkkaa projekti itsellesi
 2. Pullaa projekti omalle koneellesi
 3. Siirry projektissa backend/dbStartup/added-degrees hakemistoon
