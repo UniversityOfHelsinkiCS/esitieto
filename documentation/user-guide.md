@@ -27,7 +27,7 @@ Kurssilaatikoita voidaan klikata, jolloin sivupaneeli aukeaa. Sivupaneelista voi
 
 ## Oman tutkinnon lisääminen
 
-Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten.
+Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten. Helsingin Yliopiston tutkintoja voi tarkastella [tämän linkin](https://eduviewer.it.helsinki.fi/) kautta.
 
 ### Vaihtoehto 1: Githubin webbisivun kautta
 
