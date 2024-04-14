@@ -1,13 +1,13 @@
 {
     "mode": "'new' luo uudentutkinnon muita modeja ei ole olemassa tällä hetkellä",
     "degreeName": "Tutkinnon nimi",
-    "degreeCode": "tutkinnon koodi sisussa",
+    "degreeCode": "tutkinnon koodi, esim: 'KH50_005', joka on TKT kandi. Koodi löytyy SISU:sta Opintojen rakenne sivulta tutkinnon otsikon alta sininen teksti.",
     "degreeYear": "aloitusvuosi tutkinnon voimassaololle",
     "courses": [
         {
             "courseCode": "kurssin virallinen koodi, esim 'TKT10003'",
             "prerequisiteCourses": [
-                "kurssin esitietovaatimukset erotettuna piluilla, esim 'TKT10002'",
+                "kurssin esitietovaatimukset erotettuna pilkuilla, esim 'TKT10002'",
                 "toinen esitietovaatimus"
             ]
         },
