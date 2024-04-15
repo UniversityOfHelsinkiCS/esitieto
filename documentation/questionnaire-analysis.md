@@ -21,6 +21,22 @@ Kyselyn ensimäisessä osassa käyttäjät vastasivat [System Usability Scale](h
 |                                                    Tunsin itseni hyvin varmaksi, kun käytin sovellusta. |  5 |  9 | 11 | 30 | 21 |
 |                          Minun piti opetella paljon asioita, ennen kuin sovelluksen käyttö alkoi sujua. | 48 | 15 |  9 |  4 |  0 |
 
+### Tulosten laskettu arvo
+Kaikki käyttäjät: $\Large\frac{28.1}{40} \\approx  70	\\%$
+
+Puhelin käyttäjät: $\Large\frac{27.6}{40} \\approx 69 \\%$ 
+
+Tietokone käyttäjät: $\Large\frac{28.2}{40} \\approx 71	\\%$ 
+
+Puhelin ja tietokone käyttäjien kokemusten ero: $1.5 \\%$
+
+
+Suuntaa antava arvostelu tapa:
+|huono|ok|hyvä|erinomainen|paras|
+|-------|-----|---|----|-----|
+|0-60|60-70|70-80|80-90|90-100|
+
+
 ### SUS-kyselyn päätelmät
 
  - Kolmasosa vastaajista käyttäisi sovellusta mielellään, kolmasosa ei.
