@@ -55,7 +55,7 @@ Kyselyn 76 vastaajasta 48 vastasi kysymykseen "Näkyikö sovelluksessa mielestä
  - Usea vastaaja on sitä mieltä, että kurssilaatikoiden tulisi olla lähempänä toisiaan, ja tekstin suuremman kokoista.
  - Joidenkin vastaajien mielestä kurssilaatikoiden siirtelymahdollisuus ei tuo sovellukselle lisäarvoa.
  - Ohjelmasta puuttuva mahdollisuus palata alkunäkymään muuten kuin sivun päivittämällä koettiin harmilliseksi.
- - Monen vastaajan mielestä maiserikurssien puute heikentää sovelluksen käytettävyyttä huomattavasti.
+ - Monen vastaajan mielestä maisterikurssien puute heikentää sovelluksen käytettävyyttä huomattavasti.
  - Muutaman vastaajan mielestä kurssien suoritusjärjestys tulisi näyttää eri tavalla, eikä alhaalta ylöspäin kuten nykyisessä versiossa.
  - Huolimatta SUS-kyselyn positiivisesta palautteesta helppokäyttöisyyden suhteen, näkyy vapaan kentän vastauksissa tarve käyttöohjeelle, sekä selitteelle käytetyistä väreistä.
  - Graafiseen ilmeeseen toivotaan parannusta. Yksi vastaaja toivoi ilmeen yhtenäistämistä Helsingin Yliopiston graafisen ilmeen kanssa.
