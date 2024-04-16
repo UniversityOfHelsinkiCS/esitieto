@@ -10,4 +10,4 @@
 - ![Environment Variables](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md)
 
 ## Codebase
-- ![TODO: Code related stuff](TODO)
+- ![User and Developer logs/messages](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/codebase/loggers.md)
