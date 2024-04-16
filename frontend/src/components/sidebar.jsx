@@ -4,10 +4,12 @@ import {
   handleFetchKORICourseInfo,
 } from '../functions/CourseFunctions';
 import CourseDescription from './CourseDescription';
+import { CourseActivityDesc } from './CourseActivityDesc';
 import '../styles/sidebar.css';
 import { Button, IconButton } from '@mui/material';
 import { error as displayError } from '../components/messager/messager'
 import InfoIcon from '@mui/icons-material/Info';
+
 
 
 function preprocessContent(htmlContent) {
@@ -27,53 +29,12 @@ const Sidebar = ({
   selectedCourseName,
   axiosInstance,
 }) => {
-  const [activityDesc, setActivityDesc] = useState(false);
+  //const [activityDesc, setActivityDesc] = useState(false);
   const [courseActivityDesc, setCourseActivityDesc] = useState('');
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
   const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
-
-
-  const findActivityPeriodDesc = (text) => {
-    let title1 = -1;
-    if (text.indexOf("Järjestämisajankohta") !== -1) {
-      title1 = text.indexOf("Järjestämisajankohta");
-    }
-    if (text.indexOf("Ajoitus") !== -1) {
-      title1 = text.indexOf("Ajoitus");
-    }
-    const startActivity = text.indexOf("</h5>",title1) + 5
-    const endActivity = text.indexOf("<h5>", startActivity)
-    const textActivity = text.slice(startActivity, endActivity)
-    let fixedActivityText = preprocessContent(textActivity)
-
-    if (title1 === -1) {
-      fixedActivityText = ''
-    }
-
-    let title2 = text.indexOf("Suositeltava suoritusajankohta")
-    const startRecommendation = text.indexOf("</h5>", title2) + 5
-    const endRecommendation = text.indexOf("<h5>", startRecommendation)
-    const textRecommendation = text.slice(startRecommendation, endRecommendation)
-    let fixedRecommendation = preprocessContent(textRecommendation)
-
-    if (title2 === -1) {
-      fixedRecommendation = ''
-    }
-
-    return ([fixedActivityText, fixedRecommendation])
-  }
-
-  const handleInfoClick = () => {
-    if (activityDesc) {
-      setActivityDesc(false);
-    }
-    else {
-      setActivityDesc(true);
-    }
-  }
-
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -85,8 +46,7 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
-            const desc = findActivityPeriodDesc(courseInfo.additional.fi);
-            setCourseActivityDesc(desc);
+            setCourseActivityDesc(courseInfo.additional.fi);
             const info = (
               courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
                 (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
@@ -115,22 +75,7 @@ const Sidebar = ({
     <div className="sidebar">
       <button onClick={closeSidebar} className="close-button">X</button>
       <h2>{selectedCourseName}</h2>
-      {courseActivityDesc[0] &&
-        <div>
-          <div className='timing'>
-            <h3>Suoritusaika</h3>
-            <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-              <InfoIcon />
-            </IconButton>
-          </div>
-          {activityDesc &&
-            <div>
-              <p>{courseActivityDesc[0]}</p>
-              <p><b>Suositeltava suoritusajankohta:</b>
-                {courseActivityDesc[1]}</p>
-            </div>}
-        </div>}
-
+      <CourseActivityDesc desc={courseActivityDesc} />
       <p>{selectedCourseDescription}<br />
         {selectedCourseCredits}</p>
       <Button
