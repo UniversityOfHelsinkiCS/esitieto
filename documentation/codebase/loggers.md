@@ -12,4 +12,4 @@ You can use the logger by using logger.{somemessagelevel}({yourmessage}), after 
 
 # Morgan Logger (backend)
 
-Morgan is also used to log queries received from the frontend, and it's information
+Morgan is also used to log queries received from the frontend, the information is displayed in the console of the backend.
