@@ -10,4 +10,4 @@ We use Cypress to handle E2E testing,  and agreed to place them in a more centra
 
 # REST
 
-The project has some REST queries provided that can be used to quickly user test functionalities using the REST Client (Extension in VSCode), you may or may not find it handy.
+The project has some REST queries provided that can be used to quickly user test functionalities using the REST Client (Extension in VSCode), you may or may not find it handy. You can find the existing ones [here](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/tree/main/rest)
