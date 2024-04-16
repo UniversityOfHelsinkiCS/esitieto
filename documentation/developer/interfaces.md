@@ -6,6 +6,6 @@ The interface can be used to fetch multiple courses simultaneously via searchCou
 
 # Helsinki interface
 
-(This feature is unused, but potentially valuable for further development. We failed to utilize this system due to limitations in time)
+(This feature is unused, but potentially valuable for further development. We failed to utilize this system due to limitations in time, the aim was to automatically construct the data in our database based on the data here)
 
 Helsinki interface can be used to fetch degree structures directly from the university itself. [Here](https://od.helsinki.fi/eduviewer/tree_by_code/KH50_005?lv=hy-lv-74) is an example structure of the Bachelor of Computer Science that can be fetched via the interface.
