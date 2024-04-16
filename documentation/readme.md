@@ -10,4 +10,4 @@
 - [Environment Variables](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md)
 
 ## Codebase
-- [User and Developer logs/messages](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/codebase/loggers.md)
+- [User and Developer logs/messages](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/loggers.md)
