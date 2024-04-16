@@ -65,7 +65,7 @@ export const SearchBar = (props) => {
       renderInput={(params) => <TextField {...params}
         id="textField"
         data-testid="testTextField" 
-        label="Search courses:"
+        label="Hae kurssi:"
         variant="standard"
       />}
     />
