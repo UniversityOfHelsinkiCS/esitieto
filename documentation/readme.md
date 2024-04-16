@@ -13,3 +13,4 @@
 - [User and Developer logs/messages](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/loggers.md)
 - [Shibboleth (Unused user login system❗)](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/shibboleth.md)
 - [Interfaces used to fetch data online](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/interfaces.md)
+- [Testing](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/testing.md)
