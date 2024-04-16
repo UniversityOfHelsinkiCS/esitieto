@@ -39,7 +39,7 @@ describe("SearchBar unit testing", () => {
   });
 
   //Textfield
-  const textField = screen.getByText('Search courses:');
+  const textField = screen.getByText('Hae kurssi:');
   expect(textField).toBeInTheDocument();
   });
   
