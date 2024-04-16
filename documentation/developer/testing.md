@@ -6,7 +6,7 @@ Something to keep in mind, there may be difficulties in testing the APIs used by
 
 # E2E Testing
 
-We use Cypress to handle E2E testing,  and agreed to place them in a more centralized locations unlike the unit tests. These are NOT part of any CI/CD and were run manually.
+We use Cypress to handle E2E testing,  and agreed to place them in a more centralized locations unlike the unit tests. These are not part of any CI/CD and were run manually.
 
 # REST
 
