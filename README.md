@@ -47,7 +47,7 @@ Installs the required dependencies on both frontend and backend
 
 ### Setting up .env
 
-Set up .env file in project root. Follow [this](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md) guide for the required variables.
+Set up .env file in project root. Follow [this](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/setting-up-env.md) guide for the required variables.
 
 ### Running the program locally
 
