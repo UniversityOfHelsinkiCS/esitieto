@@ -10,6 +10,6 @@ Winston is used for handling the backend errors, which can be found under [here]
 
 You can use the logger by using logger.{somemessagelevel}({yourmessage}), after which the logger will format the messages automatically. It is also possible to control which messages to display via the environment variable LOGGING_LEVEL, as well as modify the levels to your liking.
 
-# Morgan Logger (backend)
+# Morgan Logger
 
-Morgan is also used to log queries received from the frontend, the information is displayed in the console of the backend.
+Morgan is used to log queries received from the frontend, the information is displayed in the console of the backend.
