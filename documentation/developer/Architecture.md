@@ -11,21 +11,25 @@ flowchart TD
     E --> F["InfoBox"]
     A --> G["SideBar"]
     G --> H["CourseDescription"]
-
-    C --"/api/degrees/fetch"--> I
-    D --> I
-    end
-
-    subgraph TEst
-    I(("Router"))
-    end
-
-    subgraph Backend    
-    I --> K
-    B --> K["db/index"]
     end
 
     subgraph Router
-    J["Router"]
+    I(("Router"))
+    A -."/api/degrees".->I
+    C -."/api/degrees/search_by_degree".-> I
+    D -."/api/courses/databaseGetCourses".-> I
+    H -."/api/kori/search_by_name".->I
+    I --> L[MiddleWare]
     end
+
+    subgraph Backend
+    L --"/api/degrees"--> K
+    L --"/api/degrees/search_by_degree"--> K
+    L --"/api/courses/databaseGetCourses"--> K
+    L --"/api/kori/search_by_name"--> M
+    K["db/index"]
+    M[KoriInterface]
+    end
+    linkStyle 3 stroke:#f33,stroke-width:2px,color:red;
+    
 ```
