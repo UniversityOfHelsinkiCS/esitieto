@@ -1,10 +1,10 @@
 # Shibboleth
-Shibboleth on Helsingin yliopiston käyttämä Single sign-on (SSO) kirjautumissovellus. Sovelluksemme käyttää Shibbolethia, mutta ei tällä hetkellä hyödynnä sen kertakirjautumista. Tämä olisi kuitenkin tarkoitus toteuttaa, jotta voimme hyödyntää kirjautumisen tuomia hyötyjä.
+Shibboleth is a Single Sign-On (SSO) services that the University of Helsinki uses in many of their tools. Our application uses Shibboleth but isin't currently using the SSO services. Enabling the possibility to login is one of the next steps for this project.
 
-Sovelluksen toiminta Shibbolethin kautta:
+How routing works for the application:
 ```mermaid
 flowchart TD
-    subgraph Käyttäjä
+    subgraph User
     A["/esitieto"]
     B["/esitieto-kirjauduttu"]
     end
@@ -13,11 +13,11 @@ flowchart TD
     B --> C
     C --"/esitieto-kirjauduttu"--> E["Kirjautumisruutu"]
     end
-    subgraph Sovellus
+    subgraph Application
     C --"/esitieto"--> D["/esitieto"]
-    E --"Kirjautumis tiedot Headereissa"--> F["/esitieto-kirjauduttu"]
+    E --"Login information in headers"--> F["/esitieto-kirjauduttu"]
     end
 ```
-Kuvaajasta näkyy, että ennen kuin haku pääsee sovelluksen ympäristöön, se kulkee Shibbolethin läpi. Riippuen kumpaan polkuun mennään, Shibboleth ohjaa joko suoraan sovellukseen tai sitten ensin Shibbolethin kirjautumissivulle. Kirjautuneena Shibboleth lisää headereihin kirjautumistiedot. Sovelluksessa on Middleware, joka ylläpitää sovellukselle kirjautumistietoja.
+As you can see from the above diagram, all traffic passes through Shibboleth before it reaches our application. Depending on which route you are using Shibboleth will redirect you to a login screen. When logged in, Shibboleth will pass the login credentials as headers in the requests. Our Middleware strips this info out of the headers. (The middleware might not be working currently as it has been never tested.)
 
-Tällä hetkellä /esitieto-kirjauduttu polkua ei ole toteutettu sovelluksen puolella ja siis kirjautuminen ei ole mahdollista. Tämän lisäksi Axios baseURL on asetettu /esitieto. Tämä pitää muuttaa, kun aletaan toteuttamaan kirjautumista.
+Currently the /esitieto-kirjauduttu path is not in use as there hasn't been any reason to configure it yet. At this time Axios baseUrl is set to /esitieto so it must be changed when we start work on the login features.
