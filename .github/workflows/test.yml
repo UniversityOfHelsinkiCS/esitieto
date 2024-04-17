@@ -20,13 +20,11 @@ jobs:
 
     - name: Run Frontend Tests
       run: npm run coverage:frontend
-
-    - name: Upload frontend coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ./frontend/coverage
-        token: ${{ secrets.COVERAGE_TOKEN }}
-        slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
+    - name: Updoad frontend coverage reports to Codecov try 2
+      run: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t ${COVERAGE_TOKEN}
 
   backend:
     runs-on: ubuntu-latest
