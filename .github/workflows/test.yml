@@ -20,47 +20,47 @@ jobs:
     - name: Run tests and upload coverage reports to Codecov
       run: npm run test-coverage
 
-  frontend:
-    runs-on: ubuntu-latest
+  # frontend:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install Node
-      uses: actions/setup-node@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Install Node
+  #     uses: actions/setup-node@v4
 
-    - name: Install Frontend Dependencies
-      run: npm install
+  #   - name: Install Frontend Dependencies
+  #     run: npm install
 
-    - name: Run Frontend Tests
-      run: npm run coverage:frontend
+  #   - name: Run Frontend Tests
+  #     run: npm run coverage:frontend
     
-    - name: Upload frontend coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ./frontend/coverage
-        token: ${{ secrets.COVERAGE_TOKEN }}
-        slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
+  #   - name: Upload frontend coverage reports to Codecov
+  #     uses: codecov/codecov-action@v3
+  #     with:
+  #       directory: ./frontend/coverage
+  #       token: ${{ secrets.COVERAGE_TOKEN }}
+  #       slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
-  backend:
-    runs-on: ubuntu-latest
+  # backend:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install Node
-      uses: actions/setup-node@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Install Node
+  #     uses: actions/setup-node@v4
     
-    - name: Install Backend Dependencies
-      run: npm install
+  #   - name: Install Backend Dependencies
+  #     run: npm install
     
-    - name: Run Backend Tests
-      run: npm run coverage:backend
+  #   - name: Run Backend Tests
+  #     run: npm run coverage:backend
 
-    - name: Upload backend coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ./backend/coverage
-        token: ${{ secrets.COVERAGE_TOKEN }}
-        slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
+  #   - name: Upload backend coverage reports to Codecov
+  #     uses: codecov/codecov-action@v3
+  #     with:
+  #       directory: ./backend/coverage
+  #       token: ${{ secrets.COVERAGE_TOKEN }}
+  #       slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   run-linters:
     name: Run linters

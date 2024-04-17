@@ -13,7 +13,7 @@
     "test:backend": "jest backend/ --config jest.config.backend.js",
     "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js --collectCoverageFrom=\"./frontend/src/**\"",
     "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js --collectCoverageFrom=\"./backend/**\"",
-    "test-coverage": "npm run test:frontend && codecov && npm run test:backend && codecov"
+    "test-coverage": "npm run test:frontend && npx codecov && npm run test:backend && npx codecov"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
