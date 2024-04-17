@@ -6,6 +6,20 @@ name: test
 on: workflow_call
 
 jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Node
+      uses: actions/setup-node@v4
+
+    - name: Install Frontend Dependencies
+      run: npm install
+    
+    - name: Run tests and upload coverage reports to Codecov
+      run: npm run test-coverage
+
   frontend:
     runs-on: ubuntu-latest
 
