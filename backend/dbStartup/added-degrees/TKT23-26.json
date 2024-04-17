@@ -133,7 +133,7 @@
         },
         {
             "courseCode": "MAT12002",
-            "prerequisiteCourses": ["MAT12002"],
+            "prerequisiteCourses": ["MAT12001"],
             "courseType": "alternative"
         },
         {
