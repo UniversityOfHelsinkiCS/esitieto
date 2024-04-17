@@ -37,8 +37,7 @@
         {
             "courseCode": "TKT20005",
             "prerequisiteCourses": [
-                "TKT200012",
-                "MAT11001"
+                "TKT200012"
             ]
         },
         {
@@ -79,7 +78,6 @@
             "courseCode": "TKT20016",
             "prerequisiteCourses": [
                 "TKT10006",
-                "TKT10003",
                 "TKT200011"
             ]
         },
@@ -97,14 +95,8 @@
             ]
         },
         {
-            "courseCode": "TKT20015",
-            "prerequisiteCourses": [
-                "TKT10003"
-            ]
-        },
-        {
             "courseCode": "TKT200151",
-            "prerequisiteCourses": []
+            "prerequisiteCourses": ["TKT10003"]
         },
         {
             "courseCode": "TKT200152",
@@ -141,7 +133,7 @@
         },
         {
             "courseCode": "MAT12002",
-            "prerequisiteCourses": [],
+            "prerequisiteCourses": ["MAT12002"],
             "courseType": "alternative"
         },
         {
