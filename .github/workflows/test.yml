@@ -35,7 +35,7 @@ jobs:
       run: npm run coverage:frontend
     
     - name: Upload frontend coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.COVERAGE_TOKEN }}
         directory: ./frontend/coverage
@@ -56,7 +56,7 @@ jobs:
       run: npm run coverage:backend
 
     - name: Upload backend coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.COVERAGE_TOKEN }}
         directory: ./backend/coverage
