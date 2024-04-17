@@ -34,10 +34,13 @@ jobs:
     - name: Run Frontend Tests
       run: npm run coverage:frontend
     
+    - name: Test text
+      run: echo ${{ secrets.CODECOV_TOKEN}}
+
     - name: Upload frontend coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: -t ${{ secrets.CODECOV_TOKEN }}
         directory: ./frontend/coverage
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
@@ -55,10 +58,13 @@ jobs:
     - name: Run Backend Tests
       run: npm run coverage:backend
 
+    - name: Test text
+      run: echo ${{ secrets.COVERAGE_TOKEN}}
+
     - name: Upload backend coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
-        token: ${{ secrets.COVERAGE_TOKEN }}
+        token: -t ${{ secrets.COVERAGE_TOKEN }}
         directory: ./backend/coverage
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
