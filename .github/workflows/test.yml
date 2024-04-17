@@ -37,8 +37,8 @@ jobs:
     - name: Upload frontend coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
-        directory: ./frontend/coverage
         token: ${{ secrets.COVERAGE_TOKEN }}
+        directory: ./frontend/coverage
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   backend:
@@ -58,8 +58,8 @@ jobs:
     - name: Upload backend coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
-        directory: ./backend/coverage
         token: ${{ secrets.COVERAGE_TOKEN }}
+        directory: ./backend/coverage
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
 
   run-linters:
