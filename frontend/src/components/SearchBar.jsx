@@ -62,8 +62,10 @@ export const SearchBar = (props) => {
           </Box>
         )}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} 
-        label="Search courses:"
+      renderInput={(params) => <TextField {...params}
+        id="textField"
+        data-testid="testTextField" 
+        label="Hae kurssi:"
         variant="standard"
       />}
     />

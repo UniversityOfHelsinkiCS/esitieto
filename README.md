@@ -24,6 +24,7 @@ This project is part of Software engineering course in University of Helsinki (O
 # Documentation
 - [Definition of done](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/definition-of-done.md)
 - [Roles for the meetings](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/roles-for-the-meetings.md)
+- [For developers](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/readme.md)
 
 # Project links
 - [Backlog](https://github.com/orgs/Kurssiesitieto/projects/2)
@@ -47,7 +48,7 @@ Installs the required dependencies on both frontend and backend
 
 ### Setting up .env
 
-Set up .env file in project root. Follow [this](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/setting-up-env.md) guide for the required variables.
+Set up .env file in project root. Follow [this](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/setting-up-env.md) guide for the required variables.
 
 ### Running the program locally
 
