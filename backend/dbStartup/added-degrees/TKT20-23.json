@@ -1,5 +1,4 @@
 {
-    "mode": "new",
     "degreeName": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
     "degreeCode": "kh50_005",
     "degreeYears": "2023-2026",
@@ -149,28 +148,5 @@
             "courseCode": "TKT500031",
             "prerequisiteCourses": []
         }        
-    ],
-    "modules": [
-        {
-            "moduleName": "Aineopintojen harjoitustyöt",
-            "description": "Valitse 1 kurssi näistä",
-            "courses": [
-                "TKT20010",
-                "TKT20012",
-                "TKT20018"
-            ]
-        },
-        {
-            "moduleName": "Matematiikan tai menetelmätieteiden sivuaineopinnot",
-            "description": "",
-            "courses": [
-                "MAT12001",
-                "MAT12002",
-                "MAT11002",
-                "MAT11009",
-                "MAT12003",
-                "MAT11015"
-            ]
-        }
     ]
 }
