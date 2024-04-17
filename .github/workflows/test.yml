@@ -14,7 +14,6 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v4
 
-
     - name: Install Frontend Dependencies
       run: npm install
 
