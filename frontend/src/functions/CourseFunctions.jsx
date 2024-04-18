@@ -2,90 +2,26 @@ import { error as displayError } from '../components/messager/messager';
 
 // Add a course to the database
 export const addCourse = async (axios, onCoursesUpdated, course_name, official_course_id, kori_name) => {
-    //const course_name = prompt("Enter course name:");
-    if (!course_name) return;
-
-    //const official_course_id = prompt("Enter official course ID:");
-    if (!official_course_id) return;
-
-    //const kori_name = prompt("Enter Kori name:");
-    if (!kori_name) return;
-
-    await axios.post('/api/courses/databaseCreateCourse', { official_course_id, course_name, kori_name });
-    onCoursesUpdated("fetch");
+    // Unused, old code that is no longer functional. These are connected to the edit window buttons if you wish to continue working from there.
 };
 
 // Remove a course from the database
 export const removeCourse = async (axios, onCoursesUpdated, kori_name) => {
-    //const kori_name = prompt("Enter Kori name of the course to remove:");
-    if (!kori_name) return;
-
-    await axios.delete(`/api/courses/databaseDeleteCourse/${encodeURIComponent(kori_name)}`);
-    onCoursesUpdated("fetch");
-};
-
-// Fetch a course and it's dependencies from database
-// Changed kori_name to come from searchbar search
-export const handleSearch = async (axios, onCoursesUpdated, kori_name) => {
-    //const kori_name = prompt("Enter Kori name to search for its prerequisites:");
-    if (!kori_name) return;
-
-    try {
-        const response = await axios.get(`/api/courses/getCourseWithPrerequisites/${encodeURIComponent(kori_name)}`);
-        onCoursesUpdated(response.data, "database");
-    } catch (error) {
-        console.error("Error fetching course with prerequisites: ", error);
-    }
+    // Unused, old code that is no longer functional. These are connected to the edit window buttons if you wish to continue working from there.
 };
 
 // Add a dependency to the database between two courses
 export const handleAddDependency = async (axios, course_kori_name, prerequisite_course_kori_name) => {
-    //const course_kori_name = prompt("Enter the Kori name of the course:");
-    if (!course_kori_name) return;
-
-    //const prerequisite_course_kori_name = prompt("Enter the Kori name of the prerequisite course:");
-    if (!prerequisite_course_kori_name) return;
-
-    try {
-        const response = await axios.post('/api/courses/addPrerequisiteCourse', { course_kori_name, prerequisite_course_kori_name });
-        console.log("Dependency added successfully:", response.data);
-    } catch (error) {
-        console.error("Error adding course dependency: ", error);
-    }
+    // Unused, old code that is no longer functional. These are connected to the edit window buttons if you wish to continue working from there.
 };
 
 // Remove a dependency from the database between two courses
 export const handleRemoveDependency = async (axios) => {
-    const course_kori_name = prompt("Enter the Kori name of the course:");
-    if (!course_kori_name) return;
-
-    const prerequisite_course_kori_name = prompt("Enter the Kori name of the prerequisite course to remove:");
-    if (!prerequisite_course_kori_name) return;
-
-    try {
-        await axios.delete('/api/courses/removePrerequisiteCourse', {
-            data: { course_kori_name, prerequisite_course_kori_name }
-        });
-        console.log("Dependency removed successfully");
-    } catch (error) {
-        console.error("Error removing course dependency: ", error);
-    }
+    // Unused, old code that is no longer functional. These are connected to the edit window buttons if you wish to continue working from there.
 };
 
-
-
 export const handleKORIAPITEST = async (axios) => {
-    const searchTerm = prompt("Enter search term:");
-    if (!searchTerm) return;
-
-    console.log("KORI search: ", searchTerm);
-
-    try {
-        const response = await axios.get(`/api/kori/getKori?search=${encodeURIComponent(searchTerm)}`);
-        console.log(JSON.stringify(response.data, null, 2));
-    } catch (error) {
-        console.error("Error fetching searched courses: ", error);
-    }
+    // Unused, old code that is no longer functional. These are connected to the edit window buttons if you wish to continue working from there.
 };
 
 export const handleFetchKORIByName = async (axios, searchTerm) => {
