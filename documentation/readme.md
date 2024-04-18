@@ -4,6 +4,7 @@
 
 - [Techstack](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/tech-stack.md)
 - [Questionnaire (in finnish)](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/questionnaire-analysis.md)
+- [Architecture of the program](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/Architecture.md)
 
 ## Project Setup
 - [Openshift guide](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/openshift-db-guide.md)
