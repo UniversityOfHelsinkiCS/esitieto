@@ -5,7 +5,7 @@ import preprocessContent from '../functions/PreprocessContent';
 
 export const CourseActivityDesc = (props) => {
     const [activityDescState, setActivityDescState] = useState(false);
-    console.log("desciii", props.desc)
+    // console.log("desciii", props.desc)
 
     const findActivityPeriodDesc = (text) => {
         // Receives string with html code in it, Finds description based on words in title and returns it

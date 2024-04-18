@@ -20,6 +20,12 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     // const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
+    const [reactflowInstance, setReactflowInstance] = useState(null);
+    const [degreeInfo, setDegreeInfo] = useState({
+        "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+        "degree_years": "2023-2026",
+        "hy_degree_id": "kh50_005"
+    });
 
     const openInfoBox = () => {
         if(isInfoBoxOpen) {
@@ -82,6 +88,25 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
 
     const disabled = true;
 
+    const onSave = useCallback(() => {
+        if (reactflowInstance) {
+            const flow = reactflowInstance.toObject();
+            const positions  = flow.nodes.map(node => {
+                return {id: node.id, position: node.position}
+                }
+            );
+            // console.log(degreeInfo)
+            const saveData = {
+                degree: degreeInfo,
+                positions: positions
+            };
+            // sending saveData to backend
+        };
+
+        
+      }, [reactflowInstance]);
+
+
     return (
         <div className='reactflow-wrapper'>
             {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
@@ -99,6 +124,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
+                onInit={setReactflowInstance}
                 
                 edgesUpdatable={!disabled}
                 edgesFocusable={!disabled}
