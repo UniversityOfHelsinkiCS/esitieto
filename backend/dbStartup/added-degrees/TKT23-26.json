@@ -96,7 +96,7 @@
         },
         {
             "courseCode": "TKT200151",
-            "prerequisiteCourses": ["TKT10003"]
+            "prerequisiteCourses": []
         },
         {
             "courseCode": "TKT200152",
