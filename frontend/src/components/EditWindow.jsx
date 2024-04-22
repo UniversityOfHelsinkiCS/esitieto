@@ -3,6 +3,7 @@
 // NOT IN USE // IGNORED IN JEST CONFIG //
 
 /* eslint-disable */
+/*
 import {
     addCourse, removeCourse, 
     handleAddDependency, handleRemoveDependency, 
@@ -160,3 +161,4 @@ export const EditWindowTemplate = (props) => {
 }
 
 export default EditWindowTemplate
+*/

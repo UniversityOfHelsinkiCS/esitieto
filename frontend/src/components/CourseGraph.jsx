@@ -14,6 +14,12 @@ import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
 import InfoButton from './InfoButton';
 // import { EditBar } from './EditBar.jsx';
+/*
+    Edit bar is an old UI component in which you had buttons for some deprecated operations (such as adding a course), which are not functional any longer.
+    It is not used at all in the current version, so you have two options:
+        1. Remove the EditBar and EditWindow components, and remove these commented lines and start clean.
+        2. Continue off from those components and modify them as you see fit. This may be useful if you want a quick start.
+*/
 
 const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
