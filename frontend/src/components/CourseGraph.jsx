@@ -13,12 +13,18 @@ import CustomEdge from '../styles/CustomEdge.jsx';
 import { InfoBox } from './InfoBox.jsx'
 import { SearchBar } from './SearchBar.jsx';
 import InfoButton from './InfoButton';
-import { EditBar } from './EditBar.jsx';
+// import { EditBar } from './EditBar.jsx';
+/*
+    Edit bar is an old UI component in which you had buttons for some deprecated operations (such as adding a course), which are not functional any longer.
+    It is not used at all in the current version, so you have two options:
+        1. Remove the EditBar and EditWindow components, and remove these commented lines and start clean.
+        2. Continue off from those components and modify them as you see fit. This may be useful if you want a quick start.
+*/
 
-const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
+const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const [editBarState, setEditBarState] = useState(false);
+    // const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
     const openInfoBox = () => {
@@ -69,35 +75,44 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
     const onNodeClick = async (event, node) => {
         setSelectedCourseName(node.data.name);
         setIsSidebarOpen(true);
-        console.log("Selected course: ", node.data.label);
     };
 
-    const toggleEdit = async () => {
-        if (!editBarState) {
-            setEditBarState(true);
-        }
-        else {
-            setEditBarState(false);
-        }
-    };
+    // const toggleEdit = async () => {
+    //     if (!editBarState) {
+    //         setEditBarState(true);
+    //     }
+    //     else {
+    //         setEditBarState(false);
+    //     }
+    // };
+
+    const disabled = true;
 
     return (
         <div className='reactflow-wrapper'>
-            <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/>
+            {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
             <InfoButton onClick={openInfoBox} />
-            <button onClick={() => toggleEdit()} className='edit'>Edit</button>
+            {/* <button onClick={() => toggleEdit()} className='edit'>Edit</button> */}
             <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-            <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated} handleSearch={handleSearch}/>
+            <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
 
             <CustomEdge />
             <ReactFlow
-
+                minZoom={0.01}
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
+                
+                edgesUpdatable={!disabled}
+                edgesFocusable={!disabled}
+                nodesDraggable={!disabled}
+                nodesConnectable={!disabled}
+                nodesFocusable={!disabled}
+                draggable={!disabled}
+                elementsSelectable={!disabled}
             >
                 <Controls />
                 <Background color="#555" gap={32} />
@@ -107,9 +122,5 @@ const CourseGraph = ({ axiosInstance, courses, onCoursesUpdated, setIsSidebarOpe
         </div>
     );
 };
-
-
-//             <SearchBar axiosInstance={axiosInstance} onCoursesUpdated={onCoursesUpdated}/>
-
 
 export default CourseGraph;

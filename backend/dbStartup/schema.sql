@@ -40,12 +40,5 @@ CREATE TABLE IF NOT EXISTS prerequisite_courses (
     CONSTRAINT no_self_prerequisite CHECK (course_id != prerequisite_course_id)
 );
 
-CREATE TABLE IF NOT EXISTS prerequisite_course_comments (
-    id SERIAL PRIMARY KEY,
-    relation_id INT NOT NULL REFERENCES prerequisite_courses(id) ON DELETE CASCADE,
-    comment VARCHAR(1000) NOT NULL
-);
-
-
 CREATE INDEX IF NOT EXISTS idx_prerequisite_course_id ON prerequisite_courses(course_id);
 CREATE INDEX IF NOT EXISTS idx_course_degree_relation_id ON course_degree_relation(degree_id);

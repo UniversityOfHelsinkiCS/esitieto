@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Sidebar from './sidebar'; 
+import Sidebar from './sidebar';
 import * as CourseFunctions from '../functions/CourseFunctions';
 
 jest.mock('../functions/CourseFunctions', () => ({
@@ -24,12 +24,11 @@ describe('Sidebar Component Tests', () => {
   });
 
   it('fetches course information', async () => {
-    const mockCourseInfo = { groupId: '123', outcomes: { fi: ['Testi kuvaus'] }, credits: { max: 5 } };
+    const mockCourseInfo = { groupId: '123', outcomes: { fi: ['Testi kuvaus'] }, credits: { max: 5 }, additional: { fi: 'Järjestämisajankohta Testi kuvaus Opintokokonaisuus' }, code: 'TKT123'};
     CourseFunctions.handleFetchKORIByName.mockResolvedValueOnce([{ groupId: '123', activityPeriods: [] }]);
     CourseFunctions.handleFetchKORICourseInfo.mockResolvedValueOnce([mockCourseInfo]);
 
     render(<Sidebar isOpen={true} closeSidebar={mockCloseSidebar} selectedCourseName="Testi kurssi" axiosInstance={mockAxiosInstance} />);
-
     await waitFor(() => expect(CourseFunctions.handleFetchKORIByName).toHaveBeenCalledWith(mockAxiosInstance, 'Testi kurssi'));
     await waitFor(() => expect(CourseFunctions.handleFetchKORICourseInfo).toHaveBeenCalledWith(mockAxiosInstance, '123'));
   });

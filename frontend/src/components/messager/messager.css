@@ -28,24 +28,3 @@
         linear-gradient(rgba(200, 40, 40, 0.9), rgba(200, 40, 40, 0.9));
 }
   
-.messenger::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    background-color: white;
-    width: 100%;
-    animation: shrinkBar 8s linear forwards;
-    border-top: 1px solid rgba(0, 0, 0, 0.75);
-}
-  
-@keyframes shrinkBar {
-    from {
-      width: 100%;
-    }
-    to {
-      width: 0%;
-    }
-}
-  

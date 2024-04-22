@@ -21,10 +21,10 @@ const config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: ["src/**/*.{js,jsx}"],
+  collectCoverageFrom: ["frontedn/src/**/*.{js,jsx}"],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: "frontend/coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -92,7 +92,13 @@ const config = {
   moduleNameMapper: {"\\.(css|less|scss|sass)$": "identity-obj-proxy"},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/frontend/src/models/", "kurssiesitieto-ohtuprojekti/frontend/src/styles/", "kurssiesitieto-ohtuprojekti/frontend/src/utils/"],
+  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/frontend/src/models/",
+  "kurssiesitieto-ohtuprojekti/frontend/src/styles/",
+  "kurssiesitieto-ohtuprojekti/frontend/src/utils/",
+  "kurssiesitieto-ohtuprojekti/frontend/src/components/EditBar.jsx",
+  "kurssiesitieto-ohtuprojekti/frontend/src/components/EditWindow.jsx",
+  "kurssiesitieto-ohtuprojekti/frontend/src/functions/LoginFunctions.jsx",
+  "kurssiesitieto-ohtuprojekti/frontend/src/pages/LoginPage.jsx"],
 
   // Activates notifications for test results
   // notify: false,

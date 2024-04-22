@@ -1,3 +1,6 @@
+
+// IGNORED IN JEST CONFIG //
+
 import dagre from 'dagre';
 
 export const getLayoutedElements = (nodes, edges, direction = 'TB') => {

@@ -32,8 +32,9 @@
 - OpenShift
 - Shibboleth
 - GitHub Actions
-- 
-### Testaus
+
+### Testing
 
 - Jest
 - Nodemon
+- Cypress

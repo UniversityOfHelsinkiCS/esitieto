@@ -31,3 +31,4 @@ compose.yml
 
 # Test files in progress
 ./frontend/src/components/InfoBox.unit.test.jsx
+cypress/screenshots

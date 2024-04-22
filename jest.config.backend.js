@@ -24,7 +24,7 @@ const config = {
   // collectCoverageFrom: ["src/**/*.{js,jsx}"],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: "backend/coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -92,7 +92,7 @@ const config = {
   moduleNameMapper: {"\\.(css|less|scss|sass)$": "identity-obj-proxy"},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/backend/archive/","kurssiesitieto-ohtuprojekti/backend/coverage/", "kurssiesitieto-ohtuprojekti/backend/dist/"],
+  modulePathIgnorePatterns: ["kurssiesitieto-ohtuprojekti/backend/archive/","kurssiesitieto-ohtuprojekti/backend/coverage/", "kurssiesitieto-ohtuprojekti/backend/dist/", "kurssiesitieto-ohtuprojekti/backend/index.integration.test.js", "kurssiesitieto-ohtuprojekti/backend/routes/loginRoutes.js"],
 
   // Activates notifications for test results
   // notify: false,

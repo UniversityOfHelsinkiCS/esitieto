@@ -116,6 +116,7 @@ const addManyPrequisiteCourses = async (listOfPrerequisites) => {
   }
 };
 
+/*
 const updateCourse = async (id, official_course_id, course_name, kori_name) => {
   const { rows } = await pool.query(
     'UPDATE course_info SET official_course_id = $2, course_name = $3, kori_name = $4 WHERE id = $1 RETURNING *',
@@ -123,6 +124,7 @@ const updateCourse = async (id, official_course_id, course_name, kori_name) => {
   );
   return rows[0];
 };
+*/
 
 const deleteCourse = async (kori_name) => {
   const result = await pool.query('DELETE FROM course_info WHERE kori_name = $1 RETURNING *', [kori_name]);
@@ -425,7 +427,7 @@ module.exports = {
   addManyCourses,
   addManyPrequisiteCourses,
   addDegreeData,
-  updateCourse,
+  //updateCourse,
   deleteCourse,
   endDatabase: async () => {
     await pool.end();

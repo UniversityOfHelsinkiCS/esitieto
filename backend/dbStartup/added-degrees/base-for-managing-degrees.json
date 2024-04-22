@@ -1,13 +1,12 @@
 {
-    "mode": "'new' luo uudentutkinnon muita modeja ei ole olemassa tällä hetkellä",
     "degreeName": "Tutkinnon nimi",
-    "degreeCode": "tutkinnon koodi sisussa",
+    "degreeCode": "tutkinnon koodi, esim: 'KH50_005', joka on TKT kandi. Koodi löytyy SISU:sta Opintojen rakenne sivulta tutkinnon otsikon alta sininen teksti.",
     "degreeYear": "aloitusvuosi tutkinnon voimassaololle",
     "courses": [
         {
             "courseCode": "kurssin virallinen koodi, esim 'TKT10003'",
             "prerequisiteCourses": [
-                "kurssin esitietovaatimukset erotettuna piluilla, esim 'TKT10002'",
+                "kurssin esitietovaatimukset erotettuna pilkuilla, esim 'TKT10002'",
                 "toinen esitietovaatimus"
             ]
         },
@@ -16,28 +15,5 @@
             "prerequisiteCourses": [],
             "courseType": "optional"
         }     
-    ],
-    "modules": [
-        {
-            "moduleName": "moduulin nimi. Nämä kurssit tulee näkyviin kaavioon yhdessä",
-            "description": "Tämä teksti tulee näkyviin kaavioon, jätä tyhjäksi jos et tarvitse",
-            "courses": [
-                "TKT20010",
-                "TKT20012",
-                "nämä kurssit kuuluvat moduuliin"
-            ]
-        },
-        {
-            "moduleName": "toinen moduuli",
-            "description": "",
-            "courses": [
-                "MAT12001",
-                "MAT12002",
-                "MAT11002",
-                "MAT11009",
-                "MAT12003",
-                "MAT11015"
-            ]
-        }
     ]
 }

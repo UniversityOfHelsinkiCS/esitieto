@@ -4,10 +4,12 @@ import {
   handleFetchKORICourseInfo,
 } from '../functions/CourseFunctions';
 import CourseDescription from './CourseDescription';
+import { CourseActivityDesc } from './CourseActivityDesc';
 import '../styles/sidebar.css';
 import { Button, IconButton } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
 import { error as displayError } from '../components/messager/messager'
+import InfoIcon from '@mui/icons-material/Info';
+
 
 
 function preprocessContent(htmlContent) {
@@ -16,11 +18,10 @@ function preprocessContent(htmlContent) {
   formattedContent = formattedContent.replace(/\n\s*\n\s*\n+/g, '\n\n');
 
   if (formattedContent.startsWith('"') && formattedContent.endsWith('"')) {
-      formattedContent = formattedContent.substring(1, formattedContent.length - 1);
+    formattedContent = formattedContent.substring(1, formattedContent.length - 1);
   }
   return formattedContent;
 }
-
 
 const Sidebar = ({
   isOpen,
@@ -28,49 +29,12 @@ const Sidebar = ({
   selectedCourseName,
   axiosInstance,
 }) => {
-  //const [courseDetails, setCourseDetails] = useState(null); Unused by eslint.
-  const [selectedCoursePeriods, setSelectedCoursePeriods] = useState([]);
-  const [courseActivityDesc, setCourseActivityDesc] = useState('')
-  const [showActivityInfo, setShowActivityInfo] = useState(false)
+  //const [activityDesc, setActivityDesc] = useState(false);
+  const [courseActivityDesc, setCourseActivityDesc] = useState('');
   const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
+  const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
   const [courseInfo, setCourseInfo] = useState('');
   const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
-
-  const sortCourseActivityPeriod = (periods) => {
-    let sortedPeriods = []
-    let id = 1
-    const wantedDate = "2024" // Might want to fetch automatically instead of hardcoded
-    periods.forEach(period => {
-      if (period.startDate.substring(0, 4) === wantedDate) {
-        period.id = id
-        sortedPeriods.push(period)
-        id += 1
-      }
-    })
-    return (sortedPeriods)
-  }
-
-  const findActivityPeriodDesc = (text) => {
-    const start = text.indexOf("Järjestämisajankohta")
-    if (start === -1) {
-      return ('')
-    }
-    const end = text.indexOf("Opintokokonaisuus")
-    if (end === -1) {
-      return ('')
-    }
-    const fixedText = preprocessContent(text.substring(start, end))
-    return (fixedText)
-  }
-
-  const handleInfoClick = () => {
-    if (showActivityInfo) {
-      setShowActivityInfo(false)
-    }
-    else {
-      setShowActivityInfo(true)
-    }
-  }
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -82,20 +46,15 @@ const Sidebar = ({
           const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
           if (responseByInfo && responseByInfo.length > 0) {
             const courseInfo = responseByInfo[0];
-            //setCourseDetails(courseInfo);
-            const periodList = sortCourseActivityPeriod(responseByName[0].activityPeriods);
-            const desc = findActivityPeriodDesc(courseInfo.additional.fi);
-            setCourseActivityDesc(desc);
-            setSelectedCoursePeriods(periodList);
-
-            const info = courseInfo.outcomes?.fi ? JSON.stringify(courseInfo.outcomes.fi, null, 2) : "unable to load metadata";
+            setCourseActivityDesc(courseInfo.additional.fi);
+            const info = (
+              courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
+                (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
             const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
-            const code = courseInfo.groupId ? courseInfo.groupId : "unable to fetch code";
+            const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
             setCourseInfo(preprocessContent(`${info}`));
-            setSelectedCourseDescription(
-              `My credits is worth: ${credits}
-              My code is: ${code}`
-            );
+            setSelectedCourseCredits(`Opintopisteet: ${credits}`);
+            setSelectedCourseDescription(`Kurssikoodi: ${code}`)
           }
         }
       } catch (error) {
@@ -115,22 +74,10 @@ const Sidebar = ({
   return (
     <div className="sidebar">
       <button onClick={closeSidebar} className="close-button">X</button>
-      <h3>{selectedCourseName}</h3>
-      <div className="suoritusaika">
-        <h4>Suoritusaika</h4>
-        <IconButton aria-label="info" onClick={() => handleInfoClick()}>
-          <InfoIcon/>
-        </IconButton>
-      </div>
-      <ul>
-        {selectedCoursePeriods.map(period =>
-          <li key={period.id}>
-            {period.startDate}
-          </li>
-        )}
-      </ul>
-      {showActivityInfo && (<p>{courseActivityDesc}</p>)}
-      <p>{selectedCourseDescription}</p>
+      <h2>{selectedCourseName}</h2>
+      <CourseActivityDesc desc={courseActivityDesc} />
+      <p>{selectedCourseDescription}<br />
+        {selectedCourseCredits}</p>
       <Button
         variant="contained"
         color="primary"

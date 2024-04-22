@@ -1,10 +1,9 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
-import { handleSearch } from '../functions/CourseFunctions';
 import "../styles/searchbar.css"
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
-
 
 export const SearchBar = (props) => {
   const [searchText, setSearchText] = useState('');
@@ -12,8 +11,6 @@ export const SearchBar = (props) => {
   const axios = props.axiosInstance;
 
   const fetchDatabaseSearchSuggestions = async (axios) => {
-    console.log("Fetching all courses from db")
-
     try {
         const response = await axios.get('/api/courses/databaseGetCourses')
         setDbCourses(response.data)
@@ -60,42 +57,21 @@ export const SearchBar = (props) => {
 
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
-          <Box component="li" sx={{ p: 2 }} {...props}>
+          <Box component="li" sx={{ p: 2 }} {...props} className="searchResult">
                 {option.hy_course_id} ({option.course_name})
           </Box>
         )}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} 
-        label="Search courses:"
+      renderInput={(params) => <TextField {...params}
+        id="textField"
+        data-testid="testTextField" 
+        label="Hae kurssi:"
         variant="standard"
       />}
     />
     </form>
     </div>
   )
-    
 }
-
-/* return (
-  <div className='searchbar'>
-  <form onSubmit={handleSubmit}>
-  <TextField
-      id="input-with-icon-textfield"
-      style={{background: "rgb(105,105,105)"}} 
-      variant='standard'
-      placeholder="   Search course..."
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      value={searchText}
-      InputProps={{
-          endAdornment: (
-            <InputAdornment position="end" onClick={handleSubmit}>
-              <SearchIcon/>
-            </InputAdornment>
-          )}}
-    />
-  </form>
-  </div>
-) */
 
 export default SearchBar

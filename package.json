@@ -12,7 +12,8 @@
     "test:frontend": "jest frontend/ --config jest.config.frontend.js",
     "test:backend": "jest backend/ --config jest.config.backend.js",
     "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js --collectCoverageFrom=\"./frontend/src/**\"",
-    "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js --collectCoverageFrom=\"./backend/**\""
+    "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js --collectCoverageFrom=\"./backend/**\"",
+    "test-coverage": "npm run test:frontend && npx codecov && npm run test:backend && npx codecov"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -37,6 +38,7 @@
     "winston-console-format": "^1.0.8"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
     "@testing-library/jest-dom": "^6.4.2",
@@ -56,8 +58,8 @@
     "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.0.3",
-    "vite": "^5.0.8",
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.7"
+    "supertest": "^6.3.4",
+    "vite": "^5.0.8"
   },
   "babel": {
     "presets": [

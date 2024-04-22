@@ -1,5 +1,7 @@
 
 
+// IGNORED IN JEST CONFIG //
+
 
 export const mandatoryCourse = {
     backgroundColor: 'antiquewhite',

@@ -7,8 +7,8 @@ const customLevels = {
     error: 0,
     warn: 1,
     info: 2,
-    verbose: 3, // I only use this for "success" messages, because issues with padLevels.
-    debug: 4,
+    debug: 3,
+    verbose: 4,
   },
   colors: {
     error: 'red',
@@ -50,22 +50,5 @@ const logger = winston.createLogger({
   ],
 });
 
-
-// Leaving temporarily here if someone wants to adjust the formats, otherwise nuke if you like
-/*
-logger.verbose('Verboosijäbä');
-logger.error('Erroria');
-logger.warn('Warnia');
-logger.info('Infoa');
-logger.debug('Debugia');
-logger.debug('Debugging an object with multiple properties', {
-  propertyOne: 'Value one',
-  propertyTwo: 'Value two',
-  nestedObject: {
-    nestedPropertyOne: 'Nested value one',
-    nestedPropertyTwo: 'Nested value two',
-  },
-});
-*/
 
 module.exports = logger;

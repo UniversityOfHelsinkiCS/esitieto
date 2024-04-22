@@ -1,5 +1,4 @@
 {
-    "mode": "new",
     "degreeName": "Matemaattisten tieteiden kandiohjelma 2023-2026",
     "degreeCode": "kh50_001",
     "degreeYears": "2023-2026",
@@ -72,21 +71,5 @@
         "courseCode": "MAT21020",
         "prerequisiteCourses": ["MAT21003"]
        }
-    ],
-    "modules": [
-        {
-            "moduleName": "Perusopinnot",
-            "description": "Valitse joko MAT11003 tai MAT11006",
-            "courses": [
-                "MAT11001",
-                "MAT11002",
-                "MAT11003",
-                "MAT11004",
-                "MAT11005",
-                "MAT11006",
-                "MAT11007",
-                "MAT11008"
-            ]
-        }
     ]
 }

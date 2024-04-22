@@ -30,10 +30,11 @@
     justify-content: start;
 }
 
-.suoritusaika {
+.timing {
     color: var(--text_color);
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   
 .close-button {
