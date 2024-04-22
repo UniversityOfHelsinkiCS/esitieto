@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
 import CourseGraph from '../components/CourseGraph';
-import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
-import InfoButton from '../components/InfoButton';
-
-import { InfoBox } from '../components/InfoBox';
-import { SearchBar } from '../components/SearchBar.jsx';
+import { Button } from '@mui/material';
 
 
 const MainPage = ({ axiosInstance }) => {
@@ -16,19 +12,9 @@ const MainPage = ({ axiosInstance }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [courses, setCourses] = useState([]);
-  const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
+  const [coursePositions, saveCoursePositions] = useState({});
+  const [degree, setDegree] = useState(null);
 
-  const openInfoBox = () => {
-      if(isInfoBoxOpen) {
-          setIsInfoBoxOpen(false);
-      } else {
-          setIsInfoBoxOpen(true);
-      }
-  };
-  
-  const closeInfoBox = () => {
-      setIsInfoBoxOpen(false);
-    };
 
   const fetchDegreeCourses = async (degree) => {
     try {
@@ -98,17 +84,29 @@ const MainPage = ({ axiosInstance }) => {
   
   useEffect(() => {
     if (listOfDegrees == null || listOfDegrees.length === 0) return
-    fetchDegreeCourses(listOfDegrees[0]);
+    handleDegreeChange(listOfDegrees[0]);
     
   }, [listOfDegrees]);
 
   const handleDegreeChange = (degree) => {
     fetchDegreeCourses(degree)
+    setDegree(degree);
+  };
+
+  const handleNewPositions = async () => {
+    console.log("Positions: ", coursePositions);
+    console.log("Degree: ", degree);
+    const response = await axiosInstance.post(`/api/degrees/save_positions`, {
+        'degreeId': degree.hy_degree_id,
+        'degreeYears': degree.degree_years,
+        'coursePositions': coursePositions
+    }
+  )
   };
 
   return (
     <div>
-      
+
       <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -116,30 +114,18 @@ const MainPage = ({ axiosInstance }) => {
         setSelectedCourseName={setSelectedCourseName}
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
+        savePositions={saveCoursePositions}
       />
-
-      <div className="searchBar-container">
-       <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
-      </div>
-      
-      <div className="infoButton-container">
-        <InfoButton onClick={openInfoBox} />
-        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-      </div>
-
-      <div className="degree-menu-container">  
+      <div className="degree-menu-container">
         <DegreeSelectionMenu
           onDegreeChange={handleDegreeChange}
           listOfDegrees={listOfDegrees}
         />
+        <Button onClick={handleNewPositions} className='save'>Save</Button>
+
+        <p>Tämä on testisivu tulevalle ominaisuudelle.</p>
       </div>
       
-      <Sidebar
-        isOpen={isSidebarOpen}
-        closeSidebar={() => setIsSidebarOpen(false)}
-        selectedCourseName={selectedCourseName}
-        axiosInstance={axiosInstance}
-      />
     </div>
   );
 }

@@ -72,4 +72,56 @@ router.get('/search_by_degree', async (req, res) => {
   }
 });
 
-module.exports = router;
+router.post('/save_positions', async (req, res) => {
+  try {
+      const degreeQuery = `
+          SELECT id 
+          FROM degrees 
+          WHERE hy_degree_id = $1 AND degree_years = $2`;
+
+      const { rows: degreeRows } = await pool.query(degreeQuery, [req.body.degreeId, req.body.degreeYears]);
+
+      if (degreeRows.length === 0) {
+          return res.status(404).send('Degree not found');
+      }
+
+      await pool.query('DELETE FROM course_positions WHERE degree_id = $1', [degreeRows[0].id]);
+      const positions = req.body.coursePositions;
+
+      const courseIds = req.body.coursePositions.map(course => course.id);
+      const courseQuery = `
+          SELECT id, hy_course_id
+          FROM courses
+          WHERE hy_course_id = ANY($1)`;
+
+      const { rows: courseRows } = await pool.query(courseQuery, [courseIds]);
+
+      if (courseRows.length !== positions.length) {
+          return res.status(404).send('One or more courses not found');
+      }
+
+      let insertValues = '';
+      positions.forEach(position => {
+          const matchingCourse = courseRows.find(course => course.hy_course_id === position.id);
+          if (matchingCourse) {
+              insertValues += `(${degreeRows[0].id}, ${matchingCourse.id}, ${position.position.x}, ${position.position.y}), `;
+          }
+      });
+
+      insertValues = insertValues.slice(0, -2); // Remove trailing comma and space
+
+      const insertQuery = `
+          INSERT INTO course_positions(degree_id, course_id, x, y)
+          VALUES ${insertValues}`;
+
+      await pool.query(insertQuery);
+      return res.status(200).send('Positions saved successfully');
+
+  } catch (error) {
+      console.error('Error saving positions:', error);
+      return res.status(500).send('Internal server error');
+  }
+});
+
+
+module.exports = router;  

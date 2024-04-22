@@ -13,3 +13,14 @@
   z-index: 1000; /* High z-index to ensure it's on top */
   width: 10%;
 }
+.searchBar-container {
+  position: fixed;
+  left: 110px;
+  top: 0%;
+}
+.infoButton-container {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  
+}

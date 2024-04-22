@@ -1,75 +1,144 @@
 {
-    "degreeName": "Matemaattisten tieteiden kandiohjelma 2023-2026",
-    "degreeCode": "kh50_001",
+    "degreeName": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+    "degreeCode": "kh50_005",
     "degreeYears": "2023-2026",
     "courses": [
-       {
-        "courseCode": "MAT11001",
-        "prerequisiteCourses": []
-       },
-       {
-        "courseCode": "MAT11002",
-        "prerequisiteCourses": [
-            "MAT11001"
-        ]
-       },
-       {
-        "courseCode": "MAT11003",
-        "prerequisiteCourses": [],
-        "courseType": "alternative"
-       },
-       {
-        "courseCode": "MAT11004",
-        "prerequisiteCourses": ["MAT11003"]
-       },
-       {
-        "courseCode": "MAT11005",
-        "prerequisiteCourses": ["MAT11004"]
-       },
-       {
-        "courseCode": "MAT11006",
-        "prerequisiteCourses": [],
-        "courseType": "alternative"
-       },
-       {
-        "courseCode": "MAT11007",
-        "prerequisiteCourses": ["MAT11006"]
-       },
-       {
-        "courseCode": "MAT11008",
-        "prerequisiteCourses": ["MAT11007"]       
-       },
-       {
-        "courseCode": "MAT12003",
-        "prerequisiteCourses": []
-       },
-       {
-        "courseCode": "MAT21001",
-        "prerequisiteCourses": ["MAT11002"]
-       },
-       {
-        "courseCode": "MAT21002",
-        "prerequisiteCourses": ["MAT11005"]
-       },
-       {
-        "courseCode": "MAT21003",
-        "prerequisiteCourses": ["MAT21001", "MAT21002"]
-       },
-       {
-        "courseCode": "MAT21005",
-        "prerequisiteCourses": ["MAT11005", "MAT11002"]
-       },
-       {
-        "courseCode": "MAT21006",
-        "prerequisiteCourses": ["MAT21005"]
-       },
-       {
-        "courseCode": "MAT21007",
-        "prerequisiteCourses": ["MAT21020", "MAT21006"]
-       },
-       {
-        "courseCode": "MAT21020",
-        "prerequisiteCourses": ["MAT21003"]
-       }
+        {
+            "courseCode": "TKT10002",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT10003",
+            "prerequisiteCourses": [
+                "TKT10002"
+            ]
+        },
+        {
+            "courseCode": "TKT10004",
+            "prerequisiteCourses": [
+                "TKT10002"
+            ]
+        },
+        {
+            "courseCode": "TKT10006",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT200011",
+            "prerequisiteCourses": [
+                "TKT10003",
+                "MAT11001"
+            ]
+        },
+        {
+            "courseCode": "MAT11001",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT20005",
+            "prerequisiteCourses": [
+                "TKT200012"
+            ]
+        },
+        {
+            "courseCode": "TKT20006",
+            "prerequisiteCourses": [
+                "TKT20019"
+            ]
+        },
+        {
+            "courseCode": "TKT20007",
+            "prerequisiteCourses": [
+                "TKT20006",
+                "TKT20010",
+                "TKT20012",
+                "TKT20018"
+            ]
+        },
+        {
+            "courseCode": "TKT20013",
+            "prerequisiteCourses": [
+                "TKT200012"
+            ]
+        },
+        {
+            "courseCode": "TKT200012",
+            "prerequisiteCourses": [
+                "TKT200011"
+            ]
+        },
+        {
+            "courseCode": "DATA15001",
+            "prerequisiteCourses": [
+                "TKT200011",
+                "MAT12003"
+            ]
+        },
+        {
+            "courseCode": "TKT20016",
+            "prerequisiteCourses": [
+                "TKT10006",
+                "TKT200011"
+            ]
+        },
+        {
+            "courseCode": "TKT20019",
+            "prerequisiteCourses": [
+                "TKT10003",
+                "TKT10004"
+            ]
+        },
+        {
+            "courseCode": "TKT20009",
+            "prerequisiteCourses": [
+                "TKT10003"
+            ]
+        },
+        {
+            "courseCode": "TKT200151",
+            "prerequisiteCourses": []
+        },
+        {
+            "courseCode": "TKT200152",
+            "prerequisiteCourses": [
+                "TKT200151"
+            ]
+        },
+        {
+            "courseCode": "TKT20010",
+            "prerequisiteCourses": [
+                "TKT200012"
+            ],
+            "courseType": "alternative"
+        },
+        {
+            "courseCode": "TKT20012",
+            "prerequisiteCourses": [
+                "TKT10006"
+            ],
+            "courseType": "alternative"
+        },
+        {
+            "courseCode": "TKT20018",
+            "prerequisiteCourses": [
+                "TKT20019",
+                "TKT500031"
+            ],
+            "courseType": "alternative"
+        },
+        {
+            "courseCode": "MAT12001",
+            "prerequisiteCourses": [],
+            "courseType": "alternative"
+        },
+        {
+            "courseCode": "MAT12002",
+            "prerequisiteCourses": ["MAT12001"],
+            "courseType": "alternative"
+        },
+        {
+            "courseCode": "TKT500031",
+            "prerequisiteCourses": []
+        }        
     ]
 }

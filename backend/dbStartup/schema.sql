@@ -16,14 +16,6 @@ CREATE TABLE IF NOT EXISTS degrees (
     CONSTRAINT degree_name_unique UNIQUE (degree_name)
 );
 
-CREATE TABLE IF NOT EXISTS modules (
-    id SERIAL PRIMARY KEY,
-    module_name VARCHAR(255) NOT NULL,
-    module_description VARCHAR(255) NOT NULL,
-    degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
-    CONSTRAINT module_name_and_degree_unique UNIQUE (module_name, degree_id)
-);
-
 CREATE TABLE IF NOT EXISTS course_degree_relation (
     id SERIAL PRIMARY KEY,
     degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
@@ -39,6 +31,18 @@ CREATE TABLE IF NOT EXISTS prerequisite_courses (
     CONSTRAINT unique_course_prerequisite UNIQUE (course_id, prerequisite_course_id),
     CONSTRAINT no_self_prerequisite CHECK (course_id != prerequisite_course_id)
 );
+
+DROP TABLE IF exists course_positions;
+
+CREATE TABLE IF NOT EXISTS course_positions (
+    id SERIAL PRIMARY KEY,
+    degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
+    course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    x INT NOT NULL,
+    y INT NOT NULL
+);
+
+DROP TABLE IF exists modules;
 
 CREATE INDEX IF NOT EXISTS idx_prerequisite_course_id ON prerequisite_courses(course_id);
 CREATE INDEX IF NOT EXISTS idx_course_degree_relation_id ON course_degree_relation(degree_id);

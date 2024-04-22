@@ -10,22 +10,20 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
-import { InfoBox } from './InfoBox.jsx'
-import { SearchBar } from './SearchBar.jsx';
-import InfoButton from './InfoButton';
 // import { EditBar } from './EditBar.jsx';
+/*
+    Edit bar is an old UI component in which you had buttons for some deprecated operations (such as adding a course), which are not functional any longer.
+    It is not used at all in the current version, so you have two options:
+        1. Remove the EditBar and EditWindow components, and remove these commented lines and start clean.
+        2. Continue off from those components and modify them as you see fit. This may be useful if you want a quick start.
+*/
 
-const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, handleSearch }) => {
+const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, savePositions }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     // const [editBarState, setEditBarState] = useState(false);
     const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
     const [reactflowInstance, setReactflowInstance] = useState(null);
-    const [degreeInfo, setDegreeInfo] = useState({
-        "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
-        "degree_years": "2023-2026",
-        "hy_degree_id": "kh50_005"
-    });
 
     const openInfoBox = () => {
         if(isInfoBoxOpen) {
@@ -95,25 +93,23 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 return {id: node.id, position: node.position}
                 }
             );
-            // console.log(degreeInfo)
-            const saveData = {
-                degree: degreeInfo,
-                positions: positions
-            };
-            // sending saveData to backend
-        };
+            savePositions(positions);
+        };        
+      }
+    );
 
-        
-      }, [reactflowInstance]);
+    useEffect( () => {
+        if (savePositions === undefined) {
+            return;
+        }
+        onSave();
+    }, [nodes])
 
 
     return (
         <div className='reactflow-wrapper'>
             {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
-            <InfoButton onClick={openInfoBox} />
             {/* <button onClick={() => toggleEdit()} className='edit'>Edit</button> */}
-            <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-            <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
 
             <CustomEdge />
             <ReactFlow
