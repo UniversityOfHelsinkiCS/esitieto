@@ -36,6 +36,7 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
           '&:hover': {
             backgroundColor: 'gray',
           },
+          height: '47px',
         }}
       >
         {'Tutkinto'}
