@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react'
 import CourseGraph from '../components/CourseGraph';
-import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
-import InfoButton from '../components/InfoButton';
-
-import { InfoBox } from '../components/InfoBox';
-import { SearchBar } from '../components/SearchBar.jsx';
 
 
 const MainPage = ({ axiosInstance }) => {
@@ -16,19 +11,6 @@ const MainPage = ({ axiosInstance }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [courses, setCourses] = useState([]);
-  const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
-
-  const openInfoBox = () => {
-      if(isInfoBoxOpen) {
-          setIsInfoBoxOpen(false);
-      } else {
-          setIsInfoBoxOpen(true);
-      }
-  };
-  
-  const closeInfoBox = () => {
-      setIsInfoBoxOpen(false);
-    };
 
   const fetchDegreeCourses = async (degree) => {
     try {
@@ -108,7 +90,6 @@ const MainPage = ({ axiosInstance }) => {
 
   return (
     <div>
-      
       <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -117,29 +98,14 @@ const MainPage = ({ axiosInstance }) => {
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
       />
-
-      <div className="searchBar-container">
-       <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
-      </div>
-      
-      <div className="infoButton-container">
-        <InfoButton onClick={openInfoBox} />
-        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
-      </div>
-
-      <div className="degree-menu-container">  
+      <div className="degree-menu-container">
         <DegreeSelectionMenu
           onDegreeChange={handleDegreeChange}
           listOfDegrees={listOfDegrees}
         />
+        <p>Tämä on testisivu tulevalle ominaisuudelle.</p>
       </div>
       
-      <Sidebar
-        isOpen={isSidebarOpen}
-        closeSidebar={() => setIsSidebarOpen(false)}
-        selectedCourseName={selectedCourseName}
-        axiosInstance={axiosInstance}
-      />
     </div>
   );
 }

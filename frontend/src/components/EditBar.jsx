@@ -3,7 +3,7 @@
 
 // NOT IN USE // IGNORED IN JEST CONFIG //
 
-/* eslint-disable */
+/*
 import { EditWindowTemplate } from './EditWindow.jsx'
 import { useState } from 'react'
 
@@ -63,3 +63,4 @@ export const EditBar = (props) => {
         )
     }
 }
+*/
