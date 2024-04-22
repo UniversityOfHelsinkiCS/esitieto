@@ -4,7 +4,7 @@ import axios from 'axios';
 import './App.css'
 
 import MainPage from './pages/MainPage';
-import LoginPage from './pages/LoginPage';
+import GraphPosSavePage from './pages/GraphPosSavePage';
 
 import {
   BrowserRouter as Router,
@@ -24,7 +24,7 @@ function App() {
   return (
     <Router forceRefresh={true}>
       <Routes>
-        <Route path={import.meta.env.BASE_URL + "/kirjautuminen"} element={<LoginPage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL + "/public"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL} element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
