@@ -10,8 +10,6 @@
   text-align:left;
   left: 0px;
   top: 0px;
-  z-index: 1000; /* High z-index to ensure it's on top */
-  width: 10%;
 }
 .searchBar-container {
   position: fixed;
@@ -23,4 +21,16 @@
   top: 0%;
   left: 50%;
   
+}
+
+.position-save-container {
+  position: fixed;
+  left: 110px;
+  top: 0%;
+}
+
+.position-reset-container {
+  position: fixed;
+  left: 289px;
+  top: 0%;
 }

@@ -138,11 +138,39 @@ const MainPage = ({ axiosInstance }) => {
           onDegreeChange={handleDegreeChange}
           listOfDegrees={listOfDegrees}
         />
-        <Button onClick={handleNewPositions} className='save'>Save</Button>
-
-        <p>Tämä on testisivu tulevalle ominaisuudelle.</p>
       </div>
-      
+      <div className="position-save-container"> 
+        <Button
+        id="position-save"
+        onClick={handleNewPositions}
+        sx={{
+          color: 'black',
+          backgroundColor: 'white', 
+          '&:hover': {
+            backgroundColor: 'gray',
+          },
+          height: '47px',
+        }}
+      >
+        {'Tallenna sijainnit'}
+      </Button>
+      </div>   
+      <div className="position-reset-container"> 
+        <Button
+        id="position-reset"
+        onClick={resetPositions}
+        sx={{
+          color: 'black',
+          backgroundColor: 'white', 
+          '&:hover': {
+            backgroundColor: 'gray',
+          },
+          height: '47px',
+        }}
+      >
+        {'Nollaa sijainnit'}
+      </Button>
+      </div>   
     </div>
   );
 }
