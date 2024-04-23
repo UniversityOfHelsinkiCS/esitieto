@@ -113,6 +113,14 @@ const MainPage = ({ axiosInstance }) => {
   )
   };
 
+  const resetPositions = async () => {
+    const response = await axiosInstance.post(`/api/degrees/reset_positions`, {
+        'degreeId': degree.hy_degree_id,
+        'degreeYears': degree.degree_years
+    });
+    handleDegreeChange(degree);
+  };
+
   return (
     <div>
 
