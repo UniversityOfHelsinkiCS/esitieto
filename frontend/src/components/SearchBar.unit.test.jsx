@@ -57,22 +57,24 @@ describe("SearchBar unit testing", () => {
   // The test below doesn't work  
   /*
   test("New text in textfield calls the onChange function", async () => {
-    await act(async() => {
+    let textfield = ''
+    act(() => {
+      const {getByTestId} =
       render(
       <SearchBar 
       axiosInstance={axiosMock} 
       handleSearch={mockHandleSearch}
       handleChange={mockHandleChange}/>
       );
-    });
-
-    const textfield = screen.getByRole("combobox");
+      textfield = getByTestId("testTextField");
+    })
     console.log("value start", textfield.value);
-    fireEvent.change(textfield, {target:{value:'test text'}});
+    fireEvent.change(textfield, {target:{value:'banana'}});
     console.log("value end", textfield.value);
 
     await waitFor(() => {
-      expect(mockHandleChange).toHaveBeenCalledWith('test text');
+      expect(mockHandleChange).toHaveBeenCalledWith('banana');
     });
-  }); */
+  });
+  */ 
 });
