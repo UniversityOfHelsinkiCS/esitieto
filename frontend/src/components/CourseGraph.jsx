@@ -10,6 +10,7 @@ import '../styles/graph.css';
 import 'reactflow/dist/style.css';
 import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
+
 // import { EditBar } from './EditBar.jsx';
 /*
     Edit bar is an old UI component in which you had buttons for some deprecated operations (such as adding a course), which are not functional any longer.
@@ -40,15 +41,24 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 }));
             });
 
+            console.log("nyt")
+
             setNodes(newNodes);
             setEdges(newEdges);
 
-            if ((newNodes[0].position.x === null || newNodes[0].position.x === undefined) && 
-            (newNodes[0].position.y === null || newNodes[0].position.y === undefined)) {
+            if ((newNodes[0].position.x === null || newNodes[0].position.x === undefined) &&
+                (newNodes[0].position.y === null || newNodes[0].position.y === undefined)) {
                 onLayout(newNodes, newEdges);
             }
         }
     }, [courses, onLayout, setNodes, setEdges]);
+
+    useEffect(() => {
+        if (reactflowInstance) {
+            reactflowInstance.fitView();
+        }
+    }, [nodes])
+
 
 
     useEffect(() => {
@@ -82,22 +92,33 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     const onSave = useCallback(() => {
         if (reactflowInstance) {
             const flow = reactflowInstance.toObject();
-            const positions  = flow.nodes.map(node => {
-                return {id: node.id, position: node.position}
-                }
+            const positions = flow.nodes.map(node => {
+                return { id: node.id, position: node.position }
+            }
             );
             savePositions(positions);
-        }    
-      }
+        }
+    }
     );
 
-    useEffect( () => {
+    useEffect(() => {
         if (savePositions === undefined) {
             return;
         }
         onSave();
     }, [nodes])
 
+    const handleLoad = () => {
+        console.log("moi")
+    };
+
+    const handleOnInit = (rfInstance) => {
+
+
+        rfInstance.fitView()
+        setReactflowInstance(rfInstance)
+
+    }
 
     return (
         <div className='reactflow-wrapper'>
@@ -113,8 +134,9 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
-                onInit={setReactflowInstance}
-                
+                onInit={handleOnInit}
+                snapToGrid={true}
+                snapGrid={[180, 180]}
                 edgesUpdatable={!disabled}
                 edgesFocusable={!disabled}
                 nodesDraggable={!disabled}
@@ -122,6 +144,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 nodesFocusable={!disabled}
                 draggable={!disabled}
                 elementsSelectable={!disabled}
+                onLoad={handleLoad}
             >
                 <Controls />
                 <Background color="#555" gap={32} />
