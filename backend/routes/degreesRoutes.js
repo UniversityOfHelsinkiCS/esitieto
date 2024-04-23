@@ -126,5 +126,23 @@ router.post('/save_positions', async (req, res) => {
   }
 });
 
+router.post('/reset_positions', async (req, res) => {
+  try {
+    const degreeQuery = `
+        SELECT id 
+        FROM degrees 
+        WHERE hy_degree_id = $1 AND degree_years = $2`;
+
+    const { rows: degreeRows } = await pool.query(degreeQuery, [req.body.degreeId, req.body.degreeYears]);
+
+    resetQuery = `DELETE FROM course_positions WHERE degree_id = $1`;
+    await pool.query(resetQuery, [degreeRows[0].id]);
+    return res.status(200).send('Positions resetted successfully');
+
+  } catch (error) {
+      console.error('Error resetting positions:', error);
+      return res.status(500).send('Internal server error');
+  }
+});
 
 module.exports = router;  
