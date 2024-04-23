@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useRef } from 'react';
 import ReactFlow, {
     Controls,
     useNodesState,
@@ -24,6 +24,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     // const [editBarState, setEditBarState] = useState(false);
     const [reactflowInstance, setReactflowInstance] = useState(null);
+    const prevNumNodesRef = useRef(nodes);
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -41,8 +42,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 }));
             });
 
-            console.log("nyt")
-
+            prevNumNodesRef.current = nodes;
             setNodes(newNodes);
             setEdges(newEdges);
 
@@ -54,7 +54,11 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     }, [courses, onLayout, setNodes, setEdges]);
 
     useEffect(() => {
+        
         if (reactflowInstance) {
+            if (prevNumNodesRef.current.length === nodes.length && prevNumNodesRef.current[0].id == nodes[0].id || prevNumNodesRef ==! undefined) {
+                return;
+            }
             reactflowInstance.fitView();
         }
     }, [nodes])
@@ -108,18 +112,6 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
         onSave();
     }, [nodes])
 
-    const handleLoad = () => {
-        console.log("moi")
-    };
-
-    const handleOnInit = (rfInstance) => {
-
-
-        rfInstance.fitView()
-        setReactflowInstance(rfInstance)
-
-    }
-
     return (
         <div className='reactflow-wrapper'>
             {/* <EditBar state={editBarState} axios={axiosInstance} courses={onCoursesUpdated} onLayout={onLayout}/> */}
@@ -134,7 +126,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
-                onInit={handleOnInit}
+                onInit={setReactflowInstance}
                 snapToGrid={true}
                 snapGrid={[180, 180]}
                 edgesUpdatable={!disabled}
@@ -144,7 +136,6 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 nodesFocusable={!disabled}
                 draggable={!disabled}
                 elementsSelectable={!disabled}
-                onLoad={handleLoad}
             >
                 <Controls />
                 <Background color="#555" gap={32} />
