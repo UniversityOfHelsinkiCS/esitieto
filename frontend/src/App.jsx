@@ -24,7 +24,7 @@ function App() {
   return (
     <Router forceRefresh={true}>
       <Routes>
-        <Route path={import.meta.env.BASE_URL + "/public"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL + "/secret"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL} element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
