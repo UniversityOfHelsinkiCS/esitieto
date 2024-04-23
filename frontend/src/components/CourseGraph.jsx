@@ -43,7 +43,8 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
             setNodes(newNodes);
             setEdges(newEdges);
 
-            if (newNodes[0].position.x === null && newNodes[0].position.y === null) {
+            if ((newNodes[0].position.x === null || newNodes[0].position.x === undefined) && 
+            (newNodes[0].position.y === null || newNodes[0].position.y === undefined)) {
                 onLayout(newNodes, newEdges);
             }
         }
