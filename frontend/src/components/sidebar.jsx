@@ -6,10 +6,8 @@ import {
 import CourseDescription from './CourseDescription';
 import { CourseActivityDesc } from './CourseActivityDesc';
 import '../styles/sidebar.css';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import { error as displayError } from '../components/messager/messager'
-import InfoIcon from '@mui/icons-material/Info';
-
 
 
 function preprocessContent(htmlContent) {

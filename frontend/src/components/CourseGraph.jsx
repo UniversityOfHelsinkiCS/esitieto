@@ -22,20 +22,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     // const [editBarState, setEditBarState] = useState(false);
-    const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
     const [reactflowInstance, setReactflowInstance] = useState(null);
-
-    const openInfoBox = () => {
-        if(isInfoBoxOpen) {
-            setIsInfoBoxOpen(false);
-        } else {
-            setIsInfoBoxOpen(true);
-        }
-    };
-    
-    const closeInfoBox = () => {
-        setIsInfoBoxOpen(false);
-      };
 
     const onLayout = useCallback((newNodes, newEdges) => {
         const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(newNodes, newEdges);
@@ -73,6 +60,9 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     );
 
     const onNodeClick = async (event, node) => {
+        if (setIsSidebarOpen === undefined) {
+            return;
+        }
         setSelectedCourseName(node.data.name);
         setIsSidebarOpen(true);
     };
@@ -96,7 +86,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 }
             );
             savePositions(positions);
-        };        
+        }    
       }
     );
 

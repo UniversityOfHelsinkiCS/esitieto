@@ -9,8 +9,6 @@ import { Button } from '@mui/material';
 
 const GraphPosSavePage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedCourseName, setSelectedCourseName] = useState('');
   const [courses, setCourses] = useState([]);
   const [coursePositions, saveCoursePositions] = useState({});
   const [degree, setDegree] = useState(null);
@@ -105,7 +103,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
   const handleNewPositions = async () => {
     console.log("Positions: ", coursePositions);
     console.log("Degree: ", degree);
-    const response = await axiosInstance.post(`/api/degrees/save_positions`, {
+    await axiosInstance.post(`/api/degrees/save_positions`, {
         'degreeId': degree.hy_degree_id,
         'degreeYears': degree.degree_years,
         'coursePositions': coursePositions
@@ -114,7 +112,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
   };
 
   const resetPositions = async () => {
-    const response = await axiosInstance.post(`/api/degrees/reset_positions`, {
+    await axiosInstance.post(`/api/degrees/reset_positions`, {
         'degreeId': degree.hy_degree_id,
         'degreeYears': degree.degree_years
     });
@@ -128,8 +126,6 @@ const GraphPosSavePage = ({ axiosInstance }) => {
       <CourseGraph
         axiosInstance={axiosInstance}
         courses={courses}
-        setSelectedCourseName={setSelectedCourseName}
-        setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
         savePositions={saveCoursePositions}
       />

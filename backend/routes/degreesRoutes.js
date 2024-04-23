@@ -135,7 +135,7 @@ router.post('/reset_positions', async (req, res) => {
 
     const { rows: degreeRows } = await pool.query(degreeQuery, [req.body.degreeId, req.body.degreeYears]);
 
-    resetQuery = `DELETE FROM course_positions WHERE degree_id = $1`;
+    const resetQuery = `DELETE FROM course_positions WHERE degree_id = $1`;
     await pool.query(resetQuery, [degreeRows[0].id]);
     return res.status(200).send('Positions resetted successfully');
 
