@@ -32,8 +32,6 @@ CREATE TABLE IF NOT EXISTS prerequisite_courses (
     CONSTRAINT no_self_prerequisite CHECK (course_id != prerequisite_course_id)
 );
 
-DROP TABLE IF exists course_positions;
-
 CREATE TABLE IF NOT EXISTS course_positions (
     id SERIAL PRIMARY KEY,
     degree_id INT NOT NULL REFERENCES degrees(id) ON DELETE CASCADE,
