@@ -45,7 +45,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
 
     useEffect(() => {
         if (courses.length > 0) {
-            const newNodes = courses.map(course => course.createNode({ x: 0, y: 0 }));
+            const newNodes = courses.map(course => course.createNode());
             const newEdges = courses.flatMap(course => {
                 return course.createEdges().map(edge => ({
                     ...edge,

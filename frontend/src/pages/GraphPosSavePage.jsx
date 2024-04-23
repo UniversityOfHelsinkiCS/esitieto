@@ -36,7 +36,16 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Response is null!")
         return;
       } 
-      const convertedCourses = response.data.map(courseData => new Course(courseData.name, courseData.identifier, courseData.groupId, courseData.dependencies, courseData.type, courseData.description));
+      const convertedCourses = response.data.map(courseData => new Course(
+        courseData.name, 
+        courseData.identifier, 
+        courseData.groupId, 
+        courseData.dependencies, 
+        courseData.type, 
+        courseData.description, 
+        courseData.x, 
+        courseData.y));
+
       setCourses(convertedCourses);
       if (convertedCourses.length === 0 || convertedCourses == null) {
         displayError("Kurssitietoja ei löytynyt!");

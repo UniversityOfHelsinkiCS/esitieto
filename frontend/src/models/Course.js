@@ -4,16 +4,17 @@
 import { mandatoryCourse, optionalCourse, alternativeCourse, completedCourse, mandatoryEdge, optionalEdge } from '../styles/courseStyles';
 
 export default class Course {
-    constructor(name, identifier, groupID, dependencies = [], courseType = 'optional', description = '') {
+    constructor(name, identifier, groupID, dependencies = [], courseType = 'optional', description = '', x, y) {
         this.name = name;
         this.identifier = identifier;
         this.groupId = groupID;
         this.dependencies = dependencies;
         this.courseType = courseType;
         this.description = description;
+        this.position = { x, y };
     }
 
-    createNode(position) {
+    createNode() {
         const nodeStyles = {
             compulsory: mandatoryCourse,
             optional: optionalCourse,
@@ -24,7 +25,7 @@ export default class Course {
 
         return {
             id: this.identifier,
-            position: position,
+            position: this.position,
             data: {
                 label: `${this.name} (${this.identifier})`,
                 description:  `${this.description}`,
