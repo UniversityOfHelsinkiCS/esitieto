@@ -45,6 +45,8 @@ router.get('/search_by_degree', async (req, res) => {
         c.kori_id, 
         c.hy_course_id AS identifier, 
         cdr.relation_type AS type,
+        cp.x AS x,
+        cp.y AS y,
         COALESCE(
           (
             SELECT array_agg(pc.hy_course_id)
@@ -56,6 +58,7 @@ router.get('/search_by_degree', async (req, res) => {
         ) AS dependencies
       FROM course_degree_relation cdr
       JOIN courses c ON cdr.course_id = c.id
+      LEFT JOIN course_positions cp ON cp.degree_id = cdr.degree_id AND cp.course_id = cdr.course_id
       WHERE cdr.degree_id = $1
     `;
 
