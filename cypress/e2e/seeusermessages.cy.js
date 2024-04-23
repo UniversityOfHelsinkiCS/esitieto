@@ -5,7 +5,7 @@ describe('See user messages', () => {
   
     it('Can see the right user message after clicking a degree', () => {
       cy.get('#degreeSelectionButton').click();
-      cy.get('body').contains('Fetched degree: Tietojenkä');
+      cy.get('body').contains('Haettiin tutkinto: Tietojenkä');
       cy.get('body').should('not.contain', "Fetched degree: Celsius");
     })
 })
