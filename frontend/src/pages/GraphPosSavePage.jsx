@@ -7,7 +7,7 @@ import { info, error as displayError } from '../components/messager/messager';
 import { Button } from '@mui/material';
 
 
-const MainPage = ({ axiosInstance }) => {
+const GraphPosSavePage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
@@ -175,4 +175,4 @@ const MainPage = ({ axiosInstance }) => {
   );
 }
 
-export default MainPage;
+export default GraphPosSavePage;
