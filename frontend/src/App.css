@@ -11,16 +11,17 @@
   left: 0px;
   top: 0px;
 }
+
 .searchBar-container {
   position: fixed;
-  left: 110px;
+  left: 111px;
   top: 0%;
 }
+
 .infoButton-container {
   position: fixed;
   top: 0%;
   left: 50%;
-  
 }
 
 .position-save-container {

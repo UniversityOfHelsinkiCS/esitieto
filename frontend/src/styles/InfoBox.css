@@ -9,6 +9,7 @@
   width: 25%; /* Adjust the width to fit the content */
   background-color: var(--bg-color, white); /* Default background color with fallback to white */
   color: var(--text-color, black); /* Default text color with fallback to black */
+  border-radius: 1%;
 }
 
 /* Dark theme */
