@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS degrees CASCADE;
+
 CREATE TABLE IF NOT EXISTS courses (
     id SERIAL PRIMARY KEY,
     kori_id VARCHAR(50) NOT NULL,
@@ -39,8 +41,6 @@ CREATE TABLE IF NOT EXISTS course_positions (
     x INT NOT NULL,
     y INT NOT NULL
 );
-
-DROP TABLE IF exists modules;
 
 CREATE INDEX IF NOT EXISTS idx_prerequisite_course_id ON prerequisite_courses(course_id);
 CREATE INDEX IF NOT EXISTS idx_course_degree_relation_id ON course_degree_relation(degree_id);
