@@ -31,9 +31,9 @@ export default class Course {
                 description:  `${this.description}`,
                 name: `${this.name}`,
                 identifier: `${this.identifier}`,
-                groupID: `${this.groupId} (${this.identifier})`,
-
+                groupID: `${this.groupId}`,
             },
+            
             style: selectedNodeStyle
         };
     }

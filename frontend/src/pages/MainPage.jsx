@@ -15,6 +15,7 @@ const MainPage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCourseName, setSelectedCourseName] = useState('');
+  const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
   const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
@@ -37,8 +38,7 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Degree is null!")
         return;
       }
-      let response;
-      response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
+      const response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
         headers: {
           'degree-id': degree.hy_degree_id,
           'degree-years': degree.degree_years, 
@@ -50,10 +50,11 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Response is null!")
         return;
       } 
+      console.log(response.data);
       const convertedCourses = response.data.map(courseData => new Course(
         courseData.name, 
         courseData.identifier, 
-        courseData.groupId, 
+        courseData.kori_id, 
         courseData.dependencies, 
         courseData.type, 
         courseData.description, 
@@ -123,6 +124,7 @@ const MainPage = ({ axiosInstance }) => {
         axiosInstance={axiosInstance}
         courses={courses}
         setSelectedCourseName={setSelectedCourseName}
+        setSelectedCourseGroupID={setSelectedCourseGroupID}
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
       />
@@ -147,6 +149,7 @@ const MainPage = ({ axiosInstance }) => {
         isOpen={isSidebarOpen}
         closeSidebar={() => setIsSidebarOpen(false)}
         selectedCourseName={selectedCourseName}
+        selectedCourseGroupID={selectedCourseGroupID}
         axiosInstance={axiosInstance}
       />
     </div>

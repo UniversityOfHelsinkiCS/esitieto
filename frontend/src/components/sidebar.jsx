@@ -25,6 +25,7 @@ const Sidebar = ({
   isOpen,
   closeSidebar,
   selectedCourseName,
+  selectedCourseGroupID,
   axiosInstance,
 }) => {
   //const [activityDesc, setActivityDesc] = useState(false);
@@ -36,24 +37,20 @@ const Sidebar = ({
 
   useEffect(() => {
     const getCourseInfo = async () => {
-      if (!selectedCourseName) return;
+      if (!selectedCourseGroupID) return;
       try {
-        const responseByName = await handleFetchKORIByName(axiosInstance, selectedCourseName);
-        if (responseByName && responseByName.length > 0) {
-          const groupId = responseByName[0].groupId;
-          const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, groupId);
-          if (responseByInfo && responseByInfo.length > 0) {
-            const courseInfo = responseByInfo[0];
-            setCourseActivityDesc(courseInfo.additional.fi);
-            const info = (
-              courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
-                (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
-            const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
-            const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
-            setCourseInfo(preprocessContent(`${info}`));
-            setSelectedCourseCredits(`Opintopisteet: ${credits}`);
-            setSelectedCourseDescription(`Kurssikoodi: ${code}`)
-          }
+        const responseByInfo = await handleFetchKORICourseInfo(axiosInstance, selectedCourseGroupID);
+        if (responseByInfo && responseByInfo.length > 0) {
+          const courseInfo = responseByInfo[0];
+          setCourseActivityDesc(courseInfo.additional.fi);
+          const info = (
+            courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
+              (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
+          const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
+          const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
+          setCourseInfo(preprocessContent(`${info}`));
+          setSelectedCourseCredits(`Opintopisteet: ${credits}`);
+          setSelectedCourseDescription(`Kurssikoodi: ${code}`)
         }
       } catch (error) {
         console.error("Failed to fetch course info:", error);

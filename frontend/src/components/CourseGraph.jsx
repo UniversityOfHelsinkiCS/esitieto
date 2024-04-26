@@ -12,7 +12,7 @@ import { getLayoutedElements } from '../utils/layout';
 import CustomEdge from '../styles/CustomEdge.jsx';
 
 
-const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, savePositions }) => {
+const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCourseName, setSelectedCourseGroupID, savePositions }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const [reactflowInstance, setReactflowInstance] = useState(null);
@@ -71,6 +71,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
             return;
         }
         setSelectedCourseName(node.data.name);
+        setSelectedCourseGroupID(node.data.groupID);
         setIsSidebarOpen(true);
     };
 
