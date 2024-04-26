@@ -1,0 +1,37 @@
+name: Deploy to staging
+
+on:
+  push:
+    branches:
+      - 'releases/**'
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: kurssiesitieto
+          tags: staging ${{ github.sha }}
+          containerfiles: |
+            ./Dockerfile
+          build-args: |
+            STAGING=true
+            BASE_PATH=/esitieto
+
+      - name: Push to quay.io
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          registry: quay.io/kurssiesitieto_ohtu
+          image: kurssiesitieto
+          tags: production
+          username: kurssiesitieto_ohtu+robotti
+          password: ${{ secrets.QUAY_IO_TOKEN }}
