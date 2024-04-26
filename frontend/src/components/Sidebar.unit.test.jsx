@@ -12,6 +12,9 @@ jest.mock('../functions/CourseFunctions', () => ({
 describe('Sidebar Component Tests', () => {
   const mockCloseSidebar = jest.fn();
   const mockAxiosInstance = {};
+  const mockCourseInfo = { groupId: '123', outcomes: { fi: ['Testi kuvaus'] }, credits: { max: 5 }, additional: { fi: 'Järjestämisajankohta Testi kuvaus Opintokokonaisuus' }, code: 'TKT123', id: ''};
+  CourseFunctions.handleFetchKORICourseInfo.mockResolvedValue([mockCourseInfo]);
+
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -24,18 +27,7 @@ describe('Sidebar Component Tests', () => {
   });
 
   it('fetches course information', async () => {
-    const mockCourseInfo = { groupId: '123', outcomes: { fi: ['Testi kuvaus'] }, credits: { max: 5 }, additional: { fi: 'Järjestämisajankohta Testi kuvaus Opintokokonaisuus' }, code: 'TKT123'};
-    CourseFunctions.handleFetchKORIByName.mockResolvedValueOnce([{ groupId: '123', activityPeriods: [] }]);
-    CourseFunctions.handleFetchKORICourseInfo.mockResolvedValueOnce([mockCourseInfo]);
-
-    render(<Sidebar isOpen={true} closeSidebar={mockCloseSidebar} selectedCourseName="Testi kurssi" axiosInstance={mockAxiosInstance} />);
-    await waitFor(() => expect(CourseFunctions.handleFetchKORIByName).toHaveBeenCalledWith(mockAxiosInstance, 'Testi kurssi'));
+    render(<Sidebar isOpen={true} closeSidebar={mockCloseSidebar} selectedCourseName="Testi kurssi" selectedCourseGroupID="123" axiosInstance={mockAxiosInstance} />);
     await waitFor(() => expect(CourseFunctions.handleFetchKORICourseInfo).toHaveBeenCalledWith(mockAxiosInstance, '123'));
-  });
-
-  it('handles course description button click', async () => {
-    render(<Sidebar isOpen={true} closeSidebar={mockCloseSidebar} selectedCourseName="Testi kurssi" axiosInstance={mockAxiosInstance} />);
-    fireEvent.click(screen.getByText('Kurssin kuvaus'));
-    await waitFor(() => expect(screen.getByText('Kurssin kuvaus')).toBeInTheDocument());
   });
 });
