@@ -1,9 +1,9 @@
 FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 
 ARG BASE_PATH
-ARG STAGING
+ARG DEPLOYMENT
 ENV BASE_PATH=$BASE_PATH
-ENV STAGING=$STAGING
+ENV DEPLOYMENT=$DEPLOYMENT
 
 
 WORKDIR /opt/app-root

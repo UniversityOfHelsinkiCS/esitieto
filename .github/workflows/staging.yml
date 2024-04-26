@@ -24,7 +24,7 @@ jobs:
           containerfiles: |
             ./Dockerfile
           build-args: |
-            STAGING=true
+            DEPLOYMENT=true
             BASE_PATH=/esitieto
 
       - name: Push to quay.io

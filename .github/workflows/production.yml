@@ -19,11 +19,11 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: kurssiesitieto
-          tags: staging ${{ github.sha }}
+          tags: deployment ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
           build-args: |
-            STAGING=true
+            DEPLOYMENT=true
             BASE_PATH=/esitieto
 
       - name: Push to quay.io
