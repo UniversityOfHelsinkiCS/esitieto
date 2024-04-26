@@ -1,12 +1,13 @@
 import React from 'react';
 import '../styles/InfoBox.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function InfoBox({ isOpen, onClose }) {
     if (!isOpen) {
         return null;
     }    
-    const navigate = useNavigate();
+    // eslint-disable-next-line
+    const navigate = useNavigate(); 
 
     const onNavigate = () => {
         let password = prompt("Anna salsasana:");

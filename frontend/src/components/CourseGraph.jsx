@@ -48,7 +48,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
     useEffect(() => {
         
         if (reactflowInstance) {
-            if (prevNumNodesRef.current.length === nodes.length && prevNumNodesRef.current[0].id == nodes[0].id || prevNumNodesRef ==! undefined) {
+            if (prevNumNodesRef.current.length === nodes.length && (prevNumNodesRef.current[0].id === nodes[0].id || prevNumNodesRef === true)) { 
                 return;
             }
             reactflowInstance.fitView();
