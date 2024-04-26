@@ -1,10 +1,21 @@
 import React from 'react';
 import '../styles/InfoBox.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 export function InfoBox({ isOpen, onClose }) {
     if (!isOpen) {
         return null;
     }    
+    const navigate = useNavigate();
+
+    const onNavigate = () => {
+        let password = prompt("Anna salsasana:");
+        if (password === "guaqamole on parempi") {
+            navigate('/secret');
+        } else {
+            alert("Väärä salasalsa");
+        }
+    }
     return (
         <div className="info-window">
             <h2>Kurssin esitietojen visualisointityökalu</h2>
@@ -14,7 +25,9 @@ export function InfoBox({ isOpen, onClose }) {
             <p> </p>
             <p>Tämä sovellus on luotu Ohjelmistotuotanto-kurssin projektitöönä Helsingin yliopistolle.</p>
             <p>Lähdekoodi löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">täältä</a></p>
-            <button onClick={onClose}>Sulje</button>
+            <button onClick={onNavigate}>Dev portaali</button>
+            <p><button onClick={onClose}>Sulje</button></p>
+
         </div>
     )
 }
