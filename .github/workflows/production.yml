@@ -19,7 +19,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: kurssiesitieto
-          tags: deployment ${{ github.sha }}
+          tags: production ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
           build-args: |
