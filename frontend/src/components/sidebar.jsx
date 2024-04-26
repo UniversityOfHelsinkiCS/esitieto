@@ -1,25 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  handleFetchKORIByName,
   handleFetchKORICourseInfo,
 } from '../functions/CourseFunctions';
-import CourseDescription from './CourseDescription';
 import { CourseActivityDesc } from './CourseActivityDesc';
 import '../styles/sidebar.css';
 import { Button } from '@mui/material';
 import { error as displayError } from '../components/messager/messager'
 
-
-function preprocessContent(htmlContent) {
-  let formattedContent = htmlContent.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?p>/gi, '\n');
-  formattedContent = formattedContent.replace(/<[^>]*>/g, '');
-  formattedContent = formattedContent.replace(/\n\s*\n\s*\n+/g, '\n\n');
-
-  if (formattedContent.startsWith('"') && formattedContent.endsWith('"')) {
-    formattedContent = formattedContent.substring(1, formattedContent.length - 1);
-  }
-  return formattedContent;
-}
 
 const Sidebar = ({
   isOpen,
@@ -30,10 +17,9 @@ const Sidebar = ({
 }) => {
   //const [activityDesc, setActivityDesc] = useState(false);
   const [courseActivityDesc, setCourseActivityDesc] = useState('');
-  const [selectedCourseDescription, setSelectedCourseDescription] = useState('');
+  const [selectedCourseDescription, setSelectedCourseDescription] = useState('')
   const [selectedCourseCredits, setSelectedCourseCredits] = useState('');
-  const [courseInfo, setCourseInfo] = useState('');
-  const [isCourseDescriptionOpen, setIsCourseDescriptionOpen] = useState(false);
+  const [link, setLink] = useState('')
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -43,12 +29,13 @@ const Sidebar = ({
         if (responseByInfo && responseByInfo.length > 0) {
           const courseInfo = responseByInfo[0];
           setCourseActivityDesc(courseInfo.additional.fi);
-          const info = (
-            courseInfo.content ?? courseInfo.outcomes)?.fi ? JSON.stringify(
-              (courseInfo.content ?? courseInfo.outcomes).fi) : "unable to load metadata";
+
+          const link = courseInfo.id ?? null
+          if (link) {
+            setLink(`https://sisu.helsinki.fi/student/courseunit/${link}/brochure`);
+          }
           const credits = courseInfo.credits ? courseInfo.credits.max : "unable to fetch credits";
           const code = courseInfo.code ? courseInfo.code : "unable to fetch code";
-          setCourseInfo(preprocessContent(`${info}`));
           setSelectedCourseCredits(`Opintopisteet: ${credits}`);
           setSelectedCourseDescription(`Kurssikoodi: ${code}`)
         }
@@ -73,21 +60,16 @@ const Sidebar = ({
       <CourseActivityDesc desc={courseActivityDesc} />
       <p>{selectedCourseDescription}<br />
         {selectedCourseCredits}</p>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          setIsCourseDescriptionOpen(true)
-        }}
-      >
-        Kurssin kuvaus
-      </Button>
-      {isCourseDescriptionOpen && (
-        <CourseDescription
-          isOpen={isCourseDescriptionOpen}
-          onClose={() => setIsCourseDescriptionOpen(false)}
-          content={courseInfo}
-        />
+      
+      {link && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            window.open(link, '_blank');
+          }}>
+            Kurssi sisussa
+        </Button>
       )}
     </div>
   );

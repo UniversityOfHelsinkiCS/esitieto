@@ -50,7 +50,6 @@ const MainPage = ({ axiosInstance }) => {
         console.error("Response is null!")
         return;
       } 
-      console.log(response.data);
       const convertedCourses = response.data.map(courseData => new Course(
         courseData.name, 
         courseData.identifier, 
