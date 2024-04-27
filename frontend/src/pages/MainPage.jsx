@@ -134,7 +134,7 @@ const MainPage = ({ axiosInstance }) => {
       
       <div className="infoButton-container">
         <InfoButton onClick={openInfoBox} />
-        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} />
+        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} baseURL={axiosInstance.defaults.baseURL} />
       </div>
 
       <div className="degree-menu-container">  

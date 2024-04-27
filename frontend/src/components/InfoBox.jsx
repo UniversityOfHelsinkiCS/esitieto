@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/InfoBox.css'
 import { useNavigate } from 'react-router-dom';
 
-export function InfoBox({ isOpen, onClose }) {
+export function InfoBox({ isOpen, onClose, baseURL }) {
     if (!isOpen) {
         return null;
     }    
@@ -12,10 +12,10 @@ export function InfoBox({ isOpen, onClose }) {
     const onNavigate = () => {
         let password = prompt("Anna salsasana:");
         if (password === "guaqamole on parempi") {
-            if (import.meta.env.BASE_URL === '/') {
+            if (baseURL === '/') {
                 navigate('/secret');
             } else {
-                navigate(import.meta.env.BASE_URL+'/secret')
+                navigate(baseURL+'/secret')
             }
         } else {
             alert("Väärä salasalsa");
