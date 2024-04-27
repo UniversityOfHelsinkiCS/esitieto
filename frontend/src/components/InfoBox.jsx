@@ -12,7 +12,11 @@ export function InfoBox({ isOpen, onClose }) {
     const onNavigate = () => {
         let password = prompt("Anna salsasana:");
         if (password === "guaqamole on parempi") {
-            navigate('/secret');
+            if (import.meta.env.BASE_URL === '/') {
+                navigate('/secret');
+            } else {
+                navigate(import.meta.env.BASE_URL+'/secret')
+            }
         } else {
             alert("Väärä salasalsa");
         }
