@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import preprocessContent from '../functions/PreprocessContent';
+import findDescription from '../functions/FindDescription';
 
+/*
 export const findActivityPeriodDesc = (text) => {
   // Receives string with html code in it, Finds description based on words in title and returns it
   let title1 = -1;
@@ -34,8 +35,7 @@ export const findActivityPeriodDesc = (text) => {
   
   return ([fixedActivityText, fixedRecommendation]);
 };
-
-
+*/
 
 export const CourseActivityDesc = (props) => {
   const [activityDescState, setActivityDescState] = useState(false);
@@ -51,12 +51,12 @@ export const CourseActivityDesc = (props) => {
   
   let desc = ['',''];
   if (props.desc !== undefined) {
-    desc = findActivityPeriodDesc(props.desc);
+    desc = findDescription(props.desc, ['Järjestämisajankohta', 'Ajoitus', 'Suositeltava suoritusajankohta']);
   }
     
   return (
     <div>
-    {desc[0] &&
+    {desc[0][1] &&
     <div>
       <div className='timing'>
         <h3>Suoritusaika</h3>
@@ -66,9 +66,9 @@ export const CourseActivityDesc = (props) => {
       </div>
       {activityDescState &&
         <div>
-          <p>{desc[0]}</p>
+          <p>{desc[0][1]}</p>
           <p><b>Suositeltava suoritusajankohta:</b>
-            {desc[1]}</p>
+            {desc[2][1]}</p>
           </div>}
     </div>}
     </div>
