@@ -7,7 +7,7 @@
 - [Architecture of the program](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/Architecture.md)
 
 ## Project Setup
-- [Openshift guide](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/openshift-db-guide.md)
+- [Openshift db guide](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/openshift-db-guide.md)
 - [Environment Variables](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/developer/setting-up-env.md)
 
 ## Codebase
