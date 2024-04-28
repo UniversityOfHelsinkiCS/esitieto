@@ -99,8 +99,10 @@ const config = {
   "kurssiesitieto-ohtuprojekti/frontend/src/utils/",
   "kurssiesitieto-ohtuprojekti/frontend/src/components/EditBar.jsx",
   "kurssiesitieto-ohtuprojekti/frontend/src/components/EditWindow.jsx",
-  "kurssiesitieto-ohtuprojekti/frontend/src/functions/LoginFunctions.jsx",
-  "kurssiesitieto-ohtuprojekti/frontend/src/pages/LoginPage.jsx"],
+  "kurssiesitieto-ohtuprojekti/frontend/src/functions/loginFunctions.jsx",
+  "kurssiesitieto-ohtuprojekti/frontend/src/functions/CourseFunctions.jsx",
+  "kurssiesitieto-ohtuprojekti/frontend/src/pages/LoginPage.jsx",
+],
 
   // Activates notifications for test results
   // notify: false,
