@@ -6,19 +6,6 @@ name: test
 on: workflow_call
 
 jobs:
-#   test-coverage:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v4
-#     - name: Install Node
-#       uses: actions/setup-node@v4
-
-#     - name: Install Frontend Dependencies
-#       run: npm install
-    
-#     - name: Run tests and upload coverage reports to Codecov
-#       run: npm run test-coverage
 
   frontend:
     runs-on: ubuntu-latest
@@ -61,23 +48,6 @@ jobs:
         token: 4a388ee2-1e13-4b1c-b85c-0523d43be610
         directory: ./backend/coverage
         slug: Kurssiesitieto/kurssiesitieto-ohtuprojekti
-
-
-# Started working on cypress tester, but it's not ready yet
-  cypress:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install Node
-      uses: actions/setup-node@v4
-    
-    - name: Cypress run
-      uses: cypress-io/github-action@v6
-      with:
-        install-command: npm install
-        build: npm run build
-        start: npm run prod
 
   run-linters:
     name: Run linters
