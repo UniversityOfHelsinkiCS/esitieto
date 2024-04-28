@@ -64,21 +64,23 @@ jobs:
 
 
 # Started working on cypress tester, but it's not ready yet
-#  cypress:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#    - uses: actions/checkout@v4
-#    - name: Install Node
-#      uses: actions/setup-node@v4
-#    
-#    - name: Prepare Docker
-#      run: docker compose -f 
-#    
-#    - name: Cypress run
-#      uses: cypress-io/github-action@v6
-#      with:
-#        install-command: npm install
+  cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Node
+      uses: actions/setup-node@v4
+    
+    - name: Prepare Docker
+      run: docker compose -f 
+    
+    - name: Cypress run
+      uses: cypress-io/github-action@v6
+      with:
+        install-command: npm install
+        build: npm run build
+        start: npm run prod
 
   run-linters:
     name: Run linters
