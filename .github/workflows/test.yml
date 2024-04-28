@@ -72,9 +72,6 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v4
     
-    - name: Prepare Docker
-      run: docker compose -f 
-    
     - name: Cypress run
       uses: cypress-io/github-action@v6
       with:
