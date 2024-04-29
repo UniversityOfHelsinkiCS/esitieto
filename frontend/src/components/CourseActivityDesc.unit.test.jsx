@@ -1,5 +1,5 @@
 import React from 'react';
-import { CourseActivityDesc, findActivityPeriodDesc } from "./CourseActivityDesc";
+import { CourseActivityDesc } from "./CourseActivityDesc";
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
