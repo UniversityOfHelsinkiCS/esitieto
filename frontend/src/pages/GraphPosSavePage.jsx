@@ -90,19 +90,20 @@ const GraphPosSavePage = ({ axiosInstance }) => {
   }, []);
   
   useEffect(() => {
-    if (listOfDegrees == null || listOfDegrees.length === 0) return
-    handleDegreeChange(listOfDegrees[0]);
-    
+    const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
+    if (degreeToFetch) {
+      fetchDegreeCourses(degreeToFetch);
+    } else {
+      fetchDegreeCourses(listOfDegrees[0]);
+    }    
   }, [listOfDegrees]);
-
+    
   const handleDegreeChange = (degree) => {
     fetchDegreeCourses(degree)
     setDegree(degree);
   };
 
   const handleNewPositions = async () => {
-    console.log("Positions: ", coursePositions);
-    console.log("Degree: ", degree);
     await axiosInstance.post(`/api/degrees/save_positions`, {
         'degreeId': degree.hy_degree_id,
         'degreeYears': degree.degree_years,

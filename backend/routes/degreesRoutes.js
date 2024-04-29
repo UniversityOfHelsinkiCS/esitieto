@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   Fetches all degrees from the database and returns them as a JSON array.
   */
   try {
-    const result = await pool.query('SELECT * FROM degrees');
+    const result = await pool.query('SELECT * FROM degrees ORDER BY degree_name');
     const degrees = result.rows.map(degree => ({ 
       degree_name: degree.degree_name, 
       degree_years: degree.degree_years,

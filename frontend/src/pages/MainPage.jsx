@@ -107,8 +107,13 @@ const MainPage = ({ axiosInstance }) => {
   
   useEffect(() => {
     if (listOfDegrees == null || listOfDegrees.length === 0) return
-    fetchDegreeCourses(listOfDegrees[0]);
-    
+
+    const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
+    if (degreeToFetch) {
+      fetchDegreeCourses(degreeToFetch);
+    } else {
+      fetchDegreeCourses(listOfDegrees[0]);
+    }    
   }, [listOfDegrees]);
 
   const handleDegreeChange = (degree) => {
