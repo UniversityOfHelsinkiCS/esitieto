@@ -392,10 +392,6 @@ const addDegreeData = async (degreeInfo, courseMappings) => {
     }))
 };
 
-
-
-// ------------ TESTING ONLY ----------------
-
 const getAllCoursesWithPrerequisites = async () => {
   const { rows } = await pool.query(`
     SELECT 
@@ -409,8 +405,101 @@ const getAllCoursesWithPrerequisites = async () => {
   return rows;
 };
 
+const getDegrees = async ( degreeCode, degreeYears ) => {
+  const query = `SELECT id FROM degrees WHERE hy_degree_id = $1 AND degree_years = $2`;
+  const { rows } = await pool.query(
+    query, [degreeCode, degreeYears]
+  );
+
+  let degreeId = rows[0].id;
+  const query2 = `
+    SELECT 
+      c.course_name AS name, 
+      c.kori_id, 
+      c.hy_course_id AS identifier, 
+      cdr.relation_type AS type,
+      cp.x AS x,
+      cp.y AS y,
+      COALESCE(
+        (
+          SELECT array_agg(pc.hy_course_id)
+          FROM prerequisite_courses pr
+          JOIN courses pc ON pr.prerequisite_course_id = pc.id
+          WHERE pr.course_id = c.id
+        ),
+        '{}'::text[]
+      ) AS dependencies
+    FROM course_degree_relation cdr
+    JOIN courses c ON cdr.course_id = c.id
+    LEFT JOIN course_positions cp ON cp.degree_id = cdr.degree_id AND cp.course_id = cdr.course_id
+    WHERE cdr.degree_id = $1
+  `;
+
+  const { rows: courses } = await pool.query(
+    query2, [degreeId]
+  );
+  return courses;
+};
+
+const getDegreeId = async (degreeId, degreeYears) => {
+  try {  
+    const degreeQuery = `
+    SELECT id 
+    FROM degrees 
+    WHERE hy_degree_id = $1 AND degree_years = $2`;
+
+    const { rows: degreeRows } = await pool.query(degreeQuery, [degreeId, degreeYears]);
+
+    if (degreeRows.length === 0) {
+      return false;
+    }
+    return degreeRows;
+  } catch (error) {
+    console.error("Error in getDegreeId:", error);
+    return false;
+  }
+};
 
 
+const savePositions = async (degreeId, coursePositions) => {
+  try {
+    await pool.query('DELETE FROM course_positions WHERE degree_id = $1', [degreeId]);
+    const courseIds = coursePositions.map(course => course.id);
+    const courseQuery = `
+      SELECT id, hy_course_id
+      FROM courses
+      WHERE hy_course_id = ANY($1)`;
+  
+    const { rows: courseRows } = await pool.query(courseQuery, [courseIds]);
+  
+    if (courseRows.length !== coursePositions.length) {
+      return false;
+    }
+  
+    let insertValues = '';
+    coursePositions.forEach(position => {
+      const matchingCourse = courseRows.find(course => course.hy_course_id === position.id);
+      if (matchingCourse) {
+          insertValues += `(${degreeId}, ${matchingCourse.id}, ${position.position.x}, ${position.position.y}), `;
+      }
+    });
+  
+    insertValues = insertValues.slice(0, -2);
+  
+    const insertQuery = `
+      INSERT INTO course_positions(degree_id, course_id, x, y)
+      VALUES ${insertValues}`;
+    await pool.query(insertQuery);
+    return true
+  } catch (error) {
+      console.error('Error saving positions:', error);
+      return false
+  }
+};
+
+const resetPositions = async ( degreeId ) => {
+  const resetQuery = `DELETE FROM course_positions WHERE degree_id = $1`;
+  await pool.query(resetQuery, [degreeId]);}
 
 
 module.exports = {
@@ -427,7 +516,11 @@ module.exports = {
   addManyCourses,
   addManyPrequisiteCourses,
   addDegreeData,
+  resetPositions,
   //updateCourse,
+  getDegrees,
+  getDegreeId,
+  savePositions,
   deleteCourse,
   endDatabase: async () => {
     await pool.end();
