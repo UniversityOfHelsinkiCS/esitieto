@@ -23,7 +23,7 @@ export const CourseActivityDesc = (props) => {
     
   return (
     <div>
-    {desc[0][1] &&
+    {(desc[0][1] || desc[1][1]) &&
     <div>
       <div className='timing'>
         <h3>Suoritusaika</h3>
@@ -33,7 +33,7 @@ export const CourseActivityDesc = (props) => {
       </div>
       {activityDescState &&
         <div>
-          <p>{desc[0][1]}</p>
+          <p>{desc[0][1] || desc[1][1]}</p>
           <p><b>Suositeltava suoritusajankohta:</b>
             {desc[2][1]}</p>
           </div>}
