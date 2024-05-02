@@ -39,7 +39,8 @@ Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten. He
 5. Luo uusi tutkinto ja kopioi tiedostoon [linkin](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json) sisältö
 ![Tutkinnonluonti](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/tutkinnonluonti.gif)
 6. Muokkaa tutkintoa sisällön avulla
-7. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
+7. Jätä kyseinen tiedosto arkistointia varten sikseen, ja kopioi sen sisältö tiedostoon [degreeToDb.json](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/degreeToDb.json), josta järjestelmä osaa automaattisesti lisätä sen
+8. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
 ![Pullrequest](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/images/userguideimages/pullrequest.gif)
 
 ### Vaihtoehto 2: Oman tietokoneen kautta
@@ -49,7 +50,8 @@ Mikäli haluat kontribuoida projektiin, tarvitset github tilin tätä varten. He
 3. Siirry projektissa backend/dbStartup/added-degrees hakemistoon
 4. Kopioi base-for-managing-degrees.json tiedosto (https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/added-degrees/base-for-managing-degrees.json), ja nimeä se tutkintokoodin mukaisesti (esim. TKT20-23, formaatissa tutkinnon lyhenne, sekä tämän vuodet).
 5. Avaa tiedosto
-6. Käytä tiedoston pohjaa mallina, johonka voit muokata haluamasi tiedot
-7. Pushaa tiedosto projektiisi
-8. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
+6. Käytä tiedoston pohjaa mallina, johonka voit muokata haluamasi tiedot.
+7. Jätä kyseinen tiedosto arkistointia varten sikseen, ja kopioi sen sisältö tiedostoon [degreeToDb.json](https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/backend/dbStartup/degreeToDb.json), josta järjestelmä osaa automaattisesti lisätä sen
+8. Pushaa tiedostot
+9. Luo pull requesti. Tämän jälkeen projektin ylläpitäjät voivat päättää, hyväksyvätkö tämän tutkinnon osaksi projektia.
 
