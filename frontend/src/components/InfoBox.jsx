@@ -25,10 +25,10 @@ export function InfoBox({ isOpen, onClose, baseURL }) {
         <div className="info-window">
             <h2>Kurssin esitietojen visualisointityökalu</h2>
             <p>Käyttäjäopas löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/user-guide.md">täältä</a></p>
+            <p>Käyttäjä oppaasta <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti/blob/main/documentation/user-guide.md">löytyy</a> ohjeet ohjeet uuden tutkinnon lisäämiseen</p>
             <p>Tämä sovellus näyttää tarvittavat kurssiesitiedot tietyille tutkinto-ohjelmille Helsingin yliopistossa.</p>
-            <p>Tällä hetkellä saatavilla on esimerkkiversio tietojenkäsittelytieteen kandidaattiohjelmasta.</p>
             <p> </p>
-            <p>Tämä sovellus on luotu Ohjelmistotuotanto-kurssin projektitöönä Helsingin yliopistolle.</p>
+            <p>Tämä sovellus on luotu Ohjelmistotuotanto-kurssin projektityönä Helsingin yliopistolle.</p>
             <p>Lähdekoodi löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">täältä</a></p>
             <button onClick={onNavigate}>Dev portaali</button>
             <p><button onClick={onClose}>Sulje</button></p>
