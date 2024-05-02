@@ -21,8 +21,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         console.error("Degree is null!")
         return;
       }
-      let response;
-      response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
+      const response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
         headers: {
           'degree-id': degree.hy_degree_id,
           'degree-years': degree.degree_years, 
@@ -86,14 +85,23 @@ const GraphPosSavePage = ({ axiosInstance }) => {
   };
 
   useEffect(() => {
-    fetchDegrees();
+    const fetchData = async () => {
+      try {
+        await fetchDegrees();
+      } catch (error) {
+        console.error('Error fetching degrees:', error);
+      }
+    };
+  
+    fetchData();
   }, []);
+  
   
   useEffect(() => {
     const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
     if (degreeToFetch) {
       fetchDegreeCourses(degreeToFetch);
-    } else {
+    } else if (listOfDegrees[0]) {
       fetchDegreeCourses(listOfDegrees[0]);
     }    
   }, [listOfDegrees]);
