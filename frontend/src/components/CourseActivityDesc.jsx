@@ -3,39 +3,6 @@ import { IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import findDescription from '../functions/FindDescription';
 
-/*
-export const findActivityPeriodDesc = (text) => {
-  // Receives string with html code in it, Finds description based on words in title and returns it
-  let title1 = -1;
-  if (text.indexOf("Järjestämisajankohta") !== -1) {
-    title1 = text.indexOf("Järjestämisajankohta");
-  }
-  if (text.indexOf("Ajoitus") !== -1) {
-    title1 = text.indexOf("Ajoitus");
-  }
-  
-  const startActivity = text.indexOf("</h5>",title1) + 5;
-  const endActivity = text.indexOf("</p>", startActivity);
-  const textActivity = text.slice(startActivity, endActivity);
-  let fixedActivityText = preprocessContent(textActivity);
-  
-  if (title1 === -1) {
-    fixedActivityText = '';
-  }
-  
-  let title2 = text.indexOf("Suositeltava suoritusajankohta");
-  const startRecommendation = text.indexOf("</h5>", title2) + 5;
-  const endRecommendation = text.indexOf("</p>", startRecommendation);
-  const textRecommendation = text.slice(startRecommendation, endRecommendation);
-  let fixedRecommendation = preprocessContent(textRecommendation);
-  
-  if (title2 === -1) {
-    fixedRecommendation = '';
-  }
-  
-  return ([fixedActivityText, fixedRecommendation]);
-};
-*/
 
 export const CourseActivityDesc = (props) => {
   const [activityDescState, setActivityDescState] = useState(false);
