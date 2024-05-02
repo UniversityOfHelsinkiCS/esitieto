@@ -1,10 +1,3 @@
-DROP TABLE IF EXISTS course_positions;
-DROP TABLE IF EXISTS prerequisite_courses;
-DROP TABLE IF EXISTS course_degree_relation;
-DROP TABLE IF EXISTS degrees;
-DROP TABLE IF EXISTS courses;
-
-
 CREATE TABLE IF NOT EXISTS courses (
     id SERIAL PRIMARY KEY,
     kori_id VARCHAR(50) NOT NULL,
