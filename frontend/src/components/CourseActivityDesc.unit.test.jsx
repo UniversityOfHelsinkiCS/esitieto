@@ -3,29 +3,6 @@ import { CourseActivityDesc } from "./CourseActivityDesc";
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-// ignore for now
-/*
-describe("findActivityPeriodDesc unit testing", () => {
-
-    beforeEach(() => {
-        jest.clearAllMocks();
-      });
-
-    test("if text prop doesn't contain right keywords in titles it returns a blank list", () => {
-        const mockText = "text"
-        expect(findActivityPeriodDesc(mockText)).toEqual(['', ''])
-    })
-
-    test("if text prop contains activity info, the function returns this info as string", () => {
-        const mockText = "<h5>Järjestämisajankohta opetusperiodin tarkkuudella</h5><p>1. periodi joka vuosi</p>" +
-        "<h5>Suositeltava suoritusajankohta tai - vaihe</h5><p>1. vuosi matematiikan pääaineopinnoissa</p>"
-        const result = findActivityPeriodDesc(mockText)
-        expect(result[0].trim()).toEqual('1. periodi joka vuosi')
-        expect(result[1].trim()).toEqual('1. vuosi matematiikan pääaineopinnoissa')
-    })
-})
-
-*/
 
 describe("CourseActivityDesc unit testing", () => {
 
