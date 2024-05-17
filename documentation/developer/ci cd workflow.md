@@ -22,7 +22,9 @@ This is the main workflow file of the GitHub repository, it is triggered on ever
 
 ## Deploy to production - production.yml
 
-This workflow is essentially the same as the staging workflow but it uses different parameters to create an image of the code with the production tag. 
+This workflow is essentially the same as the staging workflow but it uses different parameters to create an image of the code with the production tag.
+
+**This workflow activates when you create a release with a new version tag. It must be new for the workflow to recognize it.**
 
 ### The workflow completes these steps:
 
