@@ -36,7 +36,7 @@ class KoriInterface {
 
         Return the course info in JSON format.
         */
-        if (this.isValidInput(id)) {
+        if (this.isValidInput(id) && this.isValidInput(hyYearCode)) {
             const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-units?groupId='.concat(encodeURIComponent(id)).concat('&curriculumPeriodId='+hyYearCode);
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {
@@ -59,7 +59,7 @@ class KoriInterface {
 
         Returns list of courses in JSON format.
         */
-        if (this.isValidInput(search)) {
+        if (this.isValidInput(search) && this.isValidInput(hyYearCode)) {
             const apiUrl = 'https://sisu.helsinki.fi/kori/api/course-unit-search?fullTextQuery='.concat(encodeURIComponent(search)).concat('&limit=200&universityOrgId=hy-university-root-id').concat('&curriculumPeriodId='+hyYearCode);
             return fetch(apiUrl, this.#requestOptions)
             .then(response => {
