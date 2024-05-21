@@ -27,4 +27,7 @@
   - List all your databases
 - CREATE DATABASE my_new_database;
   - Create a new database
-
+- \conninfo
+  - Check the current database connection
+- psql -U postgres -d my_new_database
+  - Connect to a specific database
