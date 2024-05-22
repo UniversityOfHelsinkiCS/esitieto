@@ -10,10 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get commit message
+      id: get_commit_message
+      run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
+
     - name: Send notification to Discord
       run: |
-        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
         curl -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"content\": \"New commit in the repository: https://github.com/${{ github.repository }}\nBranch: ${{ github.ref }}\nCommit Message: $COMMIT_MESSAGE\"}" \
+          -d "{\"content\": \"New commit in the repository: https://github.com/${{ github.repository }}/commit/${{ github.sha }}\nBranch: ${{ github.ref }}\nCommit Message: ${{ env.COMMIT_MESSAGE }}\"}" \
           https://discord.com/api/webhooks/1242309341743415397/X0_-KdpBWi2dmjxv-wW5n4wntguXxl_DDWt0XuUt4lbN1Vef_klmZQVFoOpoZhZgU2IT
