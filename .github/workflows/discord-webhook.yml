@@ -14,5 +14,5 @@ jobs:
       run: |
         curl -H "Content-Type: application/json" \
           -X POST \
-          -d '{"content": "New commit in the repository: https://github.com/${{ github.repository }}/commit/${{ github.sha }}\nBranch: ${{ github.ref }}"}' \
+          -d "{\"content\": \"New commit in the repository: https://github.com/${{ github.repository }}\nBranch: ${{ github.ref }}\nCommit Message: $COMMIT_MESSAGE\"}" \
           https://discord.com/api/webhooks/1242309341743415397/X0_-KdpBWi2dmjxv-wW5n4wntguXxl_DDWt0XuUt4lbN1Vef_klmZQVFoOpoZhZgU2IT
