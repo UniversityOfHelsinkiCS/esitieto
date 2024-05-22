@@ -12,6 +12,7 @@ jobs:
     steps:
     - name: Send notification to Discord
       run: |
+        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
         curl -H "Content-Type: application/json" \
           -X POST \
           -d "{\"content\": \"New commit in the repository: https://github.com/${{ github.repository }}\nBranch: ${{ github.ref }}\nCommit Message: $COMMIT_MESSAGE\"}" \
