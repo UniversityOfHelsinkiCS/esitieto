@@ -1,3 +1,4 @@
+import React from 'react';
 import '../styles/InfoButton.css'
 
 function InfoButton({ onClick }) {
