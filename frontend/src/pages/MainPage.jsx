@@ -2,13 +2,8 @@ import { useState, useEffect } from 'react'
 import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
-import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
-import InfoButton from '../components/InfoButton';
-
-import { InfoBox } from '../components/InfoBox';
-import { SearchBar } from '../components/SearchBar.jsx';
 import { Navbar } from '../components/Navbar.jsx';
 
 
@@ -18,19 +13,7 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
-  const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
-
-  const openInfoBox = () => {
-      if(isInfoBoxOpen) {
-          setIsInfoBoxOpen(false);
-      } else {
-          setIsInfoBoxOpen(true);
-      }
-  };
   
-  const closeInfoBox = () => {
-      setIsInfoBoxOpen(false);
-    };
 
   const fetchDegreeCourses = async (degree) => {
     try {
@@ -136,26 +119,16 @@ const MainPage = ({ axiosInstance }) => {
       /> 
 
       <div className='navBar-conteiner'>
-        <Navbar  nameOfDegree ={"Tutkinnon nimi"} />
-
-
-      </div>
-      
-      <div className="searchBar-container">
-       <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
-      </div>
-      
-      <div className="infoButton-container">
-        <InfoButton onClick={openInfoBox} />
-        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} baseURL={axiosInstance.defaults.baseURL} />
-      </div>
-
-      <div className="degree-menu-container">  
-        <DegreeSelectionMenu
-          onDegreeChange={handleDegreeChange}
-          listOfDegrees={listOfDegrees}
+        <Navbar  handleDegreeChange={handleDegreeChange} listOfDegrees={listOfDegrees}
+         axiosInstance={axiosInstance} handleSearch={handleSearch}
+         
+        baseURL={axiosInstance.defaults.baseURL}
+        
         />
+
       </div>
+      
+      
       
       <Sidebar
         isOpen={isSidebarOpen}

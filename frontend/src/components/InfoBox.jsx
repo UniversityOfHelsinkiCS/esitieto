@@ -36,3 +36,4 @@ export function InfoBox({ isOpen, onClose, baseURL }) {
         </div>
     )
 }
+export default InfoBox
