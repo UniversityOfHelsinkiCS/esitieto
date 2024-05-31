@@ -1,0 +1,13 @@
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  z-index: 99;
+  background: rgb(174, 174, 174);
+}
+
+.nav li {
+  display: inline-block;
+  font-size: 15px;
+  padding: 5px;
+}

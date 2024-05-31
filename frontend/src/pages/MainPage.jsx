@@ -9,6 +9,7 @@ import InfoButton from '../components/InfoButton';
 
 import { InfoBox } from '../components/InfoBox';
 import { SearchBar } from '../components/SearchBar.jsx';
+import { Navbar } from '../components/Navbar.jsx';
 
 
 const MainPage = ({ axiosInstance }) => {
@@ -121,8 +122,9 @@ const MainPage = ({ axiosInstance }) => {
   };
 
   return (
+    
     <div>
-      
+
       <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -131,8 +133,14 @@ const MainPage = ({ axiosInstance }) => {
         setSelectedCourseGroupID={setSelectedCourseGroupID}
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
-      />
+      /> 
 
+      <div className='navBar-conteiner'>
+        <Navbar  nameOfDegree ={"Tutkinnon nimi"} />
+
+
+      </div>
+      
       <div className="searchBar-container">
        <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
       </div>
