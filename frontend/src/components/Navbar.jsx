@@ -5,7 +5,7 @@ import InfoBox from './InfoBox';
 import DegreeSelectionMenu from './DegreeSelectionMenu';
 import InfoButton from './InfoButton';
 
-export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handleSearch, baseURL}) => {
+export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handleSearch, baseURL, selectedDegreeName}) => {
   const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
 
   const openInfoBox = () => {
@@ -24,6 +24,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch} /></li>
         <li><InfoButton onClick={openInfoBox} /></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
+        <li>{selectedDegreeName}</li>
       </ul>
     </nav>
   );

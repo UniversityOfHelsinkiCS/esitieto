@@ -13,6 +13,7 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
+  const [selectedDegreeName, setSelectedDegreeName] = useState('');
   
 
   const fetchDegreeCourses = async (degree) => {
@@ -45,6 +46,7 @@ const MainPage = ({ axiosInstance }) => {
         courseData.y));
         
       setCourses(convertedCourses);
+      setSelectedDegreeName(degree.degree_name);
       if (convertedCourses.length === 0 || convertedCourses == null) {
         displayError("Kurssitietoja ei löytynyt!");
         return;
@@ -120,9 +122,9 @@ const MainPage = ({ axiosInstance }) => {
 
       <div className='navBar-conteiner'>
         <Navbar  handleDegreeChange={handleDegreeChange} listOfDegrees={listOfDegrees}
-         axiosInstance={axiosInstance} handleSearch={handleSearch}
-         
-        baseURL={axiosInstance.defaults.baseURL}
+          axiosInstance={axiosInstance} handleSearch={handleSearch}
+          selectedDegreeName={selectedDegreeName}
+          baseURL={axiosInstance.defaults.baseURL}
         
         />
 
