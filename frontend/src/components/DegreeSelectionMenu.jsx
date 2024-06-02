@@ -39,7 +39,7 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
           height: '47px',
         }}
       >
-        {'Tutkinto'}
+        {'Valitse tutkinto'}
       </Button>
       <Menu
         id="degree-menu"

@@ -1,7 +1,9 @@
 .nav {
   position: absolute;
   top: 0;
-  left: 0%;
+  left: 0;
+  right: 0;
+  height: 90px;
   z-index: 99;
   background: rgb(174, 174, 174);
 }
