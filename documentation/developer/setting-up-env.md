@@ -18,3 +18,16 @@
 
 - LOGGING_LEVEL = error/warn/info/verbose/debug # The default value is 'debug'
   - Purpose: This affects what information is logged on the backend console. The option you choose will be displayed and all those on the left side of it (e.g. if set to 'verbose', then debug messages are not displayed.)
+
+## Quick tips for PSQL
+
+- psql -U postgres -d postgres -c "ALTER USER username WITH PASSWORD 'new_password';"
+  - Set up a new password if password is missing
+- \l
+  - List all your databases
+- CREATE DATABASE my_new_database;
+  - Create a new database
+- \conninfo
+  - Check the current database connection
+- psql -U postgres -d my_new_database
+  - Connect to a specific database

@@ -2,13 +2,9 @@ import { useState, useEffect } from 'react'
 import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
-import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
-import InfoButton from '../components/InfoButton';
-
-import { InfoBox } from '../components/InfoBox';
-import { SearchBar } from '../components/SearchBar.jsx';
+import { Navbar } from '../components/Navbar.jsx';
 
 
 const MainPage = ({ axiosInstance }) => {
@@ -17,19 +13,8 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseName, setSelectedCourseName] = useState('');
   const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
-  const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
-
-  const openInfoBox = () => {
-      if(isInfoBoxOpen) {
-          setIsInfoBoxOpen(false);
-      } else {
-          setIsInfoBoxOpen(true);
-      }
-  };
+  const [selectedDegreeName, setSelectedDegreeName] = useState('');
   
-  const closeInfoBox = () => {
-      setIsInfoBoxOpen(false);
-    };
 
   const fetchDegreeCourses = async (degree) => {
     try {
@@ -61,6 +46,7 @@ const MainPage = ({ axiosInstance }) => {
         courseData.y));
         
       setCourses(convertedCourses);
+      setSelectedDegreeName(degree.degree_name);
       if (convertedCourses.length === 0 || convertedCourses == null) {
         displayError("Kurssitietoja ei löytynyt!");
         return;
@@ -121,8 +107,9 @@ const MainPage = ({ axiosInstance }) => {
   };
 
   return (
+    
     <div>
-      
+
       <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -131,23 +118,19 @@ const MainPage = ({ axiosInstance }) => {
         setSelectedCourseGroupID={setSelectedCourseGroupID}
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
-      />
+      /> 
 
-      <div className="searchBar-container">
-       <SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch}/>
+      <div className='navBar-conteiner'>
+        <Navbar  handleDegreeChange={handleDegreeChange} listOfDegrees={listOfDegrees}
+          axiosInstance={axiosInstance} handleSearch={handleSearch}
+          selectedDegreeName={selectedDegreeName}
+          baseURL={axiosInstance.defaults.baseURL}
+        
+        />
+
       </div>
       
-      <div className="infoButton-container">
-        <InfoButton onClick={openInfoBox} />
-        <InfoBox isOpen={isInfoBoxOpen} onClose={closeInfoBox} baseURL={axiosInstance.defaults.baseURL} />
-      </div>
-
-      <div className="degree-menu-container">  
-        <DegreeSelectionMenu
-          onDegreeChange={handleDegreeChange}
-          listOfDegrees={listOfDegrees}
-        />
-      </div>
+      
       
       <Sidebar
         isOpen={isSidebarOpen}
