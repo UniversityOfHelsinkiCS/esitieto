@@ -17,7 +17,7 @@ describe('DegreeSelectionMenu', () => {
       hy_degree_id:'kh50_005'
     }
   ];
-  const degree = 'Tutkinto';
+  const degree = 'Valitse tutkinto';
 
 
   beforeEach(() => {
