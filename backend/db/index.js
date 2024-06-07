@@ -83,59 +83,17 @@ const addManyCourses = async (listOfCourses) => {
 };
 
 
-const addManyPrequisiteCourses = async (listOfPrerequisites) => {
-  /* Accepts list of objects that represents a course and its prerequisites.
 
-  The expected format for the prerequisite object is for example:
-  [
-    {
-      course: 'TKT20018',
-      prerequisiteCourse: 'TKT10003',
-      relationType: 'optional'
-    },
-    {
-      course: 'TKT20018',
-      prerequisiteCourse: 'TKT10004',
-      relationType: 'optional'
-    },
-  ]
-  */
-
-  for (const prerequisite of listOfPrerequisites) {
-    const { course, prerequisiteCourse } = prerequisite;
-    try {
-      const result = await addPrerequisiteCourse(course, prerequisiteCourse);
-      if (result) {
-        logger.info(`Prerequisite for course ${course} with prerequisite ${prerequisiteCourse} of type successfully added to the database.`);
-      } else {
-        logger.verbose(`No new prerequisite relation added for course ${course} with prerequisite ${prerequisiteCourse}. It might already exist.`);
-      }
-    } catch (err) {
-      logger.error(`Error adding prerequisite for course ${course} with prerequisite ${prerequisiteCourse} to the database:`, err);
-    }
-  }
+const getCourses = async () => {
+  const { rows } = await pool.query('SELECT * FROM courses');
+  return rows;
 };
-
-/*
-const updateCourse = async (id, official_course_id, course_name, kori_name) => {
-  const { rows } = await pool.query(
-    'UPDATE course_info SET official_course_id = $2, course_name = $3, kori_name = $4 WHERE id = $1 RETURNING *',
-    [id, official_course_id, course_name, kori_name]
-  );
-  return rows[0];
-};
-*/
 
 const deleteCourse = async (kori_name) => {
   const result = await pool.query('DELETE FROM course_info WHERE kori_name = $1 RETURNING *', [kori_name]);
   return result.rowCount;
 };
 
-
-const getCourses = async () => {
-  const { rows } = await pool.query('SELECT * FROM courses');
-  return rows;
-};
 
 const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
   const query = `
@@ -197,6 +155,16 @@ const getCourseWithReqursivePrerequisites = async (course_hy_id) => {
   return rows;
 };
 
+/*
+const updateCourse = async (id, official_course_id, course_name, kori_name) => {
+  const { rows } = await pool.query(
+    'UPDATE course_info SET official_course_id = $2, course_name = $3, kori_name = $4 WHERE id = $1 RETURNING *',
+    [id, official_course_id, course_name, kori_name]
+  );
+  return rows[0];
+};
+*/
+
 // Dependency
 
 const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) => {
@@ -214,6 +182,38 @@ const addPrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) =>
   return rows[0];
 };
 
+const addManyPrequisiteCourses = async (listOfPrerequisites) => {
+  /* Accepts list of objects that represents a course and its prerequisites.
+
+  The expected format for the prerequisite object is for example:
+  [
+    {
+      course: 'TKT20018',
+      prerequisiteCourse: 'TKT10003',
+      relationType: 'optional'
+    },
+    {
+      course: 'TKT20018',
+      prerequisiteCourse: 'TKT10004',
+      relationType: 'optional'
+    },
+  ]
+  */
+
+  for (const prerequisite of listOfPrerequisites) {
+    const { course, prerequisiteCourse } = prerequisite;
+    try {
+      const result = await addPrerequisiteCourse(course, prerequisiteCourse);
+      if (result) {
+        logger.info(`Prerequisite for course ${course} with prerequisite ${prerequisiteCourse} of type successfully added to the database.`);
+      } else {
+        logger.verbose(`No new prerequisite relation added for course ${course} with prerequisite ${prerequisiteCourse}. It might already exist.`);
+      }
+    } catch (err) {
+      logger.error(`Error adding prerequisite for course ${course} with prerequisite ${prerequisiteCourse} to the database:`, err);
+    }
+  }
+};
 
 // Frontend is not fixed for this yet
 const removePrerequisiteCourse = async (course_hy_id, prerequisite_course_hy_id) => {

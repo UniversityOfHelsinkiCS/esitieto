@@ -1,20 +1,39 @@
+// needed for (?): 'const { Pool } = require('pg')
 jest.mock('pg', () => {
   const mockQuery = jest.fn();
   return {
     Pool: jest.fn(() => ({
-      query: mockQuery.mockResolvedValueOnce({ rows: [{ id: 1, kori_id: 'CS101', course_name: 'Intro to CS', hy_course_id: 'IntroCS101' }], rowCount: 1 }),
+      query: mockQuery.mockResolvedValueOnce(
+        { 
+          rows: [
+            { 
+              id: 1,
+              kori_id: 'CS101',
+              course_name: 'Intro to CS',
+              hy_course_id: 'IntroCS101' 
+            }
+          ],
+          rowCount: 1
+        }
+      ),
     })),
   };
 });
 
+// needed for (?): 'const KoriInterface = require('../interfaces/koriInterface)
 jest.mock('../interfaces/koriInterface', () => {
   return jest.fn().mockImplementation(() => ({
     searchCourses: jest.fn().mockResolvedValue({
-      searchResults: [{ name: 'Intro to CS', groupId: 'CS101', code: 'IntroCS101' }]
+      searchResults: [
+        {
+          name: 'Intro to CS',
+          groupId: 'CS101',
+          code: 'IntroCS101'
+        }
+      ]
     })
   }));
 });
-
 
 const db = require('./index');
 const KoriInterface = require('../interfaces/koriInterface');
@@ -25,7 +44,13 @@ describe('Database operations', () => {
     jest.clearAllMocks();
 
     KoriInterface.prototype.searchCourses = jest.fn().mockResolvedValue({
-      searchResults: [{ name: 'Intro to CS', groupId: 'CS101', code: 'IntroCS101' }]
+      searchResults: [
+        {
+          name: 'Intro to CS',
+          groupId: 'CS101',
+          code: 'IntroCS101'
+        }
+      ]
     });
   });
 
@@ -47,13 +72,22 @@ describe('Database operations', () => {
   
       expect(result).toEqual(mockCourse);
       expect(normalizeSql(require('pg').Pool().query.mock.calls[0][0])).toEqual(normalizeSql(
-        `INSERT INTO courses (kori_id, course_name, hy_course_id) SELECT $1, $2, $3 ON CONFLICT (kori_id) DO NOTHING RETURNING *`
+        `INSERT INTO courses (kori_id, course_name, hy_course_id)
+        SELECT $1, $2, $3
+        ON CONFLICT (kori_id) DO NOTHING
+        RETURNING *`
       ));
-      expect(require('pg').Pool().query.mock.calls[0][1]).toEqual([mockCourse.kori_id, mockCourse.course_name, mockCourse.hy_course_id]);
+      expect(require('pg').Pool().query.mock.calls[0][1]).toEqual([
+        mockCourse.kori_id,
+        mockCourse.course_name,
+        mockCourse.hy_course_id
+        ]
+      );
     });
   });
-  
-  
+
+  //TODO: add test for addManyCourses (if humanly possible)
+
   describe('getCourses', () => {
     it('should retrieve all courses from the database', async () => {
       const mockCourses = [
@@ -65,7 +99,8 @@ describe('Database operations', () => {
         }
       ];
   
-      require('pg').Pool().query.mockResolvedValueOnce({ rows: mockCourses, rowCount: mockCourses.length });
+      require('pg').Pool().query.mockResolvedValueOnce(
+        { rows: mockCourses, rowCount: mockCourses.length });
   
       const result = await db.getCourses();
   
@@ -114,6 +149,8 @@ describe('Database operations', () => {
     });
   });
 
+  //TODO: add test for addManyPrequisiteCourses (if humanly possible)
+  
   describe('removePrerequisiteCourse', () => {
     it('should remove a prerequisite course relation from the database', async () => {
       require('pg').Pool().query.mockResolvedValueOnce({ rowCount: 1 });
