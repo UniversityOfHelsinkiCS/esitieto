@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { pool } = require('../dbStartup');
 const logger = require('../middleware/logger');
-const { getDegrees, 
+const { getDegrees,
+  getStarted, 
   getDegreeId, 
   savePositions,
   resetPositions} = require('../db');
@@ -12,8 +13,10 @@ router.get('/', async (req, res) => {
   /*
   Fetches all degrees from the database and returns them as a JSON array.
   */
+
   try {
-    const result = await pool.query('SELECT * FROM degrees ORDER BY degree_name');
+    //const result = await pool.query('SELECT * FROM degrees ORDER BY degree_name');
+    const result = await getStarted()
     const degrees = result.rows.map(degree => ({ 
       degree_name: degree.degree_name, 
       degree_years: degree.degree_years,
