@@ -1,5 +1,4 @@
-
-export function preprocessContent(htmlContent) {
+export function PreprocessContent(htmlContent) {
     let formattedContent = htmlContent.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?p>/gi, '\n');
     formattedContent = formattedContent.replace(/<[^>]*>/g, '');
     formattedContent = formattedContent.replace(/\n\s*\n\s*\n+/g, '\n\n');
@@ -10,4 +9,4 @@ export function preprocessContent(htmlContent) {
     return formattedContent;
   }
 
-  export default preprocessContent;
+  export default PreprocessContent;
