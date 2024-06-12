@@ -31,6 +31,9 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
         onClick={handleClick}
         variant="contained"
         sx={{
+          position: 'absolute',
+          left: '35px',
+          top: '20px',
           color: 'black',
           backgroundColor: 'white', 
           '&:hover': {

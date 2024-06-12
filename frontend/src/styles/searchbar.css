@@ -1,4 +1,7 @@
 .searchbar {
     z-index: 99;
+    position: absolute;
+    left: 250px;
+    top: 20px;
     background: white;
 }

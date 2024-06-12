@@ -1,4 +1,7 @@
 .info-button {
     background-color: rgb(white) !important;
+    position: absolute;
+    right: 35px;
+    top: 20px;
 
 }
