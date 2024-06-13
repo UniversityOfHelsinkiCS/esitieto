@@ -5,8 +5,6 @@ import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { info, error as displayError } from '../components/messager/messager';
 import { Button } from '@mui/material';
-import Navbar from '../components/Navbar.jsx';
-
 
 const GraphPosSavePage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);

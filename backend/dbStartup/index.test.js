@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const { Pool } = require('pg');
 
 jest.mock('pg', () => {
@@ -10,12 +8,8 @@ jest.mock('pg', () => {
   return { Pool: jest.fn(() => mPool) };
 });
 
-jest.mock('fs');
-jest.mock('path');
-
 describe('index.js tests', () => {
   let OLD_ENV;
-  let mockPool;
 
   beforeAll(() => {
     // Save the current environment variables
@@ -28,7 +22,7 @@ describe('index.js tests', () => {
   });
 
   beforeEach(() => {
-    jest.resetModules(); // This is important - it clears the require cache
+    jest.resetModules(); // clears the require cache
     process.env = { ...OLD_ENV }; // Restore to original environment
 
     // Set the environment variables for the test
@@ -38,8 +32,6 @@ describe('index.js tests', () => {
     process.env.DATABASE_HOST = 'localhost';
     process.env.DATABASE_PORT = '5432';
     process.env.DATABASE_NAME = 'testdb';
-
-    mockPool = new Pool();
   });
 
   afterEach(() => {
@@ -50,7 +42,7 @@ describe('index.js tests', () => {
     const poolSpy = jest.spyOn(require('pg'), 'Pool');
 
     // Load index.js after setting env variables
-    const { pool } = require('./index');
+    require('./index');
 
     console.log(Pool.mock.calls); // Log mock calls
 
@@ -71,7 +63,7 @@ describe('index.js tests', () => {
     const poolSpy = jest.spyOn(require('pg'), 'Pool');
 
     // Load index.js after setting env variables
-    const { pool } = require('./index');
+    require('./index');
 
     console.log(Pool.mock.calls); // Log mock calls
 
@@ -80,6 +72,4 @@ describe('index.js tests', () => {
       connectionString: process.env.DATABASE_DIRECT,
     });
   });
-
-  
 });
