@@ -29,17 +29,6 @@ const selectPool = () => {
 
 const pool = selectPool();
 
-const testDatabaseConnection = async () => {
-  try {
-    const response = await pool.query('SELECT NOW()');
-    logger.info('Successful database connection primary. Current time from DB:', response.rows[0].now);
-  } catch (error) {
-    logger.error('Failed to connect to the database:', error);
-  }
-};
-
-testDatabaseConnection();
-
 // Course CRUD
 
 const addCourse = async (addedCourse) => {
