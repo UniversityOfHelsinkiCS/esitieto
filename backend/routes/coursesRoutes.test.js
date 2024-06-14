@@ -8,11 +8,33 @@ app.use("/", routes);
 
 jest.mock("../db/index");
 
-it("test", async () => {
-  await request(app).post("/databaseCreateCourse").send({
-    official_course_id: "TKT10003",
-    course_name: "Ohjelmoinnin jatkokurssi",
-    kori_name: "TKT10003",
+describe("Add Course", () => {
+  const course = {
+    official_course_id: "CS101",
+    course_name: "Intro to CS",
+    kori_name: "IntroCS101"
+  };
+
+  it('should add a course to database', async () => {
+    const result = await request(app).post("/databaseCreateCourse").send(course);
+    expect(result._body.kori_id).toBe(course.official_course_id);
+    expect(result._body.course_name).toBe(course.course_name);
+    expect(result._body.hy_course_id).toBe(course.kori_name);
+  });
+});
+
+describe("Get Courses", () => {
+  const courses = [{
+    official_course_id: "CS101",
+    course_name: "Intro to CS",
+    kori_name: "IntroCS101"
+  }];
+  it('should get courses from database', async () => {
+    const result = await request(app).get("/databaseGetCourses");
+    console.log('Tulostetaan result._body', result._body)
+    expect(result._body[0].kori_id).toBe(courses[0].official_course_id);
+    expect(result._body[0].course_name).toBe(courses[0].course_name);
+    expect(result._body[0].hy_course_id).toBe(courses[0].kori_name);
   });
 });
 
