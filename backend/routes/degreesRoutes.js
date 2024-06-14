@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { pool } = require('../dbStartup');
+// const { pool } = require('../dbStartup');
 const logger = require('../middleware/logger');
 const { getDegrees,
   getStarted, 

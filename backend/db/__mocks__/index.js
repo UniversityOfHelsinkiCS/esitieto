@@ -18,11 +18,11 @@ const getCourses = () => {
 
 const deleteCourse = (kori_name) => {
   console.log('kori_name @deleteCourse', kori_name)
-  if (kori_name == "IntroCS101") {
+  if (kori_name === "IntroCS101") {
     return 1
   } else {
     return 0
-  };
+  }
 };
 
 module.exports = {

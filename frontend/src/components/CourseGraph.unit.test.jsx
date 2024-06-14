@@ -18,7 +18,6 @@ jest.mock('reactflow', () => {
 });
 
 jest.mock('../utils/layout', () => {
-  const React = require('react');
   return {
     getLayoutedElements: jest.fn(),
   };
