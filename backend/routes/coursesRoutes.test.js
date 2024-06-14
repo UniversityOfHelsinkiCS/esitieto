@@ -31,11 +31,26 @@ describe("Get Courses", () => {
   }];
   it('should get courses from database', async () => {
     const result = await request(app).get("/databaseGetCourses");
-    console.log('Tulostetaan result._body', result._body)
     expect(result._body[0].kori_id).toBe(courses[0].official_course_id);
     expect(result._body[0].course_name).toBe(courses[0].course_name);
     expect(result._body[0].hy_course_id).toBe(courses[0].kori_name);
   });
+});
+
+describe("Delete Course", () => {
+  it('should delete course, if course is found', async () => {
+    const kori_name = 'IntroCS101';
+    const successMsg = 'Course deleted successfully'
+    const result = await request(app).delete(`/databaseDeleteCourse/${kori_name}`);
+    expect(result._body.message).toBe(successMsg)
+  });
+
+  it('should give an error, if course is not found', async () => {
+    const kori_name = 'IntroCS102';
+    const failMsg = 'Course not found or could not be deleted';
+    const result = await request(app).delete(`/databaseDeleteCourse/${kori_name}`);
+    expect(result._body.message).toBe(failMsg)
+  })
 });
 
 describe("Course Searching", () => {
