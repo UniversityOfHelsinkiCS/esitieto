@@ -16,6 +16,11 @@ describe('Test Routes', () => {
     expect(courses.groupId).toBe("hy-CU-118023947");
     expect(JSON.stringify(courses.curriculumPeriodIds)).toBe("[\"hy-lv-74\"]");
   });
+
+  test('Kori Info Responds with error', async() => {
+    const error = await request(app).get('/api/kori/get_info_by_id/').query({search : "TKT00000"});
+    expect(error).toHaveProperty('statusCode', 500);
+  })
   test('Kori search Responds with courses', async () => {
     const response = await request(app).get('/api/kori/getKori/').query({search : "TKT10003"});
     const courses = JSON.parse(response.text).searchResults

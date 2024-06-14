@@ -9,6 +9,12 @@ const KoriInterface = require('../interfaces/koriInterface');
 const { Pool } = require('pg');
 const kori = new KoriInterface();
 
+const getStarted = async () => {
+    const result = await pool.query('SELECT * FROM degrees ORDER BY degree_name')
+    return result;
+};
+
+
 const selectPool = () => {
   if (process.env.DATABASE_POOLMODE === "direct") {
     logger.info("Using direct DATABASE_POOLMODE")
@@ -521,6 +527,7 @@ module.exports = {
   resetPositions,
   //updateCourse,
   getDegrees,
+  getStarted,
   getDegreeId,
   savePositions,
   deleteCourse,
