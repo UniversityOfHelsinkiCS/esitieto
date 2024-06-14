@@ -28,7 +28,8 @@ const selectPool = () => {
 };
 
 const pool = selectPool();
-
+/*
+//TODO: Move this block to an appropriate place (dbStartup (?) and add return error instead of just logging it
 const testDatabaseConnection = async () => {
   try {
     const response = await pool.query('SELECT NOW()');
@@ -39,6 +40,7 @@ const testDatabaseConnection = async () => {
 };
 
 testDatabaseConnection();
+*/
 
 // Course CRUD
 

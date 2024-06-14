@@ -1,6 +1,22 @@
-const { findCourseWithDependencies } = require('./coursesRoutes');
+const routes = require("./coursesRoutes");
+const { findCourseWithDependencies } = require("./coursesRoutes");
+const request = require("supertest");
+const express = require("express");
+const app = express();
+app.use(express.json());
+app.use("/", routes);
 
-describe('Course Searching', () => {
+jest.mock("../db/index");
+
+it("test", async () => {
+  await request(app).post("/databaseCreateCourse").send({
+    official_course_id: "TKT10003",
+    course_name: "Ohjelmoinnin jatkokurssi",
+    kori_name: "TKT10003",
+  });
+});
+
+describe("Course Searching", () => {
   const courses = [
     { name: 'Tietorakenteet ja algoritmit II', identifier: 'Tira2', dependencies: ['Tira1'], type: 'mandatory'},
     { name: 'Tietorakenteet ja algoritmit I', identifier: 'Tira1', dependencies: ['Ohja', 'Jym'], type: 'mandatory'},
