@@ -28,6 +28,19 @@ const selectPool = () => {
 };
 
 const pool = selectPool();
+/*
+//TODO: Move this block to an appropriate place (dbStartup (?) and add return error instead of just logging it
+const testDatabaseConnection = async () => {
+  try {
+    const response = await pool.query('SELECT NOW()');
+    logger.info('Successful database connection primary. Current time from DB:', response.rows[0].now);
+  } catch (error) {
+    logger.error('Failed to connect to the database:', error);
+  }
+};
+
+testDatabaseConnection();
+*/
 
 // Course CRUD
 
