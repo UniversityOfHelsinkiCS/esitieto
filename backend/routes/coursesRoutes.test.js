@@ -38,18 +38,36 @@ describe("Get Courses", () => {
 });
 
 describe("Delete Course", () => {
-  it('should delete course, if course is found', async () => {
+  it('should delete a course, if a course is found', async () => {
     const kori_name = 'IntroCS101';
-    const successMsg = 'Course deleted successfully'
+    const successMsg = 'Course deleted successfully';
     const result = await request(app).delete(`/databaseDeleteCourse/${kori_name}`);
-    expect(result._body.message).toBe(successMsg)
+    expect(result._body.message).toBe(successMsg);
   });
 
-  it('should give an error, if course is not found', async () => {
+  it('should give an error, if a course is not found', async () => {
     const kori_name = 'IntroCS102';
     const failMsg = 'Course not found or could not be deleted';
     const result = await request(app).delete(`/databaseDeleteCourse/${kori_name}`);
-    expect(result._body.message).toBe(failMsg)
+    expect(result._body.message).toBe(failMsg);
+  });
+});
+
+describe("Add Prerequisite Course", () => {
+  it('should add a prerequisite course', async () => {
+    const course_kori_name = "IntroCS102";
+    const prerequisite_course_kori_name = "IntroCS101";
+    const result = await request(app).post("/addPrerequisiteCourse")
+      .send({course_kori_name, prerequisite_course_kori_name});
+    console.log('Tulostetaan result._body', result._body);
+    expect(result._body).toEqual(["IntroCS102", "IntroCS101"]);
+  });
+  it('should fail when given two same courses', async () => {
+    const course_kori_name = "IntroCS102";
+    const prerequisite_course_kori_name = "IntroCS102";
+    const result = await request(app).post("/addPrerequisiteCourse")
+      .send({course_kori_name, prerequisite_course_kori_name});
+    expect(result._body).toEqual([]);
   })
 });
 

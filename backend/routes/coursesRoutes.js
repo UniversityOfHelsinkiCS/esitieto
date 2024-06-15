@@ -76,6 +76,7 @@ router.put('/databaseUpdateCourse/:id', asyncHandler(async (req, res) => {
 
 router.post('/addPrerequisiteCourse', asyncHandler(async (req, res) => {
   const { course_kori_name, prerequisite_course_kori_name } = req.body;
+  console.log('@/addPre', course_kori_name, prerequisite_course_kori_name)
   const newPrerequisite = await addPrerequisiteCourse(course_kori_name, prerequisite_course_kori_name);
   logger.debug("Added new prerequisite course relation", newPrerequisite);
   res.json(newPrerequisite);

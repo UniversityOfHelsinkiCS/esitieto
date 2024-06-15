@@ -17,7 +17,6 @@ const getCourses = () => {
 };
 
 const deleteCourse = (kori_name) => {
-  console.log('kori_name @deleteCourse', kori_name)
   if (kori_name === "IntroCS101") {
     return 1
   } else {
@@ -25,6 +24,17 @@ const deleteCourse = (kori_name) => {
   }
 };
 
+const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
+  console.log(course_hy_id, prerequisite_course_hy_id)
+  if (course_hy_id !== prerequisite_course_hy_id) {
+    return [course_hy_id, prerequisite_course_hy_id]
+  } else {
+    console.log('@', course_hy_id, prerequisite_course_hy_id)
+    return []
+  }
+};
+
+
 module.exports = {
-  addCourse, getCourses, deleteCourse
+  addCourse, getCourses, deleteCourse, addPrerequisiteCourse
 };
