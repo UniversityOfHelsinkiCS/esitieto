@@ -27,3 +27,14 @@
     --text-color: black; /* Dark text color */
   }
 }
+
+.closing-button {
+  background-color: #0e688b;
+  color: white;
+
+}
+
+.dev-portal-button {
+  background-color: #0e688b;
+  color: white;
+}

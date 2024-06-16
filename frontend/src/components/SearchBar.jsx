@@ -64,9 +64,12 @@ export const SearchBar = (props) => {
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params}
         id="textField"
-        data-testid="testTextField" 
+        data-testid="testTextField"
+        InputProps={{ ...params.InputProps, disableUnderline: true}}
         label="Hae kurssi:"
         variant="standard"
+        InputLabelProps={{style: {color: '#fff', fontSize: 20}}}
+        
       />}
     />
     </form>

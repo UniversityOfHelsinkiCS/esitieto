@@ -31,8 +31,8 @@ const InfoBox = ({ isOpen, onClose, baseURL }) => {
       <p></p>
       <p>Tämä sovellus on luotu Ohjelmistotuotanto-kurssin projektityönä Helsingin yliopistolle.</p>
       <p>Lähdekoodi löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">täältä</a></p>
-      <button onClick={onNavigate}>Dev portaali</button>
-      <button onClick={onClose}>Sulje</button>
+      <button onClick={onNavigate} className= 'dev-portal-button'>Dev portaali</button>
+      <button onClick={onClose} className='closing-button'>Sulje</button>
     </div>
   );
 };

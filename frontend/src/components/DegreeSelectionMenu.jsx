@@ -23,23 +23,27 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
   
   return (
     <div>
-      <Button
+     <Button
         id="degreeSelectionButton"
         aria-controls="degree-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        variant="contained"
+        variant="text"
         sx={{
           position: 'absolute',
           left: '35px',
           top: '20px',
-          color: 'black',
-          backgroundColor: 'white', 
+          color: 'inherit',
+          backgroundColor: 'inherit',
           '&:hover': {
-            backgroundColor: 'gray',
+            backgroundColor: 'inherit',
           },
-          height: '47px',
+          minHeight: 'auto',
+          minWidth: 'auto',
+          lineHeight: 'inherit',
+          font: 'inherit',
+          textTransform: 'none',
         }}
       >
         {'Valitse tutkinto'}
