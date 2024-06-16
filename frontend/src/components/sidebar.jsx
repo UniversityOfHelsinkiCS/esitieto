@@ -63,12 +63,18 @@ const Sidebar = ({
       
       {link && (
         <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            window.open(link, '_blank');
-          }}>
-            Kurssi sisussa
+        variant="contained"
+        color="primary"
+        sx={{
+          backgroundColor: '#0e688b', 
+          '&:hover': {
+            backgroundColor: '#0e688b', 
+          }
+        }}
+        onClick={() => {
+          window.open(link, '_blank');
+        }}>
+          Kurssi sisussa
         </Button>
       )}
     </div>

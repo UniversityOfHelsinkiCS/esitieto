@@ -57,11 +57,18 @@ export const SearchBar = (props) => {
 
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
-          <Box component="li" sx={{ p: 2 }} {...props} className="searchResult">
-                {option.hy_course_id} ({option.course_name})
-          </Box>
-        )}
-      sx={{ width: 300 }}
+        <Box component="li" sx={{ p: 2 }} {...props} className="searchResult">
+              {option.hy_course_id} ({option.course_name})
+        </Box>
+      )}
+    sx={{ width: 300,
+      '& .MuiAutocomplete-popupIndicator': {
+        color: 'white',
+      },
+      '& .MuiAutocomplete-clearIndicator': {
+        color: 'white',
+      }
+    }}
       renderInput={(params) => <TextField {...params}
         id="textField"
         data-testid="testTextField"
@@ -69,7 +76,11 @@ export const SearchBar = (props) => {
         label="Hae kurssi:"
         variant="standard"
         InputLabelProps={{style: {color: '#fff', fontSize: 20}}}
-        
+        sx={{
+          '& .MuiInputBase-input': {
+            color: 'white',
+          }
+        }}
       />}
     />
     </form>
