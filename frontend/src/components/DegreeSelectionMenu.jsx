@@ -32,8 +32,8 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
         variant="text"
         sx={{
           position: 'absolute',
-          left: '35px',
-          top: '20px',
+          left: '2%',
+          top: '23%',
           color: 'inherit',
           backgroundColor: 'inherit',
           '&:hover': {
