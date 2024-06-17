@@ -40,6 +40,35 @@ const removePrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
   }
 };
 
+const getDegrees = (degreeCode, degreeYears) => {
+  console.log('@getDegrees', degreeCode, degreeYears)
+  const courses = [
+    {
+        "name": "Johdatus yliopistomatematiikkaan",
+        "kori_id": "hy-CU-117375151",
+        "identifier": "MAT11001",
+        "type": "compulsory",
+        "x": null,
+        "y": null,
+        "dependencies": []
+    },
+    {
+        "name": "Tietorakenteet ja algoritmit I",
+        "kori_id": "hy-CU-132986295",
+        "identifier": "TKT200011",
+        "type": "compulsory",
+        "x": null,
+        "y": null,
+        "dependencies": [
+            "TKT10003",
+            "MAT11001"
+        ]
+    }
+  ]
+  return courses;
+};
+
 module.exports = {
-  addCourse, getCourses, deleteCourse, addPrerequisiteCourse, removePrerequisiteCourse
+  addCourse, getCourses, deleteCourse, addPrerequisiteCourse,
+  removePrerequisiteCourse, getDegrees
 };
