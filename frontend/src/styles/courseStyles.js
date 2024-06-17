@@ -24,7 +24,7 @@ export const alternativeCourse = {
 };
 
 export const mandatoryEdge = {
-    stroke: 'white',
+    stroke: 'black',
     strokeWidth: 3,
     markerStart: 'url(#custom-arrow-mandatory)',
 };
