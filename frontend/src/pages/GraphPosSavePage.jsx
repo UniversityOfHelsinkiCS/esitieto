@@ -47,7 +47,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         displayError("Kurssitietoja ei löytynyt!");
         return;
       }
-      info("Haettiin tutkinto: " + degree.degree_name);
+      //info("Haettiin tutkinto: " + degree.degree_name);
 
     } catch (error) {
       console.error("Error fetching data: ", error);
