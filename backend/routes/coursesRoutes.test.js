@@ -59,7 +59,6 @@ describe("Add Prerequisite Course", () => {
     const prerequisite_course_kori_name = "IntroCS101";
     const result = await request(app).post("/addPrerequisiteCourse")
       .send({course_kori_name, prerequisite_course_kori_name});
-    console.log('Tulostetaan result._body', result._body);
     expect(result._body).toEqual(["IntroCS102", "IntroCS101"]);
   });
   it('should fail when given two same courses', async () => {
@@ -69,6 +68,17 @@ describe("Add Prerequisite Course", () => {
       .send({course_kori_name, prerequisite_course_kori_name});
     expect(result._body).toEqual([]);
   })
+});
+
+describe("Remove Prerequisite Course", () => {
+  it('should remove a prerequisite course', async () => {
+    const course_hy_id = "IntroCS102";
+    const prerequisite_course_hy_id = "IntroCS101";
+    const result = await request(app).delete("/removePrerequisiteCourse")
+      .send({course_hy_id, prerequisite_course_hy_id});
+    const response = { message: 'Prerequisite course relation removed successfully' }
+    expect(result._body).toEqual(response);
+  });
 });
 
 describe("Course Searching", () => {

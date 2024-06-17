@@ -25,16 +25,21 @@ const deleteCourse = (kori_name) => {
 };
 
 const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
-  console.log(course_hy_id, prerequisite_course_hy_id)
   if (course_hy_id !== prerequisite_course_hy_id) {
-    return [course_hy_id, prerequisite_course_hy_id]
+    return [course_hy_id, prerequisite_course_hy_id];
   } else {
-    console.log('@', course_hy_id, prerequisite_course_hy_id)
-    return []
+    return [];
   }
 };
 
+const removePrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
+  if (course_hy_id !== prerequisite_course_hy_id) {
+    return [course_hy_id, prerequisite_course_hy_id];
+  } else {
+    return [];
+  }
+};
 
 module.exports = {
-  addCourse, getCourses, deleteCourse, addPrerequisiteCourse
+  addCourse, getCourses, deleteCourse, addPrerequisiteCourse, removePrerequisiteCourse
 };
