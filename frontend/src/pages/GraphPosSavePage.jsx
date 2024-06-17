@@ -3,7 +3,7 @@ import CourseGraph from '../components/CourseGraph';
 import Course from '../models/Course'
 import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
-import { info, error as displayError } from '../components/messager/messager';
+import { error as displayError } from '../components/messager/messager';
 import { Button } from '@mui/material';
 
 const GraphPosSavePage = ({ axiosInstance }) => {
@@ -43,15 +43,13 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         courseData.y));
 
       setCourses(convertedCourses);
-      if (convertedCourses.length === 0 || convertedCourses == null) {
-        displayError("Kurssitietoja ei löytynyt!");
-        return;
+      if (!convertedCourses || convertedCourses.length === 0) {
+        throw new Error("Kurssitietoja ei löytynyt!");
       }
-      //info("Haettiin tutkinto: " + degree.degree_name);
 
     } catch (error) {
       console.error("Error fetching data: ", error);
-      displayError("Jokin meni pieleen!");
+      displayError(error.message || "Jokin meni pieleen!");
     }
   };
 

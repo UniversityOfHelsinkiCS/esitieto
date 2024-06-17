@@ -3,7 +3,7 @@ import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
 import Messenger from '../components/messager/MessagerComponent';
-import { info, error as displayError } from '../components/messager/messager';
+import { error as displayError } from '../components/messager/messager';
 import { Navbar } from '../components/Navbar.jsx';
 
 
@@ -47,15 +47,14 @@ const MainPage = ({ axiosInstance }) => {
         
       setCourses(convertedCourses);
       setSelectedDegreeName(degree.degree_name);
-      if (convertedCourses.length === 0 || convertedCourses == null) {
-        displayError("Kurssitietoja ei löytynyt!");
-        return;
+      if (!convertedCourses || convertedCourses.length === 0) {
+        throw new Error("Kurssitietoja ei löytynyt!");
       }
       ///info("Haettiin tutkinto: " + degree.degree_name);
 
     } catch (error) {
       console.error("Error fetching data: ", error);
-      displayError("Jokin meni pieleen!");
+      displayError(error.message || "Jokin meni pieleen!");
     }
   };
 
