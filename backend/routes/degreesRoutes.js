@@ -17,12 +17,14 @@ router.get('/', async (req, res) => {
   try {
     //const result = await pool.query('SELECT * FROM degrees ORDER BY degree_name');
     const result = await getStarted()
+    console.log('@degreesRoutes, result', result.body)
     const degrees = result.rows.map(degree => ({ 
       degree_name: degree.degree_name, 
       degree_years: degree.degree_years,
       hy_degree_id: degree.hy_degree_id
     }));
     logger.verbose("Degrees fetched:", degrees);
+    console.log('@degreeRoutes, response', res.json(degrees).body)
     res.json(degrees);
   } catch (error) {
     logger.error(`Error fetching degrees: ${error.message}`);

@@ -7,6 +7,29 @@ const app = express();
 app.use(express.json());
 app.use('/', routes);
 
+// still trying to figure out, how to make this work
+/*
+describe("Open Main Page", () => {
+  const degrees = [
+      {
+        "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+        "degree_years": "2023-2026",
+        "hy_degree_id": "kh50_001"
+      },
+      {
+        "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+        "degree_years": "2023-2026",
+        "hy_degree_id": "kh50_005"
+      }
+    ];
+  it('should get degrees', async () => {
+    const result = await request(app).get('/');
+    //expect(result.status).toBe(200);
+    expect(result).toEqual(degrees);
+  });
+});
+*/
+
 describe("Search By Degree", () => {
   const degreecode = 'kh50_005';
   const degreeyears = '2023-2026';

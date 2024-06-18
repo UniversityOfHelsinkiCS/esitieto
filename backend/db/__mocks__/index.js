@@ -1,3 +1,22 @@
+// this export is under construction with degreesRoutes.test.hs
+const mockGetStarted = jest.fn(() => {
+  return Promise.resolve({
+    rows: [
+      {
+      "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+      "degree_years": "2023-2026",
+      "hy_degree_id": "kh50_001"
+      },
+      {
+      "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+      "degree_years": "2023-2026",
+      "hy_degree_id": "kh50_005"
+      }
+    ],
+    rowCount: 2
+  });
+});
+
 const addCourse = () => {
   return {
     id: 1,
@@ -41,7 +60,6 @@ const removePrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
 };
 
 const getDegrees = (degreeCode, degreeYears) => {
-  console.log('@getDegrees', degreeCode, degreeYears)
   const courses = [
     {
         "name": "Johdatus yliopistomatematiikkaan",
@@ -69,6 +87,6 @@ const getDegrees = (degreeCode, degreeYears) => {
 };
 
 module.exports = {
-  addCourse, getCourses, deleteCourse, addPrerequisiteCourse,
+  getStarted: mockGetStarted, addCourse, getCourses, deleteCourse, addPrerequisiteCourse,
   removePrerequisiteCourse, getDegrees
 };

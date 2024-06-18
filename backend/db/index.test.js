@@ -1,6 +1,41 @@
 // needed for (?): 'const { Pool } = require('pg')
 jest.mock('pg', () => {
-  const mockQuery = jest.fn();
+  const mockQuery = jest.fn((sql) => {
+    if (sql.includes('SELECT * FROM degrees ORDER BY degree_name')) {
+      return Promise.resolve({
+        rows: [
+          {
+              "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+              "degree_years": "2023-2026",
+              "hy_degree_id": "kh50_001"
+          },
+          {
+              "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+              "degree_years": "2023-2026",
+              "hy_degree_id": "kh50_005"
+          }
+        ],
+        rowCount: 2
+      });
+    }
+    return Promise.resolve ({
+      rows: [
+        { 
+          id: 1,
+          kori_id: 'CS101',
+          course_name: 'Intro to CS',
+          hy_course_id: 'IntroCS101' 
+        }
+      ],
+      rowCount: 1
+    });
+  });
+  return {
+    Pool: jest.fn(() => ({
+      query: mockQuery,
+    })),
+  };
+  /* //the original return, before mock was altered to serve other queries
   return {
     Pool: jest.fn(() => ({
       query: mockQuery.mockResolvedValueOnce(
@@ -17,8 +52,8 @@ jest.mock('pg', () => {
         }
       ),
     })),
-  };
-});
+  }; */
+}); 
 
 // needed for (?): 'const KoriInterface = require('../interfaces/koriInterface)
 jest.mock('../interfaces/koriInterface', () => {
@@ -54,6 +89,28 @@ describe('Database operations', () => {
     });
   });
 
+  describe('getStarted', () => {
+    
+    it('should return degrees from database', async () => {
+      const expected = {
+        rows: [
+          {
+              "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+              "degree_years": "2023-2026",
+              "hy_degree_id": "kh50_001"
+          },
+          {
+              "degree_name": "Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026",
+              "degree_years": "2023-2026",
+              "hy_degree_id": "kh50_005"
+          }
+        ],
+        rowCount: 2
+      }
+      const result = await db.getStarted();
+      expect(result).toEqual(expected);
+    });
+  });
   // --- Courses ---
   
   describe('addCourse', () => {
