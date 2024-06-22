@@ -12,10 +12,10 @@ console.log('VITE_DEV_PORT:', devPort);
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: inDeployment ? '/esitieto/' : '/',
+  base: process.env.VITE_BASE_PATH || '/',
   server: {
     proxy: {
-      '/api/': {
+      '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
         secure: false,
