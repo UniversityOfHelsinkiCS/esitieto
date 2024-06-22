@@ -17,7 +17,8 @@ const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
 
-app.use(express.static('./dist'));
+// app.use(express.static('./dist'));
+app.use(express.static('*'));
 executeSchemaFile();
 insertDataFromJson();
 
