@@ -21,7 +21,6 @@ const userMiddleware = async (req, _res, next) => {
     }
     req.kirjauduttu = true;
 
-
     const {
         uid: username,
         mail: email,
@@ -42,6 +41,8 @@ const userMiddleware = async (req, _res, next) => {
     }
 
     req.user = user
+
+    console.log(user)
 
     return next()
 }
