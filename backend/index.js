@@ -17,8 +17,7 @@ const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
 
-// app.use(express.static('./dist'));
-app.use(express.static('*'));
+app.use(express.static('./dist'));
 executeSchemaFile();
 insertDataFromJson();
 
@@ -37,6 +36,8 @@ app.get('/api/getCourses', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+app.get('*', (req, res) => res.sendFile(path.join('./dist', 'index.html')))
 
 app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
