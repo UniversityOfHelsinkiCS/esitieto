@@ -21,11 +21,13 @@ function App() {
   //  padding: 5
   //}
 
+  const basePath = import.meta.env.BASE_URL || '/';
+
   return (
-    <Router forceRefresh={true}>
+    <Router basename={basePath} forceRefresh={true}>
       <Routes>
-        <Route path={`${import.meta.env.BASE_URL}/kirjauduttu`} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
-        <Route path={`${import.meta.env.BASE_URL}/public`} element={<MainPage axiosInstance={axiosInstance} />} />
+        <Route path={"kirjauduttu"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
+        <Route path={"public"} element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
 
