@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors');
 const morgan = require('morgan');
 const logger = require('./middleware/logger');
-const path = require('path');
 
 
 const app = express()
@@ -18,6 +17,7 @@ const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
 
+app.use(express.static('./dist'));
 executeSchemaFile();
 insertDataFromJson();
 
@@ -25,8 +25,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(userMiddleware)
-
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.get('/api/getCourses', async (req, res) => {
   try {
@@ -43,10 +41,6 @@ app.use('/api/courses', coursesRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
 app.use('/api/kirjauduttu', loginRoutes);
-
-app.get('*', (req, res) => {
-   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))
-});
 
 app.use((req, res) => {
   logger.warn(`Attempted access an undefined route: ${req.originalUrl}`);
