@@ -5,7 +5,6 @@ import './App.css'
 
 import MainPage from './pages/MainPage';
 import GraphPosSavePage from './pages/GraphPosSavePage';
-import LoginPage from './pages/LoginPage';
 
 import {
   BrowserRouter as Router,
