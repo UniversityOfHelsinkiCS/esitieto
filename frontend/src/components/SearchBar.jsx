@@ -67,12 +67,17 @@ export const SearchBar = (props) => {
       },
       '& .MuiAutocomplete-clearIndicator': {
         color: 'white',
-      }
+      },
+      '& .MuiInput-underline:before': {
+        borderBottomColor: 'white' 
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'white' 
+      },
     }}
       renderInput={(params) => <TextField {...params}
         id="textField"
         data-testid="testTextField"
-        InputProps={{ ...params.InputProps, disableUnderline: true}}
         label="Hae kurssi:"
         variant="standard"
         InputLabelProps={{style: {color: '#fff', fontSize: 20}}}
