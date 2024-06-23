@@ -36,9 +36,31 @@ Here you will find httpd-config under Volumes. Clicking the hyperlink will open 
 
 ![Shibboleth_OpenShift_Topo.png](/documentation/images/shibboleth-guide/Shibboleth_view_or_edit_config.png)
 
-If you want to edit the config you will need to switch to the "YAML" side. When you scroll to the bottom of the config it will look something like this:
+If you want to edit the config you will need to switch to the "YAML" side. When you scroll to the bottom of the config. It looks like this:
 
-![Shibboleth_OpenShift_Topo.png](/documentation/images/shibboleth-guide/Shibboleth_edit_httpd-config.png)
+```
+<Location /esitieto/api>
+    AuthType shibboleth
+    ShibUseHeaders On
+    ShibRequestSetting requireSession 1
+    require shib-session
+
+    ProxyPreserveHost On
+    ProxyPass http://kurssiesitieto-staging:3001/api retry=0 disablereuse=On
+    ProxyPassReverse http://kurssiesitieto-staging:3001/api
+</Location>
+
+<Location /esitieto>
+    satisfy any
+
+    ProxyPreserveHost On
+    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=Off
+    ProxyPassReverse http://kurssiesitieto-staging:3001
+</Location>
+
+ProxyPass "/Shibboleth.sso" !
+ProxyPass /shibboleth.sp" !
+```
 
 Here you can see /esitieto path and the unused /esitieto/kirjauduttu. The stuff inside determines if it is just a pass through route like /esitieto or a SSO route like /esitieto/kirjauduttu.
 
