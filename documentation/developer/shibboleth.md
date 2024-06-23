@@ -62,7 +62,7 @@ ProxyPass "/Shibboleth.sso" !
 ProxyPass /shibboleth.sp" !
 ```
 
-Here you can see /esitieto path and the unused /esitieto/kirjauduttu. The stuff inside determines if it is just a pass through route like /esitieto or a SSO route like /esitieto/kirjauduttu.
+Here you can see /esitieto path and the unused /esitieto/api. The stuff inside determines if it is just a pass through route like /esitieto or a SSO route like /esitieto/api. Shibboleth config was created together with Toska-group.
 
 **Every time you change the config you need to restart the Shibboleth pod**
 
