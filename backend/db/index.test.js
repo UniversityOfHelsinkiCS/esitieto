@@ -128,7 +128,7 @@ describe('Database operations', () => {
   
       const result = await db.getDegreeId();
   
-      expect(result).toEqual(mockDegrees.id);
+      expect(result.id).toEqual(mockDegrees.id);
       expect(require('pg').Pool().query).toHaveBeenCalledTimes(1);
 
     });

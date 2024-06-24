@@ -43,7 +43,6 @@ const deleteCourse = (kori_name) => {
 };
 
 const getDegreeId = (degreeId, degreeYears) => {
-  console.log('@getDegreeId', degreeId, degreeYears)
   const degrees = [
     {
       "id":"1",
