@@ -43,6 +43,19 @@ const deleteCourse = (kori_name) => {
   }
 };
 
+const getDegreeId = (degreeId, degreeYears) => {
+  console.log('@getDegreeId', degreeId, degreeYears)
+  const degrees = [
+    {
+      "id":"1",
+      "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+      "hy_degree_id": "kh50_001",
+      "degree_years": "2023-2026"
+    }
+  ]
+  return degrees.id;
+}
+
 const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
   if (course_hy_id !== prerequisite_course_hy_id) {
     return [course_hy_id, prerequisite_course_hy_id];
@@ -88,5 +101,5 @@ const getDegrees = (degreeCode, degreeYears) => {
 
 module.exports = {
   getStarted: mockGetStarted, addCourse, getCourses, deleteCourse, addPrerequisiteCourse,
-  removePrerequisiteCourse, getDegrees
+  removePrerequisiteCourse, getDegrees, getDegreeId
 };
