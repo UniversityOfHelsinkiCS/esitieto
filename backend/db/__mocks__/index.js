@@ -1,4 +1,3 @@
-// this export is under construction with degreesRoutes.test.hs
 const mockGetStarted = jest.fn(() => {
   return Promise.resolve({
     rows: [

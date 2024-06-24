@@ -8,7 +8,7 @@ app.use(express.json());
 app.use('/', routes);
 
 // still trying to figure out, how to make this work
-/*
+
 describe("Open Main Page", () => {
   const degrees = [
       {
@@ -23,12 +23,12 @@ describe("Open Main Page", () => {
       }
     ];
   it('should get degrees', async () => {
-    const result = await request(app).get('/');
-    //expect(result.status).toBe(200);
-    expect(result).toEqual(degrees);
+    const result = await request(app).get('/')
+    expect(result.status).toBe(200);
+    expect(result._body).toEqual(degrees);
   });
 });
-*/
+
 
 describe("Search By Degree", () => {
   const degreecode = 'kh50_005';
