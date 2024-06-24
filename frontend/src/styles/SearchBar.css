@@ -20,8 +20,12 @@
   font-size: 20px !important;
 }
 
-#textField .MuiInput-underline:before {
-  border-bottom: none !important;
+.textFieldInput .MuiInput-underline:before {
+  border-bottom-color: white !important;
+}
+
+.textFieldInput .MuiInput-underline:after {
+  border-bottom-color: white !important;
 }
 
 .MuiAutocomplete-popupIndicator {
