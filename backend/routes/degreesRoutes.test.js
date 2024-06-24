@@ -7,8 +7,6 @@ const app = express();
 app.use(express.json());
 app.use('/', routes);
 
-// still trying to figure out, how to make this work
-
 describe("Open Main Page", () => {
   const degrees = [
       {
