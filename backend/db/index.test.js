@@ -111,6 +111,28 @@ describe('Database operations', () => {
       expect(result).toEqual(expected);
     });
   });
+
+  describe('getDegreeId', () => {
+    it('should retrieve degreeid from database', async () => {
+      const mockDegrees = [
+        {
+          "id":"1",
+          "degree_name": "Matemaattisten tieteiden kandiohjelma 2023-2026",
+          "hy_degree_id": "kh50_001",
+          "degree_years": "2023-2026"
+        }
+      ];
+
+      require('pg').Pool().query.mockResolvedValueOnce(
+        { rows: mockDegrees, rowCount: mockDegrees.length });
+  
+      const result = await db.getDegreeId();
+  
+      expect(result).toEqual(mockDegrees.id);
+      expect(require('pg').Pool().query).toHaveBeenCalledTimes(1);
+
+    });
+  });
   // --- Courses ---
   
   describe('addCourse', () => {
