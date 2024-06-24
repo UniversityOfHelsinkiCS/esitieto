@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import "../styles/searchbar.css"
+import "../styles/SearchBar.css"
 import Autocomplete from '@mui/material/Autocomplete';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -57,35 +57,18 @@ export const SearchBar = (props) => {
 
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
       renderOption={(props, option) => (
-        <Box component="li" sx={{ p: 2 }} {...props} className="searchResult">
+        <Box component="li" {...props} className="searchResult">
               {option.hy_course_id} ({option.course_name})
         </Box>
       )}
-    sx={{ width: 300,
-      '& .MuiAutocomplete-popupIndicator': {
-        color: 'white',
-      },
-      '& .MuiAutocomplete-clearIndicator': {
-        color: 'white',
-      },
-      '& .MuiInput-underline:before': {
-        borderBottomColor: 'white' 
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: 'white' 
-      },
-    }}
+    
       renderInput={(params) => <TextField {...params}
         id="textField"
         data-testid="testTextField"
         label="Hae kurssi:"
         variant="standard"
-        InputLabelProps={{style: {color: '#fff', fontSize: 20}}}
-        sx={{
-          '& .MuiInputBase-input': {
-            color: 'white',
-          }
-        }}
+        className="textFieldInput"
+        
       />}
     />
     </form>

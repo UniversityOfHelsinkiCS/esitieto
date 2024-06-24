@@ -1,9 +1,45 @@
 .searchbar {
-    z-index: 99;
-    position: absolute;
-    border: none;
-    left: 14%;
-    top: 10%;
-    background: inherit;
+  z-index: 99;
+  position: absolute;
+  border: none;
+  left: 14%;
+  top: 10%;
+  background: inherit;
+}
 
+.autocomplete {
+  width: 300px;
+}
+
+#textField .MuiInputBase-input {
+  color: white !important;
+}
+
+#textField .MuiInputLabel-root {
+  color: white !important;
+  font-size: 20px !important;
+}
+
+#textField .MuiInput-underline:before {
+  border-bottom: none !important;
+}
+
+.MuiAutocomplete-popupIndicator {
+  color: white !important;
+}
+
+.MuiAutocomplete-clearIndicator {
+  color: white !important;
+}
+
+.searchResult {
+  padding: 2px;
+}
+
+.textFieldInput .MuiInputBase-root {
+  color: white !important;
+}
+
+.textFieldInput .MuiFormLabel-root {
+  color: white !important;
 }

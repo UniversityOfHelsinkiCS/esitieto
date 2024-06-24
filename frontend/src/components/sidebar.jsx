@@ -63,14 +63,9 @@ const Sidebar = ({
       
       {link && (
         <Button
+        className="sisu-button"
         variant="contained"
-        color="primary"
-        sx={{
-          backgroundColor: '#0e688b', 
-          '&:hover': {
-            backgroundColor: '#0e688b', 
-          }
-        }}
+        
         onClick={() => {
           window.open(link, '_blank');
         }}>

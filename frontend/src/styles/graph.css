@@ -1,3 +1,8 @@
+:root {
+    --background-color: #555;
+  }
+
+
 .reactflow-wrapper {
     position: absolute;
     top: 90px;

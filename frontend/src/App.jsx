@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import './App.css'
+import './styles/App.css'
 
 import MainPage from './pages/MainPage';
 import GraphPosSavePage from './pages/GraphPosSavePage';

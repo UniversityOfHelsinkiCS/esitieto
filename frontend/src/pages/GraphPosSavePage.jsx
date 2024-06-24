@@ -5,6 +5,7 @@ import DegreeSelectionMenu from '../components/DegreeSelectionMenu';
 import Messenger from '../components/messager/MessagerComponent';
 import { error as displayError } from '../components/messager/messager';
 import { Button } from '@mui/material';
+import '../styles/GraphPosSavePage.css';
 
 const GraphPosSavePage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
@@ -146,14 +147,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         <Button
         id="position-save"
         onClick={handleNewPositions}
-        sx={{
-          color: 'black',
-          backgroundColor: 'white', 
-          '&:hover': {
-            backgroundColor: 'gray',
-          },
-          height: '47px',
-        }}
+        className="position-save-button"
       >
         {'Tallenna sijainnit'}
       </Button>
@@ -162,14 +156,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         <Button
         id="position-reset"
         onClick={resetPositions}
-        sx={{
-          color: 'black',
-          backgroundColor: 'white', 
-          '&:hover': {
-            backgroundColor: 'gray',
-          },
-          height: '47px',
-        }}
+        className="position-reset-button"
       >
         {'Nollaa sijainnit'}
       </Button>

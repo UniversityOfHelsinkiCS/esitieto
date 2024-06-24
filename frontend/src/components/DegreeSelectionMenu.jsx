@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
-
+import '../styles/DegreeSelectionMenu.css';
 
 
 function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
@@ -28,23 +28,7 @@ function DegreeSelectionMenu({ onDegreeChange, listOfDegrees }) {
         aria-controls="degree-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        variant="text"
-        sx={{
-          position: 'absolute',
-          left: '2%',
-          top: '23%',
-          color: 'inherit',
-          backgroundColor: 'inherit',
-          '&:hover': {
-            backgroundColor: 'inherit',
-          },
-          minHeight: 'auto',
-          minWidth: 'auto',
-          lineHeight: 'inherit',
-          font: 'inherit',
-          textTransform: 'none',
-        }}
+        onClick={handleClick}        
       >
         {'Valitse tutkinto'}
       </Button>

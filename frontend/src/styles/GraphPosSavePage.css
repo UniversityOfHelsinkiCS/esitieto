@@ -1,0 +1,21 @@
+.degree-menu-container {
+    margin: 20px 0;
+  }
+  
+  .position-save-container,
+  .position-reset-container {
+    margin: 10px 0;
+  }
+  
+  .position-save-button,
+  .position-reset-button {
+    color: black !important;
+    background-color: white !important;
+    height: 47px !important;
+  }
+  
+  .position-save-button:hover,
+  .position-reset-button:hover {
+    background-color: gray !important;
+  }
+  

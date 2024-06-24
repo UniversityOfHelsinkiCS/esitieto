@@ -1,0 +1,16 @@
+#degreeSelectionButton {
+  position: absolute;
+  left: 2%;
+  top: 23%;
+  color: inherit;
+  background-color: inherit;
+  min-height: auto;
+  min-width: auto;
+  line-height: inherit;
+  font: inherit;
+  text-transform: none;
+}
+  
+  #degreeSelectionButton:hover {
+    background-color: inherit;
+  }

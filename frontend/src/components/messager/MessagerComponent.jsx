@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './messager.css';
+import '../../styles/MessagerComponent.css';
 import { subscribeToMessages } from './messager';
 
 const Messenger = () => {

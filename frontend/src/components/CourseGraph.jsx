@@ -96,6 +96,10 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
         onSave();
     }, [nodes])
 
+    // Get the value of the CSS variable
+    const rootStyles = getComputedStyle(document.documentElement);
+    const backgroundColor = rootStyles.getPropertyValue('--background-color').trim();
+
     return (
         <div className='reactflow-wrapper'>
             <CustomEdge />
@@ -119,7 +123,7 @@ const CourseGraph = ({ axiosInstance, courses, setIsSidebarOpen, setSelectedCour
                 elementsSelectable={!disabled}
             >
                 <Controls />
-                <Background color="#555" gap={32} />
+                <Background color={backgroundColor} gap={32} /> 
 
             </ReactFlow>
 
