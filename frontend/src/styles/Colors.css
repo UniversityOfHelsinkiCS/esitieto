@@ -1,0 +1,36 @@
+:root {
+  --background-color-primary:#0e688b;
+  --background-color-secondary: white;
+  --text-color-primary: white;
+  --button-background-color: #0e688b;
+  --button-background-color-hover: #1180a0;
+  --button-border-color-hover: #646cff;
+  --button-focus-outline-color: -webkit-focus-ring-color;
+  --link-color: #646cff;
+  --link-color-hover: #535bf2;
+
+  --info-window-background-color: white;
+  --info-window-text-color: black;
+
+  --edit-screen-button-background-color: #ffffff;
+  --edit-screen-button-background-color-hover: gray;
+  --edit-screen-text-color: #000000;
+  
+  --sidebar-background-color: white;
+  --sidebar-text-color: black;
+  --sidebar-button-text-color: white;  
+  
+  --searchbar-color-primary: white;
+
+  --messenger-background-info: 
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 10%, transparent 80%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, transparent 10%, transparent 80%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(rgba(88, 100, 139, 0.9), rgba(88, 100, 139, 0.9));
+  --messenger-background-error: 
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 10%, transparent 80%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, transparent 10%, transparent 80%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(rgba(200, 40, 40, 0.9), rgba(200, 40, 40, 0.9));
+  --messenger-text-color: white;
+
+  }
+  
