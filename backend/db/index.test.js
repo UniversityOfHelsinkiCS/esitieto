@@ -1,6 +1,7 @@
 // needed for (?): 'const { Pool } = require('pg')
 jest.mock('pg', () => {
   const mockQuery = jest.fn((sql) => {
+    //implementation for getStarted
     if (sql.includes('SELECT * FROM degrees ORDER BY degree_name')) {
       return Promise.resolve({
         rows: [
@@ -17,18 +18,53 @@ jest.mock('pg', () => {
         ],
         rowCount: 2
       });
+    //implementation for getCourseWithReqursivePrerequisites  
+    } else if (sql[0].includes('WITH RECURSIVE PrerequisitePath AS')) {
+      return Promise.resolve({
+        rows: [
+          {
+            "id": "10",
+            "kori_id": "hy-CU-117375394",
+            "course_name": "Lineaarialgebra ja matriisilaskenta I",
+            "identifier": "MAT11002",
+            "dependencies": [
+              "MAT11001"
+            ]
+          },
+          {
+            "id": "5",
+            "kori_id": "hy-CU-117375151",
+            "course_name": "Johdatus yliopistomatematiikkaan",
+            "hy_course_id": "MAT11001",
+            "dependencies": []
+          },
+          {
+            "id": "16",
+            "kori_id": "hy-CU-117375754",
+            "course_name": "Lineaarialgebra ja matriisilaskenta II",
+            "identifier": "MAT21001",
+            "dependencies": [
+              "MAT11002"
+            ]
+          }
+        ],
+        rowcount: 3
+      });
+    //default implementation
+    } else {
+      return Promise.resolve ({
+        rows: [
+          { 
+            id: 1,
+            kori_id: 'CS101',
+            course_name: 'Intro to CS',
+            hy_course_id: 'IntroCS101' 
+          }
+        ],
+        rowCount: 1
+      });
     }
-    return Promise.resolve ({
-      rows: [
-        { 
-          id: 1,
-          kori_id: 'CS101',
-          course_name: 'Intro to CS',
-          hy_course_id: 'IntroCS101' 
-        }
-      ],
-      rowCount: 1
-    });
+
   });
   return {
     Pool: jest.fn(() => ({
@@ -106,7 +142,7 @@ describe('Database operations', () => {
           }
         ],
         rowCount: 2
-      }
+      };
       const result = await db.getStarted();
       expect(result).toEqual(expected);
     });
@@ -164,8 +200,6 @@ describe('Database operations', () => {
       );
     });
   });
-
-  //TODO: add test for addManyCourses (if humanly possible)
 
   describe('getCourses', () => {
     it('should retrieve all courses from the database', async () => {
@@ -228,8 +262,6 @@ describe('Database operations', () => {
     });
   });
 
-  //TODO: add test for addManyPrequisiteCourses (if humanly possible)
-  
   describe('removePrerequisiteCourse', () => {
     it('should remove a prerequisite course relation from the database', async () => {
       require('pg').Pool().query.mockResolvedValueOnce({ rowCount: 1 });
@@ -243,6 +275,47 @@ describe('Database operations', () => {
   
       expect(actualSql).toEqual(expectedSql);
       expect(require('pg').Pool().query.mock.calls[0][1]).toEqual([course_hy_id, prerequisite_course_hy_id]);
+    });
+  });
+
+  describe('getCourseWithReqursivePrerequisites', () => {
+    it('should find recursively all prerequisite courses for a given course', async () => {
+      const mockCourses = {
+        rows: [
+          {
+            "id": "10",
+            "kori_id": "hy-CU-117375394",
+            "course_name": "Lineaarialgebra ja matriisilaskenta I",
+            "identifier": "MAT11002",
+            "dependencies": [
+              "MAT11001"
+            ]
+          },
+          {
+            "id": "5",
+            "kori_id": "hy-CU-117375151",
+            "course_name": "Johdatus yliopistomatematiikkaan",
+            "hy_course_id": "MAT11001",
+            "dependencies": []
+          },
+          {
+            "id": "16",
+            "kori_id": "hy-CU-117375754",
+            "course_name": "Lineaarialgebra ja matriisilaskenta II",
+            "identifier": "MAT21001",
+            "dependencies": [
+              "MAT11002"
+            ]
+          }
+        ],
+        rowcount: 3
+      };
+      const hy_course_id = "MAT21001";
+      require('pg').Pool().query.mockResolvedValueOnce(
+        { rows: mockCourses, rowCount: mockCourses.length });
+      const response = await db.getCourseWithReqursivePrerequisites(hy_course_id);
+      expect(response).toEqual(mockCourses);
+      expect(require('pg').Pool().query).toHaveBeenCalledTimes(1);
     });
   });
 });
