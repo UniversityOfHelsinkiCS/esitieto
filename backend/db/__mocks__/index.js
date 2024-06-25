@@ -25,14 +25,19 @@ const addCourse = () => {
   };
 };
 
-const getCourses = () => {
-  return [{
-    id: 1,
-    kori_id: "CS101",
-    course_name: "Intro to CS",
-    hy_course_id: "IntroCS101"
-  }];
-};
+const mockGetCourses = jest.fn(() => {
+  return Promise.resolve({
+    rows: [
+      {
+        "id": "1",
+        "kori_id": "CS101",
+        "course_name": "Intro to CS",
+        "hy_course_id": "IntroCS101"
+      }
+    ],
+    rowcount: 1
+  });
+});
 
 const deleteCourse = (kori_name) => {
   if (kori_name === "IntroCS101") {
@@ -53,40 +58,6 @@ const mockGetDegreeId = jest.fn(() => {
       }
     ],
     rowcount: 1
-  });
-});
-
-const mockGetCourseWithReqursivePrerequisites = jest.fn(() => {
-  return Promise.resolve({
-    //prerequisities for MAT21001 Lineaarialgebra ja matriisilaskenta II
-    rows: [
-      {
-        "id": "10",
-        "kori_id": "hy-CU-117375394",
-        "course_name": "Lineaarialgebra ja matriisilaskenta I",
-        "identifier": "MAT11002",
-        "dependencies": [
-          "MAT11001"
-        ]
-      },
-      {
-        "id": "5",
-        "kori_id": "hy-CU-117375151",
-        "course_name": "Johdatus yliopistomatematiikkaan",
-        "hy_course_id": "MAT11001",
-        "dependencies": []
-      },
-      {
-        "id": "16",
-        "kori_id": "hy-CU-117375754",
-        "course_name": "Lineaarialgebra ja matriisilaskenta II",
-        "identifier": "MAT21001",
-        "dependencies": [
-          "MAT11002"
-        ]
-      }
-    ],
-    rowcount: 3
   });
 });
 
@@ -134,13 +105,7 @@ const getDegrees = (degreeCode, degreeYears) => {
 };
 
 module.exports = {
-  getStarted: mockGetStarted,
-  addCourse,
-  getCourses,
-  deleteCourse,
-  addPrerequisiteCourse,
-  removePrerequisiteCourse,
-  getDegrees,
-  getDegreeId: mockGetDegreeId,
-  getCourseWithReqursivePrerequisites: mockGetCourseWithReqursivePrerequisites
+  getStarted: mockGetStarted, addCourse, getCourses: mockGetCourses,
+  deleteCourse, addPrerequisiteCourse, removePrerequisiteCourse,
+  getDegrees, getDegreeId: mockGetDegreeId
 };
