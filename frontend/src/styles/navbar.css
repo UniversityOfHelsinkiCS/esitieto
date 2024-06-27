@@ -5,15 +5,12 @@
   right: 0;
   height: 90px;
   z-index: 99;
-  background: #0e688b;
 }
 
 .nav li {
   display: inline-block;
   font-size: 20px;
   padding: 10px;
-  color: white;
-  background-color: transparent;
 }
 
 .degree-name{
