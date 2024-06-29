@@ -16,11 +16,12 @@ const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userMiddleware = require('./middleware/user');
+const path = require('path');
 
 executeSchemaFile();
 insertDataFromJson();
 
-app.use(express.static('./dist'));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use(cors());
 app.use(express.json());
@@ -44,7 +45,7 @@ app.use('/api/kori', koriRoutes);
 app.use('/api/kirjauduttu', loginRoutes);
 
 app.get('*', (req, res) => {
-  res.sendFile('./dist', 'index.html')
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'))
 });
 
 app.use((req, res) => {
