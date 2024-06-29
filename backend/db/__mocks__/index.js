@@ -25,6 +25,14 @@ const addCourse = () => {
   };
 };
 
+const deleteCourse = (kori_name) => {
+  if (kori_name === "IntroCS101") {
+    return 1
+  } else {
+    return 0
+  }
+};
+
 const mockGetCourses = jest.fn(() => {
   return Promise.resolve({
     rows: [
@@ -36,6 +44,40 @@ const mockGetCourses = jest.fn(() => {
       }
     ],
     rowcount: 1
+  });
+});
+
+const mockGetCourseWithReqursivePrerequisites = jest.fn(() => {
+  return Promise.resolve({
+    //prerequisities for MAT21001 Lineaarialgebra ja matriisilaskenta II
+    rows: [
+      {
+        "id": "10",
+        "kori_id": "hy-CU-117375394",
+        "course_name": "Lineaarialgebra ja matriisilaskenta I",
+        "identifier": "MAT11002",
+        "dependencies": [
+          "MAT11001"
+        ]
+      },
+      {
+        "id": "5",
+        "kori_id": "hy-CU-117375151",
+        "course_name": "Johdatus yliopistomatematiikkaan",
+        "hy_course_id": "MAT11001",
+        "dependencies": []
+      },
+      {
+        "id": "16",
+        "kori_id": "hy-CU-117375754",
+        "course_name": "Lineaarialgebra ja matriisilaskenta II",
+        "identifier": "MAT21001",
+        "dependencies": [
+          "MAT11002"
+        ]
+      }
+    ],
+    rowcount: 3
   });
 });
 
