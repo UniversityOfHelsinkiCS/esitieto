@@ -1,8 +1,7 @@
-@import url('./Colors.css');
-
 :root {
-    --background-color: var(--background-color-secondary);
+    --background-color: #555;
   }
+
 
 .reactflow-wrapper {
     position: absolute;
@@ -10,7 +9,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--background-color-secondary);
+    background-color: white;
 }
 
 .edit {

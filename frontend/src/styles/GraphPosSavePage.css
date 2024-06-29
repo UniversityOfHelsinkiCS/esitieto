@@ -9,13 +9,13 @@
   
   .position-save-button,
   .position-reset-button {
-    color: var(--edit-screen-text-color) !important;
-    background-color: var(--edit-screen-button-background-color) !important;
+    color: black !important;
+    background-color: white !important;
     height: 47px !important;
   }
   
   .position-save-button:hover,
   .position-reset-button:hover {
-    background-color: var(--edit-screen-button-background-color-hover) !important;
+    background-color: gray !important;
   }
   

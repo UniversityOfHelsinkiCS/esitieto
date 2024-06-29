@@ -1,12 +1,10 @@
-@import url('./Colors.css');
-
 .searchbar {
   z-index: 99;
   position: absolute;
   border: none;
   left: 14%;
   top: 10%;
-  /*background: inherit;*/
+  background: inherit;
 }
 
 .autocomplete {
@@ -14,28 +12,28 @@
 }
 
 #textField .MuiInputBase-input {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
 }
 
 #textField .MuiInputLabel-root {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
   font-size: 20px !important;
 }
 
 .textFieldInput .MuiInput-underline:before {
-  border-bottom-color: var(--searchbar-color-primary) !important;
+  border-bottom-color: white !important;
 }
 
 .textFieldInput .MuiInput-underline:after {
-  border-bottom-color: var(--searchbar-color-primary) !important;
+  border-bottom-color: white !important;
 }
 
 .MuiAutocomplete-popupIndicator {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
 }
 
 .MuiAutocomplete-clearIndicator {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
 }
 
 .searchResult {
@@ -43,9 +41,9 @@
 }
 
 .textFieldInput .MuiInputBase-root {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
 }
 
 .textFieldInput .MuiFormLabel-root {
-  color: var(--searchbar-color-primary) !important;
+  color: white !important;
 }

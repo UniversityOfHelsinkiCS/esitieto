@@ -25,19 +25,14 @@ const addCourse = () => {
   };
 };
 
-const mockGetCourses = jest.fn(() => {
-  return Promise.resolve({
-    rows: [
-      {
-        "id": "1",
-        "kori_id": "CS101",
-        "course_name": "Intro to CS",
-        "hy_course_id": "IntroCS101"
-      }
-    ],
-    rowcount: 1
-  });
-});
+const getCourses = () => {
+  return [{
+    id: 1,
+    kori_id: "CS101",
+    course_name: "Intro to CS",
+    hy_course_id: "IntroCS101"
+  }];
+};
 
 const deleteCourse = (kori_name) => {
   if (kori_name === "IntroCS101") {
@@ -60,14 +55,6 @@ const mockGetDegreeId = jest.fn(() => {
     rowcount: 1
   });
 });
-
-const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
-  if (course_hy_id !== prerequisite_course_hy_id) {
-    return [course_hy_id, prerequisite_course_hy_id];
-  } else {
-    return [];
-  }
-};
 
 const mockGetCourseWithReqursivePrerequisites = jest.fn(() => {
   return Promise.resolve({
@@ -102,6 +89,14 @@ const mockGetCourseWithReqursivePrerequisites = jest.fn(() => {
     rowcount: 3
   });
 });
+
+const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
+  if (course_hy_id !== prerequisite_course_hy_id) {
+    return [course_hy_id, prerequisite_course_hy_id];
+  } else {
+    return [];
+  }
+};
 
 const removePrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
   if (course_hy_id !== prerequisite_course_hy_id) {
@@ -139,8 +134,13 @@ const getDegrees = (degreeCode, degreeYears) => {
 };
 
 module.exports = {
-  getStarted: mockGetStarted, addCourse, getCourses: mockGetCourses,
-  deleteCourse, addPrerequisiteCourse, removePrerequisiteCourse,
-  getDegrees, getDegreeId: mockGetDegreeId,
+  getStarted: mockGetStarted,
+  addCourse,
+  getCourses,
+  deleteCourse,
+  addPrerequisiteCourse,
+  removePrerequisiteCourse,
+  getDegrees,
+  getDegreeId: mockGetDegreeId,
   getCourseWithReqursivePrerequisites: mockGetCourseWithReqursivePrerequisites
 };

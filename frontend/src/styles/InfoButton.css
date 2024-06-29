@@ -1,7 +1,10 @@
 .info-button {
     border: none;
+    background-color: inherit !important;
+    color: inherit;
     font-weight: bold;
     position: absolute;
     right: 1%;
     top: 20%;
+
 }

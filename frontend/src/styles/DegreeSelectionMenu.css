@@ -1,11 +1,9 @@
-@import url('./Colors.css');
-
 #degreeSelectionButton {
   position: absolute;
   left: 2%;
   top: 23%;
-  color: var(--text-color-primary);
-  background-color: var(--button-background-color);
+  color: inherit;
+  background-color: inherit;
   min-height: auto;
   min-width: auto;
   line-height: inherit;
@@ -14,5 +12,5 @@
 }
   
   #degreeSelectionButton:hover {
-    background-color: var(--button-background-color-hover);
+    background-color: inherit;
   }
