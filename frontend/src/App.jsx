@@ -22,10 +22,10 @@ function App() {
   //}
 
   return (
-    <Router basename="/esitieto">
+    <Router forceRefresh={true}>
       <Routes>
-        <Route path={import.meta.env.BASE_URL + "/kirjauduttu"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
-        <Route path={import.meta.env.BASE_URL + "/public"} element={<MainPage axiosInstance={axiosInstance} />} />
+        <Route path={import.meta.env.BASE_URL + "/secret"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL} element={<MainPage axiosInstance={axiosInstance} />} />
       </Routes>
     </Router>
 
