@@ -43,6 +43,10 @@ app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
 app.use('/api/kirjauduttu', loginRoutes);
 
+app.get('*', (req, res) => {
+  res.sendFile('./dist', 'index.html')
+});
+
 app.use((req, res) => {
   logger.warn(`Attempted access an undefined route: ${req.originalUrl}`);
   res.status(404).send('Route does not exist.');
