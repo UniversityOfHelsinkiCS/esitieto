@@ -1,26 +1,13 @@
-@media screen and (prefers-color-scheme:dark) {
-    .sidebar {
-    --text_color: white;
-    --backgroud_color: #302f39;
-    }
-}
-
-@media screen and (prefers-color-scheme:light) {
-    .sidebar {
-    --text_color: #000000;
-    --backgroud_color: white;
-    }
-}
+@import url('./Colors.css');
 
 .sidebar {
-    color-scheme: light dark;
     position: fixed;
     top: 0;
     right: 0;
     width: 250px;
     height: 100%;
-    color: var(--text_color);
-    background-color: var(--backgroud_color);
+    color: var(--sidebar-text-color);
+    background-color: var(--sidebar-background-color);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
     z-index: 1000;
@@ -31,29 +18,30 @@
 }
 
 .timing {
-    color: var(--text_color);
+    color: var(--sidebar-text-color);
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background-color: transparent;
-    font-size: 16px;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  color: var(--sidebar-text-color);
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .close-button:hover {
-    color: red;
+  background-color: var(--button-background-color-hover);
 }
 
 .sisu-button {
-  background-color: #0e688b !important; 
-  color: white;
+  background-color: var(--button-background-color) !important;
+  color: var(--sidebar-button-text-color);
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -62,10 +50,10 @@
 }
 
 .sisu-button:hover {
-  background-color: #0e688b !important;
+  background-color: var(--button-background-color-hover) !important;
 }
 
 .sisu-button:focus {
-  background-color: #0e688b !important; 
+  background-color: var(--button-background-color) !important;
   outline: none;
 }

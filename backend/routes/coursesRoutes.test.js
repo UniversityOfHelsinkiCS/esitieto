@@ -3,6 +3,7 @@ const { findCourseWithDependencies } = require("./coursesRoutes");
 const request = require("supertest");
 const express = require("express");
 const app = express();
+const logger = require('../middleware/logger');
 app.use(express.json());
 app.use("/", routes);
 
@@ -30,10 +31,12 @@ describe("Get Courses", () => {
     kori_name: "IntroCS101"
   }];
   it('should get courses from database', async () => {
-    const result = await request(app).get("/databaseGetCourses");
-    expect(result._body[0].kori_id).toBe(courses[0].official_course_id);
-    expect(result._body[0].course_name).toBe(courses[0].course_name);
-    expect(result._body[0].hy_course_id).toBe(courses[0].kori_name);
+    const response = await request(app).get("/databaseGetCourses");
+    const result = JSON.parse(response.text).rows[0]
+    logger.debug("Courses from /databaseGetCourses", result)
+    expect(result.kori_id).toBe(courses[0].official_course_id);
+    expect(result.course_name).toBe(courses[0].course_name);
+    expect(result.hy_course_id).toBe(courses[0].kori_name);
   });
 });
 
