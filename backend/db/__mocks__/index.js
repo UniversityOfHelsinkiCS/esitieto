@@ -61,14 +61,6 @@ const mockGetDegreeId = jest.fn(() => {
   });
 });
 
-const addPrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
-  if (course_hy_id !== prerequisite_course_hy_id) {
-    return [course_hy_id, prerequisite_course_hy_id];
-  } else {
-    return [];
-  }
-};
-
 const removePrerequisiteCourse = (course_hy_id, prerequisite_course_hy_id) => {
   if (course_hy_id !== prerequisite_course_hy_id) {
     return [course_hy_id, prerequisite_course_hy_id];
