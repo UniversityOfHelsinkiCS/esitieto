@@ -24,8 +24,8 @@ function App() {
   return (
     <Router basename="/esitieto">
       <Routes>
-        <Route path={import.meta.env.BASE_URL + "/kirjauduttu"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL + "/"} element={<MainPage axiosInstance={axiosInstance} />} />
+        <Route path={import.meta.env.BASE_URL + "/kirjauduttu"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
       </Routes>
     </Router>
 
