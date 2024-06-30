@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/esitieto', express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use(cors());
 app.use(express.json());
@@ -49,7 +49,7 @@ app.use('/api/degrees', degreesRoutes);
 app.use('/api/kori', koriRoutes);
 app.use('/api/kirjauduttu', loginRoutes);
 
-app.get('/esitieto/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'))
 });
 
