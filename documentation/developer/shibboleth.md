@@ -1,26 +1,24 @@
 # Shibboleth
-Shibboleth is a Single Sign-On (SSO) services that the University of Helsinki uses in many of their tools. Our application uses Shibboleth but isin't currently using the SSO services. Enabling the possibility to login is one of the next steps for this project.
+Shibboleth is a Single Sign-On (SSO) services that the University of Helsinki uses in many of their tools. Our application uses Shibboleth.
 
 How routing works for the application:
 ```mermaid
 flowchart TD
     subgraph User
     A["/esitieto"]
-    B["/esitieto/kirjauduttu"]
+    B["/esitieto/public"]
     end
     subgraph Shibboleth
     A --> C[Shibboleth reititys]
     B --> C
-    C --"/esitieto/kirjauduttu"--> E["Kirjautumisruutu"]
+    C --"/esitieto"--> E["Kirjautumisruutu"]
     end
     subgraph Application
-    C --"/esitieto"--> D["/esitieto"]
-    E --"Login information in headers"--> F["/esitieto/kirjauduttu"]
+    C --"/esitieto/public"--> D["/esitieto/public"]
+    E --"Login information in headers"--> F["/esitieto"]
     end
 ```
 As you can see from the above diagram, all traffic passes through Shibboleth before it reaches our application. Depending on which route you are using Shibboleth will redirect you to a login screen. When logged in, Shibboleth will pass the login credentials as headers in the requests. Our Middleware strips this info out of the headers. (The middleware might not be working currently as it has been never tested.)
-
-Currently the /esitieto/kirjauduttu path isin't in use.
 
 ## Configuring Shibboleth
 As an OHTU Project student you will have access to the [OpenShift ohtuprojekti-staging](https://console-openshift-console.apps.ocp-test-0.k8s.it.helsinki.fi/topology/ns/ohtuprojekti-staging?view=graph) 
@@ -51,6 +49,17 @@ If you want to edit the config you will need to switch to the "YAML" side. When 
 </Location>
 
 <Location /esitieto>
+    AuthType shibboleth
+    ShibUseHeaders On
+    ShibRequestSetting requireSession 1
+    require shib-session
+
+    ProxyPreserveHost On
+    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=On
+    ProxyPassReverse http://kurssiesitieto-staging:3001
+</Location>
+
+<Location /esitieto/public>
     satisfy any
 
     ProxyPreserveHost On
@@ -62,7 +71,7 @@ ProxyPass "/Shibboleth.sso" !
 ProxyPass /shibboleth.sp" !
 ```
 
-Here you can see /esitieto path and the unused /esitieto/api. The stuff inside determines if it is just a pass through route like /esitieto or a SSO route like /esitieto/api. Shibboleth config was created together with Toska-group.
+Here you can see /esitieto, /esitieto/public and /esitieto/api paths. The stuff inside determines if it is just a pass through route like /esitieto/public or a SSO route like /esitieto/api or /esitieto. Shibboleth config was created together with Toska-group.
 
 **Every time you change the config you need to restart the Shibboleth pod**
 
@@ -81,14 +90,6 @@ Here you can see /esitieto path and the unused /esitieto/api. The stuff inside d
 
 ### Modifying the production Shibboleth config
 You will not have access to the production environment so just contact Matti Luukkainen or other Toska contact that can do the change for you.
-
-## Making it work
-When Shibboleth routes the connection to our application it goes to http://kurssiesitieto-staging:3001 which you can see from the above httpd-config. The 3001 port is our applications backend. Therefore when making new routes it has to start from the backend. You can't just use react-router and call it a day as the router only activates after the frontend has been activated.
-
-### A solution
-1. Refactor the app to be isomorphic
-    - This means that backend handles everything before passing react components to the frontend
-    - You can read more about isomorphic react apps [here](https://www.dhiwise.com/post/development-process-with-react-isomorphic-boilerplate) or by googling "isomorphic react"
 
 ### Testing the login
 When you go to the login route it should automatically prompt for hy test login. You can use ohtup_user as username and password or you can create more test accounts in [sp-registry](https://sp-registry.it.helsinki.fi/login/?next=/). Clicking the "https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi" will show the test Shibboleth details. Under "Test Users" tab you will see all test users.
