@@ -14,21 +14,24 @@ import MissingPage from './pages/MissingPage';
 
 
 function App() {
-  const baseURL = process.env.VITE_BASE_URL || 'http://localhost:3000/';
   const axiosInstance = axios.create({
-    baseURL: baseURL
+    baseURL: import.meta.env.BASE_URL //import.meta.env.BASE_URL is from vite.config.js. It refers to the base variable it the defineConfig
   });
+
+  //const padding = { Commented out for lint, but if someone intended to use this for something leaving here. Otherwise nuke away.
+  //  padding: 5
+  //}
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<GraphPosSavePage axiosInstance={axiosInstance} />} />
-        <Route path="public" element={<MainPage axiosInstance={axiosInstance} />} />
-        <Route path="*" element={<MissingPage axiosInstance={axiosInstance} />} />
+        <Route path={import.meta.env.BASE_URL + "/"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL + "/public"} element={<MainPage axiosInstance={axiosInstance} />} />
+        {/* <Route path={import.meta.env.BASE_URL + "*"} element={<MissingPage axiosInstance={axiosInstance} />} /> */}
       </Routes>
     </Router>
+
   );
 }
 
 export default App;
-
