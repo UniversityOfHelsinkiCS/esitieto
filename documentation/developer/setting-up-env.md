@@ -2,6 +2,8 @@
 
 - VITE_DEV_PORT=3000
   - Purpose: Specifies the port to run the program in development mode locally.
+- VITE_BASE_URL=http://localhost:3000
+  Purpose: Specifies the base URL for your Vite development server. This is typically set to http://localhost:3000 for local development.
 - POSTGRES_USER=postgres
   - Note: The default PostgreSQL username. Change it if your setup uses a different username.
 - POSTGRES_PASSWORD=yourpassword
