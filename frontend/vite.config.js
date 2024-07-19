@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import EnvironmentPlugin from 'vite-plugin-environment';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,7 +12,7 @@ console.log('VITE_DEV_PORT:', devPort);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), EnvironmentPlugin('all')],
   base: inDeployment ? '/esitieto' : '/',
   server: {
     proxy: {
