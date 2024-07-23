@@ -1,7 +1,10 @@
 .info-button {
     border: none;
-    font-weight: bold;
+    color: var(--upper-button-text-color);
+    background-color: var(--upper-button-backround-color);
     position: absolute;
-    right: 1%;
-    top: 20%;
+    right: 0%;
+    top: 0%;
+    border-radius: 0%;
+    font-size: 0.6em;
 }
