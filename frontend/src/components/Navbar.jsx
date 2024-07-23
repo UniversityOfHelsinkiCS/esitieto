@@ -29,7 +29,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch} /></li>
         <li className='degree-name'>{selectedDegreeName}</li>
         <li><LoginButton onClick={login}/></li>
-        <li><InfoButton onClick={openInfoBox} /></li>
+        <li><InfoButton onClick={openInfoBox}/></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
       </ul>
     </nav>
