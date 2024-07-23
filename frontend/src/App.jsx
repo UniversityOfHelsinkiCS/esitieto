@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Routes, Route
 } from 'react-router-dom';
-import MissingPage from './pages/MissingPage';
 
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
       <Routes>
         <Route path={import.meta.env.BASE_URL + "/"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL + "/public"} element={<MainPage axiosInstance={axiosInstance} />} />
-        {/* <Route path={import.meta.env.BASE_URL + "*"} element={<MissingPage axiosInstance={axiosInstance} />} /> */}
       </Routes>
     </Router>
 

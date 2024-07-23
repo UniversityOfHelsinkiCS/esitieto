@@ -16,11 +16,6 @@ jest.mock('./InfoButton', () => ({ onClick }) => (
   <button onClick={onClick}>InfoButton</button>
 ));
 
-// Mock process.env
-beforeAll(() => {
-  process.env.VITE_BASE_URL = 'http://localhost:3000';
-});
-
 describe('Navbar', () => {
   const mockHandleDegreeChange = jest.fn();
   const mockHandleSearch = jest.fn();

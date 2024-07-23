@@ -6,7 +6,6 @@ import Messenger from '../components/messager/MessagerComponent';
 import { error as displayError } from '../components/messager/messager';
 import { Button } from '@mui/material';
 import '../styles/GraphPosSavePage.css';
-import LogoutButton from '../components/LogoutButton';
 
 const GraphPosSavePage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
@@ -127,10 +126,6 @@ const GraphPosSavePage = ({ axiosInstance }) => {
     handleDegreeChange(degree);
   };
 
-  const logout = () => {
-    window.location.href = process.env.VITE_BASE_URL + "/Shibboleth.sso/Logout";
-  }
-
   return (
     <div>
 
@@ -166,7 +161,6 @@ const GraphPosSavePage = ({ axiosInstance }) => {
         {'Nollaa sijainnit'}
       </Button>
       </div>   
-      <LogoutButton onClick={logout} />
     </div>
   );
 }

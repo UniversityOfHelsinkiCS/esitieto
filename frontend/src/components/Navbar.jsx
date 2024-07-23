@@ -14,7 +14,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
   };
 
   const login = () => {
-    window.location.href = process.env.VITE_BASE_URL + "/";
+    window.location.href = import.meta.env.BASE_URL;
   }
 
   return (
@@ -28,7 +28,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         </li>
         <li><SearchBar axiosInstance={axiosInstance} handleSearch={handleSearch} /></li>
         <li className='degree-name'>{selectedDegreeName}</li>
-        <li><LoginButton onClick={login} /></li>
+        <li><LoginButton onClick={login}/></li>
         <li><InfoButton onClick={openInfoBox} /></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
       </ul>
