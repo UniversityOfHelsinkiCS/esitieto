@@ -18,13 +18,13 @@ const config = {
   // clearMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["frontend/src/**/*.{js,jsx}"],
+  // collectCoverageFrom: ["frontend/src/**/*.{js,jsx}"],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "frontend/coverage",
+  // coverageDirectory: "frontend/coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -32,7 +32,7 @@ const config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  // coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [

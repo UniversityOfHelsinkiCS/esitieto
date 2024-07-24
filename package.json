@@ -11,8 +11,8 @@
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "jest frontend/ --config jest.config.frontend.js",
     "test:backend": "jest backend/ --config jest.config.backend.js",
-    "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js --collectCoverageFrom=\"./frontend/src/**\"",
-    "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js --collectCoverageFrom=\"./backend/**\"",
+    "coverage:frontend": "c8 jest frontend/ --config jest.config.frontend.js --collectCoverageFrom=frontend/src/**/*.{js,jsx}",
+    "coverage:backend": "c8 jest backend/ --config jest.config.backend.js --collectCoverageFrom=backend/**/*.{js,jsx}",
     "test-coverage": "npm run test:frontend && npx codecov && npm run test:backend && npx codecov"
   },
   "dependencies": {
@@ -46,7 +46,7 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-v8": "^1.2.1",
+    "c8": "^10.1.2",
     "eslint": "^8.55.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-cypress": "^2.15.1",
