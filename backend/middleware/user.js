@@ -19,6 +19,17 @@ const userMiddleware = async (req, _res, next) => {
 
         return next()
     }
+    const validateHelsinkiEmail = (email) => {
+        // Define the regular expression pattern to match emails ending with @helsinki.fi
+        const helsinkiEmailPattern = /^[a-zA-Z0-9._%+-]+@helsinki\.fi$/;
+      
+        return helsinkiEmailPattern.test(email);
+    };
+    if (!validateHelsinkiEmail(headers.mail)) {
+        req.kirjauduttu = false;
+
+        return next()
+    }
     req.kirjauduttu = true;
 
     const {
@@ -41,8 +52,6 @@ const userMiddleware = async (req, _res, next) => {
     }
 
     req.user = user
-
-    console.log(user)
 
     return next()
 }
