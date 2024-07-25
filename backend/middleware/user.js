@@ -54,6 +54,11 @@ const userMiddleware = async (req, _res, next) => {
     req.user = user
 
     return next()
-}
+};
 
-module.exports = userMiddleware;
+module.exports = {
+    userMiddleware,
+    parseIamGroups,
+    checkAdmin,
+    mockHeaders,
+  };
