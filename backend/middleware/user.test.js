@@ -1,7 +1,5 @@
 const {
   userMiddleware,
-  parseIamGroups,
-  checkAdmin,
   mockHeaders
 } = require('./user');
 
