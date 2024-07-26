@@ -11,7 +11,7 @@
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "vitest run",
     "test:backend": "jest backend/ --config jest.config.backend.js",
-    "coverage:frontend": "jest frontend/ --coverage --config jest.config.frontend.js --collectCoverageFrom=\"./frontend/src/**\"",
+    "coverage:frontend": "vitest run --coverage",
     "coverage:backend": "jest backend/ --coverage --config jest.config.backend.js --collectCoverageFrom=\"./backend/**\"",
     "test-coverage": "npm run test:frontend && npx codecov && npm run test:backend && npx codecov"
   },
@@ -46,6 +46,7 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^2.0.4",
     "@vitest/ui": "^2.0.4",
     "eslint": "^8.55.0",
     "eslint-config-react-app": "^7.0.1",

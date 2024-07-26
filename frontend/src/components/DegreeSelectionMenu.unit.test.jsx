@@ -1,27 +1,32 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import DegreeSelectionMenu from './DegreeSelectionMenu'; 
 
 describe('DegreeSelectionMenu', () => {
-  const mockOnDegreeChange = jest.fn();
+  const mockOnDegreeChange = vi.fn();
   const listOfDegrees = [
     {
-      degree_name:'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026',
-      degree_years:'2023-2026',
-      hy_degree_id:'kh50_005'
+      degree_name: 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026',
+      degree_years: '2023-2026',
+      hy_degree_id: 'kh50_005'
     },
     {
-      degree_name:'Matematiikan kandidaattitutkinto 2020-2023',
-      degree_years:'2020-2023',
-      hy_degree_id:'kh50_005'
+      degree_name: 'Matematiikan kandidaattitutkinto 2020-2023',
+      degree_years: '2020-2023',
+      hy_degree_id: 'kh50_005'
     }
   ];
   const degree = 'Valitse tutkinto';
 
-
   beforeEach(() => {
-    render(<DegreeSelectionMenu onDegreeChange={mockOnDegreeChange} degree={degree} listOfDegrees={listOfDegrees} />);
+    render(
+      <DegreeSelectionMenu 
+        onDegreeChange={mockOnDegreeChange} 
+        degree={degree} 
+        listOfDegrees={listOfDegrees} 
+      />
+    );
   });
 
   it('renders with text Tutkinto', () => {
@@ -48,5 +53,3 @@ describe('DegreeSelectionMenu', () => {
     expect(button).not.toHaveAttribute('aria-expanded', 'true');
   });
 });
-
-

@@ -1,51 +1,52 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import CourseGraph from './CourseGraph';
 import { getLayoutedElements } from '../utils/layout';
 
 // Mock the dependencies
-jest.mock('reactflow', () => {
-  const React = require('react');
-  const ReactFlowMock = ({ children, ...props }) => <div {...props}>{children}</div>;
+vi.mock('reactflow', async () => {
+  const actual = await vi.importActual('reactflow');
   return {
     __esModule: true,
-    ...jest.requireActual('reactflow'),
-    ReactFlow: ReactFlowMock,
+    ...actual,
+    ReactFlow: ({ children, ...props }) => <div {...props}>{children}</div>,
     Controls: () => <div>Controls</div>,
     Background: () => <div>Background</div>,
   };
 });
 
-jest.mock('../utils/layout', () => {
+vi.mock('../utils/layout', () => {
   return {
-    getLayoutedElements: jest.fn(),
+    getLayoutedElements: vi.fn(),
   };
 });
 
-jest.mock('../styles/CustomEdge.jsx', () => {
-  const React = require('react');
-  return () => <div>CustomEdge</div>;
+vi.mock('../styles/CustomEdge.jsx', () => {
+  return {
+    __esModule: true,
+    default: () => <div>CustomEdge</div>,
+  };
 });
 
 const mockCourses = [
   {
     id: '1',
-    createNode: jest.fn(() => ({
+    createNode: vi.fn(() => ({
       id: '1',
       position: { x: null, y: null },
       data: { name: 'Course 1', groupID: 'group1' },
     })),
-    createEdges: jest.fn(() => [{ id: 'e1-2', source: '1', target: '2' }]),
+    createEdges: vi.fn(() => [{ id: 'e1-2', source: '1', target: '2' }]),
   },
   {
     id: '2',
-    createNode: jest.fn(() => ({
+    createNode: vi.fn(() => ({
       id: '2',
       position: { x: null, y: null },
       data: { name: 'Course 2', groupID: 'group2' },
     })),
-    createEdges: jest.fn(() => []),
+    createEdges: vi.fn(() => []),
   },
 ];
 
@@ -67,19 +68,18 @@ describe('CourseGraph', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
-  test('renders CourseGraph correctly', async () => {
-    console.log('Rendering CourseGraph...'); // Debuggaus
+  it('renders CourseGraph correctly', () => {
     render(
       <CourseGraph
-        axiosInstance={jest.fn()}
+        axiosInstance={vi.fn()}
         courses={mockCourses}
-        setIsSidebarOpen={jest.fn()}
-        setSelectedCourseName={jest.fn()}
-        setSelectedCourseGroupID={jest.fn()}
-        savePositions={jest.fn()}
+        setIsSidebarOpen={vi.fn()}
+        setSelectedCourseName={vi.fn()}
+        setSelectedCourseGroupID={vi.fn()}
+        savePositions={vi.fn()}
       />
     );
 

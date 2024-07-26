@@ -1,10 +1,10 @@
 import axiosMock from 'axios';
 import React from 'react';
 import { render, screen, waitFor, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi } from 'vitest';
 import SearchBar from './SearchBar.jsx';
 
-jest.mock('axios');
+vi.mock('axios');
 
 describe("SearchBar unit testing", () => {
   const mockCourses = [
@@ -22,15 +22,15 @@ describe("SearchBar unit testing", () => {
     }
   ];
   
-  const mockHandleSearch = jest.fn();
-  const mockHandleChange = jest.fn();
+  const mockHandleSearch = vi.fn();
+  const mockHandleChange = vi.fn();
 
   beforeEach(() => {
     axiosMock.get.mockResolvedValueOnce({ data: mockCourses });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
-  test("The SearchBar renders properly", async () => {
+  it("The SearchBar renders properly", async () => {
     await act(async () => {
       render(
         <SearchBar 
@@ -45,7 +45,7 @@ describe("SearchBar unit testing", () => {
     expect(textField).toBeInTheDocument();
   });
 
-  test("Courses are fetched when SearchBar is rendered", async () => {
+  it("Courses are fetched when SearchBar is rendered", async () => {
     await act(async () => {
       render(
         <SearchBar 
@@ -59,7 +59,7 @@ describe("SearchBar unit testing", () => {
     await waitFor(() => expect(axiosMock.get).toHaveBeenCalledTimes(1));
   });
 
-  test("Text input changes correctly", async () => {
+  it("Text input changes correctly", async () => {
     await act(async () => {
       render(
         <SearchBar 
@@ -76,7 +76,7 @@ describe("SearchBar unit testing", () => {
     await waitFor(() => expect(input).toHaveValue('Raja-arvot'));
   });
   
-  test("Course selection triggers handleSelect correctly", async () => {
+  it("Course selection triggers handleSelect correctly", async () => {
     await act(async () => {
       render(
         <SearchBar 
@@ -99,5 +99,4 @@ describe("SearchBar unit testing", () => {
     await waitFor(() => expect(mockHandleSearch).toHaveBeenCalledWith('MAT11003'));
   });
 });
-
 

@@ -1,37 +1,38 @@
 import { info, error, subscribeToMessages } from './messager';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 describe('messager.js', () => {
     let mockSetMessage;
     let unsubscribe;
 
     beforeEach(() => {
-        mockSetMessage = jest.fn();
+        mockSetMessage = vi.fn();
         unsubscribe = subscribeToMessages(mockSetMessage);
     });
 
     afterEach(() => {
         unsubscribe();
-        jest.clearAllTimers();
-        jest.useRealTimers();
+        vi.clearAllTimers();
+        vi.useRealTimers();
     });
 
     it('should display an informational message', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         info('Test info message');
 
         expect(mockSetMessage).toHaveBeenCalledWith({ text: 'Test info message', type: 'info' });
 
-        jest.advanceTimersByTime(8000);
+        vi.advanceTimersByTime(8000);
         expect(mockSetMessage).toHaveBeenCalledWith({ text: '', type: '' });
     });
 
     it('should display an error message', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         error('Test error message');
 
         expect(mockSetMessage).toHaveBeenCalledWith({ text: 'Virhe: Test error message', type: 'error' });
 
-        jest.advanceTimersByTime(8000);
+        vi.advanceTimersByTime(8000);
         expect(mockSetMessage).toHaveBeenCalledWith({ text: '', type: '' });
     });
 

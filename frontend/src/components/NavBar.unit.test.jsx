@@ -1,30 +1,36 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi } from 'vitest';
 import Navbar from './Navbar';
 
 // Mock the subcomponents
-jest.mock('./SearchBar', () => () => <div>SearchBar</div>);
-jest.mock('./InfoBox', () => ({ isOpen, onClose, baseURL }) => (
-  <div>
-    {isOpen ? 'InfoBox is open' : 'InfoBox is closed'}
-    <button onClick={onClose}>Close</button>
-  </div>
-));
-jest.mock('./DegreeSelectionMenu', () => () => <div>DegreeSelectionMenu</div>);
-jest.mock('./InfoButton', () => ({ onClick }) => (
-  <button onClick={onClick}>InfoButton</button>
-));
+vi.mock('./SearchBar', () => ({
+  default: () => <div>SearchBar</div>,
+}));
+vi.mock('./InfoBox', () => ({
+  default: ({ isOpen, onClose, baseURL }) => (
+    <div>
+      {isOpen ? 'InfoBox is open' : 'InfoBox is closed'}
+      <button onClick={onClose}>Close</button>
+    </div>
+  ),
+}));
+vi.mock('./DegreeSelectionMenu', () => ({
+  default: () => <div>DegreeSelectionMenu</div>,
+}));
+vi.mock('./InfoButton', () => ({
+  default: ({ onClick }) => <button onClick={onClick}>InfoButton</button>,
+}));
 
 describe('Navbar', () => {
-  const mockHandleDegreeChange = jest.fn();
-  const mockHandleSearch = jest.fn();
+  const mockHandleDegreeChange = vi.fn();
+  const mockHandleSearch = vi.fn();
   const mockAxiosInstance = {};
   const mockBaseURL = 'http://example.com';
   const mockSelectedDegreeName = 'Test Degree';
   const mockListOfDegrees = ['Degree 1', 'Degree 2'];
 
-  test('renders all components', () => {
+  it('renders all components', () => {
     render(
       <Navbar
         handleDegreeChange={mockHandleDegreeChange}
@@ -44,7 +50,7 @@ describe('Navbar', () => {
     expect(screen.getByText(mockSelectedDegreeName)).toBeInTheDocument();
   });
 
-  test('toggles InfoBox visibility when InfoButton is clicked', () => {
+  it('toggles InfoBox visibility when InfoButton is clicked', () => {
     render(
       <Navbar
         handleDegreeChange={mockHandleDegreeChange}
