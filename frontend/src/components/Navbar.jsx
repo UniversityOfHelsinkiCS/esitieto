@@ -14,7 +14,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
   };
 
   const login = () => {
-    window.location.href = import.meta.env.BASE_URL;
+    window.location.href = import.meta.env.BASE_URL + "/login";
   }
 
   return (
