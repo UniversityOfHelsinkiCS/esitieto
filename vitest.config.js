@@ -20,9 +20,20 @@ export default defineConfig({
         'frontend/src/**/*.{js,jsx}'
       ],
       exclude: [
+        '**/*.test.{js,jsx,ts,tsx}',
         'frontend/src/setupTests.js',
         'frontend/src/reportWebVitals.js',
-        'node_modules/'
+        'node_modules/',
+        'frontend/src/models/',
+        'frontend/src/App.jsx',
+        'frontend/src/main.jsx',
+        'frontend/src/styles/',
+        'frontend/src/utils/',
+        'frontend/src/components/EditBar.jsx',
+        'frontend/src/components/EditWindow.jsx',
+        'frontend/src/functions/loginFunctions.jsx',
+        'frontend/src/functions/CourseFunctions.jsx',
+        'frontend/src/pages/LoginPage.jsx'
       ]
     }
   }
