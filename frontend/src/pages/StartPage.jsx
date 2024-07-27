@@ -2,17 +2,15 @@ import React from 'react';
 import '../styles/StartPage.css';
 
 const StartPage = () => {
-
-    const handleLoginClick = () => {
-        const baseURL = import.meta.env.BASE_URL.replace('/esitieto', '')
-        window.location.href = baseURL;
-        }
     
     const handleContinueClick = () => {
       const baseURL = import.meta.env.BASE_URL.replace('/esitieto', '');
       window.location.href = baseURL + "public";
     }
     
+    const handleLoginClick = () => {
+      window.location.href = import.meta.env.BASE_URL;        
+    }
 
   return (
     <div className="start-page">
