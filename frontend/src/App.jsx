@@ -3,16 +3,16 @@ import axios from 'axios';
 
 import './styles/App.css'
 
-import MainPage from './pages/MainPage';
 import GraphPosSavePage from './pages/GraphPosSavePage';
+import StartPage from './pages/StartPage';
+import MainPage from './pages/MainPage';
+import MissingPage from './pages/MissingPage';
+import LoginPage from './pages/LoginPage';
 
 import {
   BrowserRouter as Router,
   Routes, Route
 } from 'react-router-dom';
-import MissingPage from './pages/MissingPage';
-import LoginPage from './pages/LoginPage';
-
 
 function App() {
   const axiosInstance = axios.create({
@@ -29,6 +29,8 @@ function App() {
     <Router>
       <Routes>
         <Route path={import.meta.env.BASE_URL + "/"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
+        <Route path={import.meta.env.BASE_URL + "/start"} element={<StartPage axiosInstance={axiosInstance} />} />
+        <Route path={import.meta.env.BASE_URL + "/login"} element={<LoginPage axiosInstance={axiosInstance}/>} />
         <Route path={login_url} element={<LoginPage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL + "/public"} element={<MainPage axiosInstance={axiosInstance} />} />
         <Route path={import.meta.env.BASE_URL + "*"} element={<MissingPage axiosInstance={axiosInstance} />} />

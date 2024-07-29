@@ -135,7 +135,7 @@ const GraphPosSavePage = ({ axiosInstance }) => {
 
   const login = () => {
     const baseURL = import.meta.env.BASE_URL.replace('/esitieto', '')
-    window.location.href = baseURL + "/login";
+    window.location.href = baseURL + "/esitietologin";
   }
 
   return (
