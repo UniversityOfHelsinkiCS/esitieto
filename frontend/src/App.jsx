@@ -23,11 +23,13 @@ function App() {
   //  padding: 5
   //}
 
+  const login_url = import.meta.env.BASE_URL.replace('esitieto', 'esitietologin');
+
   return (
     <Router>
       <Routes>
         <Route path={import.meta.env.BASE_URL + "/"} element={<GraphPosSavePage axiosInstance={axiosInstance}/>} />
-        <Route path={import.meta.env.BASE_URL + "/login"} element={<LoginPage axiosInstance={axiosInstance}/>} />
+        <Route path={login_url} element={<LoginPage axiosInstance={axiosInstance}/>} />
         <Route path={import.meta.env.BASE_URL + "/public"} element={<MainPage axiosInstance={axiosInstance} />} />
         <Route path={import.meta.env.BASE_URL + "*"} element={<MissingPage axiosInstance={axiosInstance} />} />
       </Routes>
