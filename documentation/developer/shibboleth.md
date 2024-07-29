@@ -37,14 +37,38 @@ Here you will find httpd-config under Volumes. Clicking the hyperlink will open 
 If you want to edit the config you will need to switch to the "YAML" side. When you scroll to the bottom of the config. It looks like this:
 
 ```
-<Location /esitieto/api>
-    AuthType shibboleth
-    ShibUseHeaders On
-    ShibRequestSetting requireSession 1
-    require shib-session
+<Location /esitieto/start>
+    Satisfy Any   
+    Allow from all   
+    AuthType None   
+    Require all granted  
 
     ProxyPreserveHost On
-    ProxyPass http://kurssiesitieto-staging:3001/api retry=0 disablereuse=On
+    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=Off
+    ProxyPassReverse http://kurssiesitieto-staging:3001
+</Location>
+
+<Location /esitieto/assets>
+    Satisfy Any   
+    Allow from all   
+    AuthType None   
+    Require all granted  
+
+    ProxyPreserveHost On
+    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=Off
+    ProxyPassReverse http://kurssiesitieto-staging:3001
+</Location>
+
+<Location /esitieto/api>
+    Satisfy Any   
+    ShibUseHeaders On
+
+    Allow from all   
+    AuthType None   
+    Require all granted  
+
+    ProxyPreserveHost On
+    ProxyPass http://kurssiesitieto-staging:3001/api retry=0 disablereuse=Off
     ProxyPassReverse http://kurssiesitieto-staging:3001/api
 </Location>
 
@@ -59,16 +83,18 @@ If you want to edit the config you will need to switch to the "YAML" side. When 
     ProxyPassReverse http://kurssiesitieto-staging:3001
 </Location>
 
-<Location /esitieto/public>
-    satisfy any
+<Location /esitietologin>
+    AuthType shibboleth
+    ShibUseHeaders On
+    ShibRequestSetting requireSession 1
+    require shib-session
 
     ProxyPreserveHost On
-    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=Off
+    ProxyPass http://kurssiesitieto-staging:3001 retry=0 disablereuse=On
     ProxyPassReverse http://kurssiesitieto-staging:3001
 </Location>
 
-ProxyPass "/Shibboleth.sso" !
-ProxyPass /shibboleth.sp" !
+RedirectMatch ^/esitietologin$ https://kurssiesitieto-staging:3001/esitietologin?target=https://kurssiesitieto-staging:3001/esitieto/public
 ```
 
 Here you can see /esitieto, /esitieto/public and /esitieto/api paths. The stuff inside determines if it is just a pass through route like /esitieto/public or a SSO route like /esitieto/api or /esitieto. Shibboleth config was created together with Toska-group.
