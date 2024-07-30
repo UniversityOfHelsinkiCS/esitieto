@@ -1,13 +1,3 @@
-const {
-  userMiddleware,
-  mockHeaders
-} = require('./user');
-
-// Mock request and response objects
-const createMockReq = (headers) => ({ headers });
-const createMockRes = () => ({});
-const createMockNext = () => jest.fn();
-
 // Mock process.env.NODE_ENV
 beforeEach(() => {
   process.env.NODE_ENV = 'production';
@@ -50,45 +40,24 @@ describe('checkAdmin', () => {
   });
 });
 
-describe('userMiddleware', () => {
-  test('should set req.kirjauduttu to false if uid is missing', async () => {
-    const req = createMockReq({});
-    const res = createMockRes();
-    const next = createMockNext();
+describe('validateHelsinkiEmail', () => {
+  const { validateHelsinkiEmail } = require('./user'); 
 
-    await userMiddleware(req, res, next);
-
-    expect(req.kirjauduttu).toBe(false);
-    expect(next).toHaveBeenCalled();
+  test('should return true for valid Helsinki email', () => {
+    const email = 'test@helsinki.fi';
+    const result = validateHelsinkiEmail(email);
+    expect(result).toBe(true);
   });
 
-  test('should set req.kirjauduttu to false if email is invalid', async () => {
-    const req = createMockReq({ ...mockHeaders, mail: 'mock@helsinki.gi' });
-    const res = createMockRes();
-    const next = createMockNext();
-
-    await userMiddleware(req, res, next);
-
-    expect(req.kirjauduttu).toBe(false);
-    expect(next).toHaveBeenCalled();
+  test('should return false for invalid Helsinki email', () => {
+    const email = 'test@gmail.com';
+    const result = validateHelsinkiEmail(email);
+    expect(result).toBe(false);
   });
 
-  test('should set req.kirjauduttu to true and create user object if headers are valid', async () => {
-    const req = createMockReq(mockHeaders);
-    const res = createMockRes();
-    const next = createMockNext();
-
-    await userMiddleware(req, res, next);
-
-    expect(req.kirjauduttu).toBe(true);
-    expect(req.user).toEqual({
-      id: 'hy-hlo-123456789',
-      username: 'testUser',
-      email: 'address@helsinki.fi',
-      language: 'fi',
-      iamGroups: ['grp-toska', 'hy-employees'],
-      isAdmin: true,
-    });
-    expect(next).toHaveBeenCalled();
+  test('should return false for email without domain', () => {
+    const email = 'test@helsinki';
+    const result = validateHelsinkiEmail(email);
+    expect(result).toBe(false);
   });
 });

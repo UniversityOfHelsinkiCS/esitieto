@@ -66,8 +66,11 @@ const userMiddleware = (req, res, next) => {
   };
 
 module.exports = {
-    userMiddleware,
+    validateHelsinkiEmail,
     parseIamGroups,
     checkAdmin,
+    areHeadersValid,
+    createUser,
+    userMiddleware,
     mockHeaders,
   };
