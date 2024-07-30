@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 import './styles/App.css'
@@ -18,6 +18,25 @@ function App() {
   const axiosInstance = axios.create({
     baseURL: import.meta.env.BASE_URL //import.meta.env.BASE_URL is from vite.config.js. It refers to the base variable it the defineConfig
   });
+
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/kirjauduttu');
+      
+      const kirjauduttu = response.headers['kirjauduttu'];
+      const userId = response.headers['user-id'];
+      
+      console.log('Kirjauduttu:', kirjauduttu);
+      console.log('User-id:', userId);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   //const padding = { Commented out for lint, but if someone intended to use this for something leaving here. Otherwise nuke away.
   //  padding: 5

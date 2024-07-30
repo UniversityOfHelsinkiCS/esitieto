@@ -1,11 +1,8 @@
-
-// NOT IN USE // IGNORED IN JEST CONFIG //
-
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (request, response) => {
-    response.json(request.kirjauduttu);
+router.get('/', async (req, res) => {
+    res.json(req.kirjauduttu);
 });
 
 

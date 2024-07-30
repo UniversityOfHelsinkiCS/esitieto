@@ -48,16 +48,19 @@ const createUser = (headers) => {
     };
 };
 
-const userMiddleware = (req, _res, next) => {
+const userMiddleware = (req, res, next) => {
     const headers = getHeaders(req);
   
     if (!areHeadersValid(headers)) {
       req.kirjauduttu = false;
+      res.setHeader('Kirjauduttu', 'false');
       return next();
     }
   
     req.kirjauduttu = true;
     req.user = createUser(headers);
+    res.setHeader('Kirjauduttu', 'true');
+    res.setHeader('User-id', req.user.username);
   
     return next();
   };

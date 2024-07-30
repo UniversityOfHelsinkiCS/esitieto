@@ -28,7 +28,11 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.use(cors());
+const corsOptions = {
+  exposedHeaders: ['Kirjauduttu', "User-id"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(userMiddleware)
