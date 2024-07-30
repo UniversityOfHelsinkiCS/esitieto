@@ -33,7 +33,6 @@ export default defineConfig({
         'frontend/src/components/EditWindow.jsx',
         'frontend/src/functions/loginFunctions.jsx',
         'frontend/src/functions/CourseFunctions.jsx',
-        'frontend/src/pages/LoginPage.jsx'
       ]
     }
   }
