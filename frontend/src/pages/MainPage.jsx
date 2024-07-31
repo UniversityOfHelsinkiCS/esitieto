@@ -95,6 +95,15 @@ const MainPage = ({ axiosInstance }) => {
   useEffect(() => {
     fetchDegrees();
   }, []);
+
+  useEffect(() => {
+    const degreeParam = localStorage.getItem('selectedDegree');
+    if (degreeParam) {
+      const degree = JSON.parse(degreeParam);
+      fetchDegreeCourses(degree);
+      localStorage.removeItem('selectedDegree');
+    }
+  }, [listOfDegrees]);
   
   useEffect(() => {
     if (listOfDegrees == null || listOfDegrees.length === 0) return
