@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import '../styles/StartPage.css';
 import { error as displayError } from '../components/messager/messager';
 import { Menu, MenuItem} from '@mui/material'; 
@@ -35,23 +34,15 @@ const StartPage = ({ axiosInstance }) => {
   };
 
   const handleDegreeClick = (degree) => {
-    console.log('Selected degree:', degree);
     setAnchorEl(null);
     localStorage.setItem('selectedDegree', JSON.stringify(degree));
     const baseURL = import.meta.env.BASE_URL.replace('/esitieto', '');
       window.location.href = baseURL + "public";
   };
-
-    const handleContinueClick = () => {
-      const baseURL = import.meta.env.BASE_URL.replace('/esitieto', '');
-      window.location.href = baseURL + "public";
-    }
-    
+        
     const handleLoginClick = () => {
       window.location.href = import.meta.env.BASE_URL;        
-    }
-
-    
+    }    
   
   return (
     <div className="start-page">
@@ -68,11 +59,10 @@ const StartPage = ({ axiosInstance }) => {
         <p>Lähdekoodi löytyy <a href="https://github.com/Kurssiesitieto/kurssiesitieto-ohtuprojekti">täältä</a></p>
                 
         <div className="buttons">
-          <button onClick={handleContinueClick}>Jatka kirjautumatta</button>
-          <button onClick={handleLoginClick}>Kirjaudu sisään</button>
           <button onClick={handleMenuClick}>
             Näytä tutkinnot
-          </button>
+          </button>        
+          <button onClick={handleLoginClick}>Kirjaudu sisään</button>          
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -91,4 +81,3 @@ const StartPage = ({ axiosInstance }) => {
 };
 
 export default StartPage;
-
