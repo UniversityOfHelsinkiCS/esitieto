@@ -26,8 +26,14 @@ function App() {
       const kirjauduttu = response.headers['kirjauduttu'];
       const userId = response.headers['user-id'];
       
-      console.log('Kirjauduttu:', kirjauduttu);
-      console.log('User-id:', userId);
+      console.log('kirjauduttu:', kirjauduttu);
+      console.log('user-id:', userId);
+
+      const Kirjauduttu = response.headers['Kirjauduttu'];
+      const UserId = response.headers['User-id'];
+      
+      console.log('Kirjauduttu:', Kirjauduttu);
+      console.log('User-id:', UserId);
 
     } catch (error) {
       console.error('Error fetching data:', error);
