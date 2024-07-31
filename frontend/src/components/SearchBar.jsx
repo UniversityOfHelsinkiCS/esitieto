@@ -56,11 +56,14 @@ export const SearchBar = (props) => {
       onChange={handleSelect}
 
       getOptionLabel={(option) => option.hy_course_id + " (" + option.course_name + ")"}
-      renderOption={(props, option) => (
-        <Box component="li" {...props} className="searchResult">
-              {option.hy_course_id} ({option.course_name})
-        </Box>
-      )}
+      renderOption={(props, option) => {
+        const { key, ...otherProps } = props;
+        return (
+          <Box component="li" key={option.hy_course_id} {...otherProps} className="searchResult">
+            {option.hy_course_id} ({option.course_name})
+          </Box>
+        );
+      }}
     
       renderInput={(params) => <TextField {...params}
         id="textField"
