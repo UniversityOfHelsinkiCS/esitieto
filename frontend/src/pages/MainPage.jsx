@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
 import Course from '../models/Course'
@@ -14,6 +14,7 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
   const [selectedDegreeName, setSelectedDegreeName] = useState('');
+  const hasCheckedLocalStorage = useRef(false);
   
 
   const fetchDegreeCourses = async (degree) => {
@@ -95,26 +96,28 @@ const MainPage = ({ axiosInstance }) => {
   useEffect(() => {
     fetchDegrees();
   }, []);
-
-  useEffect(() => {
-    const degreeParam = localStorage.getItem('selectedDegree');
-    if (degreeParam) {
-      const degree = JSON.parse(degreeParam);
-      fetchDegreeCourses(degree);
-      localStorage.removeItem('selectedDegree');
-    }
-  }, [listOfDegrees]);
   
   useEffect(() => {
-    if (listOfDegrees == null || listOfDegrees.length === 0) return
-
-    const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
-    if (degreeToFetch) {
-      fetchDegreeCourses(degreeToFetch);
-    } else {
-      fetchDegreeCourses(listOfDegrees[0]);
-    }    
-  }, [listOfDegrees]);
+    if (!hasCheckedLocalStorage.current) { 
+      const degreeParam = localStorage.getItem('selectedDegree'); 
+      console.log("degreeParam", degreeParam)
+      if (degreeParam) { 
+        const degree = JSON.parse(degreeParam); 
+        fetchDegreeCourses(degree); 
+        localStorage.removeItem('selectedDegree'); 
+      } else { 
+        if (listOfDegrees == null || listOfDegrees.length === 0) return; 
+    
+        const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026'); 
+        if (degreeToFetch) { 
+          fetchDegreeCourses(degreeToFetch); 
+        } else { 
+          fetchDegreeCourses(listOfDegrees[0]); 
+        } 
+      }
+      hasCheckedLocalStorage.current = true; 
+    }
+  }, [listOfDegrees]); 
 
   const handleDegreeChange = (degree) => {
     fetchDegreeCourses(degree)
