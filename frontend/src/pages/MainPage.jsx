@@ -106,7 +106,7 @@ const MainPage = ({ axiosInstance }) => {
     console.log("degreeParam useEffect", degreeParam);
     if (degreeParam) {
       const degree = JSON.parse(degreeParam);
-      setStartDegree(degree); // Asetetaan startDegree tässä
+      setStartDegree(degree); 
     }
   }, []);
 
@@ -127,10 +127,14 @@ const MainPage = ({ axiosInstance }) => {
     }
   }, [listOfDegrees, startDegree]);
 
-  const handleDegreeChange = (degree) => {
+  useEffect(() => {
+    if (startDegree) {
+      fetchDegreeCourses(startDegree);
+    }
+  }, [startDegree]);
 
-    setStartDegree(null); // Asetetaan startDegree valitulla arvolla
-    fetchDegreeCourses(degree);
+  const handleDegreeChange = (degree) => {
+    setStartDegree(degree);
   };
 
   return (
