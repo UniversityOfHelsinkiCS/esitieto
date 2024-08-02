@@ -15,7 +15,11 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedDegreeName, setSelectedDegreeName] = useState('');
   const [startDegree, setStartDegree] = useState(null);
 
-  const fetchDegreeCourses = async (degree) => {    
+  console.log("alun runko");
+
+  const fetchDegreeCourses = async (degree) => {
+    console.log("fetchDegreeCourses funktio startDegree", startDegree);
+    console.log("fetchDegreeCourses funktio degree", degree);
     try {
       if (degree == null) {
         displayError("Jokin meni pieleen tutkintotietoja haettaessa!");
@@ -92,22 +96,27 @@ const MainPage = ({ axiosInstance }) => {
   };
 
   useEffect(() => {
+    console.log("ylin useEffect fetchDegrees");
     fetchDegrees();
   }, []);
 
-  useEffect(() => {    
-    const degreeParam = localStorage.getItem('selectedDegree');    
+  useEffect(() => {
+    console.log("degreeParam useEffect ilman Param");
+    const degreeParam = localStorage.getItem('selectedDegree');
+    console.log("degreeParam useEffect", degreeParam);
     if (degreeParam) {
       const degree = JSON.parse(degreeParam);
-      setStartDegree(degree);
+      setStartDegree(degree); // Asetetaan startDegree tässä
     }
   }, []);
 
   useEffect(() => {
+    console.log("useEffect listOfDegrees tai startDegree muutettu");
     if (listOfDegrees.length > 0) {
       if (startDegree) {
         fetchDegreeCourses(startDegree);
-      } else {        
+      } else {
+        console.log("degreeToFetch!!!!!");
         const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
         if (degreeToFetch) {
           fetchDegreeCourses(degreeToFetch);
@@ -119,7 +128,8 @@ const MainPage = ({ axiosInstance }) => {
   }, [listOfDegrees, startDegree]);
 
   const handleDegreeChange = (degree) => {
-    setStartDegree(null);
+
+    setStartDegree(null); // Asetetaan startDegree valitulla arvolla
     fetchDegreeCourses(degree);
   };
 
