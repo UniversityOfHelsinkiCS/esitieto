@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import CourseGraph from '../components/CourseGraph';
 import Sidebar from '../components/sidebar';
-import Course from '../models/Course'
+import Course from '../models/Course';
 import Messenger from '../components/messager/MessagerComponent';
 import { error as displayError } from '../components/messager/messager';
 import { Navbar } from '../components/Navbar.jsx';
-
 
 const MainPage = ({ axiosInstance }) => {
   const [listOfDegrees, setDegreeToList] = useState([]);
@@ -14,44 +13,48 @@ const MainPage = ({ axiosInstance }) => {
   const [selectedCourseGroupID, setSelectedCourseGroupID] = useState('');
   const [courses, setCourses] = useState([]);
   const [selectedDegreeName, setSelectedDegreeName] = useState('');
-  
+  const [startDegree, setStartDegree] = useState(null);
+
+  console.log("alun runko");
 
   const fetchDegreeCourses = async (degree) => {
+    console.log("fetchDegreeCourses funktio startDegree", startDegree);
+    console.log("fetchDegreeCourses funktio", degree);
     try {
-      if(degree == null) {
-        displayError("Jokin meni pieleen tutkintotietoja haettaessa!")
-        console.error("Degree is null!")
+      if (degree == null) {
+        displayError("Jokin meni pieleen tutkintotietoja haettaessa!");
+        console.error("Degree is null!");
         return;
       }
       const response = await axiosInstance.get(`/api/degrees/search_by_degree`, {
         headers: {
           'degree-id': degree.hy_degree_id,
-          'degree-years': degree.degree_years, 
+          'degree-years': degree.degree_years,
         }
       });
 
       if (response == null) {
         displayError("Jokin meni pieleen kurssitietoja haettaessa!");
-        console.error("Response is null!")
+        console.error("Response is null!");
         return;
-      } 
+      }
       const convertedCourses = response.data.map(courseData => new Course(
-        courseData.name, 
-        courseData.identifier, 
-        courseData.kori_id, 
-        courseData.dependencies, 
-        courseData.type, 
-        courseData.description, 
-        courseData.x, 
-        courseData.y));
-        
+        courseData.name,
+        courseData.identifier,
+        courseData.kori_id,
+        courseData.dependencies,
+        courseData.type,
+        courseData.description,
+        courseData.x,
+        courseData.y
+      ));
+
       setCourses(convertedCourses);
       setSelectedDegreeName(degree.degree_name);
       if (!convertedCourses || convertedCourses.length === 0) {
         throw new Error("Kurssitietoja ei löytynyt!");
       }
       ///info("Haettiin tutkinto: " + degree.degree_name);
-
     } catch (error) {
       console.error("Error fetching data: ", error);
       displayError(error.message || "Jokin meni pieleen!");
@@ -63,67 +66,75 @@ const MainPage = ({ axiosInstance }) => {
       return;
     }
     let response;
-    response = await axiosInstance.get('/api/courses/databaseGetCourseWithRequirements/'+courseId)
+    response = await axiosInstance.get('/api/courses/databaseGetCourseWithRequirements/' + courseId);
     if (response == null || response.status === 404) {
-      displayError("Kurssitietoja ei löytynyt!")
+      displayError("Kurssitietoja ei löytynyt!");
       return;
     }
     const convertedCourses = response.data.map(courseData => new Course(
-      courseData.course_name, 
-      courseData.identifier, 
-      courseData.kori_id, 
-      courseData.dependencies, 
+      courseData.course_name,
+      courseData.identifier,
+      courseData.kori_id,
+      courseData.dependencies,
       'compulsory'
-      ));
+    ));
     setCourses(convertedCourses);
-  }
+  };
 
   const fetchDegrees = async () => {
     try {
       const response = await axiosInstance.get(`/api/degrees`);
       if (response == null) {
-        displayError("Palvelimelle ei saatu yhteyttä")
+        displayError("Palvelimelle ei saatu yhteyttä");
         return;
       }
       setDegreeToList(response.data);
     } catch (error) {
       console.error("Error when fetching degree data: ", error);
-      displayError("Jokin meni pieleen. Yritä uudestaan myöhemmin.")
+      displayError("Jokin meni pieleen. Yritä uudestaan myöhemmin.");
     }
   };
 
   useEffect(() => {
+    console.log("ylin useEffect fetchDegrees");
     fetchDegrees();
   }, []);
 
   useEffect(() => {
+    console.log("degreeParam useEffect ilman Param");
     const degreeParam = localStorage.getItem('selectedDegree');
+    console.log("degreeParam useEffect", degreeParam);
     if (degreeParam) {
       const degree = JSON.parse(degreeParam);
-      fetchDegreeCourses(degree);
-      localStorage.removeItem('selectedDegree');
+      setStartDegree(degree); // Asetetaan startDegree tässä
     }
-  }, [listOfDegrees]);
-  
-  useEffect(() => {
-    if (listOfDegrees == null || listOfDegrees.length === 0) return
+  }, []);
 
-    const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
-    if (degreeToFetch) {
-      fetchDegreeCourses(degreeToFetch);
-    } else {
-      fetchDegreeCourses(listOfDegrees[0]);
-    }    
-  }, [listOfDegrees]);
+  useEffect(() => {
+    console.log("useEffect listOfDegrees tai startDegree muutettu");
+    if (listOfDegrees.length > 0) {
+      if (startDegree) {
+        fetchDegreeCourses(startDegree);
+      } else {
+        console.log("degreeToFetch!!!!!");
+        const degreeToFetch = listOfDegrees.find(degree => degree.degree_name === 'Tietojenkäsittelytieteen kandidaattitutkinto 2023-2026');
+        if (degreeToFetch) {
+          fetchDegreeCourses(degreeToFetch);
+        } else {
+          fetchDegreeCourses(listOfDegrees[0]);
+        }
+      }
+    }
+  }, [listOfDegrees, startDegree]);
 
   const handleDegreeChange = (degree) => {
-    fetchDegreeCourses(degree)
+
+    setStartDegree(null); // Asetetaan startDegree valitulla arvolla
+    fetchDegreeCourses(degree);
   };
 
   return (
-    
     <div>
-
       <Messenger />
       <CourseGraph
         axiosInstance={axiosInstance}
@@ -132,20 +143,19 @@ const MainPage = ({ axiosInstance }) => {
         setSelectedCourseGroupID={setSelectedCourseGroupID}
         setIsSidebarOpen={setIsSidebarOpen}
         handleSearch={handleSearch}
-      /> 
+      />
 
-      <div className='navBar-conteiner'>
-        <Navbar  handleDegreeChange={handleDegreeChange} listOfDegrees={listOfDegrees}
-          axiosInstance={axiosInstance} handleSearch={handleSearch}
+      <div className='navBar-container'>
+        <Navbar
+          handleDegreeChange={handleDegreeChange}
+          listOfDegrees={listOfDegrees}
+          axiosInstance={axiosInstance}
+          handleSearch={handleSearch}
           selectedDegreeName={selectedDegreeName}
           baseURL={axiosInstance.defaults.baseURL}
-        
         />
-
       </div>
-      
-      
-      
+
       <Sidebar
         isOpen={isSidebarOpen}
         closeSidebar={() => setIsSidebarOpen(false)}
@@ -155,6 +165,6 @@ const MainPage = ({ axiosInstance }) => {
       />
     </div>
   );
-}
+};
 
 export default MainPage;
