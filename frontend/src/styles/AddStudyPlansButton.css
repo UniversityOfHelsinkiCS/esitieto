@@ -1,0 +1,10 @@
+.add-study-plans-button {
+    border: none;
+    color: white;
+    background-color: none;
+    position: absolute;
+    right: 0.5%;
+    top: 50%;
+    border-radius: 0%;
+    font-size: 0.8em;
+}
