@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import "../styles/navbar.css";
 import SearchBar from './SearchBar';
 import InfoBox from './InfoBox';
+import AddStudyPlans from './AddStudyPlans';
 import DegreeSelectionMenu from './DegreeSelectionMenu';
 import InfoButton from './InfoButton';
+import AddStudyPlansButton from './AddStudyPlansButton';
 import LoginButton from './LoginButton';
 
 export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handleSearch, baseURL, selectedDegreeName}) => {
   const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
+  const [isAddStudyPlansOpen, setIsAddStudyPlansOpen] = useState(false);
 
   const openInfoBox = () => {
     setIsInfoBoxOpen(!isInfoBoxOpen);
+  };
+
+  const openAddStudyPlans = () => {
+    setIsAddStudyPlansOpen(!isAddStudyPlansOpen)
   };
 
   const login = () => {
@@ -31,6 +38,8 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><LoginButton onClick={login}/></li>
         <li><InfoButton onClick={openInfoBox}/></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
+        <li><AddStudyPlansButton onClick={{openAddStudyPlans}}/></li>
+        <li><AddStudyPlans isOpen={isAddStudyPlansOpen}/></li>
       </ul>
     </nav>
   );
