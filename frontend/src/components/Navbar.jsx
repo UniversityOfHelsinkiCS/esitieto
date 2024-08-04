@@ -38,7 +38,7 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><LoginButton onClick={login}/></li>
         <li><InfoButton onClick={openInfoBox}/></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
-        <li><AddStudyPlansButton onClick={{openAddStudyPlans}}/></li>
+        <li><AddStudyPlansButton onClick={openAddStudyPlans}/></li>
         <li><AddStudyPlans isOpen={isAddStudyPlansOpen}/></li>
       </ul>
     </nav>
