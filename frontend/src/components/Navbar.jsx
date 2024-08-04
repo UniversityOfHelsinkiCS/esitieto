@@ -3,6 +3,7 @@ import "../styles/navbar.css";
 import SearchBar from './SearchBar';
 import InfoBox from './InfoBox';
 import AddStudyPlans from './AddStudyPlans';
+import AddPrerequisites from './AddPrerequisites'
 import DegreeSelectionMenu from './DegreeSelectionMenu';
 import InfoButton from './InfoButton';
 import AddStudyPlansButton from './AddStudyPlansButton';
@@ -11,6 +12,7 @@ import LoginButton from './LoginButton';
 export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handleSearch, baseURL, selectedDegreeName}) => {
   const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
   const [isAddStudyPlansOpen, setIsAddStudyPlansOpen] = useState(false);
+  const [isAddPrerequisitesOpen, setIsAddPrerequisitesOpen] = useState(false);
 
   const openInfoBox = () => {
     setIsInfoBoxOpen(!isInfoBoxOpen);
@@ -18,6 +20,11 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
 
   const openAddStudyPlans = () => {
     setIsAddStudyPlansOpen(!isAddStudyPlansOpen)
+  };
+
+  const openAddPrerequisites = () => {
+    setIsAddStudyPlansOpen(!isAddStudyPlansOpen)
+    setIsAddPrerequisitesOpen(!isAddPrerequisitesOpen)
   };
 
   const login = () => {
@@ -38,8 +45,9 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><LoginButton onClick={login}/></li>
         <li><InfoButton onClick={openInfoBox}/></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
-        <li><AddStudyPlansButton onClick={openAddStudyPlans}/></li>
-        <li><AddStudyPlans isOpen={isAddStudyPlansOpen} axiosInstance={axiosInstance} /></li>
+        <li><AddStudyPlansButton onClick={openAddStudyPlans} /></li>
+        <li><AddStudyPlans isOpen={isAddStudyPlansOpen} axiosInstance={axiosInstance} onCreate={openAddPrerequisites} /></li>
+        <li><AddPrerequisites isOpen={isAddPrerequisitesOpen} axiosInstance={axiosInstance} onClick={openAddPrerequisites} /></li>
       </ul>
     </nav>
   );

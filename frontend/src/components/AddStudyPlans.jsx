@@ -4,7 +4,7 @@ import { error as displayError } from './messager/messager';
 import { Menu, MenuItem} from '@mui/material'; 
 
 
-const AddStudyPlans = ({ isOpen, axiosInstance }) => {
+const AddStudyPlans = ({ isOpen, axiosInstance, onCreate }) => {
   const [newName, setNewName] = useState('')
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -91,7 +91,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance }) => {
           </Menu>
         </div>
            
-        <button type="submit">Luo uusi</button>
+        <button type="submit" onClick={onCreate}>Luo uusi</button>
       </form>
     </div>
     </div>
