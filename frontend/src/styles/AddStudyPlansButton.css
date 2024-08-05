@@ -1,10 +1,12 @@
 .add-study-plans-button {
     border: none;
-    color: white;
+    color: var(--add-study-plan-button-color);
     background-color: none;
     position: absolute;
-    right: 0.5%;
-    top: 50%;
+    right: 0.13%;
+    top: 17%;
     border-radius: 0%;
     font-size: 0.8em;
+    font-weight: 540;
+    padding: 0.9%;
 }

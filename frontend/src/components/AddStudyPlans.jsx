@@ -65,7 +65,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate }) => {
       <div>
       <form onSubmit={createStudyPlan}>
         <div>
-            Title:
+            Anna kurssi kokonaisuudelle nimi:
           <input
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
