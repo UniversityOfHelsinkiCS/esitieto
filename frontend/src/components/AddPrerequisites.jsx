@@ -25,12 +25,12 @@ const AddPrerequisites = ({ isOpen, axiosInstance, selectedDegree}) => {
     fetchDegrees();
   }, []); */
 
-  const addPrerequisites = async (event) => {
+  const addPrerequisites = async (event) => {   // 
     event.preventDefault();
     /*
     const prerequisitesObject = {
       courseCode: courseCode,
-      prerequisiteCodes: prerequisiteCodes.split(',').map(code => code.trim())
+      prerequisiteCodes: prerequisiteCodes
     }
 
     addPrerequisites(prerequisitesObject) */
@@ -44,23 +44,22 @@ const AddPrerequisites = ({ isOpen, axiosInstance, selectedDegree}) => {
 
   return (
     <div className="prerequisites-view">
-      <h2>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>
-      <button className="save-degree-button">Tallenna tutkinto</button>
+      <h2>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>      
       <form onSubmit={addPrerequisites}>
         <div>
-          <label>Hae lisättävä kurssi kurssikoodilla</label>
+          <label>Anna lisättävän kurssin kurssikoodi</label>
           <input
             value={courseCode}
             onChange={({ target }) => setCourseCode(target.value)}
-            placeholder="Kurssikoodi"
+            placeholder="TKT200005"
           />
         </div>
         <div>
-          <label>Lisää haettavalle kurssille esiteokurssit kurssikoodeilla</label>
+          <label>Anna kurssille esitietokurssit kurssikoodeilla</label>
           <input
             value={prerequisiteCodes}
             onChange={({ target }) => setPrerequisiteCodes(target.value)}
-            placeholder="Esitietokurssien koodit"
+            placeholder="TKT200007, TKT200009..."
           />
         </div>
         <button type="submit">Lisää</button>

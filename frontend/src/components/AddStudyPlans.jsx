@@ -10,7 +10,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDegree, setSelectedDegree] = useState([]);
 
-  const fetchDegrees = async () => {
+  const fetchDegrees = async () => {  // UUSI ROUTE api/degrees/degree_names
     try {
       const response = await axiosInstance.get(`/api/degrees`);
       if (response == null) {
@@ -28,10 +28,17 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate }) => {
     fetchDegrees();
   }, []);
 
-  const createStudyPlan = async (event) => {
+  const createStudyPlan = async (event) => {  // UUSI ROUTE api/degrees/create_studyplan
     event.preventDefault()
 
-    /*
+    /* Route tarvitsee seuraavat:
+    POST http://localhost:3001/api/degrees/create_studyplan
+    {
+    "degree_id": "4",
+    "name": "Test plan 13",
+    "uid": "rest"
+    }
+    
     const studyPlanObject = {
       name: NewName,
       degree: selectedDegree
