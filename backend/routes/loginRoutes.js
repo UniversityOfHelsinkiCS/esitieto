@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     res.json({
         kirjauduttu: req.kirjauduttu,
-        uid: req.user ? req.user.username: null,
+        user: req.user ? req.user.username: null,
      });
 });
 

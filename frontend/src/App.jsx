@@ -23,11 +23,11 @@ function App() {
     try {
       const response = await axiosInstance.get('/api/kirjauduttu');
       
-      const kirjauduttu = response.headers['kirjauduttu'];
-      const userId = response.headers['user-id'];
+      const kirjauduttu = response.data.kirjauduttu;
+      const user = response.data.user;
       
       console.log('kirjauduttu:', kirjauduttu);
-      console.log('user-id:', userId);
+      console.log('user:', user);
 
     } catch (error) {
       console.error('Error fetching data:', error);
