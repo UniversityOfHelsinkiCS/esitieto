@@ -97,7 +97,6 @@ const config = {
   "kurssiesitieto-ohtuprojekti/backend/coverage/",
   "kurssiesitieto-ohtuprojekti/backend/dist/",
   "kurssiesitieto-ohtuprojekti/backend/index.integration.test.js",
-  "kurssiesitieto-ohtuprojekti/backend/routes/loginRoutes.js"
   ],
 
   // Activates notifications for test results

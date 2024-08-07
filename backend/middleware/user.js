@@ -53,6 +53,7 @@ const userMiddleware = (req, res, next) => {
 
     if (!areHeadersValid(headers)) {
       req.kirjauduttu = false;
+      req.user = null;
       return next();
     }
   
