@@ -21,7 +21,8 @@ const validateHelsinkiEmail = (email) => {
 const getHeaders = (req) => process.env.NODE_ENV === 'production' ? req.headers : mockHeaders;
 
 const areHeadersValid = (headers) => {
-    if (!headers.uid || !validateHelsinkiEmail(headers.mail)) {
+    // if (!headers.uid || !validateHelsinkiEmail(headers.mail)) {
+    if (!headers.uid) {
       return false;
     }
     return true;
