@@ -50,7 +50,8 @@ const createUser = (headers) => {
 };
 
 const userMiddleware = (req, res, next) => {
-    const headers = getHeaders(req);
+  console.log(req.headers)
+  const headers = getHeaders(req);
 
     if (!areHeadersValid(headers)) {
       req.kirjauduttu = false;
