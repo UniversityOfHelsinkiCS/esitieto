@@ -30,11 +30,11 @@ const areHeadersValid = (headers) => {
 
 const createUser = (headers) => {
     const {
-      uid: username,
-      mail: email,
-      preferredlanguage: language,
-      hypersonsisuid: id,
-      hygroupcn,
+      uid: username = null,
+      mail: email = null,
+      preferredlanguage: language = null,
+      hypersonsisuid: id = null,
+      hygroupcn = [],
     } = headers;
   
     const iamGroups = parseIamGroups(hygroupcn);
