@@ -30,10 +30,10 @@ const areHeadersValid = (headers) => {
 
 const createUser = (headers) => {
     const {
-      uid: username = null,
-      mail: email = null,
-      preferredlanguage: language = null,
-      hypersonsisuid: id = null,
+      uid: username = '',
+      mail: email = '',
+      preferredlanguage: language = '',
+      hypersonsisuid: id = '',
       hygroupcn = '',
     } = headers;
   
