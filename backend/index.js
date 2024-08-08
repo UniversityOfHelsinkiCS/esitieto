@@ -3,6 +3,8 @@ const express = require('express')
 const cors = require('cors');
 const morgan = require('morgan');
 const logger = require('./middleware/logger');
+const { userMiddleware } = require('./middleware/user');
+const shibboleth = require('./middleware/shibboleth')
 
 
 const app = express()
@@ -15,7 +17,6 @@ const coursesRoutes = require('./routes/coursesRoutes');
 const degreesRoutes = require('./routes/degreesRoutes');
 const koriRoutes = require('./routes/koriRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-const { userMiddleware } = require('./middleware/user');
 const path = require('path');
 
 executeSchemaFile();
@@ -35,7 +36,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(userMiddleware)
+app.use(shibboleth);
+app.use(userMiddleware);
 
 app.get('/api/getCourses', async (req, res) => {
   try {
