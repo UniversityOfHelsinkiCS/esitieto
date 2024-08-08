@@ -34,7 +34,7 @@ const createUser = (headers) => {
       mail: email = null,
       preferredlanguage: language = null,
       hypersonsisuid: id = null,
-      hygroupcn = [],
+      hygroupcn = '',
     } = headers;
   
     const iamGroups = parseIamGroups(hygroupcn);
