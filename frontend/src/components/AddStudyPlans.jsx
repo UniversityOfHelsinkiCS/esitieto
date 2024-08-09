@@ -76,39 +76,39 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) =>
 
   return (
     <div className="study-plans-view">
-      <h2>Kurssikokonaisuuden luominen</h2>
+      <h3>Kurssikokonaisuuden luominen</h3>
       <div>
-      <form onSubmit={createStudyPlan}>
-        <div>
-            Anna kurssi kokonaisuudelle nimi:
-          <input
-            value={newName}
-            onChange={({ target }) => setNewName(target.value)}
-            placeholder="Name"
-          />
-        </div>
-        <p>{selectedDegree.degree_name}</p>
+        <form onSubmit={createStudyPlan}>
+          <div>
+            <p className="form-label">Anna kurssi kokonaisuudelle nimi:</p> 
+            <input
+              value={newName}
+              onChange={({ target }) => setNewName(target.value)}
+              placeholder="Kirjoita nimi"
+              required
+            />
+          </div>
+          <p className="selected-degree">{selectedDegree.degree_name}</p>
+          <div className="dropdown">
+            <span className="dropdown-text" onClick={handleMenuClick}>
+              Valitse pääaine
+            </span>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {listOfDegrees.map((degree) => (
+                <MenuItem key={degree.hy_degree_id} onClick={() => handleDegreeClick(degree)}>
+                  {degree.degree_name}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
 
-        <div className="buttons">
-          <button type="button" onClick={handleMenuClick}>
-            Valitse pääaine
-          </button>            
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            {listOfDegrees.map((degree) => (
-              <MenuItem key={degree.hy_degree_id} onClick={() => handleDegreeClick(degree)}>
-                {degree.degree_name}
-              </MenuItem>
-            ))}
-          </Menu>
-        </div>
-           
-        <button type="submit">Luo uusi</button>
-      </form>
-    </div>
+          <button type="submit" className="submit-button">Luo uusi</button>
+        </form>
+      </div>
     </div>
   );
 };
