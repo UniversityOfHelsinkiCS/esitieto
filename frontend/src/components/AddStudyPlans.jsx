@@ -76,7 +76,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) =>
 
   return (
     <div className="study-plans-view">
-      <h3>Kurssikokonaisuuden luominen</h3>
+      <h3>Luo kurssikokonaisuus</h3>
       <div>
         <form onSubmit={createStudyPlan}>
           <div>
