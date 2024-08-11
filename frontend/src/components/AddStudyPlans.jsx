@@ -78,21 +78,10 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) =>
     <div className="study-plans-view">
       <h3>Luo kurssikokonaisuus</h3>
       <div>
-        <form onSubmit={createStudyPlan}>
-          <div>
-            <p className="form-label">Anna kurssi kokonaisuudelle nimi:</p> 
-            <input
-              value={newName}
-              onChange={({ target }) => setNewName(target.value)}
-              placeholder="Kirjoita nimi"
-              required
-            />
-          </div>
-          <p className="selected-degree">{selectedDegree.degree_name}</p>
-          <div className="dropdown">
-            <span className="dropdown-text" onClick={handleMenuClick}>
+      <div className="dropdown">
+            <button className="dropdown-button" onClick={handleMenuClick}>
               Valitse pääaine
-            </span>
+            </button>
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -104,7 +93,20 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) =>
                 </MenuItem>
               ))}
             </Menu>
+      </div>
+      <form onSubmit={createStudyPlan}>
+          <div>
+            <label className="form-label">Anna kurssikokonaisuudelle nimi:</label> 
+            <input
+              className='form-input'
+              value={newName}
+              onChange={({ target }) => setNewName(target.value)}
+              /*placeholder="Kirjoita nimi"*/
+              required
+            />
           </div>
+          <p className="selected-degree">{selectedDegree.degree_name}</p>
+
 
           <button type="submit" className="submit-button">Luo uusi</button>
         </form>
