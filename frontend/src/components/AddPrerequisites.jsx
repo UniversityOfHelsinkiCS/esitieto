@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AddPrerequisites.css';
+import { Menu, MenuItem, IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 //import { error as displayError } from './messager/messager';
 
 
-const AddPrerequisites = ({ isOpen, axiosInstance, newCoursePlan}) => {
+const AddPrerequisites = ({ isOpen, axiosInstance, newCoursePlan, onClick}) => {
   const [courseCode, setCourseCode] = useState('');
   const [prerequisiteCodes, setPrerequisiteCodes] = useState('');
 
@@ -41,7 +43,20 @@ const AddPrerequisites = ({ isOpen, axiosInstance, newCoursePlan}) => {
 
   return (
     <div className="prerequisites-view">
-      <h2>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>      
+      <h2>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>
+      <IconButton 
+          onClick={onClick} 
+          aria-label="close" 
+          className="close-button"
+          sx={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            color: '#007bff', // Blue color for the icon
+          }}
+        >
+          <CloseIcon />
+      </IconButton>      
       <form onSubmit={addPrerequisites}>
         <div>
           <label>Anna lisättävän kurssin kurssikoodi</label>

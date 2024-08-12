@@ -27,6 +27,10 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
     setIsAddPrerequisitesOpen(!isAddPrerequisitesOpen)
   };
 
+  const changeOpenAddPrerequisites = () => {
+    setIsAddPrerequisitesOpen(!isAddPrerequisitesOpen)
+  };
+
   const login = () => {
     window.location.href = import.meta.env.BASE_URL;
   }
@@ -46,8 +50,8 @@ export const Navbar = ({ handleDegreeChange, listOfDegrees, axiosInstance, handl
         <li><InfoButton onClick={openInfoBox}/></li>
         <li><InfoBox isOpen={isInfoBoxOpen} onClose={() => setIsInfoBoxOpen(false)} baseURL={baseURL} /></li>
         <li><AddStudyPlansButton onClick={openAddStudyPlans} /></li>
-        <li><AddStudyPlans isOpen={isAddStudyPlansOpen} axiosInstance={axiosInstance} onCreate={openAddPrerequisites} setNewCoursePlan={setNewCoursePlan} /></li>
-        <li><AddPrerequisites isOpen={isAddPrerequisitesOpen} axiosInstance={axiosInstance} onClick={openAddPrerequisites} newCoursePlan={newCoursePlan} /></li>
+        <li><AddStudyPlans isOpen={isAddStudyPlansOpen} axiosInstance={axiosInstance} onCreate={openAddPrerequisites} setNewCoursePlan={setNewCoursePlan} onClick={openAddStudyPlans}/></li>
+        <li><AddPrerequisites isOpen={isAddPrerequisitesOpen} axiosInstance={axiosInstance} onClick={changeOpenAddPrerequisites} newCoursePlan={newCoursePlan} /></li>
       </ul>
     </nav>
   );

@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import '../styles/AddStudyPlans.css';
 import { error as displayError } from './messager/messager';
-import { Menu, MenuItem} from '@mui/material'; 
+import { Menu, MenuItem, IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 
-const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) => {
+const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onClick }) => {
   const [newName, setNewName] = useState('')
   const [listOfDegrees, setDegreeToList] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -77,6 +78,19 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan }) =>
   return (
     <div className="study-plans-view">
       <h3>Luo kurssikokonaisuus</h3>
+      <IconButton 
+          onClick={onClick} 
+          aria-label="close" 
+          className="close-button"
+          sx={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            color: '#007bff', // Blue color for the icon
+          }}
+        >
+          <CloseIcon />
+      </IconButton>
       <div>
       <div className="dropdown">
             <button className="dropdown-button" onClick={handleMenuClick}>
