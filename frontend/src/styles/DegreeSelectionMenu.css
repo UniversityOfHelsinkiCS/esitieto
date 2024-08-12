@@ -3,7 +3,7 @@
 #degreeSelectionButton {
   position: absolute;
   left: 2%;
-  top: 23%;
+  top: 2%;
   color: var(--text-color-primary);
   background-color: var(--button-background-color);
   min-height: auto;
