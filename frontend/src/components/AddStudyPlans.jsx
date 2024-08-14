@@ -77,20 +77,15 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
 
   return (
     <div className="study-plans-view">
-      <h3>Luo kurssikokonaisuus</h3>
-      <IconButton 
+      <div className="close-button">
+      <IconButton
           onClick={onClick} 
           aria-label="close" 
-          className="close-button"
-          sx={{
-            position: 'absolute',
-            top: '10px',
-            right: '10px',
-            color: '#007bff', // Blue color for the icon
-          }}
         >
           <CloseIcon />
       </IconButton>
+      </div>
+      <h3>Luo kurssikokonaisuus</h3>
       <div>
       <div className="dropdown">
             <button className="dropdown-button" onClick={handleMenuClick}>
@@ -108,6 +103,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
               ))}
             </Menu>
       </div>
+      <p className="selected-degree">{selectedDegree.degree_name}</p>
       <form onSubmit={createStudyPlan}>
           <div>
             <label className="form-label">Anna kurssikokonaisuudelle nimi:</label> 
@@ -115,13 +111,9 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
               className='form-input'
               value={newName}
               onChange={({ target }) => setNewName(target.value)}
-              /*placeholder="Kirjoita nimi"*/
               required
             />
           </div>
-          <p className="selected-degree">{selectedDegree.degree_name}</p>
-
-
           <button type="submit" className="submit-button">Luo uusi</button>
         </form>
       </div>
