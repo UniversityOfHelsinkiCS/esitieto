@@ -43,7 +43,7 @@ const AddPrerequisites = ({ isOpen, axiosInstance, newCoursePlan, onClick}) => {
 
   return (
     <div className="prerequisites-view">
-      <h2>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>
+      <h2 className='header2'>Tutkinnon luominen: TÄHÄN selectedDegree.degree_name </h2>
       <IconButton 
           onClick={onClick} 
           aria-label="close" 
@@ -59,22 +59,24 @@ const AddPrerequisites = ({ isOpen, axiosInstance, newCoursePlan, onClick}) => {
       </IconButton>      
       <form onSubmit={addPrerequisites}>
         <div>
-          <label>Anna lisättävän kurssin kurssikoodi</label>
+          <label className='form-label-give-course'>Anna lisättävän kurssin kurssikoodi</label>
           <input
+            className='form-input-give-course'
             value={courseCode}
             onChange={({ target }) => setCourseCode(target.value)}
             placeholder="TKT200005"
           />
         </div>
         <div>
-          <label>Anna kurssille esitietokurssit kurssikoodeilla</label>
+          <label className='form-label-course-prerequisites'>Anna kurssille esitietokurssit kurssikoodeilla</label>
           <input
+            className='form-input-course-prerequisites'
             value={prerequisiteCodes}
             onChange={({ target }) => setPrerequisiteCodes(target.value)}
             placeholder="TKT200007, TKT200009..."
           />
         </div>
-        <button type="submit">Lisää</button>
+        <button className='submit-courses-button' type="submit">Lisää</button>
       </form>
     </div>
   );
