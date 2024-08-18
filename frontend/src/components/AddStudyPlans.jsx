@@ -3,13 +3,17 @@ import '../styles/AddStudyPlans.css';
 import { error as displayError } from './messager/messager';
 import { Menu, MenuItem, IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onClick }) => {
   const [newName, setNewName] = useState('')
   const [listOfDegrees, setDegreeToList] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedDegree, setSelectedDegree] = useState([]);
+/*  const [anchorEl, setAnchorEl] = useState(null); */
+  const [selectedDegree, setSelectedDegree] = useState("");
+
 
   const fetchDegrees = async () => {  // UUSI ROUTE api/degrees/degree_names
     try {
@@ -62,18 +66,29 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
     return null;
   }
 
-  const handleMenuClick = (event) => {
+  
+
+//kokeilu
+
+const handleChange = (event) => {
+  setSelectedDegree(event.target.value);
+};
+
+//kokeilu
+
+/*  const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
+*/
   const handleDegreeClick = (degree) => {
-    setAnchorEl(null);
+  /*  setAnchorEl(null);*/
     setSelectedDegree(degree)
   };
+
 
   return (
     <div className="study-plans-view">
@@ -87,6 +102,7 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
       </div>
       <h3>Luo kurssikokonaisuus</h3>
       <div>
+{/*
       <div className="dropdown">
             <button className="dropdown-button" onClick={handleMenuClick}>
               Valitse pääaine
@@ -103,7 +119,33 @@ const AddStudyPlans = ({ isOpen, axiosInstance, onCreate, setNewCoursePlan, onCl
               ))}
             </Menu>
       </div>
-      <p className="selected-degree">{selectedDegree.degree_name}</p>
+
+*/ }
+
+
+
+    
+      <div>
+       <Box sx={{ minWidth: 300 }}>
+        <FormControl fullWidth>
+          <InputLabel id="choose-major">Valitse pääaine</InputLabel>
+          <Select
+            labelId="choose-major"
+            value={selectedDegree}
+            label="selectedDegree"
+            onChange={handleChange}
+          >
+               {listOfDegrees.map((degree) => (
+                  <MenuItem value={degree} key={degree.hy_degree_id} onClick={() => handleDegreeClick(degree)}>
+                    {degree.degree_name}
+                  </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+       </Box>
+
+      </div>
+    {/*  <p className="selected-degree">{selectedDegree.degree_name}</p>*/}
       <form onSubmit={createStudyPlan}>
           <div>
             <label className="form-label">Anna kurssikokonaisuudelle nimi:</label> 
