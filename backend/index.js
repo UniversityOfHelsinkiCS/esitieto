@@ -30,7 +30,14 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, '../dist')));
 
 const corsOptions = {
-  exposedHeaders: ['Kirjauduttu', "User-id"],
+  exposedHeaders: [
+    'Kirjauduttu',
+    'User-id',
+    'uid',
+    'mail',
+    'preferredlanguage',
+    'hypersonsisuid',
+    'hygroupcn'],
 };
 
 app.use(cors(corsOptions));
