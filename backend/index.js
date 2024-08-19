@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 const corsOptions = {
   exposedHeaders: [
     'Kirjauduttu',
-    'User-id',
+    'User',
     'uid',
     'mail',
     'preferredlanguage',
