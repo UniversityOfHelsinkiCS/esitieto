@@ -55,7 +55,7 @@ const userMiddleware = (req, res, next) => {
 
     if (!areHeadersValid(headers)) {
       req.kirjauduttu = false;
-      req.user = null;
+      req.user = 'käyttäjää ei tunnistettu';
       return next();
     }
   
