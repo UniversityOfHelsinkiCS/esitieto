@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
     console.log('loyda tama', req.headers)
     console.log('tassa toinen',req.body)
     console.log('kolkki', res.headers)
