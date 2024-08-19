@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    res.json({
-        kirjauduttu: req.kirjauduttu,
-        user: req.user ? req.user: null,
-     });
+router.post('/', async (req, res) => {
+    console.log(req.json)
+    console.log(res)
+    res.json(req.kirjauduttu);
 });
 
 module.exports = router;
